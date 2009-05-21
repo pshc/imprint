@@ -1,0 +1,46 @@
+
+#DEBUG = False
+#TEMPLATE_DEBUG = False
+
+ADMINS = (
+    ('Paul Collier', 'paching@gmail.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = 'sqlite.db'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''
+DATABASE_PORT = ''
+
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = 'Canada/Eastern'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'en-us'
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# Absolute path to the directory that holds media.
+MEDIA_ROOT = '/home/pshc/projects/py/imprint/media/'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+MEDIA_URL = 'http://localhost:8000/media/'
+
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+ADMIN_MEDIA_PREFIX = '/media/admin/'
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '9u8t#q0)^)a^%76r&qu_*_i*8316)ae1&y71xbg1v-jgu61v2@'
+
+TEMPLATE_DIRS = (
+    # Don't forget to use absolute paths, not relative paths.
+)
