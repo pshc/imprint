@@ -8,6 +8,7 @@
 <body>
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.3.2.min.js"></script>
 	{% block extra_scripts %}{% endblock %}
+	{% block messages %}{% endblock %}
 	{% block content %}{% endblock %}
 	{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
 </body>

@@ -2,3 +2,7 @@
 {% block head %}{{ block.super }}
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}openid/openid.css" />
 {% endblock %}
+{% block messages %}
+	{% comment %}TODO: OH EXPLOITABLE {% endcomment %}
+	{% if request.GET.msg %}<p>{{ request.GET.msg }}</p>{% endif %}
+{% endblock %}
