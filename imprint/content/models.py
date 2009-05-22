@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.html import escape
 from people.models import Contributor
 from richtext.fields import AdminRichTextField
-from volumes.models import Issue
+from issues.models import Issue
 
 class Section(models.Model):
     """One section of the newspaper."""
@@ -32,10 +32,16 @@ class SectionEditorship(models.Model):
     def __unicode__(self):
         return "%s, %s" % (self.contributor, self.title)
 
+def get_latest_issue():
+    try:
+        return Issue.objects.latest_issue()
+    except Issue.DoesNotExist:
+        return None
+
 class Article(models.Model):
     """A written piece."""
     title = models.CharField(max_length=100, help_text=escape(
-            "Headline. Some markup is OK: <em>, <cite>"))
+            "Headline. Markup is OK."))
     slug = models.SlugField(max_length=100, db_index=True,
             help_text="Determines the article's URL.")
     deck = models.CharField(max_length=200, blank=True,
@@ -44,7 +50,7 @@ class Article(models.Model):
 
     section = models.ForeignKey(Section, related_name='articles')
     issue = models.ForeignKey(Issue, related_name='articles',
-            default=Issue.objects.latest)
+            default=get_latest_issue)
     authors = models.ManyToManyField(Contributor, related_name='articles',
             through='ArticleAuthor')
 
@@ -62,6 +68,12 @@ class Article(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        d = self.issue.date
+        return ('content.views.article_detail', [d.year, d.month, d.day,
+                self.section.slug, self.slug])
 
 class ArticleAuthor(models.Model):
     """Represents a single authorship entry."""

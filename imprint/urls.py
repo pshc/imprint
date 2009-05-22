@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('django_authopenid.urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
+    (r'^', include('content.urls')),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block header %}{{ object.title|striptags }}{% endblock %}
+{% block content %}
+	<h1>{{ object.title|safe }}</h1>
+	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
+	{{ object.text|safe }}
+{% endblock %}
