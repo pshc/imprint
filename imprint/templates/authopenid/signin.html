@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "authopenid/base.html" %}
 {% load i18n %}
 
 {% block content %}
@@ -61,13 +61,12 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script type="text/javascript" src="{{ MEDIA_URL }}openid/openid-jquery.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    openid.init('id_openid_url');
-});
+	<script type="text/javascript" src="{{ MEDIA_URL }}openid/openid-jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		openid.init('id_openid_url', '{{ MEDIA_URL }}openid/');
+	});
 </script>
-<!-- /Simple OpenID Selector -->
-    
+
 {% endblock %}
 

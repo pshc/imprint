@@ -85,17 +85,18 @@ var openid = {
   cookie_name: 'openid_provider',
   cookie_path: '/',
 
-  img_path: '/media/openid/',
+  img_path: null,
 
   input_id: null,
   provider_url: null,
   provider_name: null,
 
-  init: function(input_id) {
+  init: function(input_id, img_path) {
 
     var openid_btns = $('#openid_btns');
 
     this.input_id = input_id;
+    this.img_path = img_path;
     
     $("#"+ input_id).type = "hidden"
 

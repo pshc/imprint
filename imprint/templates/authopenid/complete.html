@@ -1,13 +1,7 @@
-{% extends "base.html" %}
+{% extends "authopenid/base.html" %}
 {% load i18n %}
 
-
-
-{% block head %}{% endblock %}
-
-
 {% block content %}
-
 	<div id="completetxt">
 	<h1>{% trans "Your OpenID is verified! " %}</h1>
 	{% blocktrans %}
@@ -15,9 +9,7 @@
 	{% endblocktrans %}
 	<br /><br />
 	<h2>{% trans "Associate your OpenID" %}</h2>
-	{% blocktrans %}
-	<p>If you're joining <strong>Sitename</strong>, associate your OpenID with a new account. If you're already a member, associate with your existing account.</p>
-	{% endblocktrans %}
+	<p>If you're joining <strong>{{ site.name }}</strong>, associate your OpenID with a new account. If you're already a member, associate with your existing account.</p>
 	</div>
 
 		
@@ -71,6 +63,3 @@
 		</form>
 	</div>
 {% endblock %}
-
-	
-
