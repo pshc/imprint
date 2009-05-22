@@ -40,6 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django_authopenid',
+    'imprint.content',
+    'imprint.people',
+    'imprint.richtext',
     'imprint.volumes',
     'registration',
 )
