@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block stylesheet %}{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     <a href="/admin/">{% trans "Home" %}</a> &rsaquo;
+     <a href="/admin/content/">Content</a> &rsaquo; 
+     Pieces
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<ul class="object-tools"><li><a href="add/" class="addlink">Add piece</a></li></ul>
+<div class="module filtered" id="chagelist">
+
+<div class="changelist-filter">
+<h2>Filter</h2>
+<h3>By stuff</h3>
+<ul><li class="selected"><a href="?">Hello</a></li>
+<li><a href="?">World</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+{% endblock %}
+
+{#{% block sidebar %}
+<div id="content-related">
+Sup!
+</div>
+{% endblock %}#}
+ 
