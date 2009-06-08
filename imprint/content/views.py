@@ -1,4 +1,4 @@
-from content.models import Piece
+from content.models import Piece, Section
 from django import forms
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
@@ -64,8 +64,16 @@ class PartForm(forms.ModelForm):
         return ret
 
 @permission_required('content.can_add_piece')
+@renders('content/piece_create.html')
+def piece_create(request):
+    title = 'Add piece'
+    section_options = Section.objects.values('id', 'name')
+    files = [{'name': 'part%d' % i} for i in range(10)]
+    return locals()
+
+@permission_required('content.can_add_piece')
 @renders('content/piece_admin.html')
-def piece_admin(request, path):
+def piece_admin(request):
     title = 'Pieces'
     return locals()
 
