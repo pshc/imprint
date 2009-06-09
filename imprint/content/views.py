@@ -1,8 +1,8 @@
-from content.models import Piece, Section
+from content.models import Piece
 from django import forms
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
-from issues.models import Issue
+from issues.models import Issue, Section
 from utils import renders
 from datetime import date
 

@@ -3,35 +3,7 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from os import path
 from people.models import Contributor
-from issues.models import Issue
-
-class Section(models.Model):
-    """One section of the newspaper."""
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, db_index=True,
-            help_text="Determines what the name will look like in a URL.")
-    editors = models.ManyToManyField(Contributor, through='SectionEditorship',
-            related_name='sections')
-
-    def __unicode__(self):
-        return self.name
-
-class SectionEditorship(models.Model):
-    """Represents one (co/assistant/etc.) editorship position."""
-    contributor = models.ForeignKey(Contributor)
-    section = models.ForeignKey(Section)
-    assistant = models.BooleanField(default=False)
-    co = models.BooleanField(u"Co-?", default=False,
-            help_text=u'Adds a "co-" prefix to the editorial title')
-
-    @property
-    def title(self):
-        prefix = u"Co-" if self.co else u""
-        if self.assistant: prefix += u"Assistant "
-        return u"%s%s Editor" % (prefix, self.section.name)
-
-    def __unicode__(self):
-        return "%s, %s" % (self.contributor, self.title)
+from issues.models import Issue, Section
 
 def get_latest_issue():
     try:
