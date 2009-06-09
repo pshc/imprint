@@ -2,7 +2,7 @@ from content.models import Piece
 from django import forms
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
-from issues.models import Issue, Section
+from issues.models import Issue, Section, latest_issue_or
 from utils import renders
 from datetime import date
 
@@ -63,12 +63,29 @@ class PartForm(forms.ModelForm):
             field.required = True
         return ret
 
+class PieceForm(forms.Form):
+    headline = forms.CharField(max_length=100)
+    slug = forms.SlugField(max_length=100)
+    deck = forms.CharField(max_length=200, required=False)
+    section = forms.ModelChoiceField(Section)
+    issue = forms.IntegerField(initial=latest_issue_or(lambda i: i.number, ''))
+    volume = forms.IntegerField(initial=latest_issue_or(lambda i: i.volume,''))
+    is_live = forms.BooleanField(required=False)
+
 @permission_required('content.can_add_piece')
 @renders('content/piece_create.html')
 def piece_create(request):
     title = 'Add piece'
-    section_options = Section.objects.values('id', 'name')
-    files = [{'name': 'part%d' % i} for i in range(10)]
+    if request.method == 'POST':
+        form = PieceForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.parts = []
+            for k in sorted(request.FILES):
+                file = request.FILES[k]
+                form.parts.append({'field_name': k, 'file': file})
+    else:
+        form = PieceForm()
+        form.parts = [{'field_name': 'part%02d' % i} for i in range(10)]
     return locals()
 
 @permission_required('content.can_add_piece')

@@ -47,11 +47,13 @@
 			<option value="{{ option.id }}">{{ option.name }}</option>
 {% endfor %}
 		</select>
-		<a href="../../section/add/" class="add-another" id="add_id_section" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+		<a href="../../../issues/section/add/" class="add-another" id="add_id_section" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 	</div></div>
 	<div class="form-row issue"><div>
 		<label for="id_issue">Issue:</label>
-		<input id="id_issue" name="issue" type="text" class="vTextField" maxlength="100" value="Latest" disabled="disabled" />
+		<input id="id_issue" name="issue" type="text" style="width: 6em;" maxlength="5" value="{{ issue }}" />
+		&nbsp;volume&nbsp;
+		<input id="id_volume" name="volume" type="text" style="width: 6em;" maxlength="5" value="{{ volume }}" />
 	</div></div>
 	<div class="form-row is_live"><div>
 		<input checked="checked" type="checkbox" name="is_live" id="id_is_live" />

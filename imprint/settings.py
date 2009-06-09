@@ -29,6 +29,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'utils.context_processors.current_site',
 )
 
+FILE_UPLOAD_HANDLERS = (
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+)
+
 ROOT_URLCONF = 'imprint.urls'
 
 INSTALLED_APPS = (

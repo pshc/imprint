@@ -39,7 +39,7 @@ class IssueManager(CurrentSiteManager):
         except IndexError:
             raise Issue.DoesNotExist
 
-def latest_or(f, default):
+def latest_issue_or(f, default=None):
     """Returns a function that applies `f` to the latest issue if there is one,
     or the default otherwise."""
     def deferred():
@@ -49,8 +49,8 @@ def latest_or(f, default):
             return default
     return deferred
 
-get_previous_sections = latest_or(lambda i: i.sections.values_list('id',
-                                  flat=True), None)
+def get_previous_sections():
+    return latest_issue_or(lambda i: i.sections.values_list('id', flat=True))
 
 class Issue(models.Model):
     """One newspaper issue."""
@@ -58,9 +58,9 @@ class Issue(models.Model):
 
     date = models.DateField(db_index=True)
     number = models.PositiveSmallIntegerField(db_index=True,
-            default=latest_or(lambda i: i.number + 1, 1))
+            default=latest_issue_or(lambda i: i.number + 1, 1))
     volume = models.PositiveSmallIntegerField(db_index=True,
-            default=latest_or(lambda i: i.volume, 32))
+            default=latest_issue_or(lambda i: i.volume, 32))
     site = models.ForeignKey(Site, related_name='issues',
             default=Site.objects.get_current)
     sections = models.ManyToManyField(Section, related_name='issues',
