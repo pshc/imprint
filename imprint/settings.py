@@ -4,6 +4,9 @@ TEMPLATE_DEBUG = DEBUG
 
 APPEND_SLASH = True
 
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
