@@ -10,9 +10,29 @@
 <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui.js"></script>
 <style type="text/css">
 .vSmallField { width: 6em; }
 </style>
+<script type="text/javascript">
+jQuery(function($) {
+  $('div.inline-group').sortable({
+    /*containment: 'parent',
+    zindex: 10,*/
+    items: 'div.inline-sortable',
+    handle: 'h3:first',
+    update: function() {
+      $(this).find('div.inline-sortable')/*.not('div.inline-sortable:last')*/.each(function(i) {
+        $(this).find('input[id$=order]').val(i+1);
+      });
+    }
+  });
+  $('div.inline-sortable h3').css('cursor', 'move');
+  $('div.inline-sortable').find('input[id$=order]').parent('div').parent('div').hide();
+});
+</script>
+
 {% endblock %}
 
 {% block bodyclass %}content-section change-form{% endblock %}
@@ -82,7 +102,8 @@
 <div class="inline-group">
 	<h2>Content</h2>
 	{% for part in form.parts %}
-	<div class="inline-related"><h3><b>{{ part.type }}</b></h3>
+	<div class="inline-related inline-sortable">
+	<h3><b>{{ part.type }}</b></h3>
 	<fieldset class="module aligned">
 	<div class="form-row order {{ part.class }}"><div>
 		<label for="id_{{ part.name }}-order">Order:</label>
@@ -97,7 +118,7 @@
 		</div></div>
 		<div class="form-row cutline {{ part.class }}"><div>
 			<label for="id_{{ part.name }}-cutline">Cutline:</label>
-<textarea name="{{ part.name }}-cutline" id="id_{{ part.name }}-cutline" class="vLargeTextField" rows="10" cols="40" />
+<textarea name="{{ part.name }}-cutline" id="id_{{ part.name }}-cutline" class="vLargeTextField" rows="3" cols="30" />
 {{ part.cutline }}</textarea>
 		<p class="help">Markup is OK.</p>
 		</div></div>
