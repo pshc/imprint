@@ -28,7 +28,11 @@
     {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
     </p>
     <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
-{% endif %}
+{% else %}{% if not form.is_ready %}
+    <p class="errornote">
+    This data is not yet saved. Please fill out the extra information below.
+    </p>
+{% endif %}{% endif %}
 
 <fieldset class="module aligned">
 	<div class="form-row headline{% if form.headline.errors %} errors{% endif %}"><div>
@@ -75,13 +79,48 @@
 		<label for="id_is_live" class="vCheckboxLabel">Live</label>
 	</div></div>
 </fieldset>
-<fieldset class="module aligned">
+<div class="inline-group">
 	<h2>Content</h2>
 	{% for part in form.parts %}
-	<div class="form-row"><div>
-		<label>Part {{ part.order }}</label>
+	<div class="inline-related"><h3><b>{{ part.type }}</b></h3>
+	<fieldset class="module aligned">
+	<div class="form-row order {{ part.class }}"><div>
+		<label for="id_{{ part.name }}-order">Order:</label>
+		<input name="{{ part.name }}-order" id="id_{{ part.name }}-order" class="vSmallField" type="text" value="{{ part.order }}" />
 	</div></div>
+	{% ifequal part.type "Image" %}
+		<div class="form-row image {{ part.class }}"><div>
+			<label class="required">Image:</label>
+			<a href="{{ part.image_url }}">{{ part.image }}</a><br />
+			relative to media folder.
+			<input name="{{ part.name }}-image" type="hidden" value="{{ part.image }}" />
+		</div></div>
+		<div class="form-row cutline {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-cutline">Cutline:</label>
+<textarea name="{{ part.name }}-cutline" id="id_{{ part.name }}-cutline" class="vLargeTextField" rows="10" cols="40" />
+{{ part.cutline }}</textarea>
+		<p class="help">Markup is OK.</p>
+		</div></div>
+	{% endifequal %}
+	{% ifequal part.type "Text" %}
+		<div class="form-row copy {{ part.class }}"><div>
+			<label class="required">Copy:</label>
+			{{ part.copy|safe }}
+			<input type="hidden" name="{{ part.name }}-copy" value="{{ part.copy }}" />
+		</div></div>
+<div class="form-row sources {{ part.class }}"><div>
+		<label for="id_{{ part.name }}-sources">Sources:</label>
+		<input name="{{ part.name }}-sources" id="id_{{ part.name }}-sources" class="vTextField" type="text" value="{{ part.sources }}" />
+		<p class="help">Appears as &quot;&mdash; With sources from...&quot;</p>
+	</div></div>
+
+	{% endifequal %}
+	</fieldset></div>
 	{% endfor %}
+
+	<div class="inline-related">
+	{% if form.parts %}<h3>Extra uploads</h3>{% endif %}
+	<fieldset class="module aligned">
 	{% for upload in uploads %}
 	<div class="form-row"><div>
 		<label></label>
@@ -91,6 +130,7 @@
 	<p class="help">
 	You can upload .doc files with formatted text, and image files.
 	</p>
+	</fieldset></div>
 </fieldset>
 </div>
 <div class="submit-row" >

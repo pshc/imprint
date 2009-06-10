@@ -1,8 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
-from people.models import Contributor
+from django.utils.html import strip_tags
 from issues.models import Issue, Section, latest_issue_or
+from people.models import Contributor
+from utils import unescape
 
 class Piece(models.Model):
     """Block of content in the paper. Holds text and images."""
@@ -38,7 +40,7 @@ class Part(models.Model):
 class Text(Part):
     title = models.CharField(max_length=100, blank=True,
             help_text='Optional title for this section of text')
-    body = models.XMLField()
+    copy = models.XMLField()
     authors = models.ManyToManyField(Contributor, related_name='articles',
             through='Author')
     sources = models.CharField(max_length=200, blank=True,
@@ -47,7 +49,7 @@ class Text(Part):
     def __unicode__(self):
         if self.title:
             return self.title[:80]
-        return self.body[:80]
+        return unescape(strip_tags(self.copy))[:80]
 
     @property
     def author_names(self):

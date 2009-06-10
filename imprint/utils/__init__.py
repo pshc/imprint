@@ -26,4 +26,11 @@ def renders(template, request_context=True, mimetype=None):
         return new_view
     return dec
 
+def unescape(html): 
+    "Returns the given HTML with ampersands, quotes and carets decoded."
+    if not isinstance(html, basestring):
+        html = str(html)
+    return html.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;',
+            '>').replace('&quot;', '"').replace('&#39;',"'")
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
