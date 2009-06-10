@@ -72,14 +72,22 @@ class DocConverter(HTMLParser):
     def handle_entityref(self, name):
         self.write('&%s;' % name)
 
+class DocConvertException(Exception):
+    pass
+
 def doc_convert(filename, output_stream=None):
-    wv = subprocess.Popen(["wvWare", "-c=utf-8", filename],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            universal_newlines=True)
+    try:
+        wv = subprocess.Popen(["wvWare", "-c=utf-8", filename],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                universal_newlines=True)
+    except OSError, e:
+        print >>sys.stderr, e
+        raise DocConvertException(
+                "wvWare is missing; contact your system admin.")
     (html, errors) = wv.communicate()
     if wv.returncode != 0:
-        sys.stderr.write(errors)
-        sys.exit(wv.returncode)
+        print >>sys.stderr, errors
+        raise DocConvertException("wvWare could not process the doc file.")
     stream = output_stream
     if output_stream is None:
         import StringIO

@@ -1,6 +1,7 @@
 {% extends "content/base_admin.html" %}
 
 {% load adminmedia %}
+{% load i18n %}
 
 {% block stylesheet %}{% admin_media_prefix %}css/forms.css{% endblock %}
 
@@ -9,6 +10,9 @@
 <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
+<style type="text/css">
+.vSmallField { width: 6em; }
+</style>
 {% endblock %}
 
 {% block bodyclass %}content-section change-form{% endblock %}
@@ -19,62 +23,73 @@
 <div id="content-main">
 <form enctype="multipart/form-data" action="" method="post" id="section_form">
 <div>
+{% if form.errors %}
+    <p class="errornote">
+    {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+    </p>
+    <ul class="errorlist">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+{% endif %}
 
 <fieldset class="module aligned">
-	<div class="form-row headline"><div>
+	<div class="form-row headline{% if form.headline.errors %} errors{% endif %}"><div>
+		{{ form.headline.errors }}
 		<label for="id_headline" class="required">Headline:</label>
-		<input id="id_headline" name="headline" type="text" class="vTextField" maxlength="100" />
+		{{ form.headline }}
 		<p class="help">Markup is OK.</p>
 	</div></div>
-	<div class="form-row slug"><div>
+	<div class="form-row slug{% if form.slug.errors %} errors{% endif %}"><div>
+		{{ form.slug.errors }}
 		<label for="id_slug" class="required">Slug:</label>
-		<input id="id_slug" name="slug" type="text" class="vTextField" maxlength="100" />
+		{{ form.slug }}
 		<p class="help">Determines the piece's URL.</p>
 	</div></div>
-	<div class="form-row deck"><div>
+	<div class="form-row deck{% if form.deck.errors %} errors{% endif %}"><div>
+		{{ form.deck.errors }}
 		<label for="id_deck">Deck:</label>
-		<input id="id_deck" name="deck" type="text" class="vTextField" maxlength="200" />
+		{{ form.deck }}
 		<p class="help">Optional subheadline.<p>
 	</div></div>
 </fieldset>
 <fieldset class="module aligned">
 	<h2>Placement</h2>
-	<div class="form-row section"><div>
-		<label for="id_section">Section:</label>
-		<select name="section" id="id_section">
-			<option value="" selected="selected">---------</option>
-{% for option in section_options %}
-			<option value="{{ option.id }}">{{ option.name }}</option>
-{% endfor %}
-		</select>
+	<div class="form-row section{% if form.section.errors %} errors{% endif %}"><div>
+		{{ form.section.errors }}
+		<label for="id_section" class="required">Section:</label>
+		{{ form.section }}
 		<a href="../../../issues/section/add/" class="add-another" id="add_id_section" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 	</div></div>
-	<div class="form-row issue"><div>
-		<label for="id_issue">Issue:</label>
-		<input id="id_issue" name="issue" type="text" style="width: 6em;" maxlength="5" value="{{ issue }}" />
-		&nbsp;volume&nbsp;
-		<input id="id_volume" name="volume" type="text" style="width: 6em;" maxlength="5" value="{{ volume }}" />
+	<div class="form-row issue{% if form.issue.errors %} errors{% endif %}"><div>
+		{{ form.issue.errors }}
+		<label for="id_issue" class="required">Issue:</label>
+		{{ form.issue }}
+		&nbsp;of volume&nbsp;
+		{{ form.volume }}
+
+		{# TODO: Auto-populate #}
+		<select name="issue_dummy" id="id_issue_dummy" style="display: none;"><option value="">Ignore me</option></select>
+		<a href="../../../issues/issue/add/" class="add-another" id="add_id_issue_dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 	</div></div>
-	<div class="form-row is_live"><div>
-		<input checked="checked" type="checkbox" name="is_live" id="id_is_live" />
-		<label for="id_is_live" class="vCheckboxLabel">Live?</label>
+	<div class="form-row is_live{% if form.is_live.errors %} errors{% endif %}"><div>
+		{{ form.is_live.errors }}
+		{{ form.is_live }}
+		<label for="id_is_live" class="vCheckboxLabel">Live</label>
 	</div></div>
 </fieldset>
 <fieldset class="module aligned">
 	<h2>Content</h2>
-	{% for file in files %}
+	{% for part in form.parts %}
 	<div class="form-row"><div>
-		<label>{{ file.type }}</label>
-		{% if file.filename %}
-		<a href="{{ file.url }}">{{ file.filename }}</a>
-		{% else %}
-		<input type="file" name="{{ file.name }}" />
-		{% endif %}
+		<label>Part {{ part.order }}</label>
+	</div></div>
+	{% endfor %}
+	{% for upload in uploads %}
+	<div class="form-row"><div>
+		<label></label>
+		<input type="file" name="{{ upload }}" />
 	</div></div>
 	{% endfor %}
 	<p class="help">
-		You can upload .doc files with formatted text, and image files.
-		If an article is composed of several smaller independent stories, upload them as separate .doc files.
+	You can upload .doc files with formatted text, and image files.
 	</p>
 </fieldset>
 </div>
@@ -85,7 +100,7 @@
 </div>
 
 <script type="text/javascript">
-document.getElementById("id_headline").focus();
+    document.getElementById("id_headline").focus();
 
     document.getElementById("id_slug").onchange = function() { this._changed = true; };
     
@@ -93,8 +108,6 @@ document.getElementById("id_headline").focus();
         var e = document.getElementById("id_slug");
         if (!e._changed) { e.value = URLify(document.getElementById("id_headline").value, 100); }
     }
-    
-
 
 </script>
 

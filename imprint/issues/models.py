@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
 from people.models import Contributor
+import os
 
 class Section(models.Model):
     """One section of the newspaper."""
@@ -71,7 +73,29 @@ class Issue(models.Model):
     class Meta:
         ordering = ['-volume', '-number']
         unique_together = (('volume', 'number'), ('volume', 'date'))
+
     def __unicode__(self):
         return u"Issue %s of volume %s" % (self.number, self.volume)
+    
+    @property
+    def media_dir(self):
+        dir = os.path.join(self.site.domain, 'vol%02d' % self.volume,
+                'issue%02d' % self.number)
+        try:
+            os.makedirs(os.path.join(settings.MEDIA_ROOT, dir))
+        except OSError, e:
+            if e.errno != 17:
+                raise
+        return dir
+
+    def get_subdir_filename(self, filename):
+        dir = self.media_dir
+        while True:
+            fnm = os.path.join(dir, filename)
+            if not os.path.exists(os.path.join(settings.MEDIA_ROOT, fnm)):
+                return fnm
+            # File with this name already exists...
+            base, ext = os.path.splitext(filename)
+            filename = base + '_' + ext
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

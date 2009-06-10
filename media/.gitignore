@@ -1,0 +1,7 @@
+# Since a directory is created for each site, choose directories we don't want
+# to ignore
+*
+!.gitignore
+!admin
+!js
+!openid

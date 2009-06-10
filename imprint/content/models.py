@@ -1,15 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
-from os import path
 from people.models import Contributor
-from issues.models import Issue, Section
-
-def get_latest_issue():
-    try:
-        return Issue.objects.latest_issue()
-    except Issue.DoesNotExist:
-        return None
+from issues.models import Issue, Section, latest_issue_or
 
 class Piece(models.Model):
     """Block of content in the paper. Holds text and images."""
@@ -21,7 +14,7 @@ class Piece(models.Model):
             help_text="Optional subheadline.")
     section = models.ForeignKey(Section, related_name='articles')
     issue = models.ForeignKey(Issue, related_name='pieces',
-            default=get_latest_issue)
+            default=latest_issue_or(lambda i: i))
     is_live = models.BooleanField(u'Live?', default=True,
             help_text='Public visibility.')
 
@@ -45,7 +38,7 @@ class Part(models.Model):
 class Text(Part):
     title = models.CharField(max_length=100, blank=True,
             help_text='Optional title for this section of text')
-    text = models.XMLField()
+    body = models.XMLField()
     authors = models.ManyToManyField(Contributor, related_name='articles',
             through='Author')
     sources = models.CharField(max_length=200, blank=True,
@@ -54,7 +47,7 @@ class Text(Part):
     def __unicode__(self):
         if self.title:
             return self.title[:80]
-        return self.text[:80]
+        return self.body[:80]
 
     @property
     def author_names(self):
@@ -92,17 +85,11 @@ class Letter(Part):
     def author_names(self):
         return self.author and [self.author] or []
 
-def get_issue_subdir_filename(instance, filename):
-    dir = instance.piece.issue.media_dir
-    while True:
-        if not path.exists(path.join(dir, filename)):
-            return fnm
-        # File with this name already exists...
-        base, ext = path.splitext(filename)
-        filename = base + '_' + ext
+def get_image_filename(instance, filename):
+    return get_issue_subdir_filename(instance.piece.issue, filename)
 
 class Image(Part):
-    image = models.FileField(upload_to=get_issue_subdir_filename)
+    image = models.FileField(upload_to=get_image_filename)
     cutline = models.XMLField(blank=True)
     artists = models.ManyToManyField(Contributor, through='Artist')
 
