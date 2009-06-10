@@ -5,20 +5,48 @@
 
 {% block bodyclass %}change-list{% endblock %}
 
-{% block coltype %}colMS{% endblock %}
+{% block coltype %}flex{% endblock %}
 
 {% block content %}
 <div id="content-main">
 <ul class="object-tools"><li><a href="add/" class="addlink">Add piece</a></li></ul>
 <div class="module filtered" id="changelist">
 
-<div class="changelist-filter">
+<div id="toolbar"><form id="changelist-search" action="" method="get">
+<div>
+<img src="{% admin_media_prefix %}img/admin/icon_searchbox.png" alt="Search" />
+<label for="issue">Issue:</label> <input type="text" size="5" name="issue" value="{{ issue.number }}" id="issue" />
+<label for="volume">of volume</label> <input type="text" size="5" name="volume" value="{{ issue.volume }}" id="volume" />
+<input type="submit" value="Go" />
+</div></form></div>
+<script type="text/javascript">document.getElementById("issue").focus();</script>
+
+<div id="changelist-filter">
 <h2>Filter</h2>
-<h3>By stuff</h3>
-<ul><li class="selected"><a href="?">Hello</a></li>
-<li><a href="?">World</a></li>
+<h3>Live</h3>
+<ul><li class="selected"><a href="?">All</a></li>
+<li><a href="?">Yes</a></li>
+<li><a href="?">No</a></li>
 </ul>
 </div>
+
+{% if pieces %}
+<table cellspacing="0">
+<thead>
+<tr>
+<th>Headline</th>
+<th>Live</th>
+</tr>
+</thead>
+<tbody>
+{% for piece in pieces %}
+<tr class="{% cycle row1,row2 %}"><th><a href="{{ issue.id }}/">{{ issue.headline|striptags }}</a></th><td><img src="/media/admin/img/admin/icon-{{ issue.is_live|yesno }}.gif" /></td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+<p class="paginator">{{ pieces_count }} piece{{ pieces_count|pluralize }}</p>
 
 </div>
 </div>

@@ -4,23 +4,13 @@ from datetime import date
 from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from issues.models import *
 import os
 import re
 from shutil import move
 from utils import renders, unescape
-
-PART_TYPES = ((0, '---------'),
-              (1, 'Text'),
-              (2, 'Image'),
-              (3, 'Letter'))
-
-def part_field(type, cls=forms.TextInput):
-    for n, nm in PART_TYPES:
-        if nm == type:
-            return cls(attrs={'class': 'part_fields%d' % (n,)})
-    assert False
 
 text_input = lambda: forms.TextInput(attrs={'class': 'vTextField'})
 small_input = lambda: forms.TextInput(attrs={'class': 'vSmallField'})
@@ -143,6 +133,19 @@ def piece_create(request):
 def piece_admin(request):
     title = 'Pieces'
     root_path = '../../'
+    if 'issue' not in request.GET or 'volume' not in request.GET:
+        try:
+            issue = Issue.objects.latest_issue()
+            return HttpResponseRedirect('?issue=%d&volume=%d'
+                    % (issue.number, issue.volume))
+        except Issue.DoesNotExist:
+            pieces_count = "You must create an issue before you add a"
+    else:
+        issue = get_object_or_404(Issue, number=request.GET['issue'],
+                volume=request.GET['volume'])
+        pieces = list(issue.pieces.all())
+        pieces_count = len(pieces)
+    number = request.GET.get('issue')
     return locals()
 
 @renders('content/piece_detail.html')
