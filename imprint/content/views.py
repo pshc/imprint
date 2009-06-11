@@ -151,16 +151,21 @@ def piece_admin(request):
     if 'issue' not in request.GET or 'volume' not in request.GET:
         try:
             issue = Issue.objects.latest_issue()
-            return HttpResponseRedirect('?issue=%d&volume=%d'
-                    % (issue.number, issue.volume))
+            GET_vars = '?issue=%d&volume=%d' % (issue.number, issue.volume)
+            return HttpResponseRedirect(GET_vars)
         except Issue.DoesNotExist:
             pieces_count = "You must create an issue before you add a"
+            GET_vars = '?'
     else:
         issue = get_object_or_404(Issue, number=request.GET['issue'],
                 volume=request.GET['volume'])
-        pieces = list(issue.pieces.all())
-        pieces_count = len(pieces)
-    number = request.GET.get('issue')
+        GET_vars = '?issue=%d&volume=%d' % (issue.number, issue.volume)
+        pieces = issue.pieces.select_related().all()
+        live = request.GET.get('live')
+        if live == 'y': pieces = pieces.filter(is_live=True)
+        elif live == 'n': pieces = pieces.filter(is_live=False)
+        else: live = 'all'
+        pieces_count = pieces.count()
     return locals()
 
 @renders('content/piece_detail.html')

@@ -24,9 +24,9 @@
 <div id="changelist-filter">
 <h2>Filter</h2>
 <h3>Live</h3>
-<ul><li class="selected"><a href="?">All</a></li>
-<li><a href="?">Yes</a></li>
-<li><a href="?">No</a></li>
+<ul><li{% ifequal live "all" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}">All</a></li>
+<li{% ifequal live "y" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}&live=y">Yes</a></li>
+<li{% ifequal live "n" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}&live=n">No</a></li>
 </ul>
 </div>
 
@@ -35,12 +35,15 @@
 <thead>
 <tr>
 <th>Headline</th>
+<th>Section</th>
 <th>Live</th>
 </tr>
 </thead>
 <tbody>
 {% for piece in pieces %}
-<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags }}</a></th><td><img src="/media/admin/img/admin/icon-{{ piece.is_live|yesno }}.gif" /></td></tr>
+	<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags }}</a></th>
+	<td>{{ piece.section }}</td>
+	<td><img src="/media/admin/img/admin/icon-{{ piece.is_live|yesno }}.gif" /></td></tr>
 {% endfor %}
 </tbody>
 </table>
