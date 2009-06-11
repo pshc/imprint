@@ -5,10 +5,13 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, \
+        HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
+from django.utils import simplejson
 from issues.models import *
 import os
+from people.models import Contributor
 import re
 from shutil import move
 from utils import renders, unescape
@@ -142,6 +145,16 @@ def piece_create(request):
         form.is_ready = True
     uploads = ['upload%d' % i for i in range(5)]
     return locals()
+
+def contributor_lookup(request):
+    """AJAX contributor search query."""
+    query = request.GET.get('q', '').strip()
+    if not query:
+        return HttpResponseBadRequest("{}")
+    data = Contributor.objects.filter(name__icontains=query).values(
+            'id', 'name')[:10]
+    return HttpResponse(simplejson.dumps(list(data)),
+            mimetype="application/javascript")
 
 @permission_required('content.can_add_piece')
 @renders('content/piece_admin.html')

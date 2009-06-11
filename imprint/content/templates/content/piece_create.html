@@ -6,16 +6,20 @@
 {% block stylesheet %}{% admin_media_prefix %}css/forms.css{% endblock %}
 
 {% block extrahead %}
+<!-- OH GOD -->
 <script type="text/javascript" src="../../../jsi18n/"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.tokeninput.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/token-input.css" type="text/css" />
 <style type="text/css">
 .vSmallField { width: 6em; }
 </style>
 <script type="text/javascript">
+/* Make parts draggable */
 jQuery(function($) {
   $('div.inline-group').sortable({
     /*containment: 'parent',
@@ -31,6 +35,13 @@ jQuery(function($) {
   $('div.inline-sortable h3').css('cursor', 'move');
   $('div.inline-sortable').find('input[id$=order]').parent('div').parent('div').hide();
 });
+
+makeTokenInput = function(nm) {
+	$(nm).tokenInput("../contributor-lookup/", {
+		hintText: "Type in the name of a contributor",
+		noResultsText: "No results",
+		searchingText: "Searching..."});
+};
 </script>
 
 {% endblock %}
@@ -122,6 +133,15 @@ jQuery(function($) {
 {{ part.cutline }}</textarea>
 		<p class="help">Markup is OK.</p>
 		</div></div>
+		<div class="form-row artists {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-artists" class="required">Artists:</label>
+			<input name="{{ part.name }}-artists" id="id_{{ part.name }}-artists" class="vTextField" type="text" value="{{ part.order }}" />
+		</div></div>
+		<script type="text/javascript">
+		$(document).ready(function () {
+			makeTokenInput("#id_{{ part.name }}-artists");
+		});
+		</script>
 	{% endifequal %}
 	{% ifequal part.type "Text" %}
 		<div class="form-row copy {{ part.class }}"><div>
