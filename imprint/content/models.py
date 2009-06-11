@@ -24,7 +24,7 @@ class Piece(models.Model):
     def authors(self):
         authors = set()
         for part in self.parts.select_related(): # Inefficient!
-            authors += part.author_namess
+            authors += part.author_names
         return u", ".join(authors)
 
     class Meta:
@@ -32,6 +32,13 @@ class Piece(models.Model):
 
     def __unicode__(self):
         return unescape(strip_tags(self.headline))
+
+    @models.permalink
+    def get_absolute_url(self):
+        date = self.issue.date
+        return ('content.views.piece_detail', (), {
+            'y': date.year, 'm': date.month, 'd': date.day,
+            'section': self.section.slug, 'slug': self.slug})
 
 class Part(models.Model):
     order = models.PositiveSmallIntegerField(db_index=True)
@@ -113,6 +120,6 @@ class Artist(models.Model):
     type = models.PositiveSmallIntegerField(choices=ARTIST_TYPES, default=1)
 
     def __unicode__(self):
-        return self.get_type_display().replace('u(name)', self.contributor)
+        return self.get_type_display().replace(u'(name)', self.contributor)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

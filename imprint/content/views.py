@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
-from django.http import HttpResponse, HttpResponseRedirect, \
+from django.http import HttpResponse, HttpResponseRedirect, Http404, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.utils import simplejson
@@ -188,6 +188,9 @@ def piece_detail(request, y, m, d, section, slug):
     issue = get_object_or_404(Issue, date__exact=date(y, m, d))
     object = get_object_or_404(Piece, issue=issue, section__slug=section,
             slug=slug)
+    if not object.is_live:
+        raise Http404
+    parts = object.parts.all()
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
