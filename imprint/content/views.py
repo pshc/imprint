@@ -106,10 +106,11 @@ class PieceForm(forms.Form):
                     continue
                 part.update({'type': 'Image', 'image': new_path,
                         'image_url': settings.MEDIA_URL + new_path,
-                        'cutline': '', 'class': 'errors'})
+                        'cutline': ''})
             else:
                 errors.append("You may only upload .doc and image files.")
                 continue
+            part['class'] = 'errors'
             self.parts.append(part)
         if not self.parts and not self.files:
             errors.append("You must upload at least one portion of content.")
