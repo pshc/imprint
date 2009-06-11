@@ -3,6 +3,7 @@ from content.models import *
 from datetime import date
 from django import forms
 from django.conf import settings
+from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -30,8 +31,9 @@ class PieceForm(forms.Form):
         data = self.cleaned_data
         assert 'volume' in data
         try:
-            return Issue.objects.get(number=data['issue'],
-                    volume=data['volume'])
+            vol = data['volume']
+            del data['volume']
+            return Issue.objects.get(number=data['issue'], volume=vol)
         except Issue.DoesNotExist:
             raise forms.ValidationError("There is no such issue.")
 
@@ -111,6 +113,16 @@ class PieceForm(forms.Form):
         if errors:
             raise forms.ValidationError(errors)
         return data
+    
+    def save(self):
+        piece = Piece(**self.cleaned_data)
+        piece.save()
+        for part in self.parts:
+            construct = eval(part['type'])
+            del part['type'], part['name']
+            part = construct(piece=piece, **part)
+            part.save()
+        return piece
 
 @permission_required('content.can_add_piece')
 @renders('content/piece_create.html')
@@ -120,7 +132,10 @@ def piece_create(request):
     if request.method == 'POST':
         form = PieceForm(request.POST, request.FILES)
         if form.is_valid() and form.is_ready:
-            form.save()
+            piece = form.save()
+            LogEntry.objects.log_action(request.user.id,
+                    ContentType.objects.get_for_model(piece).id,
+                    piece.id, unicode(piece), ADDITION)
             return HttpResponseRedirect('..')
     else:
         form = PieceForm()

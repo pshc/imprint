@@ -40,7 +40,7 @@
 </thead>
 <tbody>
 {% for piece in pieces %}
-<tr class="{% cycle row1,row2 %}"><th><a href="{{ issue.id }}/">{{ issue.headline|striptags }}</a></th><td><img src="/media/admin/img/admin/icon-{{ issue.is_live|yesno }}.gif" /></td></tr>
+<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags }}</a></th><td><img src="/media/admin/img/admin/icon-{{ piece.is_live|yesno }}.gif" /></td></tr>
 {% endfor %}
 </tbody>
 </table>

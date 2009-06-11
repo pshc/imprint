@@ -30,6 +30,9 @@ class Piece(models.Model):
     class Meta:
         unique_together = [('issue', 'headline'), ('issue', 'slug')]
 
+    def __unicode__(self):
+        return unescape(strip_tags(self.headline))
+
 class Part(models.Model):
     order = models.PositiveSmallIntegerField(db_index=True)
     piece = models.ForeignKey(Piece, related_name='parts')
