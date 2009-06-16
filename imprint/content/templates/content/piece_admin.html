@@ -23,10 +23,12 @@
 
 <div id="changelist-filter">
 <h2>Filter</h2>
-<h3>Live</h3>
-<ul><li{% ifequal live "all" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}">All</a></li>
-<li{% ifequal live "y" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}&live=y">Yes</a></li>
-<li{% ifequal live "n" %} class="selected"{% endifequal %}><a href="{{ GET_vars }}&live=n">No</a></li>
+<h3>Section</h3>
+<ul>
+	<li{% ifequal filter_section -1 %} class="selected"{% endifequal %}><a href="{{ GET_vars }}">All</a></li>
+{% for section in sections %}
+	<li{% ifequal filter_section section.id %} class="selected"{% endifequal %}><a href="{{ GET_vars }}&section={{ section.id }}">{{ section }}</a></li>
+{% endfor %}
 </ul>
 </div>
 

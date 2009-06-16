@@ -208,10 +208,10 @@ def piece_admin(request):
                 volume=request.GET['volume'])
         GET_vars = '?issue=%d&volume=%d' % (issue.number, issue.volume)
         pieces = issue.pieces.select_related().all()
-        live = request.GET.get('live')
-        if live == 'y': pieces = pieces.filter(is_live=True)
-        elif live == 'n': pieces = pieces.filter(is_live=False)
-        else: live = 'all'
+        filter_section = int(request.GET.get('section', -1))
+        if filter_section != -1:
+            pieces = pieces.filter(section=filter_section)
+        sections = issue.sections.all()
         pieces_count = pieces.count()
     return locals()
 
