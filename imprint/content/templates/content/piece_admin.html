@@ -43,7 +43,7 @@
 </thead>
 <tbody>
 {% for piece in pieces %}
-	<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags }}</a></th>
+	<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags|safe }}</a></th>
 	<td>{{ piece.section }}</td>
 	<td><img src="/media/admin/img/admin/icon-{{ piece.is_live|yesno }}.gif" /></td></tr>
 {% endfor %}
