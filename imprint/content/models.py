@@ -111,8 +111,14 @@ class Image(Part):
     @property
     def author_names(self):
         return self.artists.values_list('name', flat=True)
+    
+    @property
+    def credits(self):
+        return Artist.objects.filter(image=self)
 
-ARTIST_TYPES = ((1, u'Photo by (name)'), (2, u'Graphic by (name)'))
+PHOTOGRAPHER, GRAPHIC_ARTIST = 1, 2
+ARTIST_TYPES = ((PHOTOGRAPHER, u'Photo by (name)'),
+                (GRAPHIC_ARTIST, u'Graphic by (name)'))
 
 class Artist(models.Model):
     image = models.ForeignKey(Image)
@@ -120,6 +126,7 @@ class Artist(models.Model):
     type = models.PositiveSmallIntegerField(choices=ARTIST_TYPES, default=1)
 
     def __unicode__(self):
-        return self.get_type_display().replace(u'(name)', self.contributor)
+        return self.get_type_display().replace(u'(name)',
+                unicode(self.contributor))
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

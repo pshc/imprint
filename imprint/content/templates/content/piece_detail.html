@@ -17,8 +17,8 @@
 	{% with part.image as image %}
 		<img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.id }}" />
 		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
-		<ul class="credit">{% for artist in image.artists.all %}
-			<li>{{ artist }}</li>
+		<ul class="credit">{% for credit in image.credits %}
+			<li>{{ credit }}</li>
 		{% endfor %}</ul>
 	{% endwith %}
 	{% endif %}

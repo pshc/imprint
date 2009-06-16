@@ -58,7 +58,7 @@ class PieceForm(forms.Form):
             attr = lambda s, d=None: self.data.get(p.replace('order', s), d)
             if attr('image') is not None:
                 part = {'type': 'Image'}
-                fields = ['image', 'cutline']
+                fields = ['image', 'cutline', 'photographers', 'artists']
             elif attr('copy') is not None:
                 part = {'type': 'Text'}
                 fields = ['copy', 'sources']
@@ -106,7 +106,7 @@ class PieceForm(forms.Form):
                     continue
                 part.update({'type': 'Image', 'image': new_path,
                         'image_url': settings.MEDIA_URL + new_path,
-                        'cutline': ''})
+                        'cutline': '', 'photographers': '', 'artists': ''})
             else:
                 errors.append("You may only upload .doc and image files.")
                 continue
@@ -118,14 +118,36 @@ class PieceForm(forms.Form):
             raise forms.ValidationError(errors)
         return data
     
+    def add_artists(self, image, artists, type):
+        for nm in (nm.strip() for nm in artists.split(',') if nm.strip()):
+            # Fails due to iexact and unique=True:
+            #c, created = Contributor.objects.get_or_create(name__iexact=nm)
+            # Workaround:
+            try:
+                c = Contributor.objects.get(name__iexact=nm)
+            except Contributor.DoesNotExist:
+                c = Contributor.objects.create(name=nm)
+            Artist.objects.create(image=image, contributor=c, type=type)
+
     def save(self):
+        deleted_fields = ['type', 'name']
+        preserved_fields = ['photographers', 'artists']
         piece = Piece(**self.cleaned_data)
         piece.save()
         for part in self.parts:
             construct = eval(part['type'])
-            del part['type'], part['name']
+            for field in deleted_fields:
+                del part[field]
+            preserved = dict((f, '') for f in preserved_fields)
+            for field in preserved_fields:
+                if field in part:
+                    preserved[field] = part[field]
+                    del part[field]
+            # OK, finally actually make this part...
             part = construct(piece=piece, **part)
             part.save()
+            self.add_artists(part, preserved['photographers'], PHOTOGRAPHER)
+            self.add_artists(part, preserved['artists'], GRAPHIC_ARTIST)
         return piece
 
 @permission_required('content.can_add_piece')

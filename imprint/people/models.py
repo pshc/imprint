@@ -3,7 +3,8 @@ from django.db import models
 
 class Contributor(models.Model):
     """Someone who has created content for the paper."""
-    name = models.CharField(max_length=50, db_index=True)
+    # Names have to be unique for now. Middle names should suffice.
+    name = models.CharField(max_length=50, db_index=True, unique=True)
     position = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
     user = models.OneToOneField(User, blank=True, null=True)
