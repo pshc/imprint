@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
-from django.utils import simplejson
 from issues.models import *
 import os
 from people.models import Contributor
@@ -61,7 +60,7 @@ class PieceForm(forms.Form):
                 fields = ['image', 'cutline', 'photographers', 'artists']
             elif attr('copy') is not None:
                 part = {'type': 'Text'}
-                fields = ['copy', 'sources']
+                fields = ['copy', 'sources', 'writers']
             else:
                 continue
             part.update(dict((field, attr(field, '')) for field in fields))
@@ -117,21 +116,29 @@ class PieceForm(forms.Form):
         if errors:
             raise forms.ValidationError(errors)
         return data
-    
+
+    def get_or_create_contributor(self, name, position=""):
+        """Not quite the same as Contributor.objects.get_or_create(...)."""
+        try:
+            return Contributor.objects.get(name__iexact=name)
+        except Contributor.DoesNotExist:
+            return Contributor.objects.create(name=name, position=position)
+
     def add_artists(self, image, artists, type):
-        for nm in (nm.strip() for nm in artists.split(',') if nm.strip()):
-            # Fails due to iexact and unique=True:
-            #c, created = Contributor.objects.get_or_create(name__iexact=nm)
-            # Workaround:
-            try:
-                c = Contributor.objects.get(name__iexact=nm)
-            except Contributor.DoesNotExist:
-                c = Contributor.objects.create(name=nm)
+        for name in (nm.strip() for nm in artists.split(',') if nm.strip()):
+            c = self.get_or_create_contributor(name)
             Artist.objects.create(image=image, contributor=c, type=type)
+
+    def add_writers(self, text, writers):
+        for name in (nm.strip() for nm in writers.split(',') if nm.strip()):
+            m = re.match(r'^(.+?)\s*\((.+)\)$', name)
+            name, position = m.groups() if m else (name, "")
+            c = self.get_or_create_contributor(name, position)
+            Writer.objects.create(text=text, contributor=c, position=position)
 
     def save(self):
         deleted_fields = ['type', 'name']
-        preserved_fields = ['photographers', 'artists']
+        preserved_fields = ['photographers', 'artists', 'writers']
         piece = Piece(**self.cleaned_data)
         piece.save()
         for part in self.parts:
@@ -148,6 +155,7 @@ class PieceForm(forms.Form):
             part.save()
             self.add_artists(part, preserved['photographers'], PHOTOGRAPHER)
             self.add_artists(part, preserved['artists'], GRAPHIC_ARTIST)
+            self.add_writers(part, preserved['writers'])
         return piece
 
 @permission_required('content.can_add_piece')
@@ -169,15 +177,18 @@ def piece_create(request):
     uploads = ['upload%d' % i for i in range(5)]
     return locals()
 
-def contributor_lookup(request):
+def contributor_lookup(request, with_position=False):
     """AJAX contributor search query."""
     query = request.GET.get('q', '').strip()
+    limit = max(1, min(20, int(request.GET.get('limit', '10').strip())))
     if not query:
         return HttpResponseBadRequest("{}")
-    data = Contributor.objects.filter(name__icontains=query).values(
-            'id', 'name')[:10]
-    return HttpResponse(simplejson.dumps(list(data)),
-            mimetype="application/javascript")
+    data = Contributor.objects.filter(name__icontains=query)[:limit]
+    if with_position:
+        data = (contributor.with_position for contributor in data)
+    else:
+        data = data.values_list('name', flat=True)
+    return HttpResponse('\n'.join(data), mimetype="application/javascript")
 
 @permission_required('content.can_add_piece')
 @renders('content/piece_admin.html')

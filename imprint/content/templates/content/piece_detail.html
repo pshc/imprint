@@ -8,6 +8,9 @@
 	{% if part.text %}
 	{% with part.text as text %}
 		{{ text.copy|safe }}
+		<ul class="credit">{% for credit in text.credits %}
+			<li>{{ credit }}</li>
+		{% endfor %}</ul>
 		{% if text.sources %}<p class="sources">
 		&mdash; With sources from {{ text.sources }}</p>
 		{% endif %}

@@ -12,7 +12,13 @@ class Contributor(models.Model):
     @property
     def slug(self):
         # If we ever have two people with the same name, this means trouble
+        # Could also fail in a very rare way...
         return self.name.replace(' ', '')
+
+    @property
+    def with_position(self):
+        return '%s (%s)' % (self.name, self.position) if self.position \
+                else self.name
 
     def __unicode__(self):
         return self.name

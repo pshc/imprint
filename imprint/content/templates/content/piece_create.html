@@ -36,19 +36,11 @@ jQuery(function($) {
   $('div.inline-sortable').find('input[id$=order]').parent('div').parent('div').hide();
 });
 
-autoCompleteParse = function (data) {
-	return data.map(function (row) {
-		return {data: row, value: row.id, result: row.name};
-	});
-}
-
-autoCompleteFormatItem = function (item, pos, len) { return item.name; }
-
-makeAutoCompleteInput = function(input) {
-	input.autocomplete("{% url admin-contributor-lookup %}", {
-		multiple: true, matchContains: true, mustMatch: false,
-		parse: autoCompleteParse, formatItem: autoCompleteFormatItem,
-		dataType: 'json'});
+makeAutoCompleteInput = function(input, with_position) {
+	var url = "{% url admin-contributor-lookup "" %}";
+	if (with_position) url += "with-position/";
+	input.autocomplete(url, {
+		multiple: true, matchContains: true, mustMatch: false});
 };
 </script>
 
@@ -162,8 +154,8 @@ makeAutoCompleteInput = function(input) {
 
 		<script type="text/javascript">
 		$(document).ready(function () {
-			makeAutoCompleteInput($("#id_{{ part.name }}-photographers"));
-			makeAutoCompleteInput($("#id_{{ part.name }}-artists"));
+			makeAutoCompleteInput($("#id_{{ part.name }}-photographers"), false);
+			makeAutoCompleteInput($("#id_{{ part.name }}-artists"), false);
 		});
 		</script>
 
@@ -174,12 +166,25 @@ makeAutoCompleteInput = function(input) {
 			{{ part.copy|safe }}
 			<input type="hidden" name="{{ part.name }}-copy" value="{{ part.copy }}" />
 		</div></div>
-<div class="form-row sources {{ part.class }}"><div>
-		<label for="id_{{ part.name }}-sources">Sources:</label>
-		<input name="{{ part.name }}-sources" id="id_{{ part.name }}-sources" class="vTextField" type="text" value="{{ part.sources }}" />
-		<p class="help">Appears as &quot;&mdash; With sources from...&quot;</p>
-	</div></div>
+		<div class="form-row writers {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-writers">Writers:</label>
+			<input name="{{ part.name }}-writers" id="id_{{ part.name }}-writers" class="vTextField" type="text" value="{{ part.writers }}" />
+			{% comment %}TODO: Populate automatically{% endcomment %}
+			<input id="id_{{ part.name }}-writers-dummy" type="hidden" />
+			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-writers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.<p>
+		</div></div>
+		<script type="text/javascript">
+		$(document).ready(function () {
+			makeAutoCompleteInput($("#id_{{ part.name }}-writers"), true);
+		});
+		</script>
 
+		<div class="form-row sources {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-sources">Sources:</label>
+			<input name="{{ part.name }}-sources" id="id_{{ part.name }}-sources" class="vTextField" type="text" value="{{ part.sources }}" />
+			<p class="help">Appears as &quot;&mdash; With sources from...&quot;</p>
+		</div></div>
 	{% endifequal %}
 	</fieldset></div>
 	{% endfor %}

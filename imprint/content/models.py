@@ -11,10 +11,10 @@ class Piece(models.Model):
     headline = models.CharField(max_length=100,
             help_text="Markup is OK.")
     slug = models.SlugField(max_length=100, db_index=True,
-            help_text="Determines the article's URL.")
+            help_text="Determines the piece's URL.")
     deck = models.CharField(max_length=200, blank=True,
             help_text="Optional subheadline.")
-    section = models.ForeignKey(Section, related_name='articles')
+    section = models.ForeignKey(Section, related_name='pieces')
     issue = models.ForeignKey(Issue, related_name='pieces',
             default=latest_issue_or(lambda i: i))
     is_live = models.BooleanField(u'Live?', default=True,
@@ -24,7 +24,7 @@ class Piece(models.Model):
     def authors(self):
         authors = set()
         for part in self.parts.select_related(): # Inefficient!
-            authors += part.author_names
+            authors.update(part.author_names)
         return u", ".join(authors)
 
     class Meta:
@@ -55,10 +55,14 @@ class Text(Part):
     title = models.CharField(max_length=100, blank=True,
             help_text='Optional title for this section of text')
     copy = models.XMLField()
-    authors = models.ManyToManyField(Contributor, related_name='articles',
-            through='Author')
+    writers = models.ManyToManyField(Contributor, through='Writer')
     sources = models.CharField(max_length=200, blank=True,
             help_text='Appears as "With files from ..."')
+
+    # Is this a response to a previous piece?
+    content_type = models.ForeignKey(ContentType, null=True)
+    object_id = models.PositiveIntegerField(null=True)
+    concerning = generic.GenericForeignKey()
 
     def __unicode__(self):
         if self.title:
@@ -69,7 +73,17 @@ class Text(Part):
     def author_names(self):
         return self.authors.values_list('name', flat=True)
 
-class Author(models.Model):
+    @property
+    def credits(self):
+        return Writer.objects.filter(text=self)
+
+    @models.permalink
+    def get_absolute_url(self):
+        d = self.issue.date
+        return ('piece-detail', [d.year, d.month, d.day,
+                self.section.slug, self.slug])
+
+class Writer(models.Model):
     """Represents credit for some text content."""
     contributor = models.ForeignKey(Contributor)
     text = models.ForeignKey(Text)
@@ -77,29 +91,10 @@ class Author(models.Model):
     position = models.CharField(max_length=50, blank=True)
 
     def __unicode__(self):
-        return u"%s (%s)" % (self.contributor, self.position)
-
-class Letter(Part):
-    text = models.XMLField()
-    author = models.CharField(max_length=50)
-    program = models.CharField(max_length=50, blank=True)
-
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    responding_to = generic.GenericForeignKey()
-
-    def __unicode__(self):
-        return u'Letter by %s' % (self.author,)
-
-    @models.permalink
-    def get_absolute_url(self):
-        d = self.issue.date
-        return ('content.views.article_detail', [d.year, d.month, d.day,
-                self.section.slug, self.slug])
-
-    @property
-    def author_names(self):
-        return self.author and [self.author] or []
+        if self.position:
+            return u"%s (%s)" % (self.contributor, self.position)
+        else:
+            return self.contributor
 
 def get_image_filename(instance, filename):
     return get_issue_subdir_filename(instance.piece.issue, filename)
