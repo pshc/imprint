@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.autocomplete.css" type="text/css" />
 <style type="text/css">
 .vSmallField { width: 6em; }
+.expand { cursor: pointer; text-decoration: underline; }
 </style>
 <script type="text/javascript">
 /* Make parts draggable */
@@ -42,6 +43,20 @@ makeAutoCompleteInput = function(input, with_position) {
 	input.autocomplete(url, {
 		multiple: true, matchContains: true, mustMatch: false});
 };
+
+/* Hide the entire copy except for the first two paragraphs */
+$(document).ready(function () {
+	$(".copy").each(function (i) {
+		var p = $(this).find("p:first").next();
+		var next = p.nextAll();
+		next.hide();
+		p.after($("<p class=\"expand\">Expand</p>")
+			.click(function (event) {
+				next.show();
+				$(this).hide();
+			}));
+	});
+});
 </script>
 
 {% endblock %}
@@ -111,7 +126,7 @@ makeAutoCompleteInput = function(input, with_position) {
 	</div></div>
 </fieldset>
 <div class="inline-group">
-	<h2>Content</h2>
+	<h2>Content (drag to reorder)</h2>
 	{% for part in form.parts %}
 	<div class="inline-related inline-sortable">
 	<h3><b>{{ part.type }}</b></h3>
