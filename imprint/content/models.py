@@ -41,8 +41,12 @@ class Piece(models.Model):
             'section': self.section.slug, 'slug': self.slug})
 
 class Part(models.Model):
+    """One unit of content, part of a piece."""
     order = models.PositiveSmallIntegerField(db_index=True)
     piece = models.ForeignKey(Piece, related_name='parts')
+
+    def __unicode__(self):
+        return u"#%d" % self.order
 
     class Meta:
         ordering = ['order']
