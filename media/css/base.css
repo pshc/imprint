@@ -15,11 +15,16 @@ a {
 a:hover { text-decoration: underline; }
 a.more { font-weight: bold; }
 
+#hd {
+	text-align: center;
+}
+
 #hd h1 { /* logo */
 	background: url("../images/logo.jpg") no-repeat;
-	padding-top: 120px;
+	padding-top: 120px; width: 298px;
 	height: 0px;
 	overflow: hidden;
+	margin: 0 auto;
 }
 
 #nav li { display: inline; }

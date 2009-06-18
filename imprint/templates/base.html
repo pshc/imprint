@@ -12,7 +12,9 @@
 <div id="doc4" class="yui-t4">
 	<div id="hd" role="banner">
 		<a href="/"><h1>{{ site.name }}</h1></a>
-		<ul id="nav">{% for nav in issue.sections.all %}
+		<ul id="nav">{% if request.user.is_staff %}
+			<li><a href="/admin/">Admin</a></li>
+			{% endif %}{% for nav in issue.sections.all %}
 			<li><a href="{{ nav.get_absolute_url }}">{{ nav }}</a></li>{% endfor %}
 		</ul>
 	</div>
