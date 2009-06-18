@@ -26,7 +26,7 @@ class DocConverter(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
         self.ignoring = True
-        self.paragraph = None
+        self.paragraph = self.paragraph_class = None
         self.font_tag_level = 0
         self.prev = (None, None)
         self.documents = []
@@ -76,19 +76,23 @@ class DocConverter(HTMLParser):
             return
         if tag == 'p':
             # Done our paragraph!
+            p_class = None
             if self.is_paragraph_empty():
                 self.paragraph = None
                 return
             if self.handler:
                 self.prev = (self.handler.__name__.replace('handle_', ''),
                              self.handler(self))
+                p_class, self.paragraph_class = self.paragraph_class, None
                 if self.is_paragraph_empty():
                     self.paragraph = None
                     return
-            self.paragraph.insert(0, '<p>'); self.paragraph.append('</p>\n')
-            final = ''.join(self.paragraph)
+            # OK, actually write the paragraph.
+            self.paragraph.insert(0, '<p class="%s">' % p_class if p_class
+                                                                else '<p>')
+            self.paragraph.append('</p>\n')
+            self.document.setdefault('copy',[]).append(''.join(self.paragraph))
             self.paragraph = None
-            self.document.setdefault('copy', []).append(final)
         elif tag == 'font':
             self.font_tag_level -= 1
         elif tag in OK_TAGS:
@@ -118,6 +122,7 @@ class DocConverter(HTMLParser):
                     self.paragraph[0])
         elif len(self.paragraph) == 1 and len(self.paragraph[0]) < 3:
             return self.clear_paragraph()
+        self.paragraph_class = 'first'
 
     @handler('Byline name')
     @no_tags
@@ -153,12 +158,16 @@ class DocConverter(HTMLParser):
             self.document.setdefault('bylines', []).append(email)
 
     @handler('Arts: 1 Band/Film/Author')
-    #'Arts: 2 Title/Director/Venue', 'Arts: 3 Label/Date/Publisher')
     def handle_arts_title(self):
         """Absorbs the first title as the piece's title."""
+        self.paragraph_class = 'first'
         if 'title' not in self.document:
             self.paragraph = remove_tags(self.paragraph)
             self.document['title'] = self.clear_paragraph()
+
+    @handler('Arts: 2 Title/Director/Venue', 'Arts: 3 Label/Date/Publisher')
+    def handle_arts23(self):
+        self.paragraph_class = 'first'
 
     @handler('Briefs headline')
     def handle_briefs(self):

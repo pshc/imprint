@@ -7,7 +7,9 @@
 	{% for part in parts %}
 	{% if part.text %}{% with part.text as text %}
 		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
+		<div class="copy">
 		{{ text.copy|safe }}
+		</div>
 		<ul class="credit">{% for credit in text.credits %}
 			<li>{{ credit }}</li>
 		{% endfor %}</ul>

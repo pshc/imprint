@@ -48,7 +48,7 @@ class PieceForm(forms.Form):
     def format_writer(self, writer):
         if isinstance(writer, tuple):
             if writer[1]: # Position?
-                return u'%s (%s)' % map(unescape, writer)
+                return u'%s (%s)' % tuple(map(unescape, writer))
             writer = writer[0]
         return unescape(writer)
 
@@ -97,7 +97,7 @@ class PieceForm(forms.Form):
                         errors.append("Omitted an empty section of %s."
                                 % file.name)
                         continue
-                    writers = map(self.format_writer(doc.get('bylines', [])))
+                    writers = map(self.format_writer, doc.get('bylines', []))
                     order += 1
                     self.parts.append({'type': 'Text', 'order': order,
                         'class': 'errors', 'name': 'part%02d' % order,

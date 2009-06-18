@@ -2,14 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<title>{% block title %}{{ site.name }}{% endblock %}</title>
-	<script type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
 	{% block head %}{% endblock %}
+	{% block extra_scripts %}{% endblock %}
 </head>
 <body>
-	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
-	{% block extra_scripts %}{% endblock %}
-	{% block messages %}{% endblock %}
-	{% block content %}{% endblock %}
-	{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
+<div id="doc4" class="yui-t4">
+	<div id="hd" role="banner">
+		<h1><span>{{ site.name }}</span></h1>
+	</div>
+
+	<div id="bd" role="main"><div id="yui-main">
+	<div class="yui-b"><div class="yui-g">
+		{% block messages %}{% endblock %}
+		{% block content %}{% endblock %}
+	</div></div></div>
+	<div class="yui-b" role="complimentary">{% block right %}
+		{% endblock %}</div>
+	</div>
+	<div id="ft" role="contentinfo">
+		<p>{{ site.name }} | <a href="#">Back to top</a></p>
+		{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
+	</div>
+</div>
 </body>
 </html>
