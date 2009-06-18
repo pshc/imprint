@@ -13,6 +13,7 @@ a {
 	color: navy;
 }
 a:hover { text-decoration: underline; }
+a.more { font-weight: bold; }
 
 #hd h1 { /* logo */
 	background: url("../images/logo.jpg") no-repeat;
@@ -30,7 +31,7 @@ a:hover { text-decoration: underline; }
 
 h1 {
 	margin-top: 0.5em;
-	font-size: 300%;
+	font-size: 250%;
 	letter-spacing: 0.02em;
 }
 
@@ -75,6 +76,13 @@ p .drop { /* nor is :first-letter capable; might be several letters */
 
 .sources {
 	font-style: oblique;
+}
+
+hr {
+	color: white;
+	background-color: white;
+	border: thin dotted gray;
+	border-style: none none dotted;
 }
 
 img {

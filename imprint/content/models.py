@@ -89,6 +89,9 @@ class Text(Part):
             p = paras.pop(0)
             copy.append(p)
             length += len(p)
+        url = ' <a href="%s" class="more">Read more...</a>' % (
+                self.piece.get_absolute_url(),)
+        copy[-1] = copy[-1] + url
         copy.append('')
         return '</p>'.join(copy)
 

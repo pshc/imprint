@@ -18,13 +18,18 @@
 	</div>
 
 	<div id="bd" role="main"><div id="yui-main">
-	<div class="yui-b"><div class="yui-g">
+	<div class="yui-b"><div class="yui-gf">
+	<div class="yui-u left">{% block left %}{% endblock %}
+	</div>
+	<div class="yui-u">
 		{% block messages %}{% endblock %}
 		{% block content %}{% endblock %}
-	</div></div></div>
-	<div class="yui-b" role="complimentary">{% block right %}
-		{% endblock %}</div>
 	</div>
+	</div></div></div>
+	<div class="yui-b right" role="complimentary">{% block right %}{% endblock %}
+	</div>
+	</div>
+
 	<div id="ft" role="contentinfo">
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
 		{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
