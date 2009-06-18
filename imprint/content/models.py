@@ -52,7 +52,7 @@ class Part(models.Model):
         ordering = ['order']
 
 class Text(Part):
-    title = models.CharField(max_length=100, blank=True,
+    title = models.CharField(max_length=200, blank=True,
             help_text='Optional title for this section of text')
     copy = models.XMLField()
     writers = models.ManyToManyField(Contributor, through='Writer')
@@ -87,14 +87,13 @@ class Writer(models.Model):
     """Represents credit for some text content."""
     contributor = models.ForeignKey(Contributor)
     text = models.ForeignKey(Text)
-    # TODO: Obtain default w/ AJAX
     position = models.CharField(max_length=50, blank=True)
 
     def __unicode__(self):
         if self.position:
-            return u"%s (%s)" % (self.contributor, self.position)
+            return u"%s (%s)" % (unicode(self.contributor), self.position)
         else:
-            return self.contributor
+            return unicode(self.contributor)
 
 def get_image_filename(instance, filename):
     return get_issue_subdir_filename(instance.piece.issue, filename)

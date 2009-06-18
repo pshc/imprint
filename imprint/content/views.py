@@ -45,6 +45,13 @@ class PieceForm(forms.Form):
     def part_cmp(self, p1, p2):
         return cmp(int(self.data[p1]), int(self.data[p2]))
 
+    def format_writer(self, writer):
+        if isinstance(writer, tuple):
+            if writer[1]: # Position?
+                return u'%s (%s)' % map(unescape, writer)
+            writer = writer[0]
+        return unescape(writer)
+
     def clean(self):
         data = self.cleaned_data
         self.parts = []
@@ -60,7 +67,7 @@ class PieceForm(forms.Form):
                 fields = ['image', 'cutline', 'photographers', 'artists']
             elif attr('copy') is not None:
                 part = {'type': 'Text'}
-                fields = ['copy', 'sources', 'writers']
+                fields = ['title', 'copy', 'sources', 'writers']
             else:
                 continue
             part.update(dict((field, attr(field, '')) for field in fields))
@@ -73,8 +80,6 @@ class PieceForm(forms.Form):
         # Append any uploaded files
         for k in sorted(self.files):
             self.is_ready = False
-            order += 1
-            part = {'order': order, 'name': 'part%02d' % order}
             # Figure out what kind of file this is...
             file = self.files[k]
             path = file.temporary_file_path()
@@ -82,15 +87,28 @@ class PieceForm(forms.Form):
             ext = ext[1:].lower()
             if ext == 'doc':
                 try:
-                    part['copy'] = doc_convert(path)
-                    if not part['copy'].strip():
-                        errors.append("%s contained no copy!" % file.name)
-                        continue
+                    (docs, warnings) = doc_convert(path)
+                    errors += ["%s: %s" % (file.name, w) for w in warnings]
                 except DocConvertException, e:
                     errors.append(str(e))
                     continue
-                part.update({'type': 'Text', 'sources': ''})
+                for doc in docs:
+                    if not doc.get('copy', '').strip():
+                        errors.append("Omitted an empty section of %s."
+                                % file.name)
+                        continue
+                    writers = map(self.format_writer(doc.get('bylines', [])))
+                    order += 1
+                    self.parts.append({'type': 'Text', 'order': order,
+                        'class': 'errors', 'name': 'part%02d' % order,
+                        'title': doc.get('title', ''), 'copy': doc['copy'],
+                        'sources': unescape(doc.get('sources', '')),
+                        'writers': ', '.join(writers)})
+
             elif ext in ('gif', 'jpg', 'jpeg', 'png', 'tiff'):
+                order += 1
+                part = {'order': order, 'name': 'part%02d' % order,
+                        'class': 'errors'}
                 # TODO: Minor race condition on renaming
                 if not data.get('issue'):
                     errors.append("Can't upload images without an issue.")
@@ -106,11 +124,10 @@ class PieceForm(forms.Form):
                 part.update({'type': 'Image', 'image': new_path,
                         'image_url': settings.MEDIA_URL + new_path,
                         'cutline': '', 'photographers': '', 'artists': ''})
+                self.parts.append(part)
             else:
                 errors.append("You may only upload .doc and image files.")
                 continue
-            part['class'] = 'errors'
-            self.parts.append(part)
         if not self.parts and not self.files:
             errors.append("You must upload at least one portion of content.")
         if errors:

@@ -6,64 +6,101 @@ import sys
 
 OK_TAGS = {'i': 'em', 'b': 'strong', 's': 'del'}
 
+HANDLERS = {}
+def handler(*div_names):
+    def decorate(f):
+        for name in div_names: HANDLERS[name] = f
+        return f
+    return decorate
+
+remove_tags = lambda ss: filter(lambda s: not s.startswith('<'), ss)
+
+def no_tags(f):
+    def decorated(self, *args, **kwargs):
+        self.paragraph = [s.strip() for s in remove_tags(self.paragraph)]
+        return f(self, *args, **kwargs)
+    decorated.__name__ = f.__name__
+    return decorated
+
 class DocConverter(HTMLParser):
-    def __init__(self, output_stream):
+    def __init__(self):
         HTMLParser.__init__(self)
-        self.f = output_stream
-        self.last_whitespace = True
         self.ignoring = True
         self.paragraph = None
+        self.font_tag_level = 0
+        self.prev = (None, None)
+        self.documents = []
+        self.document = {}
+        self.warnings = []
+        self.prev_bylines = None
+
+    def warn(self, message, *args):
+        self.warnings.append(message % args)
 
     def write(self, data):
-        if not self.ignoring:
-            if self.paragraph:
-                self.paragraph.append(data)
-            else:
-                self.f.write(data)
+        if not self.ignoring and self.font_tag_level > 0:
+            assert self.paragraph is not None
+            self.paragraph.append(data)
 
     def handle_starttag(self, tag, attrs):
         if tag == 'div':
             self.ignoring = False
+            self.handler = HANDLERS.get(dict(attrs).get('name'))
         if self.ignoring:
             return
         if tag == 'p':
             if not self.paragraph:
-                self.paragraph = ['<p>']
+                self.paragraph = []
         elif tag == 'br':
             self.write('<br />')
+        elif tag == 'font':
+            self.font_tag_level += 1
         elif tag in OK_TAGS:
             self.write('<%s>' % OK_TAGS[tag])
+
+    def clear_paragraph(self):
+        ret = ''.join(self.paragraph)
+        self.paragraph = []
+        return ret
+
+    def is_paragraph_empty(self):
+        for text in self.paragraph:
+            if text.strip():
+                return False
+        return True
 
     def handle_endtag(self, tag):
         if tag == 'div':
             self.ignoring = True
-        elif tag == 'html':
-            self.f.write('\n')
         if self.ignoring:
             return
         if tag == 'p':
-            if not self.paragraph:
-                return
             # Done our paragraph!
-            empty = True
-            for text in self.paragraph[1:]:
-                if text.strip():
-                    empty = False
-            if not empty:
-                final = ''.join(self.paragraph + ['</p>\n'])
+            if self.is_paragraph_empty():
                 self.paragraph = None
-                self.write(final)
-            else:
-                self.paragraph = None
+                return
+            if self.handler:
+                self.prev = (self.handler.__name__.replace('handle_', ''),
+                             self.handler(self))
+                if self.is_paragraph_empty():
+                    self.paragraph = None
+                    return
+            self.paragraph.insert(0, '<p>'); self.paragraph.append('</p>\n')
+            final = ''.join(self.paragraph)
+            self.paragraph = None
+            self.document.setdefault('copy', []).append(final)
+        elif tag == 'font':
+            self.font_tag_level -= 1
         elif tag in OK_TAGS:
             self.write('</%s>' % OK_TAGS[tag])
 
     def handle_startendtag(self, tag, attrs):
-        self.write('<br />')
+        if 'tag' == 'br':
+            self.write('<br />')
+        else:
+            self.warn('Unknown self-contained tag "%s"', tag)
 
     def handle_data(self, data):
-        if self.paragraph and '\t' in data:
-            self.paragraph[0] = '<p class="idented">'
         self.write(re.sub(r'\s+', ' ', data))
 
     def handle_charref(self, name):
@@ -72,10 +109,88 @@ class DocConverter(HTMLParser):
     def handle_entityref(self, name):
         self.write('&%s;' % name)
 
+    @handler('Copy: first paragraph')
+    def handle_copy(self):
+        """Connects a drop cap that has been separated from the paragraph."""
+        prev_handler, drop_cap = self.prev
+        if prev_handler == 'copy' and drop_cap:
+            self.paragraph[0] = '<span class="drop">%s</span>%s' % (drop_cap,
+                    self.paragraph[0])
+        elif len(self.paragraph) == 1 and len(self.paragraph[0]) < 3:
+            return self.clear_paragraph()
+
+    @handler('Byline name')
+    @no_tags
+    def handle_byline_name(self):
+        if self.document and self.document.get('copy'):
+            self.finish_document()
+        self.document.setdefault('bylines', []).append(self.clear_paragraph())
+
+    @handler('Byline title')
+    @no_tags
+    def handle_byline_title(self):
+        title = self.clear_paragraph()
+        try:
+            #assert self.prev[0] == 'byline_name'
+            bylines = self.document['bylines']
+            assert bylines and isinstance(bylines[-1], basestring)
+            bylines[-1] = (bylines[-1], title.capitalize())
+        except AssertionError:
+            self.warn('Orphaned byline title "%s" ignored', title)
+
+    @handler('E-mail address')
+    @no_tags
+    def handle_email(self):
+        # Not always an e-mail address, sometimes a name... oh well
+        email = self.clear_paragraph().replace('&mdash;',
+                '').replace('&ndash;', '')
+        email = email.strip().strip('-').strip() # Yes, two strip()s
+        if email.lower().startswith('with sources from'):
+            self.document['sources'] = email[17:].strip()
+        elif '@' in email:
+            self.document.setdefault('emails', []).append(email)
+        else: # Name at end?
+            self.document.setdefault('bylines', []).append(email)
+
+    @handler('Arts: 1 Band/Film/Author')
+    #'Arts: 2 Title/Director/Venue', 'Arts: 3 Label/Date/Publisher')
+    def handle_arts_title(self):
+        """Absorbs the first title as the piece's title."""
+        if 'title' not in self.document:
+            self.paragraph = remove_tags(self.paragraph)
+            self.document['title'] = self.clear_paragraph()
+
+    @handler('Briefs headline')
+    def handle_briefs(self):
+        """Chop up multi-part articles."""
+        if self.document:
+            self.finish_document()
+        self.document['title'] = self.clear_paragraph()
+
+    @handler('jump: See WORD, page X', 'jump: Continued from page x')
+    def handle_jump(self):
+        self.warn("Jump ignored: %s", ''.join(self.paragraph))
+        self.paragraph = []
+
+    def finish_document(self):
+        self.document['copy'] = ''.join(self.document.get('copy', []))
+        # Preserve bylines if missing from part to part
+        if self.prev_bylines and not self.document.get('bylines'):
+            self.document['bylines'] = self.prev_bylines[:]
+        else:
+            self.prev_bylines = self.document.get('bylines')
+        self.documents.append(self.document)
+        self.document = {}
+
+    def close(self):
+        if self.document:
+            self.finish_document()
+        HTMLParser.close(self)
+
 class DocConvertException(Exception):
     pass
 
-def doc_convert(filename, output_stream=None):
+def doc_convert(filename):
     try:
         wv = subprocess.Popen(["wvWare", "-c=utf-8", filename],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -88,20 +203,23 @@ def doc_convert(filename, output_stream=None):
     if wv.returncode != 0:
         print >>sys.stderr, errors
         raise DocConvertException("wvWare could not process the doc file.")
-    stream = output_stream
-    if output_stream is None:
-        import StringIO
-        stream = StringIO.StringIO()
-    converter = DocConverter(stream)
+    converter = DocConverter()
     converter.feed(html)
     converter.close()
-    if output_stream is None:
-        return stream.getvalue()
+    return (converter.documents, converter.warnings)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        sys.stderr.write("You must supply a doc file to convert.\n")
+        print >>sys.stderr, "You must supply a doc file to convert."
         sys.exit(-1)
-    doc_convert(sys.argv[1], sys.stdout)
+    docs, warnings = doc_convert(sys.argv[1])
+    for warning in warnings:
+        print >>sys.stderr, "WARNING:", warning
+    for doc in docs:
+        print 'DOCUMENT'
+        print doc.get('title', '')
+        print doc.get('emails', [])
+        print doc.get('bylines', [])
+        print doc['copy']
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

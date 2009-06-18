@@ -48,7 +48,7 @@ makeAutoCompleteInput = function(input, with_position) {
 $(document).ready(function () {
 	$(".copy").each(function (i) {
 		var p = $(this).find("p:first").next();
-		var next = p.nextAll();
+		var next = p.nextAll().filter("p");
 		next.hide();
 		p.after($("<p class=\"expand\">Expand</p>")
 			.click(function (event) {
@@ -176,6 +176,12 @@ $(document).ready(function () {
 
 	{% endifequal %}
 	{% ifequal part.type "Text" %}
+		<div class="form-row title {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-title">Title:</label>
+			<input name="{{ part.name }}-title" id="id_{{ part.name }}-title" class="vTextField" type="text" value="{{ part.title }}" />
+			<p class="help">Optional subtitle.</p>
+		</div></div>
+
 		<div class="form-row copy {{ part.class }}"><div>
 			<label class="required">Copy:</label>
 			{{ part.copy|safe }}
