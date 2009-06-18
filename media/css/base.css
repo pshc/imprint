@@ -29,12 +29,14 @@ a:hover { text-decoration: underline; }
 }
 
 h1 {
+	margin-top: 0.5em;
 	font-size: 300%;
 	letter-spacing: 0.02em;
 }
 
 
 h2 { /* deck */
+	margin-top: 0.25em;
 	font-size: 150%;
 	font-style: oblique;
 }
@@ -59,6 +61,7 @@ h3 {
 .copy p {
 	text-align: justify;
 	text-indent: 2.5em;
+	padding-bottom: 0.5em;
 }
 p.first { /* :first-child isn't adequate here */
 	text-indent: 0;
@@ -86,4 +89,9 @@ img {
 
 .preview h1 {
 	font-size: 200%;
+}
+
+#ft {
+	margin-top: 1em;
+	color: gray;
 }
