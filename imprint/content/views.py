@@ -64,7 +64,8 @@ class PieceForm(forms.Form):
             attr = lambda s, d=None: self.data.get(p.replace('order', s), d)
             if attr('image') is not None:
                 part = {'type': 'Image'}
-                fields = ['image', 'cutline', 'photographers', 'artists']
+                fields = ['image', 'cutline', 'photographers', 'artists',
+                        'courtesy']
             elif attr('copy') is not None:
                 part = {'type': 'Text'}
                 fields = ['title', 'copy', 'sources', 'writers']
@@ -123,7 +124,8 @@ class PieceForm(forms.Form):
                     continue
                 part.update({'type': 'Image', 'image': new_path,
                         'image_url': settings.MEDIA_URL + new_path,
-                        'cutline': '', 'photographers': '', 'artists': ''})
+                        'cutline': '', 'photographers': '', 'artists': '',
+                        'courtesy': ''})
                 self.parts.append(part)
             else:
                 errors.append("You may only upload .doc and image files.")

@@ -23,7 +23,9 @@
 		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
 		<ul class="credit">{% for credit in image.credits %}
 			<li>{{ credit }}</li>
-		{% endfor %}</ul>
+		{% endfor %}{% if image.courtesy %}
+			<li>Courtesy {{ image.courtesy }}</li>
+		{% endif %}</ul>
 	{% endwith %}{% endif %}
 	{% endfor %}
 {% endblock %}

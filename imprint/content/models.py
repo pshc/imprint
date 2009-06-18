@@ -120,6 +120,7 @@ class Image(Part):
     image = models.FileField(upload_to=get_image_filename)
     cutline = models.XMLField(blank=True)
     artists = models.ManyToManyField(Contributor, through='Artist')
+    courtesy = models.CharField(max_length=50, blank=True)
 
     def __unicode__(self):
         return self.image.name
