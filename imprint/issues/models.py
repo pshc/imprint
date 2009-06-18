@@ -7,7 +7,7 @@ import os
 
 class Section(models.Model):
     """One section of the newspaper."""
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True,
             help_text="Determines what the name will look like in a URL.")
     editors = models.ManyToManyField(Contributor, through='SectionEditorship',
@@ -15,6 +15,13 @@ class Section(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('section-detail', (), {'slug': self.slug})
+
+    class Meta:
+        ordering = ('name',)
 
 class SectionEditorship(models.Model):
     """Represents one (co/assistant/etc.) editorship position."""
@@ -76,7 +83,12 @@ class Issue(models.Model):
 
     def __unicode__(self):
         return u"Issue %s of volume %s" % (self.number, self.volume)
-    
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('issue-detail', (), {
+            'volume': self.volume, 'number': self.number})
+
     @property
     def media_dir(self):
         dir = os.path.join(self.site.domain, 'vol%02d' % self.volume,

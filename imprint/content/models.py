@@ -29,6 +29,7 @@ class Piece(models.Model):
 
     class Meta:
         unique_together = [('issue', 'headline'), ('issue', 'slug')]
+        ordering = ('-id',) # TODO: Manually specify order somehow...
 
     def __unicode__(self):
         return unescape(strip_tags(self.headline))
@@ -76,6 +77,20 @@ class Text(Part):
     @property
     def credits(self):
         return Writer.objects.filter(text=self)
+
+    PREVIEW_MIN_LENGTH = 100
+    @property
+    def copy_preview(self):
+        """Return a few paragraphs of the copy."""
+        copy = []
+        length = 0
+        paras = self.copy.split('</p>')
+        while length < self.PREVIEW_MIN_LENGTH:
+            p = paras.pop(0)
+            copy.append(p)
+            length += len(p)
+        copy.append('')
+        return '</p>'.join(copy)
 
     @models.permalink
     def get_absolute_url(self):

@@ -10,7 +10,4 @@ def account_profile(request):
     form2 = AuthenticationForm()
     return locals()
 
-def root(request):
-    return HttpResponseRedirect('/accounts/profile/')
-
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

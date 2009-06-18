@@ -8,16 +8,31 @@ body {
 	font-family: Georgia, serif;
 }
 
+a {
+	text-decoration: none;
+	color: navy;
+}
+a:hover { text-decoration: underline; }
+
+#hd h1 { /* logo */
+	background: url("../images/logo.jpg") no-repeat;
+	padding-top: 120px;
+	height: 0px;
+	overflow: hidden;
+}
+
+#nav li { display: inline; }
+#nav li a {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+	padding: 0 0.5em;
+}
+
 h1 {
 	font-size: 300%;
 	letter-spacing: 0.02em;
 }
 
-#hd h1 { /* logo */
-	background: url("../images/logo.jpg") no-repeat;
-	height: 120px;
-}
-#hd h1 span { display: none; }
 
 h2 { /* deck */
 	font-size: 150%;
@@ -38,9 +53,10 @@ h3 {
 
 .copy {
 	margin: 1em 0;
+	font-size: 110%;
+	line-height: 175%;
 }
 .copy p {
-	line-height: 150%;
 	text-align: justify;
 	text-indent: 2.5em;
 }
@@ -49,7 +65,7 @@ p.first { /* :first-child isn't adequate here */
 }
 
 p .drop { /* nor is :first-letter capable; might be several letters */
-	font: normal 6em/0.75em serif;
+	font: normal 6em/0.85em serif;
 	display: block;
 	float: left;
 }
@@ -64,6 +80,10 @@ img {
 }
 
 .credit {
-	font: normal 90%/200% Arial, sans-serif;
+	font: normal 90%/200% Tahoma, sans-serif;
 	text-transform: uppercase;
+}
+
+.preview h1 {
+	font-size: 200%;
 }

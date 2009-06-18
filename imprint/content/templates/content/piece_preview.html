@@ -1,22 +1,12 @@
-{% extends "base.html" %}
-{% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
-{% block right %}
-	{{ block.super }}
-	<p class="section">Section: {{ object.section }}</p>
-{% endblock %}
-{% block content %}
-	<h1>{{ object.headline|safe }}</h1>
+	<div class="preview">
+	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% for part in parts %}
+	{% with object.parts.all.0 as part %}
 	{% if part.text %}{% with part.text as text %}
 		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
 		<div class="copy">
-		{{ text.copy|safe }}
+		{{ text.copy_preview|safe }}
 		</div>
-		<ul class="credit">{% for credit in text.credits %}
-			<li>{{ credit }}</li>
-		{% endfor %}</ul>
-		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
 	{% if part.image %}{% with part.image as image %}
 		<img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.id }}" />
@@ -25,5 +15,5 @@
 			<li>{{ credit }}</li>
 		{% endfor %}</ul>
 	{% endwith %}{% endif %}
-	{% endfor %}
-{% endblock %}
+	{% endwith %}
+	</div>
