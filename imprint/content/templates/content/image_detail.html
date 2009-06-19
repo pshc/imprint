@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load people %}
+{% block header %}{{ object.headline|striptags }} - Image{% endblock %}
+{% block content %}
+	<img src="{{ MEDIA_URL }}{{ object.image.url }}" id="image" />
+	{% if object.cutline %}<label for="image">{{ object.cutline|safe }}</label>{% endif %}
+	<ul class="credit">{% for credit in object.credits %}
+		<li>{% contributor credit.contributor %}</li>
+	{% endfor %}{% if object.courtesy %}
+		<li>Courtesy {{ object.courtesy }}</li>
+	{% endif %}</ul>
+{% endblock %}

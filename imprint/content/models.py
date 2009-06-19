@@ -3,6 +3,7 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.utils.html import strip_tags
 from issues.models import Issue, Section, latest_issue_or
+import os
 from people.models import Contributor
 from utils import unescape
 
@@ -33,7 +34,7 @@ class Piece(models.Model):
     @models.permalink
     def get_absolute_url(self):
         date = self.issue.date
-        return ('content.views.piece_detail', (), {
+        return ('piece-detail', (), {
             'y': date.year, 'm': date.month, 'd': date.day,
             'section': self.section.slug, 'slug': self.slug})
 
@@ -120,6 +121,15 @@ class Image(Part):
     @property
     def credits(self):
         return Artist.objects.filter(image=self)
+
+    @models.permalink
+    def get_absolute_url(self):
+        piece = self.piece
+        date = piece.issue.date
+        return ('image-detail', (), {
+            'y': date.year, 'm': date.month, 'd': date.day,
+            'section': piece.section.slug, 'slug': piece.slug,
+            'image': os.path.basename(self.image.name)})
 
 PHOTOGRAPHER, GRAPHIC_ARTIST = 1, 2
 ARTIST_TYPES = ((PHOTOGRAPHER, u'Photo by (name)'),
