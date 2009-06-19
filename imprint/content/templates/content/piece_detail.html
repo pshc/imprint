@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load people %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
 {% block right %}
 	{{ block.super }}
@@ -14,7 +15,7 @@
 		{{ text.copy|safe }}
 		</div>
 		<ul class="credit">{% for credit in text.credits %}
-			<li>{{ credit }}</li>
+			<li>{% contributor credit.contributor %}</li>
 		{% endfor %}</ul>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
@@ -22,7 +23,7 @@
 		<img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.id }}" />
 		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
 		<ul class="credit">{% for credit in image.credits %}
-			<li>{{ credit }}</li>
+			<li>{% contributor credit.contributor %}</li>
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>

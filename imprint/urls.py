@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'^admin/content/piece/', include('content.admin_urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
+    (r'^people/', include('people.urls')),
     (r'^', include('content.urls')),
     # Must be last
     (r'^', include('issues.urls')),
