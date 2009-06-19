@@ -2,4 +2,7 @@
 {% block content %}
 	<h1>{{ object }}</h1>
 	{% if object.position %}<h2>{{ object.position }}</h2>{% endif %}
+	<ul>{% for piece in pieces %}
+		<li><a href="{{ piece.get_absolute_url }}">{{ piece }}</a></li>
+	{% endfor %}</ul>
 {% endblock %}

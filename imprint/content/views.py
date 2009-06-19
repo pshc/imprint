@@ -143,16 +143,18 @@ class PieceForm(forms.Form):
         except Contributor.DoesNotExist:
             return Contributor.objects.create(name=name, position=position)
 
-    def add_artists(self, image, artists, type):
+    def add_artists(self, image, artists, type, ids):
         for name in (nm.strip() for nm in artists.split(',') if nm.strip()):
             c = self.get_or_create_contributor(name)
+            ids.add(c.id)
             Artist.objects.create(image=image, contributor=c, type=type)
 
-    def add_writers(self, text, writers):
+    def add_writers(self, text, writers, ids):
         for name in (nm.strip() for nm in writers.split(',') if nm.strip()):
             m = re.match(r'^(.+?)\s*\((.+)\)$', name)
             name, position = m.groups() if m else (name, "")
             c = self.get_or_create_contributor(name, position)
+            ids.add(c.id)
             Writer.objects.create(text=text, contributor=c, position=position)
 
     def save(self):
@@ -160,6 +162,7 @@ class PieceForm(forms.Form):
         preserved_fields = ['photographers', 'artists', 'writers']
         piece = Piece(**self.cleaned_data)
         piece.save()
+        ids = set()
         for part in self.parts:
             construct = eval(part['type'])
             for field in deleted_fields:
@@ -172,9 +175,13 @@ class PieceForm(forms.Form):
             # OK, finally actually make this part...
             part = construct(piece=piece, **part)
             part.save()
-            self.add_artists(part, preserved['photographers'], PHOTOGRAPHER)
-            self.add_artists(part, preserved['artists'], GRAPHIC_ARTIST)
-            self.add_writers(part, preserved['writers'])
+            self.add_artists(part, preserved['photographers'], PHOTOGRAPHER,
+                    ids)
+            self.add_artists(part, preserved['artists'], GRAPHIC_ARTIST, ids)
+            self.add_writers(part, preserved['writers'], ids)
+        # Denormalized list of contributors for the whole piece
+        piece.contributors = ids
+        piece.save()
         return piece
 
 @permission_required('content.can_add_piece')

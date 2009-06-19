@@ -19,13 +19,9 @@ class Piece(models.Model):
             default=latest_issue_or(lambda i: i))
     is_live = models.BooleanField(u'Live?', default=True,
             help_text='Public visibility.')
-
-    @property
-    def authors(self):
-        authors = set()
-        for part in self.parts.select_related(): # Inefficient!
-            authors.update(part.author_names)
-        return u", ".join(authors)
+    # Denormalized:
+    contributors = models.ManyToManyField(Contributor, related_name='pieces',
+            editable=False)
 
     class Meta:
         unique_together = [('issue', 'headline'), ('issue', 'slug')]
@@ -69,10 +65,6 @@ class Text(Part):
         if self.title:
             return self.title[:80]
         return unescape(strip_tags(self.copy))[:80]
-
-    @property
-    def author_names(self):
-        return self.authors.values_list('name', flat=True)
 
     @property
     def credits(self):
@@ -125,10 +117,6 @@ class Image(Part):
     def __unicode__(self):
         return self.image.name
 
-    @property
-    def author_names(self):
-        return self.artists.values_list('name', flat=True)
-    
     @property
     def credits(self):
         return Artist.objects.filter(image=self)
