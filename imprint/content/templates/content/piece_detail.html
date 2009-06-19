@@ -3,7 +3,7 @@
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
 {% block right %}
 	{{ block.super }}
-	<p class="section">Section: {{ object.section }}</p>
+	<p>Section: {{ object.section }}</p>
 {% endblock %}
 {% block content %}
 	<h1>{{ object.headline|safe }}</h1>

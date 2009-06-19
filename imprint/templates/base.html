@@ -28,11 +28,12 @@
 		{% block content %}{% endblock %}
 	</div>
 	</div></div></div>
-	<div class="yui-b right" role="complimentary">{% block right %}{% endblock %}
-	</div>
+	<div class="yui-b right" role="contentinfo">{% block right %}
+		<p>{{ issue.date|date:"F j, Y" }}'s issue</p>
+	{% endblock %}</div>
 	</div>
 
-	<div id="ft" role="contentinfo">
+	<div id="ft">
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
 		{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
 	</div>

@@ -54,9 +54,8 @@ h3 {
 	margin-top: 1em;
 }
 
-.section {
+div.right p {
 	text-align: right;
-	font-style: oblique;
 }
 
 .copy {

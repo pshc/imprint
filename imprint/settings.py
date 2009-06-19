@@ -30,6 +30,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django_authopenid.context_processors.authopenid',
     'utils.context_processors.current_site',
+    'issues.context_processors.latest_issue',
 )
 
 FILE_UPLOAD_HANDLERS = (
