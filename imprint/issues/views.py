@@ -12,8 +12,11 @@ def issue_detail(request, volume, number):
 
 @renders('issues/issue_detail.html')
 def latest_issue(request):
-    object = issue = Issue.objects.latest_issue()
-    pieces = issue.pieces.all()[:5]
+    try:
+        object = issue = Issue.objects.latest_issue()
+        pieces = issue.pieces.all()[:5]
+    except Issue.DoesNotExist:
+        pass
     return locals()
 
 @renders('issues/section_detail.html')
