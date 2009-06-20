@@ -46,13 +46,13 @@ class SectionEditorship(models.Model):
 class IssueManager(CurrentSiteManager):
     def latest_issue(self):
         try:
-            return super(IssueManager, self).all()[0]
+            return super(IssueManager, self).filter(is_live=True)[0]
         except IndexError:
             raise self.model.DoesNotExist
 
     def get_by_date(self, y, m, d):
         date = datetime.date(int(y), int(m), int(d))
-        return get_object_or_404(self.model, date__exact=date)
+        return get_object_or_404(self.model, date__exact=date, is_live=True)
 
 def latest_issue_or(f, default=None):
     """Returns a function that applies `f` to the latest issue if there is one,
@@ -76,6 +76,7 @@ class Issue(models.Model):
             default=latest_issue_or(lambda i: i.number + 1, 1))
     volume = models.PositiveSmallIntegerField(db_index=True,
             default=latest_issue_or(lambda i: i.volume, 32))
+    is_live = models.BooleanField('Live', default=False)
     site = models.ForeignKey(Site, related_name='issues',
             default=Site.objects.get_current)
     sections = models.ManyToManyField(Section, related_name='issues',

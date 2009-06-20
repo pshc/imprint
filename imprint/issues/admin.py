@@ -2,7 +2,7 @@ from django.contrib import admin
 from issues.models import Issue, Section, SectionEditorship
 
 class IssueAdmin(admin.ModelAdmin):
-    fields = ('date', 'number', 'volume', 'sections')
+    fields = ('date', 'is_live', 'number', 'volume', 'sections')
     filter_horizontal = ['sections']
 
 class EditorshipInline(admin.TabularInline):
