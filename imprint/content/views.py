@@ -18,6 +18,31 @@ from utils import renders, unescape
 text_input = lambda: forms.TextInput(attrs={'class': 'vTextField'})
 small_input = lambda: forms.TextInput(attrs={'class': 'vSmallField'})
 
+def extract_name_and_position(name):
+    m = re.match(r'^\s*(.+?)\s*\((.+)\)\s*$', name)
+    return m.groups() if m else (name, "")
+
+def get_or_create_contributor(name, position):
+    """Not quite the same as Contributor.objects.get_or_create(...)."""
+    try:
+        return Contributor.objects.get(name__iexact=name)
+    except Contributor.DoesNotExist:
+        return Contributor.objects.create(name=name, position=position)
+
+def add_artists(image, artists, type, ids):
+    for name, pos in (extract_name_and_position(nm)
+                      for nm in artists.split(',') if nm.strip()):
+        c = get_or_create_contributor(name, pos)
+        ids.add(c.id)
+        Artist.objects.create(image=image, contributor=c, type=type)
+
+def add_bylines(text, bylines, ids):
+    for name, pos in (extract_name_and_position(nm)
+                      for nm in bylines.split(',') if nm.strip()):
+        c = get_or_create_contributor(name, pos)
+        ids.add(c.id)
+        Byline.objects.create(text=text, contributor=c, position=pos)
+
 class PieceForm(forms.Form):
     headline = forms.CharField(max_length=100, widget=text_input())
     slug = forms.SlugField(max_length=100, widget=text_input())
@@ -45,12 +70,12 @@ class PieceForm(forms.Form):
     def part_cmp(self, p1, p2):
         return cmp(int(self.data[p1]), int(self.data[p2]))
 
-    def format_writer(self, writer):
-        if isinstance(writer, tuple):
-            if writer[1]: # Position?
-                return u'%s (%s)' % tuple(map(unescape, writer))
-            writer = writer[0]
-        return unescape(writer)
+    def format_byline(self, byline):
+        if isinstance(byline, tuple):
+            if byline[1]: # Position?
+                return u'%s (%s)' % tuple(map(unescape, byline))
+            byline = byline[0]
+        return unescape(byline)
 
     def clean(self):
         data = self.cleaned_data
@@ -68,7 +93,7 @@ class PieceForm(forms.Form):
                         'courtesy']
             elif attr('copy') is not None:
                 part = {'type': 'Text'}
-                fields = ['title', 'copy', 'sources', 'writers']
+                fields = ['title', 'copy', 'sources', 'bylines']
             else:
                 continue
             part.update(dict((field, attr(field, '')) for field in fields))
@@ -98,13 +123,13 @@ class PieceForm(forms.Form):
                         errors.append("Omitted an empty section of %s."
                                 % file.name)
                         continue
-                    writers = map(self.format_writer, doc.get('bylines', []))
+                    bylines = map(self.format_byline, doc.get('bylines', []))
                     order += 1
                     self.parts.append({'type': 'Text', 'order': order,
                         'class': 'errors', 'name': 'part%02d' % order,
                         'title': doc.get('title', ''), 'copy': doc['copy'],
                         'sources': unescape(doc.get('sources', '')),
-                        'writers': ', '.join(writers)})
+                        'bylines': ', '.join(bylines)})
 
             elif ext in ('gif', 'jpg', 'jpeg', 'png', 'tiff'):
                 order += 1
@@ -136,30 +161,9 @@ class PieceForm(forms.Form):
             raise forms.ValidationError(errors)
         return data
 
-    def get_or_create_contributor(self, name, position=""):
-        """Not quite the same as Contributor.objects.get_or_create(...)."""
-        try:
-            return Contributor.objects.get(name__iexact=name)
-        except Contributor.DoesNotExist:
-            return Contributor.objects.create(name=name, position=position)
-
-    def add_artists(self, image, artists, type, ids):
-        for name in (nm.strip() for nm in artists.split(',') if nm.strip()):
-            c = self.get_or_create_contributor(name)
-            ids.add(c.id)
-            Artist.objects.create(image=image, contributor=c, type=type)
-
-    def add_writers(self, text, writers, ids):
-        for name in (nm.strip() for nm in writers.split(',') if nm.strip()):
-            m = re.match(r'^(.+?)\s*\((.+)\)$', name)
-            name, position = m.groups() if m else (name, "")
-            c = self.get_or_create_contributor(name, position)
-            ids.add(c.id)
-            Writer.objects.create(text=text, contributor=c, position=position)
-
     def save(self):
         deleted_fields = ['type', 'name']
-        preserved_fields = ['photographers', 'artists', 'writers']
+        preserved_fields = ['photographers', 'artists', 'bylines']
         piece = Piece(**self.cleaned_data)
         piece.save()
         ids = set()
@@ -175,10 +179,9 @@ class PieceForm(forms.Form):
             # OK, finally actually make this part...
             part = construct(piece=piece, **part)
             part.save()
-            self.add_artists(part, preserved['photographers'], PHOTOGRAPHER,
-                    ids)
-            self.add_artists(part, preserved['artists'], GRAPHIC_ARTIST, ids)
-            self.add_writers(part, preserved['writers'], ids)
+            add_artists(part, preserved['photographers'], PHOTOGRAPHER, ids)
+            add_artists(part, preserved['artists'], GRAPHIC_ARTIST, ids)
+            add_bylines(part, preserved['bylines'], ids)
         # Denormalized list of contributors for the whole piece
         piece.contributors = ids
         piece.save()

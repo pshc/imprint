@@ -53,7 +53,7 @@ class Text(Part):
     title = models.CharField(max_length=200, blank=True,
             help_text='Optional title for this section of text')
     copy = models.XMLField()
-    writers = models.ManyToManyField(Contributor, through='Writer')
+    writers = models.ManyToManyField(Contributor, through='Byline')
     sources = models.CharField(max_length=200, blank=True,
             help_text='Appears as "With files from ..."')
 
@@ -68,8 +68,8 @@ class Text(Part):
         return unescape(strip_tags(self.copy))[:80]
 
     @property
-    def credits(self):
-        return Writer.objects.filter(text=self)
+    def bylines(self):
+        return Byline.objects.filter(text=self)
 
     PREVIEW_MIN_LENGTH = 100
     @property
@@ -94,7 +94,7 @@ class Text(Part):
         return ('piece-detail', [d.year, d.month, d.day,
                 self.section.slug, self.slug])
 
-class Writer(models.Model):
+class Byline(models.Model):
     """Represents credit for some text content."""
     contributor = models.ForeignKey(Contributor)
     text = models.ForeignKey(Text)

@@ -192,17 +192,17 @@ $(document).ready(function () {
 			{{ part.copy|safe }}
 			<input type="hidden" name="{{ part.name }}-copy" value="{{ part.copy }}" />
 		</div></div>
-		<div class="form-row writers {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-writers">Writers:</label>
-			<input name="{{ part.name }}-writers" id="id_{{ part.name }}-writers" class="vTextField" type="text" value="{{ part.writers }}" />
+		<div class="form-row bylines {{ part.class }}"><div>
+			<label for="id_{{ part.name }}-bylines">Bylines:</label>
+			<input name="{{ part.name }}-bylines" id="id_{{ part.name }}-bylines" class="vTextField" type="text" value="{{ part.bylines }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
-			<input id="id_{{ part.name }}-writers-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-writers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<input id="id_{{ part.name }}-bylines-dummy" type="hidden" />
+			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.<p>
 		</div></div>
 		<script type="text/javascript">
 		$(document).ready(function () {
-			makeAutoCompleteInput($("#id_{{ part.name }}-writers"), true);
+			makeAutoCompleteInput($("#id_{{ part.name }}-bylines"), true);
 		});
 		</script>
 

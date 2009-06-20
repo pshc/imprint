@@ -14,8 +14,8 @@
 		<div class="copy">
 		{{ text.copy|safe }}
 		</div>
-		<ul class="credit">{% for credit in text.credits %}
-			<li>{% contributor credit.contributor %}</li>
+		<ul class="credit">{% for byline in text.bylines %}
+			<li>{% contributor_link byline.contributor %}</li>
 		{% endfor %}</ul>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
@@ -23,7 +23,7 @@
 		<a href="{{ image.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.order }}" /></a>
 		{% if image.cutline %}<label for="image{{ image.order }}">{{ image.cutline|safe }}</label>{% endif %}
 		<ul class="credit">{% for credit in image.credits %}
-			<li>{% contributor credit.contributor %}</li>
+			<li>{% contributor_link credit.contributor %}</li>
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
