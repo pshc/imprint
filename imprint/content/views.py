@@ -242,12 +242,9 @@ def piece_admin(request):
     return locals()
 
 def resolve_piece(y, m, d, section, slug):
-    date = datetime.date(int(y), int(m), int(d))
-    issue = get_object_or_404(Issue, date__exact=date)
+    issue = Issue.objects.get_by_date(y, m, d)
     piece = get_object_or_404(Piece, issue=issue, section__slug=section,
-            slug=slug)
-    if not piece.is_live:
-        raise Http404
+            slug=slug, is_live=True)
     return issue, piece
 
 @renders('content/piece_detail.html')
@@ -264,6 +261,5 @@ def image_detail(request, y, m, d, section, slug, image):
     image = os.path.join(issue.media_dir, image)
     object = get_object_or_404(Image, piece=piece, image=image)
     return locals()
-
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

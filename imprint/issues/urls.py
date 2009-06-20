@@ -3,8 +3,9 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('issues.views',
     url(r'^$', 'latest_issue', name='latest-issue'),
-    url(r'^vol(?P<volume>\d+)/issue(?P<number>\d+)/$', 'issue_detail', name='issue-detail'),
+    url(r'^(\d{4})/(\d\d?)/(\d\d?)/$', 'issue_detail', name='issue-detail'),
+    url(r'^(\d{4})/(\d\d?)/(\d\d?)/([^/]+)/$', 'section_detail', name='section-detail'),
     # Should be last
-    url(r'^(?P<slug>[^/]+)/$', 'section_detail', name='section-detail'),
+    url(r'^(?P<slug>[^/]+)/$', 'section_latest_issue', name='section-latest-issue'),
 )
 

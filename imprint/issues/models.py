@@ -1,7 +1,9 @@
+import datetime
 from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db import models
+from django.shortcuts import get_object_or_404
 from people.models import Contributor
 import os
 
@@ -18,7 +20,7 @@ class Section(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('section-detail', (), {'slug': self.slug})
+        return ('section-latest-issue', (), {'slug': self.slug})
 
     class Meta:
         ordering = ('name',)
@@ -46,7 +48,11 @@ class IssueManager(CurrentSiteManager):
         try:
             return super(IssueManager, self).all()[0]
         except IndexError:
-            raise Issue.DoesNotExist
+            raise self.model.DoesNotExist
+
+    def get_by_date(self, y, m, d):
+        date = datetime.date(int(y), int(m), int(d))
+        return get_object_or_404(self.model, date__exact=date)
 
 def latest_issue_or(f, default=None):
     """Returns a function that applies `f` to the latest issue if there is one,
@@ -86,8 +92,7 @@ class Issue(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('issue-detail', (), {
-            'volume': self.volume, 'number': self.number})
+        return ('issue-detail', self.date.timetuple()[:3])
 
     @property
     def media_dir(self):
