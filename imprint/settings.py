@@ -39,10 +39,14 @@ FILE_UPLOAD_HANDLERS = (
 
 ROOT_URLCONF = 'imprint.urls'
 
+COMMENTS_APP = 'imprint.nested_comments'
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
+    'imprint.nested_comments',
+    'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.humanize',
     'django.contrib.sessions',

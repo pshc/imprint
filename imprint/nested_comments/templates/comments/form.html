@@ -1,0 +1,22 @@
+{% load comments i18n %}
+<style>#th_url { text-indent: -9001em; }</style>
+<form action="{% comment_form_target %}" method="post">
+{% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+<table>
+  {% if form.errors %}
+  <tr><th></th><td><strong>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</strong></td></tr>{% endif %}
+  {% for field in form %}
+    {% if field.is_hidden %}
+      {{ field }}
+    {% else %}
+      {% if field.errors %}<tr><th></th><td>{{ field.errors }}</td>{% endif %}
+      <tr id="tr_{{ field.name }}"{% if field.errors %} class="error"{% endif %}>
+        <th>{{ field.label_tag }}</th><td>{{ field }}</td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+  <tr class="submit">
+    <th></th><td><input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" /></td>
+  </tr>
+</table>
+</form>

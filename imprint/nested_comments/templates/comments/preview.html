@@ -1,0 +1,7 @@
+{% extends "comments/base.html" %}
+{% block content %}
+{% if parent %}<p>Replying to a comment by {{ parent.user_name }}:</p>
+<p>{{ parent.comment|linebreaksbr }}</p>
+{% endif %}
+{% include "comments/form.html" %}
+{% endblock %}
