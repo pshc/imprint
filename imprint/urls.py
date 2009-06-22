@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
+from django.views.generic.simple import direct_to_template
 
 admin.autodiscover()
 
@@ -14,6 +15,8 @@ urlpatterns = patterns('',
     (r'^comments/', include('nested_comments.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^people/', include('people.urls')),
+    (r'^robots.txt$', direct_to_template, {'template': 'robots.txt',
+                                           'mimetype': 'text/plain'}),
     (r'^', include('content.urls')),
     # Must be last
     (r'^', include('issues.urls')),
