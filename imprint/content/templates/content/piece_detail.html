@@ -10,13 +10,15 @@
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for part in parts %}
 	{% if part.text %}{% with part.text as text %}
+		<ul class="credit">{% for byline in text.bylines %}
+			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
+			{{ byline.position }}{% endif %}
+			</li>
+		{% endfor %}</ul>
 		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
 		<div class="copy">
 		{{ text.copy|safe }}
 		</div>
-		<ul class="credit">{% for byline in text.bylines %}
-			<li>{% contributor_link byline.contributor %}</li>
-		{% endfor %}</ul>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
 	{% if part.image %}{% with part.image as image %}

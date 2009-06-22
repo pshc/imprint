@@ -99,6 +99,10 @@ img {
 	text-transform: uppercase;
 }
 
+.credit a {
+	font-weight: bold;
+}
+
 .preview h1 {
 	font-size: 200%;
 }
