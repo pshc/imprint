@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django_authopenid',
+    'imprint.advertising',
     'imprint.content',
     'imprint.issues',
     'imprint.people',

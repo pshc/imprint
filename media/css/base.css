@@ -107,3 +107,6 @@ img {
 	margin-top: 1em;
 	color: gray;
 }
+
+.ad { text-align: center; }
+.ad a { margin: 0 auto; }
