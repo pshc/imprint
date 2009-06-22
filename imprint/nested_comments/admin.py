@@ -5,10 +5,10 @@ from nested_comments.models import NestedComment
 class NestedCommentsAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Content',
-           {'fields': ('user', 'user_name', 'user_email', 'user_url', 'comment')}
+           {'fields': ('user', 'user_name', 'user_email', 'comment')}
         ),
         ('Metadata',
-           {'fields': ('submit_date', 'ip_address', 'is_public', 'is_removed')}
+           {'fields': ('submit_date', 'ip_address', 'is_removed')}
         ),
      )
 
