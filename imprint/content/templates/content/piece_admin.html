@@ -1,7 +1,7 @@
 {% extends "content/base_admin.html" %}
 {% load i18n %}
 
-{% block stylesheet %}{% load adminmedia %}{% admin_media_prefix %}css/changelists.css{% endblock %}
+{% block extrastyle %}{% load adminmedia %}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />{% endblock %}
 
 {% block bodyclass %}change-list{% endblock %}
 
