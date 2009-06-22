@@ -40,7 +40,7 @@
 	<div id="ft">
 		<div class="ad">{% random_image_ad 3 %}</div>
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
-		{% if debug %}<code>{{ sql_queries }}</code>{% endif %}
+		{% if debug %}{% include "debug_queries.html" %}{% endif %}
 	</div>
 </div>
 </body>
