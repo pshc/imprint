@@ -2,7 +2,7 @@ from django.contrib import admin
 from advertising.models import ImageAd
 
 class ImageAdAdmin(admin.ModelAdmin):
-    fieldsets = ((None, {'fields': ['image', 'type', 'url']}),
+    fieldsets = ((None, {'fields': ['image', 'type', 'url', 'is_active']}),
                  ('Optional', {'fields': ['caption', 'client']}))
     list_display = ('image_filename', 'client', 'url', 'type', 'hits', 'is_active')
     list_filter = ('is_active', 'type')

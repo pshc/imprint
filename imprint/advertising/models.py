@@ -26,7 +26,7 @@ class ImageAd(models.Model):
     image = models.ImageField(upload_to=get_ad_dir)
     type = models.PositiveSmallIntegerField(choices=AD_TYPES, db_index=True)
     url = models.URLField(help_text='Destination URL for this ad.')
-    is_active = models.BooleanField(default=True, db_index=True)
+    is_active = models.BooleanField('Active', default=True, db_index=True)
     caption = models.CharField(max_length=100, blank=True,
             help_text='Alternate text displayed while/if the image loads.')
     client = models.CharField(max_length=50, blank=True,
