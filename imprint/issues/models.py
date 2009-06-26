@@ -2,6 +2,7 @@ import datetime
 from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
+from django.db.models.signals import post_save, post_delete
 from django.db import models
 from django.shortcuts import get_object_or_404
 from people.models import Contributor
@@ -42,11 +43,15 @@ class SectionEditorship(models.Model):
     def __unicode__(self):
         return "%s, %s" % (self.contributor, self.title)
 
-
 class IssueManager(CurrentSiteManager):
     def latest_issue(self):
+        global CACHED_LATEST_ISSUE
+        if CACHED_LATEST_ISSUE:
+            return CACHED_LATEST_ISSUE
         try:
-            return super(IssueManager, self).filter(is_live=True)[0]
+            CACHED_LATEST_ISSUE = super(IssueManager, self).filter(
+                    is_live=True)[0]
+            return CACHED_LATEST_ISSUE
         except IndexError:
             raise self.model.DoesNotExist
 
@@ -115,5 +120,16 @@ class Issue(models.Model):
             # File with this name already exists...
             base, ext = os.path.splitext(filename)
             filename = base + '_' + ext
+
+# This is so commonly used, we'll just cache it right here
+CACHED_LATEST_ISSUE = None
+def clear_issue_cache(*args, **kwargs):
+    CACHED_LATEST_ISSUE = None
+
+# Keep it fresh
+for m in [Issue, Section, Site]:
+    post_save.connect(clear_issue_cache, sender=m)
+    post_delete.connect(clear_issue_cache, sender=m)
+del m
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
