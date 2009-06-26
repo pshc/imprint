@@ -14,12 +14,19 @@ class PieceManager(models.Manager):
         piece = get_object_or_404(Piece, issue=issue, section__slug=section,
                 slug=slug, is_live=True)
         for part in piece.parts:
-            if part.text:
+            # Poor man's downcast...
+            try:
                 dummy = list(part.text.bylines)
                 part.type = 'text'
-            elif part.image:
+                continue
+            except Text.DoesNotExist:
+                pass
+            try:
                 dummy = list(part.image.credits)
                 part.type = 'image'
+                continue
+            except Image.DoesNotExist:
+                pass
         return piece
 
 class Piece(models.Model):
