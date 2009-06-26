@@ -69,7 +69,7 @@ class Text(Part):
 
     @property
     def bylines(self):
-        return Byline.objects.filter(text=self)
+        return Byline.objects.filter(text=self).select_related('contributor')
 
     PREVIEW_MIN_LENGTH = 100
     @property
@@ -120,7 +120,7 @@ class Image(Part):
 
     @property
     def credits(self):
-        return Artist.objects.filter(image=self)
+        return Artist.objects.filter(image=self).select_related('contributor')
 
     @models.permalink
     def get_absolute_url(self):
