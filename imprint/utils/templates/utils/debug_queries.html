@@ -1,3 +1,5 @@
+
+{% load debug_utils %}
 <style>
 #debug td { padding: 5px; }
 </style>
@@ -6,8 +8,7 @@
   <p>
     {{ sql_queries|length }} Quer{{ sql_queries|pluralize:"y,ies" }}
     {% ifnotequal sql_queries|length 0 %}
-    (<span style="cursor: pointer;" onclick="var 
-s=document.getElementById('debugQueryTable').style;s.display=s.display=='none'?'':'none';this.innerHTML=this.innerHTML=='Show'?'Hide':'Show';">Show</span>)
+    (<span style="cursor: pointer;" onclick="$('#debugQueryTable').toggle();">Show</span>)
     {% endifnotequal %}
   </p>
   <table id="debugQueryTable" style="display: none;">
@@ -24,7 +25,7 @@ s=document.getElementById('debugQueryTable').style;s.display=s.display=='none'?'
     <tbody>
     {% for query in sql_queries %}<tr class="{% cycle odd,even %}">
       <td>{{ forloop.counter }}</td>
-      <td>{{ query.sql|escape }}</td>
+      <td>{{ query.sql|togglesqlfields }}</td>
       <td>{{ query.time }}</td>
     </tr>{% endfor %}
     </tbody>
