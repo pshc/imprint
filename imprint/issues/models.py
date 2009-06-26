@@ -7,6 +7,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from people.models import Contributor
 import os
+from utils import cache_with_key
 
 class Section(models.Model):
     """One section of the newspaper."""
@@ -55,9 +56,12 @@ class IssueManager(CurrentSiteManager):
         except IndexError:
             raise self.model.DoesNotExist
 
+    @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%d/%d' % (
+            Site.objects.get_current().id, int(y), int(m), int(d)))
     def get_by_date(self, y, m, d):
         date = datetime.date(int(y), int(m), int(d))
-        return get_object_or_404(self.model, date__exact=date, is_live=True)
+        return get_object_or_404(self.model, date__exact=date, is_live=True,
+                site=Site.objects.get_current())
 
 def latest_issue_or(f, default=None):
     """Returns a function that applies `f` to the latest issue if there is one,

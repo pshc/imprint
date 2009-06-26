@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.core.xheaders import populate_xheaders
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -32,5 +33,20 @@ def unescape(html):
         html = str(html)
     return html.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;',
             '>').replace('&quot;', '"').replace('&#39;',"'")
+
+def cache_with_key(key_func, not_found=object()):
+    def decorate(f):
+        def decorated(*args, **kwargs):
+            key = key_func(*args, **kwargs)
+            cached = cache.get(key, not_found)
+            if cached is not not_found:
+                return cached
+            ret = f(*args, **kwargs)
+            cache.set(key, ret)
+            return ret
+        decorated.__name__ = f.__name__
+        decorated.__module__ = f.__module__
+        return decorated
+    return decorate
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

@@ -8,6 +8,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Don't use locmem in production!
+CACHE_BACKEND = 'locmem:///'
+
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'sqlite.db'
 DATABASE_USER = ''
