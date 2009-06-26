@@ -1,14 +1,30 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
+from django.shortcuts import get_object_or_404
 from django.utils.html import strip_tags
 from issues.models import Issue, Section, latest_issue_or
 import os
 from people.models import Contributor
-from utils import unescape
+from utils import unescape, cache_with_key
+
+class PieceManager(models.Manager):
+    @cache_with_key(lambda _, i, s, sl: 'piece/issue%d/%s/%s' % (i.id, s, sl))
+    def get_by_issue_section_slug(self, issue, section, slug):
+        piece = get_object_or_404(Piece, issue=issue, section__slug=section,
+                slug=slug, is_live=True)
+        for part in piece.parts:
+            if part.text:
+                dummy = list(part.text.bylines)
+                part.type = 'text'
+            elif part.image:
+                dummy = list(part.image.credits)
+                part.type = 'image'
+        return piece
 
 class Piece(models.Model):
     """Block of content in the paper. Holds text and images."""
+    objects = PieceManager()
     headline = models.CharField(max_length=100,
             help_text="Markup is OK.")
     slug = models.SlugField(max_length=100, db_index=True,
@@ -38,10 +54,16 @@ class Piece(models.Model):
             'y': date.year, 'm': date.month, 'd': date.day,
             'section': self.section.slug, 'slug': self.slug})
 
+    @property
+    def parts(self):
+        if not hasattr(self, '_parts'):
+            self._parts = list(self.part_set.all())
+        return self._parts
+
 class Part(models.Model):
     """One unit of content, part of a piece."""
     order = models.PositiveSmallIntegerField(db_index=True)
-    piece = models.ForeignKey(Piece, related_name='parts')
+    piece = models.ForeignKey(Piece, related_name='part_set')
 
     def __unicode__(self):
         return u"#%d" % self.order
@@ -69,7 +91,10 @@ class Text(Part):
 
     @property
     def bylines(self):
-        return Byline.objects.filter(text=self).select_related('contributor')
+        if not hasattr(self, '_bylines'):
+            self._bylines = list(Byline.objects.filter(text=self)
+                    .select_related('contributor'))
+        return self._bylines
 
     PREVIEW_MIN_LENGTH = 100
     @property
@@ -120,7 +145,10 @@ class Image(Part):
 
     @property
     def credits(self):
-        return Artist.objects.filter(image=self).select_related('contributor')
+        if not hasattr(self, '_credits'):
+            self._credits = list(Artist.objects.filter(image=self)
+                    .select_related('contributor'))
+        return self._credits
 
     @models.permalink
     def get_absolute_url(self):

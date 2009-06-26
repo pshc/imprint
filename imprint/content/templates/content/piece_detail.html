@@ -9,7 +9,7 @@
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for part in parts %}
-	{% if part.text %}{% with part.text as text %}
+	{% ifequal part.type "text" %}{% with part.text as text %}
 		<ul class="credit">{% for byline in text.bylines %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
@@ -20,8 +20,8 @@
 		{{ text.copy|safe }}
 		</div>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
-	{% endwith %}{% endif %}
-	{% if part.image %}{% with part.image as image %}
+	{% endwith %}{% endifequal %}
+	{% ifequal part.type "image" %}{% with part.image as image %}
 		<a href="{{ image.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.order }}" /></a>
 		{% if image.cutline %}<label for="image{{ image.order }}">{{ image.cutline|safe }}</label>{% endif %}
 		<ul class="credit">{% for credit in image.credits %}
@@ -29,6 +29,6 @@
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
-	{% endwith %}{% endif %}
+	{% endwith %}{% endifequal %}
 	{% endfor %}
 {% endblock %}

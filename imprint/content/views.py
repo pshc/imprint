@@ -244,23 +244,19 @@ def piece_admin(request):
         pieces_count = pieces.count()
     return locals()
 
-def resolve_piece(y, m, d, section, slug):
-    issue = Issue.objects.get_by_date(y, m, d)
-    piece = get_object_or_404(Piece, issue=issue, section__slug=section,
-            slug=slug, is_live=True)
-    return issue, piece
-
 @renders('content/piece_detail.html')
 def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece."""
-    issue, object = resolve_piece(y, m, d, section, slug)
-    parts = object.parts.all()
+    issue = Issue.objects.get_by_date(y, m, d)
+    object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
+    parts = object.parts
     return locals()
 
 @renders('content/image_detail.html')
 def image_detail(request, y, m, d, section, slug, image):
     """Display the image in full resolution with comments."""
-    issue, piece = resolve_piece(y, m, d, section, slug)
+    issue = Issue.objects.get_by_date(y, m, d)
+    piece = Piece.objects.get_by_issue_section_slug(issue, section, slug)
     image = os.path.join(issue.media_dir, image)
     object = get_object_or_404(Image, piece=piece, image=image)
     return locals()

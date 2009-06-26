@@ -1,7 +1,7 @@
 	<div class="preview">
 	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% with object.parts.all.0 as part %}
+	{% with object.parts.0 as part %}
 	{% if part.text %}{% with part.text as text %}
 		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
 		<div class="copy">
