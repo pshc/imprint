@@ -104,16 +104,18 @@ class Issue(models.Model):
     def get_absolute_url(self):
         return ('issue-detail', self.date.timetuple()[:3])
 
-    @property
-    def media_dir(self):
-        dir = os.path.join(self.site.domain, 'vol%02d' % self.volume,
-                'issue%02d' % self.number)
+    def save(self, **kwargs):
+        super(Issue, self).save(**kwargs)
         try:
-            os.makedirs(os.path.join(settings.MEDIA_ROOT, dir))
+            os.makedirs(os.path.join(settings.MEDIA_ROOT, self.media_dir))
         except OSError, e:
             if e.errno != 17:
                 raise
-        return dir
+
+    @property
+    def media_dir(self):
+        return os.path.join(self.site.domain, 'vol%02d' % self.volume,
+                'issue%02d' % self.number)
 
     def get_subdir_filename(self, filename):
         dir = self.media_dir
