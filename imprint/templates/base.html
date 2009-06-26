@@ -12,9 +12,7 @@
 <div id="doc4" class="yui-t4">
 	<div id="hd" role="banner">
 		<a href="/"><h1>{{ site.name }}</h1></a>
-		{% load issues %}<ul id="nav">{% if request.user.is_staff %}
-			<li><a href="/admin/">Admin</a></li>
-			{% endif %}{% for nav in issue.sections.all %}
+		{% load issues %}<ul id="nav">{% for nav in issue.sections.all %}
 			<li>{% section_link nav %}</li>{% endfor %}
 		</ul>
 	</div>
@@ -22,7 +20,8 @@
 	<div id="bd" role="main"><div id="yui-main">
 	<div class="yui-b"><div class="yui-gf">
 	<div class="yui-u first left">{% load advertising %}
-		<div class="ad">{% random_image_ad 1 %}</div>
+		{% block left_ad %}<div class="ad">{% random_image_ad 1 %}</div>{% endblock %}
+		{% include "registration/sidebar.html" %}
 		{% block left %}{% endblock %}
 	</div>
 	<div class="yui-u">
@@ -31,17 +30,17 @@
 	</div>
 	</div></div></div>
 	<div class="yui-b right" role="contentinfo">{% block right %}
-		<p>{{ issue.date|date:"F j, Y" }}'s issue</p>
+		{% include "issues/sidebar.html" %}
 		{% endblock %}
-		<div class="ad">{% random_image_ad 2 %}</div>
+		{% block right_ad %}<div class="ad">{% random_image_ad 2 %}</div>{% endblock %}
 	</div>
 	</div>
 
 	<div id="ft">
-		<div class="ad">{% random_image_ad 3 %}</div>
+		{% block bottom_ad %}<div class="ad">{% random_image_ad 3 %}</div>{% endblock %}
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
 		{% if debug %}{% include "utils/debug_queries.html" %}{% endif %}
 	</div>
 </div>
 </body>
-</html>
+</html>{# vi: set syntax=htmldjango: #}
