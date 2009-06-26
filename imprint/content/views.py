@@ -131,7 +131,7 @@ class PieceForm(forms.Form):
                         'sources': unescape(doc.get('sources', '')),
                         'bylines': ', '.join(bylines)})
 
-            elif ext in ('gif', 'jpg', 'jpeg', 'png', 'tiff'):
+            elif ext in ('gif', 'jpg', 'jpeg', 'png'):
                 order += 1
                 part = {'order': order, 'name': 'part%02d' % order,
                         'class': 'errors'}
