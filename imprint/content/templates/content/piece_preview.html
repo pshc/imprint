@@ -1,17 +1,21 @@
-	<div class="preview">
+	<div class="preview">{% load content %}
 	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% with object.parts.0 as part %}
-	{% if part.text %}{% with part.text as text %}
+	{% for part in object.preview %}
+	{% if part.is_text %}{% with part.text as text %}
 		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
 		<div class="copy">
 		{{ text.copy_preview|safe }}
 		</div>
 	{% endwith %}{% endif %}
-	{% if part.image %}{% with part.image as image %}
-		<img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.id }}" />
-		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
+	{% if part.is_image %}{% with part.image as image %}
+		{% ifequal image.prominence "all" %}<div class="image">
+			<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
+			{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
+		</div>{% else %}<div class="sideimage">
+			{% thumbnail image %}
+		</div>{% endifequal %}
 	{% endwith %}{% endif %}
-	{% endwith %}
-	</div>
+	{% endfor %}
+	</div>{# vi: set syntax=htmldjango: #}
 	{% if forloop and not forloop.last %}<hr />{% endif %}

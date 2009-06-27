@@ -13,20 +13,6 @@ class PieceManager(models.Manager):
     def get_by_issue_section_slug(self, issue, section, slug):
         piece = get_object_or_404(Piece, issue=issue, section__slug=section,
                 slug=slug, is_live=True)
-        for part in piece.parts:
-            # Poor man's downcast...
-            try:
-                dummy = list(part.text.bylines)
-                part.type = 'text'
-                continue
-            except Text.DoesNotExist:
-                pass
-            try:
-                dummy = list(part.image.credits)
-                part.type = 'image'
-                continue
-            except Image.DoesNotExist:
-                pass
         return piece
 
 class Piece(models.Model):
@@ -65,18 +51,57 @@ class Piece(models.Model):
     def parts(self):
         if not hasattr(self, '_parts'):
             self._parts = list(self.part_set.all())
+            for part in self._parts:
+                if part.type is Text:
+                    dummy = list(part.text.bylines)
+                elif part.type is Image:
+                    dummy = list(part.image.credits)
         return self._parts
+
+    @property
+    def preview(self):
+        if not self.parts:
+            return []
+        first = self.parts[0]
+        if first.type is Image:
+            first.image.prominence = 'all' if len(self.parts) == 1 \
+                                           else 'featured'
+        elif first.type is Text:
+            if len(self.parts) > 1:
+                second = self.parts[1]
+                if second.type is Image:
+                    second.image.prominence = 'featured'
+                    return [first, second]
+        return [first]
 
 class Part(models.Model):
     """One unit of content, part of a piece."""
     order = models.PositiveSmallIntegerField(db_index=True)
     piece = models.ForeignKey(Piece, related_name='part_set')
+    prominence = None
 
     def __unicode__(self):
         return u"#%d" % self.order
 
     class Meta:
         ordering = ['order']
+
+    @property
+    def type(self):
+        if not hasattr(self, '_type'):
+            # Poor man's downcast
+            try:
+                self._type = type(self.text)
+            except Text.DoesNotExist:
+                pass
+            try:
+                self._type = type(self.image)
+            except Image.DoesNotExist:
+                pass
+        return self._type
+
+    is_image = property(lambda s: s.type is Image)
+    is_text = property(lambda s: s.type is Text)
 
 class Text(Part):
     title = models.CharField(max_length=200, blank=True,
@@ -142,7 +167,7 @@ def get_image_filename(instance, filename):
     return get_issue_subdir_filename(instance.piece.issue, filename)
 
 class Image(Part):
-    image = models.FileField(upload_to=get_image_filename)
+    image = models.ImageField(upload_to=get_image_filename)
     cutline = models.XMLField(blank=True)
     artists = models.ManyToManyField(Contributor, through='Artist')
     courtesy = models.CharField(max_length=50, blank=True)

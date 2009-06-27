@@ -4,7 +4,7 @@
 {% load people %}
 {% block header %}{{ object.headline|striptags }} - Image{% endblock %}
 {% block content %}
-	<img src="{{ MEDIA_URL }}{{ object.image.url }}" id="image" />
+	<img src="{{ MEDIA_URL }}{{ object.image.url }}" id="image" width="{{ object.image.width }}" height="{{ object.image.height }}" />
 	{% if object.cutline %}<label for="image">{{ object.cutline|safe }}</label>{% endif %}
 	<ul class="credit">{% for credit in object.credits %}
 		<li>{% contributor_link credit.contributor %}</li>

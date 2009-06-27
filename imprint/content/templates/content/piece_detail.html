@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load people %}
+{% load content %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
 {% block right %}
 	{{ block.super }}
@@ -9,7 +10,7 @@
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for part in parts %}
-	{% ifequal part.type "text" %}{% with part.text as text %}
+	{% if part.is_text %}{% with part.text as text %}
 		<ul class="credit">{% for byline in text.bylines %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
@@ -20,15 +21,19 @@
 		{{ text.copy|safe }}
 		</div>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
-	{% endwith %}{% endifequal %}
-	{% ifequal part.type "image" %}{% with part.image as image %}
-		<a href="{{ image.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image{{ image.order }}" /></a>
-		{% if image.cutline %}<label for="image{{ image.order }}">{{ image.cutline|safe }}</label>{% endif %}
+	{% endwith %}{% endif %}
+	{% if part.is_image %}{% with part.image as image %}
+		{% if forloop.first %}
+		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
+		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
 		<ul class="credit">{% for credit in image.credits %}
 			<li>{% contributor_link credit.contributor %}</li>
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
-	{% endwith %}{% endifequal %}
+		{% else %}
+		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
+		{% endif %}
+	{% endwith %}{% endif %}
 	{% endfor %}
 {% endblock %}
