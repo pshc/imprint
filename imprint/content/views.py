@@ -249,6 +249,7 @@ def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece."""
     issue = Issue.objects.get_by_date(y, m, d)
     object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
+    section = object.section
     parts = object.parts
     return locals()
 
@@ -259,6 +260,7 @@ def image_detail(request, y, m, d, section, slug, image):
     piece = Piece.objects.get_by_issue_section_slug(issue, section, slug)
     image = os.path.join(issue.media_dir, image)
     object = get_object_or_404(Image, piece=piece, image=image)
+    section = object.piece.section
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

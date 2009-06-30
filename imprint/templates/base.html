@@ -13,7 +13,8 @@
 	<div id="hd" role="banner">
 		<a href="/"><h1>{{ site.name }}</h1></a>
 		{% load issues %}<ul id="nav">{% for nav in issue.sections.all %}
-			<li>{% section_link nav %}</li>{% endfor %}
+			{% ifequal section nav %}<li><strong>{% section_link nav %}</strong></li>
+			{% else %}<li>{% section_link nav %}</li>{% endifequal %}{% endfor %}
 		</ul>
 	</div>
 

@@ -22,14 +22,14 @@ def latest_issue(request):
 
 @renders('issues/section_detail.html')
 def section_detail(request, y, m, d, slug):
-    object = get_object_or_404(Section, slug=slug)
+    section = object = get_object_or_404(Section, slug=slug)
     issue = Issue.objects.get_by_date(y, m, d)
     pieces = Piece.objects.filter(section=object, issue=issue)
     return locals()
 
 @renders('issues/section_detail.html')
 def section_latest_issue(request, slug):
-    object = get_object_or_404(Section, slug=slug)
+    section = object = get_object_or_404(Section, slug=slug)
     issue = Issue.objects.latest_issue()
     pieces = Piece.objects.filter(section=object, issue=issue)
     return locals()
