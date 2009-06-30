@@ -20,7 +20,7 @@
 .expand { cursor: pointer; text-decoration: underline; }
 </style>
 <script type="text/javascript">
-/* Make parts draggable */
+/* Make units draggable */
 jQuery(function($) {
   $('div.inline-group').sortable({
     /*containment: 'parent',
@@ -127,88 +127,88 @@ $(document).ready(function () {
 </fieldset>
 <div class="inline-group">
 	<h2>Content (drag to reorder)</h2>
-	{% for part in form.parts %}
+	{% for unit in form.units %}
 	<div class="inline-related inline-sortable">
-	<h3><b>{{ part.type }}</b></h3>
+	<h3><b>{{ unit.type }}</b></h3>
 	<fieldset class="module aligned">
-	<div class="form-row order {{ part.class }}"><div>
-		<label for="id_{{ part.name }}-order">Order:</label>
-		<input name="{{ part.name }}-order" id="id_{{ part.name }}-order" class="vSmallField" type="text" value="{{ part.order }}" />
+	<div class="form-row order {{ unit.class }}"><div>
+		<label for="id_{{ unit.name }}-order">Order:</label>
+		<input name="{{ unit.name }}-order" id="id_{{ unit.name }}-order" class="vSmallField" type="text" value="{{ unit.order }}" />
 	</div></div>
-	{% ifequal part.type "Image" %}
-		<div class="form-row image {{ part.class }}"><div>
+	{% ifequal unit.type "Image" %}
+		<div class="form-row image {{ unit.class }}"><div>
 			<label class="required">Image:</label>
-			<a href="{{ part.image_url }}">{{ part.image }}</a><br />
+			<a href="{{ unit.image_url }}">{{ unit.image }}</a><br />
 			relative to media folder.
-			<input name="{{ part.name }}-image" type="hidden" value="{{ part.image }}" />
+			<input name="{{ unit.name }}-image" type="hidden" value="{{ unit.image }}" />
 		</div></div>
-		<div class="form-row cutline {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-cutline">Cutline:</label>
-<textarea name="{{ part.name }}-cutline" id="id_{{ part.name }}-cutline" class="vLargeTextField" rows="3" cols="30" />
-{{ part.cutline }}</textarea>
+		<div class="form-row cutline {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-cutline">Cutline:</label>
+<textarea name="{{ unit.name }}-cutline" id="id_{{ unit.name }}-cutline" class="vLargeTextField" rows="3" cols="30" />
+{{ unit.cutline }}</textarea>
 		<p class="help">Markup is OK.</p>
 		</div></div>
 
-		<div class="form-row photographers {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-photographers">Photographers:</label>
-			<input name="{{ part.name }}-photographers" id="id_{{ part.name }}-photographers" class="vTextField" type="text" value="{{ part.photographers }}" />
+		<div class="form-row photographers {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-photographers">Photographers:</label>
+			<input name="{{ unit.name }}-photographers" id="id_{{ unit.name }}-photographers" class="vTextField" type="text" value="{{ unit.photographers }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
-			<input id="id_{{ part.name }}-photographers-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-photographers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<input id="id_{{ unit.name }}-photographers-dummy" type="hidden" />
+			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-photographers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names.</p>
 		</div></div>
 
-		<div class="form-row artists {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-artists">Graphic artists:</label>
-			<input name="{{ part.name }}-artists" id="id_{{ part.name }}-artists" class="vTextField" type="text" value="{{ part.artists }}" />
+		<div class="form-row artists {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-artists">Graphic artists:</label>
+			<input name="{{ unit.name }}-artists" id="id_{{ unit.name }}-artists" class="vTextField" type="text" value="{{ unit.artists }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
-			<input id="id_{{ part.name }}-artists-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-artists-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<input id="id_{{ unit.name }}-artists-dummy" type="hidden" />
+			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-artists-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names.</p>
 		</div></div>
 
 		<script type="text/javascript">
 		$(document).ready(function () {
-			makeAutoCompleteInput($("#id_{{ part.name }}-photographers"), false);
-			makeAutoCompleteInput($("#id_{{ part.name }}-artists"), false);
+			makeAutoCompleteInput($("#id_{{ unit.name }}-photographers"), false);
+			makeAutoCompleteInput($("#id_{{ unit.name }}-artists"), false);
 		});
 		</script>
 
-		<div class="form-row courtesy {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-courtesy">Courtesy:</label>
-			<input name="{{ part.name }}-courtesy" id="id_{{ part.name }}-courtesy" class="vTextField" type="text" value="{{ part.courtesy }}" />
+		<div class="form-row courtesy {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-courtesy">Courtesy:</label>
+			<input name="{{ unit.name }}-courtesy" id="id_{{ unit.name }}-courtesy" class="vTextField" type="text" value="{{ unit.courtesy }}" />
 		</div></div>
 
 	{% endifequal %}
-	{% ifequal part.type "Text" %}
-		<div class="form-row title {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-title">Title:</label>
-			<input name="{{ part.name }}-title" id="id_{{ part.name }}-title" class="vTextField" type="text" value="{{ part.title }}" />
+	{% ifequal unit.type "Text" %}
+		<div class="form-row title {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-title">Title:</label>
+			<input name="{{ unit.name }}-title" id="id_{{ unit.name }}-title" class="vTextField" type="text" value="{{ unit.title }}" />
 			<p class="help">Optional subtitle.</p>
 		</div></div>
 
-		<div class="form-row copy {{ part.class }}"><div>
+		<div class="form-row copy {{ unit.class }}"><div>
 			<label class="required">Copy:</label>
-			{{ part.copy|safe }}
-			<input type="hidden" name="{{ part.name }}-copy" value="{{ part.copy }}" />
+			{{ unit.copy|safe }}
+			<input type="hidden" name="{{ unit.name }}-copy" value="{{ unit.copy }}" />
 		</div></div>
-		<div class="form-row bylines {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-bylines">Bylines:</label>
-			<input name="{{ part.name }}-bylines" id="id_{{ part.name }}-bylines" class="vTextField" type="text" value="{{ part.bylines }}" />
+		<div class="form-row bylines {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-bylines">Bylines:</label>
+			<input name="{{ unit.name }}-bylines" id="id_{{ unit.name }}-bylines" class="vTextField" type="text" value="{{ unit.bylines }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
-			<input id="id_{{ part.name }}-bylines-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ part.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<input id="id_{{ unit.name }}-bylines-dummy" type="hidden" />
+			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.<p>
 		</div></div>
 		<script type="text/javascript">
 		$(document).ready(function () {
-			makeAutoCompleteInput($("#id_{{ part.name }}-bylines"), true);
+			makeAutoCompleteInput($("#id_{{ unit.name }}-bylines"), true);
 		});
 		</script>
 
-		<div class="form-row sources {{ part.class }}"><div>
-			<label for="id_{{ part.name }}-sources">Sources:</label>
-			<input name="{{ part.name }}-sources" id="id_{{ part.name }}-sources" class="vTextField" type="text" value="{{ part.sources }}" />
+		<div class="form-row sources {{ unit.class }}"><div>
+			<label for="id_{{ unit.name }}-sources">Sources:</label>
+			<input name="{{ unit.name }}-sources" id="id_{{ unit.name }}-sources" class="vTextField" type="text" value="{{ unit.sources }}" />
 			<p class="help">Appears as &quot;&mdash; With sources from...&quot;</p>
 		</div></div>
 	{% endifequal %}
@@ -216,7 +216,7 @@ $(document).ready(function () {
 	{% endfor %}
 
 	<div class="inline-related">
-	{% if form.parts %}<h3>Extra uploads</h3>{% endif %}
+	{% if form.units %}<h3>Extra uploads</h3>{% endif %}
 	<fieldset class="module aligned">
 	{% for upload in uploads %}
 	<div class="form-row"><div>

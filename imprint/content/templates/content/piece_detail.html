@@ -10,8 +10,8 @@
 {% block content %}
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% for part in parts %}
-	{% if part.is_text %}{% with part.text as text %}
+	{% for unit in units %}
+	{% if unit.is_text %}{% with unit.text as text %}
 		<ul class="credit">{% for byline in text.bylines %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
@@ -23,7 +23,7 @@
 		</div>
 		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
-	{% if part.is_image %}{% with part.image as image %}
+	{% if unit.is_image %}{% with unit.image as image %}
 		{% if forloop.first %}
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}

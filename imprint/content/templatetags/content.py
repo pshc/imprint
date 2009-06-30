@@ -32,29 +32,29 @@ def create_thumbnail(orig, thumb, w, h):
     img.save(os.path.join(settings.MEDIA_ROOT, thumb))
 
 @register.simple_tag
-def thumbnail(part):
+def thumbnail(unit):
     """Renders a small thumbnail for the given image."""
-    image = part.image
+    image = unit.image
     path, exists = thumb_dir(image.name, 'thumbnail')
     w, h = fit(image.width, image.height, 250, 250)
     if not exists:
         create_thumbnail(image.name, path, w, h)
     extra = ''
-    if part.cutline:
-        alt = strip_tags(conditional_escape(part.cutline))
+    if unit.cutline:
+        alt = strip_tags(conditional_escape(unit.cutline))
         extra = ' alt="%s" title="%s"' % (alt, alt)
     return '<img src="%s%s" width="%d" height="%d" id="image%d"%s />' % (
-            settings.MEDIA_URL, path, w, h, part.id, extra)
+            settings.MEDIA_URL, path, w, h, unit.id, extra)
 
 @register.simple_tag
-def full_thumbnail(part):
+def full_thumbnail(unit):
     """Renders a large thumbnail for the given image."""
-    image = part.image
+    image = unit.image
     path, exists = thumb_dir(image.name, 'fullthumb')
     w, h = fixed_width(image.width, image.height, 570)
     if not exists:
         create_thumbnail(image.name, path, w, h)
     return '<img src="%s%s" width="%d" height="%d" id="image%d" />' % (
-            settings.MEDIA_URL, path, w, h, part.id)
+            settings.MEDIA_URL, path, w, h, unit.id)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

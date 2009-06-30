@@ -48,36 +48,36 @@ class Piece(models.Model):
             'section': self.section.slug, 'slug': self.slug})
 
     @property
-    def parts(self):
-        if not hasattr(self, '_parts'):
-            self._parts = list(self.part_set.all())
-            for part in self._parts:
-                if part.type is Text:
-                    dummy = list(part.text.bylines)
-                elif part.type is Image:
-                    dummy = list(part.image.credits)
-        return self._parts
+    def units(self):
+        if not hasattr(self, '_units'):
+            self._units = list(self.unit_set.all())
+            for unit in self._units:
+                if unit.type is Text:
+                    dummy = list(unit.text.bylines)
+                elif unit.type is Image:
+                    dummy = list(unit.image.credits)
+        return self._units
 
     @property
     def preview(self):
-        if not self.parts:
+        if not self.units:
             return []
-        first = self.parts[0]
+        first = self.units[0]
         if first.type is Image:
-            first.image.prominence = 'all' if len(self.parts) == 1 \
+            first.image.prominence = 'all' if len(self.units) == 1 \
                                            else 'featured'
         elif first.type is Text:
-            if len(self.parts) > 1:
-                second = self.parts[1]
+            if len(self.units) > 1:
+                second = self.units[1]
                 if second.type is Image:
                     second.image.prominence = 'featured'
                     return [first, second]
         return [first]
 
-class Part(models.Model):
+class Unit(models.Model):
     """One unit of content, part of a piece."""
     order = models.PositiveSmallIntegerField(db_index=True)
-    piece = models.ForeignKey(Piece, related_name='part_set')
+    piece = models.ForeignKey(Piece, related_name='unit_set')
     prominence = None
 
     def __unicode__(self):
@@ -103,7 +103,7 @@ class Part(models.Model):
     is_image = property(lambda s: s.type is Image)
     is_text = property(lambda s: s.type is Text)
 
-class Text(Part):
+class Text(Unit):
     title = models.CharField(max_length=200, blank=True,
             help_text='Optional title for this section of text')
     copy = models.XMLField()
@@ -166,7 +166,7 @@ class Byline(models.Model):
 def get_image_filename(instance, filename):
     return get_issue_subdir_filename(instance.piece.issue, filename)
 
-class Image(Part):
+class Image(Unit):
     image = models.ImageField(upload_to=get_image_filename)
     cutline = models.XMLField(blank=True)
     artists = models.ManyToManyField(Contributor, through='Artist')

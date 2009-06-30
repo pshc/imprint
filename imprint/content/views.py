@@ -64,10 +64,10 @@ class PieceForm(forms.Form):
         except Issue.DoesNotExist:
             raise forms.ValidationError("There is no such issue.")
 
-    def is_part(self, part):
-        return re.match(r"part\d+-order", part)
+    def is_unit(self, unit):
+        return re.match(r"unit\d+-order", unit)
     
-    def part_cmp(self, p1, p2):
+    def unit_cmp(self, p1, p2):
         return cmp(int(self.data[p1]), int(self.data[p2]))
 
     def format_byline(self, byline):
@@ -79,28 +79,28 @@ class PieceForm(forms.Form):
 
     def clean(self):
         data = self.cleaned_data
-        self.parts = []
+        self.units = []
         order = 0
         errors = []
         self.is_ready = True # Since this is a multi-stage form, can we save?
-        # Deal with filled-in parts
+        # Deal with filled-in units
         max_order = 0
-        for p in sorted(filter(self.is_part, self.data), cmp=self.part_cmp):
+        for p in sorted(filter(self.is_unit, self.data), cmp=self.unit_cmp):
             attr = lambda s, d=None: self.data.get(p.replace('order', s), d)
             if attr('image') is not None:
-                part = {'type': 'Image'}
+                unit = {'type': 'Image'}
                 fields = ['image', 'cutline', 'photographers', 'artists',
                         'courtesy']
             elif attr('copy') is not None:
-                part = {'type': 'Text'}
+                unit = {'type': 'Text'}
                 fields = ['title', 'copy', 'sources', 'bylines']
             else:
                 continue
-            part.update(dict((field, attr(field, '')) for field in fields))
+            unit.update(dict((field, attr(field, '')) for field in fields))
             order = int(attr('order'))
             max_order = max(order, max_order)
-            part.update({'order': order, 'name': 'part%02d' % order})
-            self.parts.append(part)
+            unit.update({'order': order, 'name': 'unit%02d' % order})
+            self.units.append(unit)
         data = self.cleaned_data
         order = max_order
         # Append any uploaded files
@@ -125,15 +125,15 @@ class PieceForm(forms.Form):
                         continue
                     bylines = map(self.format_byline, doc.get('bylines', []))
                     order += 1
-                    self.parts.append({'type': 'Text', 'order': order,
-                        'class': 'errors', 'name': 'part%02d' % order,
+                    self.units.append({'type': 'Text', 'order': order,
+                        'class': 'errors', 'name': 'unit%02d' % order,
                         'title': doc.get('title', ''), 'copy': doc['copy'],
                         'sources': unescape(doc.get('sources', '')),
                         'bylines': ', '.join(bylines)})
 
             elif ext in ('gif', 'jpg', 'jpeg', 'png'):
                 order += 1
-                part = {'order': order, 'name': 'part%02d' % order,
+                unit = {'order': order, 'name': 'unit%02d' % order,
                         'class': 'errors'}
                 # TODO: Minor race condition on renaming
                 if not data.get('issue'):
@@ -147,15 +147,15 @@ class PieceForm(forms.Form):
                     errors.append("Could not save image %s to issue folder."
                             % file.name)
                     continue
-                part.update({'type': 'Image', 'image': new_path,
+                unit.update({'type': 'Image', 'image': new_path,
                         'image_url': settings.MEDIA_URL + new_path,
                         'cutline': '', 'photographers': '', 'artists': '',
                         'courtesy': ''})
-                self.parts.append(part)
+                self.units.append(unit)
             else:
                 errors.append("You may only upload .doc and image files.")
                 continue
-        if not self.parts and not self.files:
+        if not self.units and not self.files:
             errors.append("You must upload at least one portion of content.")
         if errors:
             raise forms.ValidationError(errors)
@@ -167,21 +167,21 @@ class PieceForm(forms.Form):
         piece = Piece(**self.cleaned_data)
         piece.save()
         ids = set()
-        for part in self.parts:
-            construct = eval(part['type'])
+        for unit in self.units:
+            construct = eval(unit['type'])
             for field in deleted_fields:
-                del part[field]
+                del unit[field]
             preserved = dict((f, '') for f in preserved_fields)
             for field in preserved_fields:
-                if field in part:
-                    preserved[field] = part[field]
-                    del part[field]
-            # OK, finally actually make this part...
-            part = construct(piece=piece, **part)
-            part.save()
-            add_artists(part, preserved['photographers'], PHOTOGRAPHER, ids)
-            add_artists(part, preserved['artists'], GRAPHIC_ARTIST, ids)
-            add_bylines(part, preserved['bylines'], ids)
+                if field in unit:
+                    preserved[field] = unit[field]
+                    del unit[field]
+            # OK, finally actually make this unit...
+            unit = construct(piece=piece, **unit)
+            unit.save()
+            add_artists(unit, preserved['photographers'], PHOTOGRAPHER, ids)
+            add_artists(unit, preserved['artists'], GRAPHIC_ARTIST, ids)
+            add_bylines(unit, preserved['bylines'], ids)
         # Denormalized list of contributors for the whole piece
         piece.contributors = ids
         piece.save()
@@ -249,7 +249,7 @@ def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece."""
     issue = Issue.objects.get_by_date(y, m, d)
     object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
-    parts = object.parts
+    units = object.units
     preview = object.preview
     if len(preview) == 1 and preview[0].is_image \
             and getattr(preview[0].image, 'prominence', '') == 'all':
