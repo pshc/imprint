@@ -7,7 +7,7 @@ from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404, \
         HttpResponseBadRequest
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
 import os
 from people.models import Contributor
@@ -249,8 +249,13 @@ def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece."""
     issue = Issue.objects.get_by_date(y, m, d)
     object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
-    section = object.section
     parts = object.parts
+    preview = object.preview
+    if len(preview) == 1 and preview[0].is_image \
+            and getattr(preview[0].image, 'prominence', '') == 'all':
+        # Single-image article, go directly to the image
+        return redirect(preview[0].image, permanent=True)
+    section = object.section
     return locals()
 
 @renders('content/image_detail.html')
