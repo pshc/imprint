@@ -16,7 +16,7 @@ class PieceManager(models.Manager):
         return piece
 
 class Piece(models.Model):
-    """Block of content in the paper. Holds text and images."""
+    """Block of content in the paper. Holds text and media."""
     objects = PieceManager()
     headline = models.CharField(max_length=100,
             help_text="Markup is OK.")
@@ -52,8 +52,8 @@ class Piece(models.Model):
         if not hasattr(self, '_units'):
             self._units = list(self.unit_set.all())
             for unit in self._units:
-                if unit.type is Text:
-                    dummy = list(unit.text.bylines)
+                if unit.type is Copy:
+                    dummy = list(unit.copy.bylines)
                 elif unit.type is Image:
                     dummy = list(unit.image.credits)
         return self._units
@@ -66,7 +66,7 @@ class Piece(models.Model):
         if first.type is Image:
             first.image.prominence = 'all' if len(self.units) == 1 \
                                            else 'featured'
-        elif first.type is Text:
+        elif first.type is Copy:
             if len(self.units) > 1:
                 second = self.units[1]
                 if second.type is Image:
@@ -91,8 +91,8 @@ class Unit(models.Model):
         if not hasattr(self, '_type'):
             # Poor man's downcast
             try:
-                self._type = type(self.text)
-            except Text.DoesNotExist:
+                self._type = type(self.copy)
+            except Copy.DoesNotExist:
                 pass
             try:
                 self._type = type(self.image)
@@ -101,12 +101,12 @@ class Unit(models.Model):
         return self._type
 
     is_image = property(lambda s: s.type is Image)
-    is_text = property(lambda s: s.type is Text)
+    is_copy = property(lambda s: s.type is Copy)
 
-class Text(Unit):
+class Copy(Unit):
     title = models.CharField(max_length=200, blank=True,
             help_text='Optional title for this section of text')
-    copy = models.XMLField()
+    body = models.XMLField()
     writers = models.ManyToManyField(Contributor, through='Byline')
     sources = models.CharField(max_length=200, blank=True,
             help_text='Appears as "With files from ..."')
@@ -119,22 +119,22 @@ class Text(Unit):
     def __unicode__(self):
         if self.title:
             return self.title[:80]
-        return unescape(strip_tags(self.copy))[:80]
+        return unescape(strip_tags(self.body))[:80]
 
     @property
     def bylines(self):
         if not hasattr(self, '_bylines'):
-            self._bylines = list(Byline.objects.filter(text=self)
+            self._bylines = list(Byline.objects.filter(copy=self)
                     .select_related('contributor'))
         return self._bylines
 
     PREVIEW_MIN_LENGTH = 100
     @property
-    def copy_preview(self):
+    def preview(self):
         """Return a few paragraphs of the copy."""
         copy = []
         length = 0
-        paras = self.copy.split('</p>')
+        paras = self.body.split('</p>')
         while length < self.PREVIEW_MIN_LENGTH:
             p = paras.pop(0)
             copy.append(p)
@@ -154,7 +154,7 @@ class Text(Unit):
 class Byline(models.Model):
     """Represents credit for some text content."""
     contributor = models.ForeignKey(Contributor)
-    text = models.ForeignKey(Text)
+    copy = models.ForeignKey(Copy)
     position = models.CharField(max_length=50, blank=True)
 
     def __unicode__(self):

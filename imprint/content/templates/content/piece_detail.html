@@ -11,17 +11,17 @@
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
-	{% if unit.is_text %}{% with unit.text as text %}
-		<ul class="credit">{% for byline in text.bylines %}
+	{% if unit.is_copy %}{% with unit.copy as copy %}
+		<ul class="credit">{% for byline in copy.bylines %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
 			</li>
 		{% endfor %}</ul>
-		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
+		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		<div class="copy">
-		{{ text.copy|safe }}
+		{{ copy.body|safe }}
 		</div>
-		{% if text.sources %}<p class="sources">&mdash; With sources from {{ text.sources }}</p>{% endif %}
+		{% if copy.sources %}<p class="sources">&mdash; With sources from {{ copy.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
 		{% if forloop.first %}

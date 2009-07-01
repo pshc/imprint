@@ -2,10 +2,10 @@
 	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in object.preview %}
-	{% if unit.is_text %}{% with unit.text as text %}
-		{% if text.title %}<h3>{{ text.title|safe }}</h3>{% endif %}
+	{% if unit.is_copy %}{% with unit.copy as copy %}
+		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		<div class="copy">
-		{{ text.copy_preview|safe }}
+		{{ copy.preview|safe }}
 		</div>
 	{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}

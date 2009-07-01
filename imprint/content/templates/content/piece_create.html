@@ -46,7 +46,7 @@ makeAutoCompleteInput = function(input, with_position) {
 
 /* Hide the entire copy except for the first two paragraphs */
 $(document).ready(function () {
-	$(".copy").each(function (i) {
+	$(".body").each(function (i) {
 		var p = $(this).find("p:first").next();
 		var next = p.nextAll().filter("p");
 		next.hide();
@@ -180,17 +180,17 @@ $(document).ready(function () {
 		</div></div>
 
 	{% endifequal %}
-	{% ifequal unit.type "Text" %}
+	{% ifequal unit.type "Copy" %}
 		<div class="form-row title {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-title">Title:</label>
 			<input name="{{ unit.name }}-title" id="id_{{ unit.name }}-title" class="vTextField" type="text" value="{{ unit.title }}" />
 			<p class="help">Optional subtitle.</p>
 		</div></div>
 
-		<div class="form-row copy {{ unit.class }}"><div>
+		<div class="form-row body {{ unit.class }}"><div>
 			<label class="required">Copy:</label>
-			{{ unit.copy|safe }}
-			<input type="hidden" name="{{ unit.name }}-copy" value="{{ unit.copy }}" />
+			{{ unit.body|safe }}
+			<input type="hidden" name="{{ unit.name }}-body" value="{{ unit.body }}" />
 		</div></div>
 		<div class="form-row bylines {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-bylines">Bylines:</label>

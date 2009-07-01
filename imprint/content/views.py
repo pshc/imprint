@@ -36,12 +36,12 @@ def add_artists(image, artists, type, ids):
         ids.add(c.id)
         Artist.objects.create(image=image, contributor=c, type=type)
 
-def add_bylines(text, bylines, ids):
+def add_bylines(copy, bylines, ids):
     for name, pos in (extract_name_and_position(nm)
                       for nm in bylines.split(',') if nm.strip()):
         c = get_or_create_contributor(name, pos)
         ids.add(c.id)
-        Byline.objects.create(text=text, contributor=c, position=pos)
+        Byline.objects.create(copy=copy, contributor=c, position=pos)
 
 class PieceForm(forms.Form):
     headline = forms.CharField(max_length=100, widget=text_input())
@@ -91,9 +91,9 @@ class PieceForm(forms.Form):
                 unit = {'type': 'Image'}
                 fields = ['image', 'cutline', 'photographers', 'artists',
                         'courtesy']
-            elif attr('copy') is not None:
-                unit = {'type': 'Text'}
-                fields = ['title', 'copy', 'sources', 'bylines']
+            elif attr('body') is not None:
+                unit = {'type': 'Copy'}
+                fields = ['title', 'body', 'sources', 'bylines']
             else:
                 continue
             unit.update(dict((field, attr(field, '')) for field in fields))
@@ -125,9 +125,9 @@ class PieceForm(forms.Form):
                         continue
                     bylines = map(self.format_byline, doc.get('bylines', []))
                     order += 1
-                    self.units.append({'type': 'Text', 'order': order,
+                    self.units.append({'type': 'Copy', 'order': order,
                         'class': 'errors', 'name': 'unit%02d' % order,
-                        'title': doc.get('title', ''), 'copy': doc['copy'],
+                        'title': doc.get('title', ''), 'body': doc['copy'],
                         'sources': unescape(doc.get('sources', '')),
                         'bylines': ', '.join(bylines)})
 
@@ -168,7 +168,7 @@ class PieceForm(forms.Form):
         piece.save()
         ids = set()
         for unit in self.units:
-            construct = eval(unit['type'])
+            construct = {'Copy': Copy, 'Image': Image}[unit['type']]
             for field in deleted_fields:
                 del unit[field]
             preserved = dict((f, '') for f in preserved_fields)
