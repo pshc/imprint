@@ -12,15 +12,18 @@
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
 	{% if unit.is_copy %}{% with unit.copy as copy %}
-		<ul class="credit">{% for byline in copy.bylines %}
+		<ul class="credit">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
 			</li>
-		{% endfor %}</ul>
+		{% endif %}{% endfor %}</ul>
 		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		<div class="copy">
 		{{ copy.body|safe }}
 		</div>
+		{% for byline in copy.bylines %}{% if byline.is_after_copy %}
+		<p class="sources">&mdash; {% contributor_link byline.contributor %}</p>
+		{% endif %}{% endfor %}
 		{% if copy.sources %}<p class="sources">&mdash; With sources from {{ copy.sources }}</p>{% endif %}
 	{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}

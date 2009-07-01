@@ -79,6 +79,7 @@ p .drop { /* nor is :first-letter capable; might be several letters */
 }
 
 .sources {
+	text-align: right;
 	font-style: oblique;
 }
 

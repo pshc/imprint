@@ -39,9 +39,13 @@ def add_artists(image, artists, type, ids):
 def add_bylines(copy, bylines, ids):
     for name, pos in (extract_name_and_position(nm)
                       for nm in bylines.split(',') if nm.strip()):
+        after_copy, name = name.startswith('-'), name.strip('-').strip()
+        if not name:
+            continue
         c = get_or_create_contributor(name, pos)
         ids.add(c.id)
-        Byline.objects.create(copy=copy, contributor=c, position=pos)
+        Byline.objects.create(copy=copy, contributor=c, position=pos,
+                is_after_copy=after_copy)
 
 class PieceForm(forms.Form):
     headline = forms.CharField(max_length=100, widget=text_input())

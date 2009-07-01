@@ -168,7 +168,7 @@ class DocConverter(HTMLParser):
         elif '@' in email:
             self.document.setdefault('emails', []).append(email)
         else: # Name at end?
-            self.document.setdefault('bylines', []).append(email)
+            self.document.setdefault('bylines', []).append('-' + email)
 
     @handler('Arts: 1 Band/Film/Author')
     def handle_arts_title(self):

@@ -156,6 +156,7 @@ class Byline(models.Model):
     contributor = models.ForeignKey(Contributor)
     copy = models.ForeignKey(Copy)
     position = models.CharField(max_length=50, blank=True)
+    is_after_copy = models.BooleanField(default=True)
 
     def __unicode__(self):
         if self.position:
