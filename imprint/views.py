@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 from django.contrib.auth.forms import *
-from django.http import HttpResponseRedirect
 from django_authopenid.forms import *
 from utils import renders
 
