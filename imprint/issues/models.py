@@ -47,21 +47,23 @@ class SectionEditorship(models.Model):
 class IssueManager(CurrentSiteManager):
     def latest_issue(self):
         global CACHED_LATEST_ISSUE
-        if CACHED_LATEST_ISSUE:
-            return CACHED_LATEST_ISSUE
-        try:
-            CACHED_LATEST_ISSUE = super(IssueManager, self).filter(
-                    is_live=True)[0]
-            return CACHED_LATEST_ISSUE
-        except IndexError:
-            raise self.model.DoesNotExist
+        if not CACHED_LATEST_ISSUE:
+            try:
+                CACHED_LATEST_ISSUE = super(IssueManager, self).filter(
+                        is_live=True)[0]
+                dummy = CACHED_LATEST_ISSUE.previous
+            except IndexError:
+                raise self.model.DoesNotExist
+        return CACHED_LATEST_ISSUE
 
     @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%d/%d' % (
             Site.objects.get_current().id, int(y), int(m), int(d)))
     def get_by_date(self, y, m, d):
         date = datetime.date(int(y), int(m), int(d))
-        return get_object_or_404(self.model, date__exact=date, is_live=True,
+        issue = get_object_or_404(self.model, date__exact=date, is_live=True,
                 site=Site.objects.get_current())
+        dummy = issue.previous; dummy = issue.next
+        return issue
 
 def latest_issue_or(f, default=None):
     """Returns a function that applies `f` to the latest issue if there is one,
@@ -126,6 +128,24 @@ class Issue(models.Model):
             # File with this name already exists...
             base, ext = os.path.splitext(filename)
             filename = base + '_' + ext
+
+    @property
+    def previous(self):
+        if not hasattr(self, '_previous'):
+            try:
+                self._previous = self.get_previous_by_date(is_live=True)
+            except Issue.DoesNotExist:
+                self._previous = None
+        return self._previous
+
+    @property
+    def next(self):
+        if not hasattr(self, '_next'):
+            try:
+                self._next = self.get_next_by_date(is_live=True)
+            except Issue.DoesNotExist:
+                self._next = None
+        return self._next
 
 # This is so commonly used, we'll just cache it right here
 CACHED_LATEST_ISSUE = None

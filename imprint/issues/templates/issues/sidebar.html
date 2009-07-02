@@ -1,1 +1,4 @@
 	<p>{{ issue.date|date:"F j, Y" }}'s issue</p>
+	<p>{% if issue.previous %}<a href="{{ issue.previous.get_absolute_url }}" class="previous">Previous issue</a>{% endif %}
+	{% if issue.previous and issue.next %} | {% endif %}
+	{% if issue.next %}<a href="{{ issue.next.get_absolute_url }}" class="next">Next issue</a>{% endif %}</p>

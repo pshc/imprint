@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head %}{% if issue.previous %}
+	<link rel="prev" href="{{ issue.previous.get_absolute_url }}" />{% endif %}{% if issue.next %}
+	<link rel="next" href="{{ issue.next.get_absolute_url }}" />{% endif %}{% endblock %}
 {% block content %}
 {% if issue %}
 {% for object in pieces %}{% include "content/piece_preview.html" %}{% endfor %}
