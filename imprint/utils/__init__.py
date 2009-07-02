@@ -19,6 +19,8 @@ def renders(template, request_context=True, mimetype=None):
                 obj = d.get('object')
                 if obj is not None:
                     populate_xheaders(req, resp, obj.__class__, obj.pk)
+                if 'canonical' in d:
+                    resp['Content-Location'] = d['canonical']
                 return resp
             return d
         # Impersonate the original view function

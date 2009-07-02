@@ -1,6 +1,7 @@
-import datetime
-from django.http import HttpResponseRedirect
 from content.models import *
+import datetime
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from issues.models import *
 from utils import renders
@@ -16,6 +17,7 @@ def latest_issue(request):
     try:
         object = issue = Issue.objects.latest_issue()
         pieces = issue.pieces.all()[:5]
+        canonical = issue.get_absolute_url()
     except Issue.DoesNotExist:
         pass
     return locals()
@@ -32,6 +34,8 @@ def section_latest_issue(request, slug):
     section = object = get_object_or_404(Section, slug=slug)
     issue = Issue.objects.latest_issue()
     pieces = Piece.objects.filter(section=object, issue=issue)
+    canonical = reverse('section-detail',
+            args=issue.date.timetuple()[:3] + (slug,))
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

@@ -3,7 +3,8 @@
 <head>
 	<title>{% block title %}{{ site.name }}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />{% if canonical %}
+	<link rel="canonical" href="{{ canonical }}" />{% endif %}
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
 	{% block head %}{% endblock %}
 	{% block extra_scripts %}{% endblock %}
