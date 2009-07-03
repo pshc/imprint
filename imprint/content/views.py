@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
-from django.http import HttpResponse, HttpResponseRedirect, Http404, \
+from django.http import HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
