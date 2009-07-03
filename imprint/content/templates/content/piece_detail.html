@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% load people %}
-{% load content %}
-{% load issues %}
+{% load content people issues %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
 {% block right %}
 	{{ block.super }}
@@ -40,4 +38,5 @@
 		{% endif %}
 	{% endwith %}{% endif %}
 	{% endfor %}
+	{% include "content/piece_comments.html" %}
 {% endblock %}

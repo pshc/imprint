@@ -250,26 +250,27 @@ def piece_admin(request):
 
 @renders('content/piece_detail.html')
 def piece_detail(request, y, m, d, section, slug):
-    """Display the requested piece."""
+    """Display the requested piece with comments."""
     issue = Issue.objects.get_by_date(y, m, d)
     object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
     units = object.units
     preview = object.preview
     if len(preview) == 1 and preview[0].is_image \
             and getattr(preview[0].image, 'prominence', '') == 'all':
-        # Single-image article, go directly to the image
-        return redirect(preview[0].image, permanent=True)
+        # Just an image on its own
+        image = preview[0].image
+        template = 'content/image_detail.html'
     section = object.section
     return locals()
 
 @renders('content/image_detail.html')
 def image_detail(request, y, m, d, section, slug, image):
-    """Display the image in full resolution with comments."""
+    """Display the image in full resolution."""
     issue = Issue.objects.get_by_date(y, m, d)
     piece = Piece.objects.get_by_issue_section_slug(issue, section, slug)
     image = os.path.join(issue.media_dir, image)
-    object = get_object_or_404(Image, piece=piece, image=image)
-    section = object.piece.section
+    image = get_object_or_404(Image, piece=piece, image=image)
+    section = image.piece.section
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

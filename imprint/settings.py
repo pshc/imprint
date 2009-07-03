@@ -42,6 +42,7 @@ FILE_UPLOAD_HANDLERS = (
 ROOT_URLCONF = 'imprint.urls'
 
 COMMENTS_APP = 'imprint.nested_comments'
+COMMENTS_HIDE_REMOVED = False
 
 INSTALLED_APPS = (
     'django.contrib.admin',

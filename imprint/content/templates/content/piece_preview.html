@@ -1,4 +1,4 @@
-	<div class="preview">{% load content %}
+	<div class="preview">{% load comments content %}
 	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in object.preview %}
@@ -6,12 +6,18 @@
 		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		<div class="copy">
 		{{ copy.preview|safe }}
+		{% get_comment_count for object as comment_count %}
+		<a href="{{ object.get_absolute_url }}">Read more...</a>
+		<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a>
+		</p>
 		</div>
 	{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
 		{% ifequal image.prominence "all" %}<div class="image">
-			<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
+			<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
 			{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
+			{% get_comment_count for object as comment_count %}
+			<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a>
 		</div>{% else %}<div class="sideimage">
 			{% thumbnail image %}
 		</div>{% endifequal %}

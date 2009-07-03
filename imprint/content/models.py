@@ -131,18 +131,14 @@ class Copy(Unit):
     PREVIEW_MIN_LENGTH = 100
     @property
     def preview(self):
-        """Return a few paragraphs of the copy."""
+        """Return a few paragraphs of the copy. No terminating </p>."""
         copy = []
         length = 0
-        paras = self.body.split('</p>')
-        while length < self.PREVIEW_MIN_LENGTH:
+        paras = self.body.split('</p>')[:-1]
+        while paras and length < self.PREVIEW_MIN_LENGTH:
             p = paras.pop(0)
             copy.append(p)
             length += len(p)
-        url = ' <a href="%s" class="more">Read more...</a>' % (
-                self.piece.get_absolute_url(),)
-        copy[-1] = copy[-1] + url
-        copy.append('')
         return '</p>'.join(copy)
 
     @models.permalink

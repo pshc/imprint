@@ -13,8 +13,9 @@ def renders(template, request_context=True, mimetype=None):
         def new_view(req, *args, **kwargs):
             d = f(req, *args, **kwargs)
             if isinstance(d, dict):
+                t = d.get('template', template)
                 c = request_context and RequestContext(req) or None
-                resp = render_to_response(template, d, context_instance=c,
+                resp = render_to_response(t, d, context_instance=c,
                                           mimetype=mimetype)
                 # If there is a unique object for this view, add headers
                 obj = d.get('object')

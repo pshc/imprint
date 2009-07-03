@@ -1,35 +1,15 @@
 {% extends "fullwidth.html" %}
-{% load comments %}
-{% load humanize %}
 {% load people %}
-{% block header %}{{ object.headline|striptags }} - Image{% endblock %}
-{% block content %}
-	<img src="{{ MEDIA_URL }}{{ object.image.url }}" id="image" width="{{ object.image.width }}" height="{{ object.image.height }}" />
-	{% if object.cutline %}<label for="image">{{ object.cutline|safe }}</label>{% endif %}
-	<ul class="credit">{% for credit in object.credits %}
+{% if object %}{% block header %}{{ object.headline|striptags }}{% endblock %}{% endif %}
+{% block content %}{% if object %}
+	<h1>{{ object.headline|safe }}</h1>{% if object.deck %}
+	<h2>{{ object.deck|safe }}</h2>{% endif %}{% endif %}
+	<img src="{{ MEDIA_URL }}{{ image.image.url }}" id="image" width="{{ image.image.width }}" height="{{ image.image.height }}" />
+	{% if image.cutline %}<label for="image">{{ image.cutline|safe }}</label>{% endif %}
+	<ul class="credit">{% for credit in image.credits %}
 		<li>{% contributor_link credit.contributor %}</li>
-	{% endfor %}{% if object.courtesy %}
-		<li>Courtesy {{ object.courtesy }}</li>
+	{% endfor %}{% if image.courtesy %}
+		<li>Courtesy {{ image.courtesy }}</li>
 	{% endif %}</ul>
-	{% get_comment_count for object as comment_count %}
-	{% if comment_count %}{% get_comment_list for object as comments %}
-	<h2>{{ comment_count|apnumber|capfirst }} comment{{ comment_count|pluralize }}</h2>
-	<ol class="comments">{% for comment in comments %}
-		<li style="margin-left: {{ comment.indentation }}em;">
-		<a name="c{{ comment.id }}"></a>
-		<p>{% if comment.is_removed %}<em>[removed]</em>
-		{% else %}{{ comment.comment|linebreaksbr }}{% endif %}</p>
-		<p class="info">&mdash; <em>Posted {{ comment.submit_date|naturalday }} by</em> {{ comment.poster_name }}
-		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>
-		</p>
-		</li>{% endfor %}
-	</ol>
-	{% endif %}
-	<h2>Post a comment</h2>
-	{% get_comment_form for object as form %}
-	<form action="{% comment_form_target %}" method="POST"><table>
-		{{ form.as_table }}
-		<tr><td></td><td><input type="submit" value="Reply" /></td></tr>
-		<input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
-	</table></form>
+	{% if object %}{% include "content/piece_comments.html" %}{% endif %}
 {% endblock %}
