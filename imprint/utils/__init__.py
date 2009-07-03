@@ -2,6 +2,7 @@ from django.core.cache import cache
 from django.core.xheaders import populate_xheaders
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+import random
 
 def renders(template, request_context=True, mimetype=None):
     """Shortcut decorator for render_to_response; takes a template filename
@@ -21,6 +22,8 @@ def renders(template, request_context=True, mimetype=None):
                     populate_xheaders(req, resp, obj.__class__, obj.pk)
                 if 'canonical' in d:
                     resp['Content-Location'] = d['canonical']
+                header, val = random.choice(extra_headers)
+                resp['X-' + header.replace(' ', '-')] = val
                 return resp
             return d
         # Impersonate the original view function
@@ -28,6 +31,18 @@ def renders(template, request_context=True, mimetype=None):
         new_view.__module__ = f.__module__
         return new_view
     return dec
+
+extra_headers = {
+    'Godot': 'waiting', 'Coffee': 'hotter and more bitter than Hell itself',
+    'They Told Me': '"Kid, you\'re special. You\'ll do great things."'
+                    ' You know what? They were right.',
+    'Chandrasekhar Limit': '1.4 solar masses', 'Spiral Power': 'infinite',
+    'Sagittarius A*': 'four million solar masses',
+    'Singularity': 'impossible to observe', 'Buster Machine #7': 'Nono',
+    'Schwarzchild Radius': 'decreasing', 'Header': 'mispelled',
+    'Lawsuit': 'pending', 'YUKI.N': 'sleeping beauty'}.items()
+extra_headers.append(("Schrodinger's cat", 'dead'))
+extra_headers.append(("Schrodinger's cat", 'alive'))
 
 def unescape(html): 
     "Returns the given HTML with ampersands, quotes and carets decoded."
