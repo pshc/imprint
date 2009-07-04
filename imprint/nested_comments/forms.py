@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.comments.forms import CommentDetailsForm
 from django.contrib.contenttypes.models import ContentType
 from nested_comments.models import *
+import re
 
 class NestedCommentForm(CommentDetailsForm):
     name = forms.CharField(max_length=50, required=False)
@@ -10,6 +11,11 @@ class NestedCommentForm(CommentDetailsForm):
 
     def clean_name(self):
         return self.cleaned_data.get('name', '').strip()
+
+    def clean_comment(self):
+        text = self.cleaned_data.get('comment', '').strip()
+        text = re.sub(r'([^ ]{75})', '\\1 ', text)
+        return text
 
     def clean_url(self):
         if self.cleaned_data.get('url'):

@@ -114,14 +114,31 @@ img {
 	font-size: 200%;
 }
 
-.comments li {
-	margin: 1em 0;
-}
+.comments li { margin: 1.5em 0; }
+.comments p { line-height: 170%; }
 .comments span { /* comment meta */
 	color: #555;
 	font-style: oblique;
 }
-.comments em { font-style: normal; }
+.comments span em { font-style: normal; }
+
+.comments div { /* reply box */
+	margin: 0 0 2em 2em;
+	padding: 0.5em;
+	background-color: #eee;
+}
+.comments div h3 { margin-top: 0; }
+
+label.error {
+	color: red;
+	margin: 0.5em;
+}
+
+form th {
+	vertical-align: top;
+	padding: 0.2em 1em;
+	text-align: right;
+}
 
 #ft {
 	margin-top: 1em;

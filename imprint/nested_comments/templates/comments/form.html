@@ -1,5 +1,13 @@
 {% load comments i18n %}
-<style>#th_url { text-indent: -9001em; }</style>
+<style>
+#tr_url { text-indent: -9001em; }
+#tr_url th { text-align: left; }
+th {
+	vertical-align: top;
+	padding: 0.2em;
+	text-align: right;
+}
+</style>
 <form action="{% comment_form_target %}" method="post">
 {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
 <table>

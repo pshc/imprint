@@ -13,5 +13,5 @@
 		{% endif %}</ul>
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
 	</div>
-	{% if object %}{% include "content/piece_comments.html" %}{% endif %}
+	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

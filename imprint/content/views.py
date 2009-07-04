@@ -251,6 +251,8 @@ def piece_admin(request):
 @renders('content/piece_detail.html')
 def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece with comments."""
+    if 'c' in request.GET:
+        return HttpResponseRedirect('#comment%d' % int(request.GET['c']))
     issue = Issue.objects.get_by_date(y, m, d)
     object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
     units = object.units
