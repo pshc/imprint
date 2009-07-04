@@ -114,6 +114,15 @@ img {
 	font-size: 200%;
 }
 
+.comments li {
+	margin: 1em 0;
+}
+.comments span { /* comment meta */
+	color: #555;
+	font-style: oblique;
+}
+.comments em { font-style: normal; }
+
 #ft {
 	margin-top: 1em;
 	color: gray;

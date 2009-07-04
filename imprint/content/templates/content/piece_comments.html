@@ -3,18 +3,12 @@
 	{% if comment_count %}{% get_comment_list for object as comments %}
 	<h2>{{ comment_count|apnumber|capfirst }} comment{{ comment_count|pluralize }}</h2>
 	<ol class="comments">{% for comment in comments %}
-		<li style="margin-left: {{ comment.indentation }}em;">
-		<a name="c{{ comment.id }}"></a>
+		<li style="margin-left: {{ comment.indentation }}em;"><a name="comment{{ comment.id }}"></a>
 		<p>{% if comment.is_removed %}<em>[removed]</em>
 		{% else %}{{ comment.comment|linebreaksbr }}{% endif %}</p>
-		<p class="info">&mdash; <em>Posted {{ comment.submit_date|naturalday }}
-		{% if comment.is_removed %}</em>{% else %}by</em>
-			{% if request.user.is_authenticated and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>
-			{% else %}{{ comment.poster_name }}{% endif %}
-		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>
-		{% endif %}
-		</p>
-		</li>{% endfor %}
+		<span>&mdash; Posted {{ comment.submit_date|naturalday }} {% if not comment.is_removed %}by <em>{% if request.user.is_authenticated and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
+		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>{% endif %}
+		</span></li>{% endfor %}
 	</ol>
 	{% endif %}
 	<h2>Post a comment</h2>
