@@ -15,7 +15,7 @@
 	{% if unit.is_image %}{% with unit.image as image %}
 		{% ifequal image.prominence "all" %}<div class="image">
 			<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
-			{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
+			{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
 			{% get_comment_count for object as comment_count %}
 			<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a>
 		</div>{% else %}<div class="sideimage">

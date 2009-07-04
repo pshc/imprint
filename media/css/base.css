@@ -92,16 +92,22 @@ hr {
 
 img {
 	border: thin solid black;
+}
+.image {
 	margin: 1em;
 }
-
-.credit {
-	font: normal 90%/200% Tahoma, sans-serif;
-	text-transform: uppercase;
-}
-
-.credit a {
+.image p { /* cutline */
 	font-weight: bold;
+	margin: 0.5em -2em 0 0;
+	text-align: justify;
+}
+.image ul { /* credit */
+	text-align: right;
+	margin-right: -2em;
+}
+.image ul li {
+	font: normal 75%/100% Tahoma, sans-serif;
+	text-transform: uppercase;
 }
 
 .preview h1 {
