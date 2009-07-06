@@ -78,16 +78,16 @@ p .drop { /* nor is :first-letter capable; might be several letters */
 	float: left;
 }
 
+.credit {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+}
+.credit a {
+	font-weight: bold;
+}
 .sources {
 	text-align: right;
 	font-style: oblique;
-}
-
-hr {
-	color: white;
-	background-color: white;
-	border: thin dotted gray;
-	border-style: none none dotted;
 }
 
 img {
@@ -112,6 +112,13 @@ img {
 
 .preview h1 {
 	font-size: 200%;
+}
+
+hr {
+	color: white;
+	background-color: white;
+	border: thin dotted gray;
+	border-style: none none dotted;
 }
 
 .comments li { margin: 1.5em 0; }
