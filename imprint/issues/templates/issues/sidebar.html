@@ -1,4 +1,4 @@
-	<p>{{ issue.date|date }}'s issue</p>
+	<p>Published on {{ issue.date|date }}.</p>
 	<p>{% if issue.previous %}<a href="{{ issue.previous.get_absolute_url }}" class="previous" title="{{ issue.previous.date|date }}">Previous issue</a>{% endif %}
 	{% if issue.previous and issue.next %} | {% endif %}
 	{% if issue.next %}<a href="{{ issue.next.get_absolute_url }}" class="next" title="{{ issue.next.date|date }}">Next issue</a>{% endif %}</p>
