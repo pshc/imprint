@@ -22,7 +22,7 @@
 	<div id="bd" role="main">{% block bd %}<div id="yui-main">
 	<div class="yui-b"><div class="yui-gf">
 	<div class="yui-u first left">{% load advertising %}
-		{% block left_ad %}<div class="ad">{% random_image_ad 1 %}</div>{% endblock %}
+		{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
 		{% include "registration/sidebar.html" %}
 		{% block left %}{% endblock %}
 	</div>
@@ -34,11 +34,11 @@
 	<div class="yui-b right" role="contentinfo">{% block right %}
 		{% include "issues/sidebar.html" %}
 		{% endblock %}
-		{% block right_ad %}<div class="ad">{% random_image_ad 2 %}</div>{% endblock %}
+		{% block right_ad %}{% random_image_ad 2 %}{% endblock %}
 	</div>{% endblock %}</div>
 
 	<div id="ft">
-		{% block bottom_ad %}<div class="ad">{% random_image_ad 3 %}</div>{% endblock %}
+		{% block bottom_ad %}{% random_image_ad 3 %}{% endblock %}
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
 		{% if debug %}{% include "utils/debug_queries.html" %}{% endif %}
 	</div>

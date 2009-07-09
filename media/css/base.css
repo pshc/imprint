@@ -152,5 +152,8 @@ form th {
 	color: gray;
 }
 
-.ad { text-align: center; }
-.ad a { margin: 0 auto; }
+.ad {
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+}
