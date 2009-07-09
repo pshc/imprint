@@ -23,7 +23,8 @@ def fit(w, h, mw, mh):
         w, h = int(round(float(mh) * float(w) / float(h))), mh
     return w, h
 
-def fixed_width(w, h, dest):
+FIXED_WIDTH = 570
+def fixed_width(w, h, dest=FIXED_WIDTH):
     return dest, int(round(float(dest) * float(h) / float(w)))
 
 def create_thumbnail(orig, thumb, w, h):
@@ -43,18 +44,22 @@ def thumbnail(unit):
     if unit.cutline:
         alt = strip_tags(conditional_escape(unit.cutline))
         extra = ' alt="%s" title="%s"' % (alt, alt)
-    return '<img src="%s%s" width="%d" height="%d" id="image%d"%s />' % (
-            settings.MEDIA_URL, path, w, h, unit.id, extra)
+    return '<img src="%s%s" width="%d" height="%d"%s />' % (
+            settings.MEDIA_URL, path, w, h, extra)
 
 @register.simple_tag
 def full_thumbnail(unit):
     """Renders a large thumbnail for the given image."""
     image = unit.image
-    path, exists = thumb_dir(image.name, 'fullthumb')
-    w, h = fixed_width(image.width, image.height, 570)
-    if not exists:
-        create_thumbnail(image.name, path, w, h)
-    return '<img src="%s%s" width="%d" height="%d" id="image%d" />' % (
-            settings.MEDIA_URL, path, w, h, unit.id)
+    if image.width <= FIXED_WIDTH:
+        path = image.name
+        w, h = image.width, image.height
+    else:
+        path, exists = thumb_dir(image.name, 'fullthumb')
+        w, h = fixed_width(image.width, image.height)
+        if not exists:
+            create_thumbnail(image.name, path, w, h)
+    return '<img src="%s%s" width="%d" height="%d" />' % (
+            settings.MEDIA_URL, path, w, h)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
