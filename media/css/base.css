@@ -91,7 +91,7 @@ p .drop { /* nor is :first-letter capable; might be several letters */
 }
 
 img {
-	border: thin solid black;
+	border: 1px solid black;
 }
 .image {
 	margin: 1em;
