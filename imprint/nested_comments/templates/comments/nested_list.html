@@ -2,14 +2,15 @@
 	<a name="comments"></a>{% get_comment_count for object as comment_count %}
 	{% if comment_count %}{% get_comment_list for object as comments %}
 	<h2>{{ comment_count|apnumber|capfirst }} comment{{ comment_count|pluralize }}</h2>
+	{% with request.user.is_authenticated as show_emails %}
 	<ol class="comments">{% for comment in comments %}
 		<li style="margin-left: {{ comment.indentation|multiply:2 }}em;"><a name="comment{{ comment.id }}"></a>
 		<p>{% if comment.is_removed %}<em>[removed]</em>
 		{% else %}{{ comment.comment|linebreaksbr }}{% endif %}</p>
-		<span>&mdash; Posted {{ comment.submit_date|naturalday }} {% if not comment.is_removed %}by <em>{% if request.user.is_authenticated and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
+		<span>&mdash; Posted {{ comment.submit_date|naturalday }} {% if not comment.is_removed %}by <em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
 		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>{% endif %}
 		</span></li>{% endfor %}
-	</ol>
+	</ol>{% endwith %}
 	{% endif %}
 	<h2>Post a comment</h2>
 	{% get_comment_form for object as form %}
