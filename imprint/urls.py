@@ -2,8 +2,11 @@ from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.views.generic.simple import direct_to_template
+from feeds import LatestPieces
 
 admin.autodiscover()
+
+feeds = {'latest': LatestPieces}
 
 urlpatterns = patterns('',
     (r'^accounts/profile/$', 'imprint.views.account_profile'),
@@ -15,6 +18,8 @@ urlpatterns = patterns('',
     (r'^comments/', include('nested_comments.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^people/', include('people.urls')),
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+	    {'feed_dict': feeds}),
     (r'^robots.txt$', direct_to_template, {'template': 'robots.txt',
                                            'mimetype': 'text/plain'}),
     (r'^', include('content.urls')),

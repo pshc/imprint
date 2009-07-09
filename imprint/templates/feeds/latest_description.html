@@ -1,0 +1,17 @@
+	{% load content %}{% with obj as object %}
+	{% if object.deck %}<h3>{{ object.deck|safe }}</h3>{% endif %}
+	{% for unit in object.preview %}
+	{% if unit.is_copy %}{% with unit.copy as copy %}
+		{% if copy.title %}<h4>{{ copy.title|safe }}</h4>{% endif %}
+		{{ copy.preview|safe }}
+		{% if forloop.last %}<a href="{{ object.get_absolute_url }}">Read more...</a>{% endif %}</p>
+	{% endwith %}{% endif %}
+	{% if unit.is_image %}{% with unit.image as image %}
+		{% ifequal image.prominence "all" %}
+			{% thumbnail image %}
+			<p>{{ image.cutline|safe }}</p>
+		{% else %}
+			{% thumbnail image %}
+		{% endifequal %}
+	{% endwith %}{% endif %}
+	{% endfor %}{% endwith %}{# vi: set syntax=htmldjango: #}

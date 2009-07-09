@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block head %}{% if issue.previous %}
+{% block head %}
+	<link rel="alternate" type="application/rss+xml" title="Latest issue" href="/feeds/latest" />{% if issue.previous %}
 	<link rel="prev" href="{{ issue.previous.get_absolute_url }}" title="Issue for {{ issue.previous.date|date }}" />{% endif %}{% if issue.next %}
 	<link rel="next" href="{{ issue.next.get_absolute_url }}" title="Issue for {{ issue.next.date|date }}" />{% endif %}{% endblock %}
 {% block content %}
