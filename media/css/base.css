@@ -101,6 +101,9 @@ img {
 	margin-top: 0.5em;
 	text-align: justify;
 }
+.image p a {
+	font-weight: normal;
+}
 .image ul { /* credit */
 	text-align: right;
 }
@@ -108,7 +111,6 @@ img {
 	font: normal 75%/100% Tahoma, sans-serif;
 	text-transform: uppercase;
 }
-.image a { display: block; }
 
 .preview h1 {
 	font-size: 200%;
