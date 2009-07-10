@@ -23,7 +23,7 @@ def fit(w, h, mw, mh):
         w, h = int(round(float(mh) * float(w) / float(h))), mh
     return w, h
 
-FIXED_WIDTH = 570
+FIXED_WIDTH = 770
 def fixed_width(w, h, dest=FIXED_WIDTH):
     return dest, int(round(float(dest) * float(h) / float(w)))
 
@@ -37,7 +37,7 @@ def thumbnail(unit):
     """Renders a small thumbnail for the given image."""
     image = unit.image
     path, exists = thumb_dir(image.name, 'thumbnail')
-    w, h = fit(image.width, image.height, 250, 250)
+    w, h = fit(image.width, image.height, 300, 300)
     if not exists:
         create_thumbnail(image.name, path, w, h)
     extra = ''

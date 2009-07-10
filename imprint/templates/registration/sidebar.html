@@ -1,7 +1,7 @@
 	{% block account %}{% if request.user.is_authenticated %}
 	<p>Logged in as {{ request.user }}</p>
-	{% if request.user.is_staff %}<a href="/admin/">Admin</a> | {% endif %}
+	<p>{% if request.user.is_staff %}<a href="/admin/">Admin</a> | {% endif %}
 	<a href="{% url user_signout %}?next={{ request.path }}">Logout</a>
 	{% else %}
 	<a href="{% url user_signin %}?next={{ request.path }}">Login</a>
-	{% endif %}{% endblock %}{# vi: set syntax=htmldjango #}
+	{% endif %}</p>{% endblock %}{# vi: set syntax=htmldjango #}

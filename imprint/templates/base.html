@@ -11,28 +11,25 @@
 </head>
 <body>
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
-	<div id="hd" role="banner">
+	<div id="hd" role="navigation">
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
-		{% load issues %}<ul id="nav">{% for nav in issue.sections.all %}
+		{% load advertising issues %}{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
+		<ul>{% for nav in issue.sections.all %}
 			{% ifequal section nav %}<li><strong>{% section_link nav %}</strong></li>
 			{% else %}<li>{% section_link nav %}</li>{% endifequal %}{% endfor %}
 		</ul>
+		<div></div>
 	</div>
 
 	<div id="bd" role="main">{% block bd %}<div id="yui-main">
-	<div class="yui-b"><div class="yui-gf">
-	<div class="yui-u first left">{% load advertising %}
-		{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
-		{% include "registration/sidebar.html" %}
-		{% block left %}{% endblock %}
-	</div>
-	<div class="yui-u">
+	<div class="yui-b">
+	<div role="main" class="yui-g">
 		{% block messages %}{% endblock %}
 		{% block content %}{% endblock %}
-	</div>
 	</div></div></div>
 	<div class="yui-b right" role="contentinfo">{% block right %}
 		{% include "issues/sidebar.html" %}
+		{% include "registration/sidebar.html" %}
 		{% endblock %}
 		{% block right_ad %}{% random_image_ad 2 %}{% endblock %}
 	</div>{% endblock %}</div>
