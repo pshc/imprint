@@ -6,6 +6,10 @@ import Image as pil
 
 register = Library()
 
+FIXED_WIDTH = 770
+THUMBNAIL_WIDTH = 300
+THUMBNAIL_HEIGHT = 300
+
 def thumb_dir(filename, prefix):
     path, file = os.path.split(filename)
     path = os.path.join(path, prefix)
@@ -23,8 +27,7 @@ def fit(w, h, mw, mh):
         w, h = int(round(float(mh) * float(w) / float(h))), mh
     return w, h
 
-FIXED_WIDTH = 770
-def fixed_width(w, h, dest=FIXED_WIDTH):
+def fit_to_fixed_width(w, h, dest=FIXED_WIDTH):
     return dest, int(round(float(dest) * float(h) / float(w)))
 
 def create_thumbnail(orig, thumb, w, h):
@@ -37,7 +40,7 @@ def thumbnail(unit):
     """Renders a small thumbnail for the given image."""
     image = unit.image
     path, exists = thumb_dir(image.name, 'thumbnail')
-    w, h = fit(image.width, image.height, 300, 300)
+    w, h = fit(image.width, image.height, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
     if not exists:
         create_thumbnail(image.name, path, w, h)
     extra = ''
@@ -56,7 +59,7 @@ def full_thumbnail(unit):
         w, h = image.width, image.height
     else:
         path, exists = thumb_dir(image.name, 'fullthumb')
-        w, h = fixed_width(image.width, image.height)
+        w, h = fit_to_fixed_width(image.width, image.height)
         if not exists:
             create_thumbnail(image.name, path, w, h)
     return '<img src="%s%s" width="%d" height="%d" />' % (
