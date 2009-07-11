@@ -133,7 +133,7 @@ img {
 	border: 1px solid black;
 }
 .image {
-	margin: 1em;
+	margin: 1em 0;
 }
 .image p { /* cutline */
 	font-weight: bold;
