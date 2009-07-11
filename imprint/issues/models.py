@@ -75,9 +75,6 @@ def latest_issue_or(f, default=None):
             return default
     return deferred
 
-def get_previous_sections():
-    return latest_issue_or(lambda i: i.sections.values_list('id', flat=True))
-
 class Issue(models.Model):
     """One newspaper issue."""
     objects = IssueManager()
@@ -91,9 +88,7 @@ class Issue(models.Model):
     site = models.ForeignKey(Site, related_name='issues',
             default=Site.objects.get_current)
     sections = models.ManyToManyField(Section, related_name='issues',
-            default=get_previous_sections, blank=True,
-            help_text="Controls which sections appear in the header banner "
-                      + " for this issue.")
+            through='IssueSection')
 
     class Meta:
         ordering = ['-volume', '-number']
@@ -107,7 +102,16 @@ class Issue(models.Model):
         return ('issue-detail', self.date.timetuple()[:3])
 
     def save(self, **kwargs):
+        make_sections = not self.id
         super(Issue, self).save(**kwargs)
+        # Copy over navigation from the previous issue
+        if make_sections:
+            def copy_previous_sections(issue):
+                for i, s in IssueSection.objects.filter(issue=issue):
+                    IssueSection.objects.create(issue=issue, section=s.section,
+                            alt_section_name=s.alt_section_name,
+                            order=i+1)
+            latest_issue_or(copy_previous_sections, lambda: None)()
         try:
             os.makedirs(os.path.join(settings.MEDIA_ROOT, self.media_dir))
         except OSError, e:
@@ -146,6 +150,29 @@ class Issue(models.Model):
             except Issue.DoesNotExist:
                 self._next = None
         return self._next
+
+    @property
+    def nav_sections(self):
+        return IssueSection.objects.select_related().filter(issue=self)
+
+class IssueSection(models.Model):
+    """Stores info about the order and naming of section navigation links."""
+    issue = models.ForeignKey(Issue)
+    section = models.ForeignKey(Section)
+    order = models.PositiveSmallIntegerField(blank=True, null=True)
+    alt_section_name = models.CharField('Title', max_length=50,
+            blank=True, null=True,
+            help_text='Optional alternate title in the navigation bar only.')
+
+    @property
+    def section_name(self):
+        return self.alt_section_name or self.section.name
+
+    def __unicode__(self):
+        return self.section_name
+
+    class Meta:
+        ordering = ('order', 'id')
 
 # This is so commonly used, we'll just cache it right here
 CACHED_LATEST_ISSUE = None

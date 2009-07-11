@@ -23,11 +23,16 @@ class SectionLinkNode(template.Node):
             section = self.section.resolve(context)
         except template.VariableDoesNotExist:
             return ''
+        if hasattr(section, 'section'):
+            name = section.section_name # IssueSection
+            section = section.section
+        else:
+            name = section.name
         if context.get('is_specific_issue', False):
             date = context['issue'].date.timetuple()[:3]
             url = reverse('section-detail', args=date + (section.slug,))
         else:
             url = section.get_absolute_url()
-        return '<a href="%s">%s</a>' % (url, conditional_escape(section.name))
+        return '<a href="%s">%s</a>' % (url, conditional_escape(name))
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

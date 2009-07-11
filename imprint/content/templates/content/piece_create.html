@@ -14,29 +14,13 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/admin-sortable.js"></script>
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.autocomplete.css" type="text/css" />
 <style type="text/css">
 .vSmallField { width: 6em; }
 .expand { cursor: pointer; text-decoration: underline; }
 </style>
 <script type="text/javascript">
-/* Make units draggable */
-jQuery(function($) {
-  $('div.inline-group').sortable({
-    /*containment: 'parent',
-    zindex: 10,*/
-    items: 'div.inline-sortable',
-    handle: 'h3:first',
-    update: function() {
-      $(this).find('div.inline-sortable')/*.not('div.inline-sortable:last')*/.each(function(i) {
-        $(this).find('input[id$=order]').val(i+1);
-      });
-    }
-  });
-  $('div.inline-sortable h3').css('cursor', 'move');
-  $('div.inline-sortable').find('input[id$=order]').parent('div').parent('div').hide();
-});
-
 makeAutoCompleteInput = function(input, with_position) {
 	var url = "{% url admin-contributor-lookup "" %}";
 	if (with_position) url += "with-position/";
@@ -128,7 +112,7 @@ $(document).ready(function () {
 <div class="inline-group">
 	<h2>Content (drag to reorder)</h2>
 	{% for unit in form.units %}
-	<div class="inline-related inline-sortable">
+	<div class="inline-related">
 	<h3><b>{{ unit.type }}</b></h3>
 	<fieldset class="module aligned">
 	<div class="form-row order {{ unit.class }}"><div>

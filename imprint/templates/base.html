@@ -13,11 +13,8 @@
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
 	<div id="hd" role="navigation">
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
-		{% load advertising issues %}{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
-		<ul>{% for nav in issue.sections.all %}
-			{% ifequal section nav %}<li><strong>{% section_link nav %}</strong></li>
-			{% else %}<li>{% section_link nav %}</li>{% endifequal %}{% endfor %}
-		</ul>
+		{% load advertising %}{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
+		{% include "issues/section_nav.html" %}
 		<div></div>
 	</div>
 
