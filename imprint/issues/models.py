@@ -107,10 +107,9 @@ class Issue(models.Model):
         # Copy over navigation from the previous issue
         if make_sections:
             def copy_previous_sections(issue):
-                for i, s in IssueSection.objects.filter(issue=issue):
-                    IssueSection.objects.create(issue=issue, section=s.section,
-                            alt_section_name=s.alt_section_name,
-                            order=i+1)
+                for i,s in enumerate(IssueSection.objects.filter(issue=issue)):
+                    IssueSection.objects.create(issue=self, section=s.section,
+                            alt_section_name=s.alt_section_name, order=i+1)
             latest_issue_or(copy_previous_sections, lambda: None)()
         try:
             os.makedirs(os.path.join(settings.MEDIA_ROOT, self.media_dir))

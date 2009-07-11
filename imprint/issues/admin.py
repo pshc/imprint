@@ -16,6 +16,7 @@ class IssueSectionInline(admin.StackedInline):
     extra = 2
     verbose_name = 'Section'
     verbose_name_plural = 'Custom section header order (drag to reorder)'
+    template = 'admin/inline_issue.html'
 
 class IssueAdmin(admin.ModelAdmin):
     form = IssueForm
