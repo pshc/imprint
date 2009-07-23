@@ -192,6 +192,13 @@ hr {
 }
 .comments div h3 { margin-top: 0; }
 
+input, textarea {
+	font-family: Georgia, serif;
+	border: solid 1px gray;
+	padding: 0.1em;
+	margin: 0.2em;
+}
+
 label.error {
 	color: red;
 	margin: 0.5em;
@@ -199,7 +206,7 @@ label.error {
 
 form th {
 	vertical-align: top;
-	padding: 0.2em 1em;
+	padding: 0.4em 1em;
 	text-align: right;
 }
 
