@@ -1,4 +1,8 @@
-		{% load html5 %}<p>Published on {{ issue.date|html5date }}.</p>
+{% load html5 %}
+		<section>{% if issue.thumbnail %}
+		<img src="{{ MEDIA_URL }}{{ issue.thumbnail.url }}" />{% endif %}
+		<p>Published on {{ issue.date|html5date }}.</p>
 		<p>{% if issue.previous %}<a href="{{ issue.previous.get_absolute_url }}" class="previous" title="{{ issue.previous.date|date }}">Previous issue</a>{% endif %}
 		{% if issue.previous and issue.next %} | {% endif %}
 		{% if issue.next %}<a href="{{ issue.next.get_absolute_url }}" class="next" title="{{ issue.next.date|date }}">Next issue</a>{% endif %}</p>
+		</section>

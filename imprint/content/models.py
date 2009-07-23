@@ -165,7 +165,7 @@ class Byline(models.Model):
             return unicode(self.contributor)
 
 def get_image_filename(instance, filename):
-    return get_issue_subdir_filename(instance.piece.issue, filename)
+    return instance.piece.issue.get_subdir_filename(filename)
 
 class Image(Unit):
     image = models.ImageField(upload_to=get_image_filename)

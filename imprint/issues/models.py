@@ -102,6 +102,9 @@ def latest_issue_or(f, default=None):
             return default
     return deferred
 
+def get_issue_dir(instance, filename):
+    return instance.get_subdir_filename(filename)
+
 class Issue(models.Model):
     """One newspaper issue."""
     objects = IssueManager()
@@ -116,6 +119,8 @@ class Issue(models.Model):
             default=Site.objects.get_current)
     sections = models.ManyToManyField(Section, related_name='issues',
             through='IssueSection')
+    thumbnail = models.ImageField(blank=True, null=True,
+            upload_to=lambda i, f: i.get_subdir_filename(f))
 
     class Meta:
         ordering = ['-volume', '-number']

@@ -74,7 +74,7 @@ header div {
 	margin: 1em 0;
 	border: 1px solid #ddd;
 	width: 750px;
-	height: 95px;
+	height: 93px;
 	background-color: white;
 	overflow: hidden;
 }
@@ -106,6 +106,9 @@ h3 {
 
 aside {
 	text-align: right;
+}
+aside section {
+	border: 1px solid gray;
 }
 
 .copy {
@@ -139,7 +142,7 @@ p.first { /* :first-child isn't adequate here */
 	font-style: oblique;
 }
 
-img {
+article img {
 	border: 1px solid black;
 }
 .image {
