@@ -1,41 +1,44 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 	<title>{% block title %}{{ site.name }}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />{% if canonical %}
 	<link rel="canonical" href="{{ canonical }}" />{% endif %}
+	<!--[if lte IE 8]>
+	<script src="{{ MEDIA_URL }}js/html5.js" type="text/javascript"></script>
+	<![endif]-->
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
-	{% block head %}{% endblock %}
-	{% block extra_scripts %}{% endblock %}
+{% block head %}{% endblock %}
 </head>
 <body>
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
-	<div id="hd" role="navigation">
+	<header id="hd"><!-- for Yahoo! UI -->
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
-		{% load advertising %}{% block left_ad %}{% random_image_ad 1 %}{% endblock %}
+		{% load advertising %}{% random_image_ad 1 %}
+		<nav>
 		{% include "issues/section_nav.html" %}
 		<div></div>
-	</div>
+		</nav>
+	</header>
 
-	<div id="bd" role="main">{% block bd %}<div id="yui-main">
+	<div id="bd">{% block bd %}<div id="yui-main">
 	<div class="yui-b">
-	<div role="main" class="yui-g">
-		{% block messages %}{% endblock %}
+	<{% block maintag %}div{% endblock %} class="yui-g">
 		{% block content %}{% endblock %}
-	</div></div></div>
-	<div class="yui-b right" role="contentinfo">{% block right %}
-		{% include "issues/sidebar.html" %}
-		{% include "registration/sidebar.html" %}
+	</{% block maintagclose %}div{% endblock %}></div></div>
+	<aside class="yui-b">{% block aside %}
+{% include "issues/sidebar.html" %}
+{% include "registration/sidebar.html" %}
 		{% endblock %}
-		{% block right_ad %}{% random_image_ad 2 %}{% endblock %}
-	</div>{% endblock %}</div>
+		{% random_image_ad 2 %}
+	</aside>{% endblock %}</div>
 
-	<div id="ft">
-		{% block bottom_ad %}{% random_image_ad 3 %}{% endblock %}
+	<footer id="ft">
+		{% random_image_ad 3 %}
 		<p>{{ site.name }} | <a href="#">Back to top</a></p>
 		{% if debug %}{% include "utils/debug_queries.html" %}{% endif %}
-	</div>
+	</footer>
 </div>
 </body>
 </html>{# vi: set syntax=htmldjango: #}

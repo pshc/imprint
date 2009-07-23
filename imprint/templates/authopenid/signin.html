@@ -60,7 +60,8 @@
 </div>	
 {% endblock %}
 
-{% block extra_scripts %}
+{% block head %}
+	{{ block.super }}
 	<script type="text/javascript" src="{{ MEDIA_URL }}openid/openid-jquery.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {

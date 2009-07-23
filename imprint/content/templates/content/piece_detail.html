@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load content people issues %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
-{% block right %}
+{% block aside %}
 	{{ block.super }}
 	<p>Section: {% section_link section %}</p>
 {% endblock %}
+{% block maintag %}article{% endblock %}
+{% block maintagclose %}article{% endblock %}
 {% block content %}
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
-	{% if unit.is_copy %}{% with unit.copy as copy %}
+	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
 		<ul class="credit">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
@@ -23,8 +25,8 @@
 		<p class="sources">&mdash; {% contributor_link byline.contributor %}</p>
 		{% endif %}{% endfor %}
 		{% if copy.sources %}<p class="sources">&mdash; With sources from {{ copy.sources }}</p>{% endif %}
-	{% endwith %}{% endif %}
-	{% if unit.is_image %}{% with unit.image as image %}<div class="image">
+	</section>{% endwith %}{% endif %}
+	{% if unit.is_image %}{% with unit.image as image %}<section class="image">
 		{% if forloop.first %}
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
@@ -36,7 +38,7 @@
 		{% else %}
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
 		{% endif %}
-	</div>{% endwith %}{% endif %}
+	</section>{% endwith %}{% endif %}
 	{% endfor %}
 	{% include "comments/nested_list.html" %}
 {% endblock %}

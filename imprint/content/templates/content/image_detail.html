@@ -1,10 +1,12 @@
 {% extends "fullwidth.html" %}
 {% load people %}
 {% if object %}{% block header %}{{ object.headline|striptags }}{% endblock %}{% endif %}
+{% block maintag %}article{% endblock %}
+{% block maintagclose %}article{% endblock %}
 {% block content %}{% if object %}
 	<h1>{{ object.headline|safe }}</h1>{% if object.deck %}
 	<h2>{{ object.deck|safe }}</h2>{% endif %}{% endif %}
-	<div class="image" style="width: {{ image.image.width }}px;">
+	<section class="image" style="width: {{ image.image.width }}px;">
 		<img src="{{ MEDIA_URL }}{{ image.image.url }}" width="{{ image.image.width }}" height="{{ image.image.height }}" />
 		<ul>{% for credit in image.credits %}
 			<li>{% contributor_link credit.contributor %}</li>
@@ -12,6 +14,6 @@
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
-	</div>
+	</section>
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

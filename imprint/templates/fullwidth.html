@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block bodydivclass %}yui-t7{% endblock %}
-{% block bd %}<div class="yui-g">
-	{% block messages %}{% endblock %}
+{% block bd %}<{% block maintag %}div{% endblock %} class="yui-g">
 	{% block content %}{% endblock %}
-</div>{% endblock %}
+	</{% block maintagclose %}div{% endblock %}>{% endblock %}

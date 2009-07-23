@@ -4,6 +4,11 @@ strong { font-weight: bold; }
 em { font-style: oblique; }
 del { text-decoration: line-through; }
 
+/* HTML5 */
+article, aside, dialog, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
 body {
 	font-family: Georgia, serif;
 }
@@ -34,7 +39,7 @@ a.more { font-weight: bold; }
 	margin: 0 auto;
 	display: block;
 }
-div.right ad { text-align: right; }
+aside ad { text-align: right; }
 #ft .ad { text-align: center; }
 
 #hd ul {
@@ -94,7 +99,7 @@ h3 {
 	margin-top: 1em;
 }
 
-.right {
+aside {
 	text-align: right;
 }
 
