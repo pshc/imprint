@@ -29,13 +29,15 @@ class Piece(models.Model):
             default=latest_issue_or(lambda i: i))
     is_live = models.BooleanField(u'Live?', default=True,
             help_text='Public visibility.')
+    order = models.PositiveSmallIntegerField(db_index=True, null=True,
+            blank=True)
     # Denormalized:
     contributors = models.ManyToManyField(Contributor, related_name='pieces',
             editable=False)
 
     class Meta:
         unique_together = [('issue', 'headline'), ('issue', 'slug')]
-        ordering = ('-id',) # TODO: Manually specify order somehow...
+        ordering = ('order', '-id')
 
     def __unicode__(self):
         return unescape(strip_tags(self.headline))
