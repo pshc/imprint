@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
+	<meta name="description" content="Imprint is the official student newspaper of the University of Waterloo in Waterloo, Ontario, Canada." />
+	<meta name="keywords" content="Imprint, Imprint Publications Waterloo, University of Waterloo, UW, newspaper, student paper, campus, media, press, Waterloo, Ontario, Canada" />
 	<link rel="alternate" type="application/rss+xml" title="Latest issue" href="/feeds/latest" />{% if issue.previous %}
 	<link rel="prev" href="{{ issue.previous.get_absolute_url }}" title="Issue for {{ issue.previous.date|date }}" />{% endif %}{% if issue.next %}
 	<link rel="next" href="{{ issue.next.get_absolute_url }}" title="Issue for {{ issue.next.date|date }}" />{% endif %}{% endblock %}
