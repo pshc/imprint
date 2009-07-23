@@ -9,6 +9,8 @@ from people.models import Contributor
 import os
 from utils import cache_with_key
 
+HIGHLIGHT_COUNT = 4
+
 class Section(models.Model):
     """One section of the newspaper."""
     name = models.CharField(max_length=50, db_index=True)
@@ -26,6 +28,10 @@ class Section(models.Model):
 
     class Meta:
         ordering = ('name',)
+
+    @property
+    def highlights(self):
+        return self.pieces.all()[:HIGHLIGHT_COUNT]
 
 class SectionEditorship(models.Model):
     """Represents one (co/assistant/etc.) editorship position."""
@@ -153,6 +159,10 @@ class Issue(models.Model):
     @property
     def nav_sections(self):
         return IssueSection.objects.select_related().filter(issue=self)
+
+    @property
+    def highlights(self):
+        return self.pieces.all()[:HIGHLIGHT_COUNT]
 
 class IssueSection(models.Model):
     """Stores info about the order and naming of section navigation links."""

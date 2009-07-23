@@ -76,7 +76,14 @@ aside ad { text-align: right; }
 	width: 750px;
 	height: 95px;
 	background-color: white;
+	overflow: hidden;
 }
+
+#hd dl { list-style: none; color: gray; line-height: 150%; }
+#hd dt { font-style: oblique; }
+#hd dd { display: list-item; }
+#hd dd a { color: gray; }
+#hd dd em { font-style: normal; margin-right: 1em; }
 
 /* main */
 

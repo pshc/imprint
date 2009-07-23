@@ -41,6 +41,7 @@ extra_headers = {
     'Sagittarius A*': 'four million solar masses',
     'Singularity': 'impossible to observe', 'Buster Machine #7': 'Nono',
     'Schwarzchild Radius': 'decreasing', 'Header': 'mispelled',
+    'Kyon-kun': 'denwa', 'Policy 9': 'violated',
     'Lawsuit': 'pending', 'YUKI.N': 'sleeping beauty'}.items()
 extra_headers.append(("Schrodinger's cat", 'dead'))
 extra_headers.append(("Schrodinger's cat", 'alive'))

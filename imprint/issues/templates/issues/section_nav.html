@@ -1,4 +1,10 @@
 {% load issues %}<ul>{% for nav in issue.nav_sections %}
 			{% ifequal section nav.section %}<li><strong>{% section_link nav %}</strong></li>
 			{% else %}<li>{% section_link nav %}</li>{% endifequal %}{% endfor %}
-		</ul>{# vi: set syntax=htmldjango: #}
+		</ul>
+		<div><dl>
+			{% if section %}<dt>In this section:</dt>
+{% for highlight in section.highlights %}{% include "issues/highlight.html" %}{% endfor %}{% else %}
+			<dt>In this issue:</dt>
+{% for highlight in issue.highlights %}{% include "issues/highlight.html" %}{% endfor %}{% endif %}
+		</dl></div>{# vi: set syntax=htmldjango: #}
