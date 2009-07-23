@@ -22,11 +22,11 @@ a.more { font-weight: bold; }
 
 /* header */
 
-#hd {
+header {
 	text-align: center;
 }
 
-#hd h1 { /* logo */
+header h1 { /* logo */
 	background: url("../images/logo3.jpg") no-repeat;
 	padding-top: 120px; width: 298px;
 	height: 0px;
@@ -34,21 +34,21 @@ a.more { font-weight: bold; }
 	margin: 0 auto 1em auto;
 }
 
-#hd .ad { float: left; }
+header .ad { float: left; }
 .ad {
 	margin: 0 auto;
 	display: block;
 }
 aside ad { text-align: right; }
-#ft .ad { text-align: center; }
+footer .ad { text-align: center; }
 
-#hd ul {
+header ul {
 	text-align: right;
 	float: right;
 	display: block;
 }
-#hd ul li { display: inline; }
-#hd ul li a {
+header ul li { display: inline; }
+header ul li a {
 	font-family: Tahoma, sans-serif;
 	text-transform: uppercase;
 	padding: 1em;
@@ -58,16 +58,16 @@ aside ad { text-align: right; }
 	position: relative;
 	z-index: 10;
 }
-#hd ul li a:hover {
+header ul li a:hover {
 	background-color: #f8f8f8;
 	text-decoration: none;
 }
-#hd ul li strong a {
+header ul li strong a {
 	background-color: white;
 	border-bottom: 1px solid white;
 }
 
-#hd div {
+header div {
 	float: right;
 	text-align: left;
 	padding: 1em;
@@ -79,11 +79,11 @@ aside ad { text-align: right; }
 	overflow: hidden;
 }
 
-#hd dl { list-style: none; color: gray; line-height: 150%; }
-#hd dt { font-style: oblique; }
-#hd dd { display: list-item; }
-#hd dd a { color: gray; }
-#hd dd em { font-style: normal; margin-right: 1em; }
+header dl { list-style: none; color: gray; line-height: 150%; }
+header dt { font-style: oblique; }
+header dd { display: list-item; }
+header dd a { color: gray; }
+header dd em { font-style: normal; margin-right: 1em; }
 
 /* main */
 
@@ -202,7 +202,7 @@ form th {
 	text-align: right;
 }
 
-#ft {
+footer {
 	margin-top: 1em;
 	color: gray;
 }
