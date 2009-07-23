@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% load people %}
 {% block content %}
 	<h1>{{ object }}</h1>
+	{% for editor in editorships %}
+	<p><em>{{ editor.title }}: {% contributor_link editor.contributor %}</em></p>
+	{% endfor %}
 	{% for object in pieces %}{% include "content/piece_preview.html" %}{% endfor %}
 {% endblock %}

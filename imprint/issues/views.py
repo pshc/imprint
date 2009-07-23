@@ -37,6 +37,7 @@ def area_detail(request, slug):
         pieces = section.pieces.filter(issue=issue)
         canonical = reverse('section-detail',
                 args=issue.date.timetuple()[:3] + (slug,))
+        editorships = SectionEditorship.objects.filter()
     except Section.DoesNotExist:
         series = object = get_object_or_404(Series, slug=slug)
         pieces = series.pieces.all()

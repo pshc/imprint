@@ -68,6 +68,9 @@ class SectionEditorship(models.Model):
     def __unicode__(self):
         return "%s, %s" % (self.contributor, self.title)
 
+    class Meta:
+        ordering = ('section', 'assistant')
+
 class IssueManager(CurrentSiteManager):
     def latest_issue(self):
         global CACHED_LATEST_ISSUE
