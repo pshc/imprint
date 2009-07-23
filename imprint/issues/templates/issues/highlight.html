@@ -1,1 +1,1 @@
-			<dd><em>{% ifnotequal section highlight.section %}{{ highlight.section }}: {% endifnotequal %}</em><a href="{{ highlight.get_absolute_url }}"><strong>{{ highlight }}</strong> &raquo;</a></dd>
+			<tr><th>{% ifnotequal section highlight.section %}{{ highlight.section }}{% endifnotequal %}</th><td><a href="{{ highlight.get_absolute_url }}"><strong>{{ highlight }}</strong> &raquo;</a></td></tr>

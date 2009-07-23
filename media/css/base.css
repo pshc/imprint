@@ -79,11 +79,9 @@ header div {
 	overflow: hidden;
 }
 
-header dl { list-style: none; color: gray; line-height: 150%; }
-header dt { font-style: oblique; }
-header dd { display: list-item; }
-header dd a { color: gray; }
-header dd em { font-style: normal; margin-right: 1em; }
+header table { color: gray; line-height: 150%; }
+header th { text-align: right; padding-right: 1em; }
+header td a { color: gray; }
 
 /* main */
 

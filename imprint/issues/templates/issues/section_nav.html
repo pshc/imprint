@@ -2,9 +2,9 @@
 			{% ifequal section nav.section %}<li><strong>{% section_link nav %}</strong></li>
 			{% else %}<li>{% section_link nav %}</li>{% endifequal %}{% endfor %}
 		</ul>
-		<div><dl>
-			{% if section %}<dt>In this section:</dt>
+		<div><table><!-- How do I aligned columns? -->
+			{% if section %}<tr><td colspan="2"><em>In this section:</em></td></tr>
 {% for highlight in section.highlights %}{% include "issues/highlight.html" %}{% endfor %}{% else %}
-			<dt>In this issue:</dt>
+			<tr><td colspan="2"><em>In this issue:</em></td></tr>
 {% for highlight in issue.highlights %}{% include "issues/highlight.html" %}{% endfor %}{% endif %}
-		</dl></div>{# vi: set syntax=htmldjango: #}
+		</table></div>{# vi: set syntax=htmldjango: #}
