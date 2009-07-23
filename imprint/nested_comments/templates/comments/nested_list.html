@@ -1,4 +1,4 @@
-	{% load comments humanize nested_comments %}
+	{% load comments html5 nested_comments %}
 	<a name="comments"></a>{% get_comment_list for object as comments %}
 	{% if comments %}
 	<h2>{{ comments|length }} comment{{ comments|length|pluralize }}</h2>
@@ -7,7 +7,7 @@
 		<li style="margin-left: {{ comment.indentation|multiply:2 }}em;"><a name="comment{{ comment.id }}"></a>
 		<p>{% if comment.is_removed %}<em>[removed]</em>
 		{% else %}{{ comment.comment|linebreaksbr }}{% endif %}</p>
-		<span>&mdash; Posted {{ comment.submit_date|naturalday }} {% if not comment.is_removed %}by <em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
+		<span>&mdash; Posted {{ comment.submit_date|html5naturalday }} {% if not comment.is_removed %}by <em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
 		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>{% endif %}
 		</span></li>{% endfor %}
 	</ol>{% endwith %}
