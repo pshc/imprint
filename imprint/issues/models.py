@@ -11,6 +11,24 @@ from utils import cache_with_key
 
 HIGHLIGHT_COUNT = 4
 
+class Series(models.Model):
+    """A recurring column, comic, feature, etc."""
+    name = models.CharField(max_length=50, db_index=True)
+    slug = models.SlugField(max_length=50, db_index=True, unique=True,
+            help_text="Determines what the name will look like in a URL.")
+    contributors = models.ManyToManyField(Contributor, related_name='series')
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('area-detail', (), {'slug': self.slug})
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name_plural = 'series'
+
 class Section(models.Model):
     """One section of the newspaper."""
     name = models.CharField(max_length=50, db_index=True)
@@ -24,7 +42,7 @@ class Section(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('section-latest-issue', (), {'slug': self.slug})
+        return ('area-detail', (), {'slug': self.slug})
 
     class Meta:
         ordering = ('name',)

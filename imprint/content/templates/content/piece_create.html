@@ -81,7 +81,7 @@ $(document).ready(function () {
 		{{ form.deck.errors }}
 		<label for="id_deck">Deck:</label>
 		{{ form.deck }}
-		<p class="help">Optional subheadline.<p>
+		<p class="help">Optional subheadline.</p>
 	</div></div>
 </fieldset>
 <fieldset class="module aligned">
@@ -102,6 +102,13 @@ $(document).ready(function () {
 		{# TODO: Auto-populate #}
 		<select name="issue_dummy" id="id_issue_dummy" style="display: none;"><option value="">Ignore me</option></select>
 		<a href="../../../issues/issue/add/" class="add-another" id="add_id_issue_dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+	</div></div>
+	<div class="form-row series{% if form.series.errors %} errors{% endif %}"><div>
+		{{ form.series.errors }}
+		<label for="id_series">Series:</label>
+		{{ form.series }}
+		<a href="../../../issues/series/add/" class="add-another" id="add_id_series" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+		<p class="help">For example, a weekly column or comic.</p>
 	</div></div>
 	<div class="form-row is_live{% if form.is_live.errors %} errors{% endif %}"><div>
 		{{ form.is_live.errors }}
@@ -182,7 +189,7 @@ $(document).ready(function () {
 			{% comment %}TODO: Populate automatically{% endcomment %}
 			<input id="id_{{ unit.name }}-bylines-dummy" type="hidden" />
 			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
-			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.<p>
+			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.</p>
 		</div></div>
 		<script type="text/javascript">
 		$(document).ready(function () {

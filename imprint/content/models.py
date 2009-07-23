@@ -3,7 +3,7 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils.html import strip_tags
-from issues.models import Issue, Section, latest_issue_or
+from issues.models import Issue, Section, Series, latest_issue_or
 import os
 from people.models import Contributor
 from utils import unescape, cache_with_key
@@ -27,6 +27,8 @@ class Piece(models.Model):
     section = models.ForeignKey(Section, related_name='pieces')
     issue = models.ForeignKey(Issue, related_name='pieces',
             default=latest_issue_or(lambda i: i))
+    series = models.ForeignKey(Series, related_name='pieces', null=True,
+            blank=True, help_text="For example, a weekly column or comic.")
     is_live = models.BooleanField(u'Live?', default=True,
             help_text='Public visibility.')
     order = models.PositiveSmallIntegerField(db_index=True, null=True,

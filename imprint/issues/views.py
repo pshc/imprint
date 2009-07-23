@@ -28,13 +28,19 @@ def section_detail(request, y, m, d, slug):
     pieces = Piece.objects.filter(section=object, issue=issue)
     return locals()
 
+# Handles any root-level slug; currently sections or series
 @renders('issues/section_detail.html')
-def section_latest_issue(request, slug):
-    section = object = get_object_or_404(Section, slug=slug)
-    issue = Issue.objects.latest_issue()
-    pieces = Piece.objects.filter(section=object, issue=issue)
-    canonical = reverse('section-detail',
-            args=issue.date.timetuple()[:3] + (slug,))
+def area_detail(request, slug):
+    try:
+        section = object = Section.objects.get(slug=slug)
+        issue = Issue.objects.latest_issue()
+        pieces = section.pieces.filter(issue=issue)
+        canonical = reverse('section-detail',
+                args=issue.date.timetuple()[:3] + (slug,))
+    except Section.DoesNotExist:
+        series = object = get_object_or_404(Series, slug=slug)
+        pieces = series.pieces.all()
+        template = 'issues/series_detail.html'
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

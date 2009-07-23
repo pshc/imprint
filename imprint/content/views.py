@@ -56,6 +56,7 @@ class PieceForm(forms.Form):
             widget=small_input())
     issue = forms.IntegerField(initial=latest_issue_or(lambda i: i.number, ''),
             widget=small_input())
+    series = forms.ModelChoiceField(Series.objects, required=False)
     is_live = forms.BooleanField(required=False, initial=True)
 
     def clean_issue(self):
