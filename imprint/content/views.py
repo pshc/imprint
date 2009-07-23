@@ -192,7 +192,7 @@ class PieceForm(forms.Form):
         piece.save()
         return piece
 
-@permission_required('content.can_add_piece')
+@permission_required('content.add_piece')
 @renders('content/piece_create.html')
 def piece_create(request):
     title = 'Add piece'
@@ -224,7 +224,6 @@ def contributor_lookup(request, with_position=False):
         data = data.values_list('name', flat=True)
     return HttpResponse('\n'.join(data), mimetype="application/javascript")
 
-@permission_required('content.can_add_piece')
 @renders('content/piece_admin.html')
 def piece_admin(request):
     title = 'Pieces'
