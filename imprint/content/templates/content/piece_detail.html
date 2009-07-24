@@ -4,6 +4,10 @@
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
+	{% if object.series %}<a href="{{ object.series.get_absolute_url }}"><strong>{{ object.series }}</strong></a>
+	{% for c in object.series.contributors.all %}{% if forloop.first %} &mdash; {% endif %}
+	{% contributor_link c %}{% if not forloop.last %}, {% endif %}{% endfor %}
+	{% endif %}
 	<h1>{{ object.headline|safe }}</h1>
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
