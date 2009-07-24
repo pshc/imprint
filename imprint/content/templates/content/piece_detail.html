@@ -1,10 +1,6 @@
 {% extends "content/base.html" %}
 {% load content people issues %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
-{% block aside %}
-	{{ block.super }}
-	<p>Section: {% section_link section %}</p>
-{% endblock %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
