@@ -1,4 +1,4 @@
-	{% load comments html5 nested_comments %}
+<hr />{% load comments html5 nested_comments %}
 	<a name="comments"></a>{% get_comment_list for object as comments %}
 	{% if comments %}
 	<h2>{{ comments|length }} comment{{ comments|length|pluralize }}</h2>

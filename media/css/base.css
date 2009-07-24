@@ -105,6 +105,10 @@ h3 {
 	margin-top: 1em;
 }
 
+article section {
+	padding: 1em 0;
+}
+
 aside {
 	text-align: center;
 }
