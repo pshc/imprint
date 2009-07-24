@@ -6,7 +6,7 @@ from django.utils.html import strip_tags
 from issues.models import Issue, Section, Series, latest_issue_or
 import os
 from people.models import Contributor
-from utils import unescape, cache_with_key
+from utils import unescape, cache_with_key, date_tuple
 
 class PieceManager(models.Manager):
     @cache_with_key(lambda _, i, s, sl: 'piece/issue%d/%s/%s' % (i.id, s, sl))
@@ -46,9 +46,8 @@ class Piece(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        date = self.issue.date
-        return ('piece-detail', (), {
-            'y': date.year, 'm': date.month, 'd': date.day,
+        y, m, d = date_tuple(self.issue.date)
+        return ('piece-detail', (), {'y': y, 'm': m, 'd': d,
             'section': self.section.slug, 'slug': self.slug})
 
     @property
@@ -147,9 +146,8 @@ class Copy(Unit):
 
     @models.permalink
     def get_absolute_url(self):
-        d = self.issue.date
-        return ('piece-detail', [d.year, d.month, d.day,
-                self.section.slug, self.slug])
+        y, m, d = date_tuple(self.issue.date)
+        return ('piece-detail', [y, m, d, self.section.slug, self.slug])
 
 class Byline(models.Model):
     """Represents credit for some text content."""
@@ -186,9 +184,8 @@ class Image(Unit):
     @models.permalink
     def get_absolute_url(self):
         piece = self.piece
-        date = piece.issue.date
-        return ('image-detail', (), {
-            'y': date.year, 'm': date.month, 'd': date.day,
+        y, m, d = date_tuple(piece.issue.date)
+        return ('image-detail', (), {'y': y, 'm': m, 'd': d,
             'section': piece.section.slug, 'slug': piece.slug,
             'image': os.path.basename(self.image.name)})
 

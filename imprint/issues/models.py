@@ -4,10 +4,13 @@ from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
 from django.db.models.signals import post_save, post_delete
 from django.db import models
-from django.shortcuts import get_object_or_404
+from django.utils import dates
 from people.models import Contributor
 import os
-from utils import cache_with_key
+from utils import cache_with_key, date_tuple
+# XXX: Move this to views:
+from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 HIGHLIGHT_COUNT = 4
 
@@ -83,10 +86,14 @@ class IssueManager(CurrentSiteManager):
                 raise self.model.DoesNotExist
         return CACHED_LATEST_ISSUE
 
-    @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%d/%d' % (
-            Site.objects.get_current().id, int(y), int(m), int(d)))
+    @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%s/%d' % (
+            Site.objects.get_current().id, int(y), m, int(d)))
     def get_by_date(self, y, m, d):
-        date = datetime.date(int(y), int(m), int(d))
+        try:
+            date = datetime.date(int(y), dates.MONTHS_3_REV[m], int(d))
+        except:
+            # XXX: Views? In MY models?
+            raise Http404
         issue = get_object_or_404(self.model, date__exact=date, is_live=True,
                 site=Site.objects.get_current())
         dummy = issue.previous; dummy = issue.next
@@ -131,7 +138,8 @@ class Issue(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('issue-detail', self.date.timetuple()[:3])
+        y, m, d = date_tuple(self.date)
+        return ('issue-detail', date_tuple(self.date))
 
     def save(self, **kwargs):
         make_sections = not self.id

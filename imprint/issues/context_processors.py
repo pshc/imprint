@@ -1,7 +1,7 @@
 from issues.models import Issue
 import re
 
-ymd_re = re.compile(r'^/\d{4}/\d\d?/\d\d?/')
+ymd_re = re.compile(r'^/\d{4}/\w{3}/\d\d?/')
 
 def latest_issue(request):
     if ymd_re.match(request.path):

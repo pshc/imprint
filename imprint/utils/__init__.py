@@ -2,6 +2,7 @@ from django.core.cache import cache
 from django.core.xheaders import populate_xheaders
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils import dates
 import random
 
 def renders(template, request_context=True, mimetype=None):
@@ -67,5 +68,8 @@ def cache_with_key(key_func, not_found=object()):
         decorated.__module__ = f.__module__
         return decorated
     return decorate
+
+def date_tuple(date):
+    return (date.year, unicode(dates.MONTHS_3[date.month]), date.day)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

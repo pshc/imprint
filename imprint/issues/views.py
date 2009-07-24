@@ -3,7 +3,7 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from issues.models import *
-from utils import renders
+from utils import renders, date_tuple
 
 @renders('issues/issue_detail.html')
 def issue_detail(request, y, m, d):
@@ -36,7 +36,7 @@ def area_detail(request, slug):
         issue = Issue.objects.latest_issue()
         pieces = section.pieces.filter(issue=issue)
         canonical = reverse('section-detail',
-                args=issue.date.timetuple()[:3] + (slug,))
+                args=date_tuple(issue.date) + (slug,))
         editorships = SectionEditorship.objects.filter()
     except Section.DoesNotExist:
         series = object = get_object_or_404(Series, slug=slug)

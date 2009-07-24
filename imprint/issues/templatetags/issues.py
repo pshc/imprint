@@ -1,6 +1,7 @@
 from django import template
 from django.core.urlresolvers import reverse
 from django.utils.html import conditional_escape
+from utils import date_tuple
 
 register = template.Library()
 
@@ -29,7 +30,7 @@ class SectionLinkNode(template.Node):
         else:
             name = section.name
         if context.get('is_specific_issue', False):
-            date = context['issue'].date.timetuple()[:3]
+            date = date_tuple(context['issue'].date)
             url = reverse('section-detail', args=date + (section.slug,))
         else:
             url = section.get_absolute_url()
