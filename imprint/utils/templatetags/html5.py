@@ -8,6 +8,8 @@ register = Library()
 
 ms_re = re.compile(r'[.]\d+$')
 def time_tag(value, str):
+    if isinstance(value, basestring):
+        return value
     iso_time = ms_re.sub('', value.isoformat()) # Strip milliseconds
     return mark_safe(u'<time datetime="%s">%s</time>' % (iso_time,
         conditional_escape(str)))
