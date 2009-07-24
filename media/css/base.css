@@ -106,14 +106,15 @@ h3 {
 }
 
 aside {
-	text-align: right;
+	text-align: center;
 }
 aside section {
 	border: 1px solid #ddd;
 	padding: 0.5em;
+	margin: 0.5em 0;
 }
+aside .search .submit { display: none; }
 aside .archive {
-	text-align: center;
 	padding: 0.5em 0em;
 }
 aside .archive img {

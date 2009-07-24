@@ -26,6 +26,9 @@
 		{% block content %}{% endblock %}
 	</{% block maintagclose %}div{% endblock %}></div></div>
 	<aside class="yui-b">{% block aside %}
+		<section class="search">
+{% include "google-custom-search.html" %}
+		</section>
 {% include "issues/sidebar.html" %}
 {% include "registration/sidebar.html" %}
 		{% endblock %}
