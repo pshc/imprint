@@ -190,6 +190,7 @@ figure ul li {
 }
 
 hr {
+	clear: both;
 	color: white;
 	background-color: white;
 	border: thin dotted gray;
