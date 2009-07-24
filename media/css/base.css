@@ -146,6 +146,9 @@ p.first { /* :first-child isn't adequate here */
 	display: block;
 	float: left;
 }
+.preview .drop {
+	font: normal 3.8em/0.9em serif;
+}
 
 .byline, legend ul {
 	font-family: Tahoma, sans-serif;
