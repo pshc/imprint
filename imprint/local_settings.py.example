@@ -10,6 +10,8 @@ MANAGERS = ADMINS
 
 # Don't use locmem in production!
 CACHE_BACKEND = 'locmem:///'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'sqlite.db'

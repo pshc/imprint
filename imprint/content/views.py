@@ -171,6 +171,7 @@ class PieceForm(forms.Form):
         deleted_fields = ['type', 'name']
         preserved_fields = ['photographers', 'artists', 'bylines']
         piece = Piece(**self.cleaned_data)
+        piece.is_live = True
         piece.save()
         ids = set()
         for unit in self.units:
