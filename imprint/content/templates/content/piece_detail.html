@@ -20,7 +20,7 @@
 		{% for byline in copy.bylines %}{% if byline.is_after_copy %}
 		<p class="sources">&mdash; {% contributor_link byline.contributor %}</p>
 		{% endif %}{% endfor %}
-		{% if copy.sources %}<p class="sources">&mdash; With sources from {{ copy.sources }}</p>{% endif %}
+		{% if copy.sources %}<p class="sources">&mdash; With files from {{ copy.sources }}</p>{% endif %}
 	</section>{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
 		{% if forloop.first %}<figure>
