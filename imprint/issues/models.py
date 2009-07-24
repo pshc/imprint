@@ -212,6 +212,7 @@ class IssueSection(models.Model):
 # This is so commonly used, we'll just cache it right here
 CACHED_LATEST_ISSUE = None
 def clear_issue_cache(*args, **kwargs):
+    global CACHED_LATEST_ISSUE
     CACHED_LATEST_ISSUE = None
 
 # Keep it fresh
