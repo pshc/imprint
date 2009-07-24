@@ -8,12 +8,14 @@
 	<h2>{{ object.deck|safe }}</h2>{% endif %}{% endif %}
 	<figure style="width: {{ image.image.width }}px;">
 		<img src="{{ MEDIA_URL }}{{ image.image.url }}" width="{{ image.image.width }}" height="{{ image.image.height }}" />
+		<legend>
 		<ul>{% for credit in image.credits %}
 			<li>{% contributor_link credit.contributor %}</li>
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
+		</legend>
 	</figure>
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

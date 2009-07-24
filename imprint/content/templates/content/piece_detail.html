@@ -8,7 +8,7 @@
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
 	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
-		<ul class="credit">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
+		<ul class="byline">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
 			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
 			{{ byline.position }}{% endif %}
 			</li>
@@ -25,12 +25,14 @@
 	{% if unit.is_image %}{% with unit.image as image %}<figure>
 		{% if forloop.first %}
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
-		{% if image.cutline %}<label for="image{{ image.id }}">{{ image.cutline|safe }}</label>{% endif %}
-		<ul class="credit">{% for credit in image.credits %}
+		<legend>
+		<ul>{% for credit in image.credits %}
 			<li>{% contributor_link credit.contributor %}</li>
 		{% endfor %}{% if image.courtesy %}
 			<li>Courtesy {{ image.courtesy }}</li>
 		{% endif %}</ul>
+		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
+		</legend>
 		{% else %}
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
 		{% endif %}

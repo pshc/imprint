@@ -142,11 +142,11 @@ p.first { /* :first-child isn't adequate here */
 	float: left;
 }
 
-.credit {
+.byline, legend ul {
 	font-family: Tahoma, sans-serif;
 	text-transform: uppercase;
 }
-.credit a {
+.byline a, legend ul a {
 	font-weight: bold;
 }
 .sources {
