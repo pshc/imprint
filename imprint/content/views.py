@@ -58,6 +58,7 @@ class PieceForm(forms.Form):
             widget=small_input())
     series = forms.ModelChoiceField(Series.objects, required=False)
     is_live = forms.BooleanField(required=False, initial=True)
+    is_featured = forms.BooleanField(required=False, initial=False)
 
     def clean_issue(self):
         data = self.cleaned_data

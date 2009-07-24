@@ -196,7 +196,7 @@ class Issue(models.Model):
 
     @property
     def highlights(self):
-        return self.pieces.all()[:HIGHLIGHT_COUNT]
+        return self.pieces.order_by('-is_featured', 'order')[:HIGHLIGHT_COUNT]
 
 class IssueSection(models.Model):
     """Stores info about the order and naming of section navigation links."""

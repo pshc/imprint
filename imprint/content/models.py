@@ -31,6 +31,8 @@ class Piece(models.Model):
             blank=True, help_text="For example, a weekly column or comic.")
     is_live = models.BooleanField(u'Live?', default=True,
             help_text='Public visibility.')
+    is_featured = models.BooleanField(u'Feature', default=True,
+            help_text='Should this appear in the cover preview?')
     order = models.PositiveSmallIntegerField(db_index=True, null=True,
             blank=True)
     # Denormalized:
