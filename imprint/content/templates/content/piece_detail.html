@@ -22,8 +22,8 @@
 		{% endif %}{% endfor %}
 		{% if copy.sources %}<p class="sources">&mdash; With sources from {{ copy.sources }}</p>{% endif %}
 	</section>{% endwith %}{% endif %}
-	{% if unit.is_image %}{% with unit.image as image %}<figure>
-		{% if forloop.first %}
+	{% if unit.is_image %}{% with unit.image as image %}
+		{% if forloop.first %}<figure>
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
 		<legend>
 		<ul>{% for credit in image.credits %}
@@ -33,8 +33,9 @@
 		{% endif %}</ul>
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
 		</legend>
-		{% else %}
+		{% else %}<figure style="width: 300px;">
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
+		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
 		{% endif %}
 	</figure>{% endwith %}{% endif %}
 	{% endfor %}

@@ -107,6 +107,7 @@ h3 {
 
 article section {
 	padding: 1em 0;
+	clear: both;
 }
 
 aside {
@@ -158,11 +159,12 @@ p.first { /* :first-child isn't adequate here */
 	font-style: oblique;
 }
 
-article img {
-	border: 1px solid black;
-}
 figure {
-	margin: 1em 0;
+	float: left;
+	margin: 1em 0.5em;
+}
+figure img {
+	border: 1px solid black;
 }
 figure p { /* cutline */
 	font-weight: bold;
