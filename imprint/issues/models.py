@@ -19,7 +19,8 @@ class Series(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True,
             help_text="Determines what the name will look like in a URL.")
-    contributors = models.ManyToManyField(Contributor, related_name='series')
+    contributors = models.ManyToManyField(Contributor, related_name='series',
+            blank=True)
 
     def __unicode__(self):
         return self.name
