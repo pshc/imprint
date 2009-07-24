@@ -2,11 +2,14 @@ from django.contrib.humanize.templatetags import humanize
 from django.template import Library, defaultfilters
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
+import re
 
 register = Library()
 
+ms_re = re.compile(r'[.]\d+$')
 def time_tag(value, str):
-    return mark_safe(u'<time datetime="%s">%s</time>' % (value.isoformat(),
+    iso_time = ms_re.sub('', value.isoformat()) # Strip milliseconds
+    return mark_safe(u'<time datetime="%s">%s</time>' % (iso_time,
         conditional_escape(str)))
 
 @register.filter
