@@ -110,11 +110,6 @@ $(document).ready(function () {
 		<a href="../../../issues/series/add/" class="add-another" id="add_id_series" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 		<p class="help">For example, a weekly column or comic.</p>
 	</div></div>
-	<div class="form-row is_live{% if form.is_live.errors %} errors{% endif %}"><div>
-		{{ form.is_live.errors }}
-		{{ form.is_live }}
-		<label for="id_is_live" class="vCheckboxLabel">Live</label>
-	</div></div>
 </fieldset>
 <div class="inline-group">
 	<h2>Content (drag to reorder)</h2>
