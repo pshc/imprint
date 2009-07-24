@@ -157,21 +157,21 @@ p.first { /* :first-child isn't adequate here */
 article img {
 	border: 1px solid black;
 }
-.image {
+figure {
 	margin: 1em 0;
 }
-.image p { /* cutline */
+figure p { /* cutline */
 	font-weight: bold;
 	margin-top: 0.5em;
 	text-align: justify;
 }
-.image p a {
+figure p a {
 	font-weight: normal;
 }
-.image ul { /* credit */
+figure ul { /* credit */
 	text-align: right;
 }
-.image ul li {
+figure ul li {
 	font: normal 75%/100% Tahoma, sans-serif;
 	text-transform: uppercase;
 }

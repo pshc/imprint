@@ -13,7 +13,7 @@
 		</p>
 		</div>
 	</section>{% endwith %}{% endif %}
-	{% if unit.is_image %}{% with unit.image as image %}<section class="image">
+	{% if unit.is_image %}{% with unit.image as image %}<figure>
 	{% ifequal image.prominence "all" %}
 		<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
@@ -22,7 +22,7 @@
 	{% else %}
 		{% thumbnail image %}
 	{% endifequal %}
-	</section>{% endwith %}{% endif %}
+	</figure>{% endwith %}{% endif %}
 	{% endfor %}
 	</article>{# vi: set syntax=htmldjango: #}
 	{% if forloop and not forloop.last %}<hr />{% endif %}
