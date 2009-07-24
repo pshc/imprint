@@ -69,8 +69,13 @@ class Piece(models.Model):
             return []
         first = self.units[0]
         if first.type is Image:
-            first.image.prominence = 'all' if len(self.units) == 1 \
-                                           else 'featured'
+            if len(self.units) == 1:
+                first.image.prominence = 'all'
+            else:
+                first.image.prominence = 'featured'
+                second = self.units[1]
+                if second.type is Copy:
+                    return [first, second]
         elif first.type is Copy:
             if len(self.units) > 1:
                 second = self.units[1]
