@@ -8,7 +8,7 @@
 		<div class="copy">
 		{{ copy.preview|safe }}
 		{% get_comment_count for object as comment_count %}
-		<a href="{{ object.get_absolute_url }}">Read more...</a>
+		<a href="{{ object.get_absolute_url }}"><strong>Read more...</strong></a>
 		<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a>
 		</p>
 		</div>
