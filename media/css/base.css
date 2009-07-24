@@ -3,6 +3,7 @@
 strong { font-weight: bold; }
 em { font-style: oblique; }
 del { text-decoration: line-through; }
+th { font-weight: normal; }
 
 /* HTML5 */
 article, aside, dialog, figure, footer, header, hgroup, menu, nav, section {
@@ -108,7 +109,16 @@ aside {
 	text-align: right;
 }
 aside section {
-	border: 1px solid gray;
+	border: 1px solid #ddd;
+	padding: 0.5em;
+}
+aside .archive {
+	text-align: center;
+	padding: 0.5em 0em;
+}
+aside .archive img {
+	border: 1px solid black;
+	margin-top: 0.5em;
 }
 
 .copy {
