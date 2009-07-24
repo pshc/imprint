@@ -15,7 +15,7 @@ def random_image_ad(type):
     except IndexError:
         return ''
     alt = conditional_escape(ad.caption)
-    url = settings.MEDIA_URL + ad.image.url
+    url = ad.image.url
     return mark_safe(('<a class="ad" href="%s" title="%s" rel="nofollow">'
                       '<img src="%s" width="%d" height="%d" alt="%s" /></a>')
             % (ad.get_redirect_url(), alt, url, ad.image.width,
