@@ -113,6 +113,7 @@ aside section {
 	padding: 0.5em;
 	margin: 0.5em 0;
 }
+aside .search input { width: 140px; }
 aside .search .submit { display: none; }
 aside .archive {
 	padding: 0.5em 0em;
