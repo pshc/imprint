@@ -4,6 +4,10 @@ from django.contrib.contenttypes.models import ContentType
 from nested_comments.models import *
 import re
 
+tag_re = re.compile(r'<\s*a\s+href', re.I)
+bb_re = re.compile(r'\[\s*url(?:=.*?)?\s*\]', re.I)
+split_long_words_re = re.compile(r'([^ ]{75})')
+
 class NestedCommentForm(CommentDetailsForm):
     name = forms.CharField(max_length=50, required=False)
     email = forms.EmailField(required=False)
@@ -14,7 +18,11 @@ class NestedCommentForm(CommentDetailsForm):
 
     def clean_comment(self):
         text = self.cleaned_data.get('comment', '').strip()
-        text = re.sub(r'([^ ]{75})', '\\1 ', text)
+        if tag_re.search(text):
+            raise forms.ValidationError("HTML tags are output in plaintext. Please don't use them.")
+        elif bb_re.search(text):
+            raise forms.ValidationError('BBCode is not supported.')
+        text = split_long_words_re.sub('\\1 ', text)
         return text
 
     def clean_url(self):
