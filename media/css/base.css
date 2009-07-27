@@ -199,7 +199,11 @@ hr {
 
 /* bottom */
 
-.comments li { margin: 1.5em 0; }
+.comments li {
+	margin: 1.5em 0;
+	padding: 0.5em;
+	border: 1px solid #ddd;
+}
 .comments p { line-height: 170%; }
 .comments span { /* comment meta */
 	color: #555;
