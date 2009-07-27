@@ -3,10 +3,11 @@
 #TEMPLATE_DEBUG = False
 
 ADMINS = (
-    ('Paul Collier', 'paching@gmail.com'),
+    ('Paul Collier', 'paul@example.com'),
 )
-
 MANAGERS = ADMINS
+
+SERVER_EMAIL = 'django@imprint.uwaterloo.ca'
 
 # Don't use locmem in production!
 CACHE_BACKEND = 'locmem:///'
