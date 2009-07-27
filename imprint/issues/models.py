@@ -2,7 +2,6 @@ import datetime
 from django.conf import settings
 from django.contrib.sites.managers import CurrentSiteManager
 from django.contrib.sites.models import Site
-from django.db.models.signals import post_save, post_delete
 from django.db import models
 from django.utils import dates
 from people.models import Contributor
@@ -226,8 +225,8 @@ def clear_issue_cache(*args, **kwargs):
 
 # Keep it fresh
 for m in [Issue, Section, Site]:
-    post_save.connect(clear_issue_cache, sender=m)
-    post_delete.connect(clear_issue_cache, sender=m)
+    models.signals.post_save.connect(clear_issue_cache, sender=m)
+    models.signals.post_delete.connect(clear_issue_cache, sender=m)
 del m
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

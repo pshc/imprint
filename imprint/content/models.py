@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from django.core.cache import cache
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils.html import strip_tags
@@ -8,12 +9,28 @@ import os
 from people.models import Contributor
 from utils import unescape, cache_with_key, date_tuple
 
+def piece_cache_key(_, issue, section, slug):
+    return 'piece/issue%d/%s/%s' % (issue.id, section, slug)
+
 class PieceManager(models.Manager):
-    @cache_with_key(lambda _, i, s, sl: 'piece/issue%d/%s/%s' % (i.id, s, sl))
+    @cache_with_key(piece_cache_key)
     def get_by_issue_section_slug(self, issue, section, slug):
         piece = get_object_or_404(Piece, issue=issue, section__slug=section,
                 slug=slug, is_live=True)
+        dummy = piece.units
         return piece
+
+def delete_cached_piece(sender, instance=None, **kwargs):
+    if issubclass(sender, Byline):
+        instance = instance.copy
+    elif issubclass(sender, Artist):
+        instance = instance.image
+    if isinstance(instance, Unit):
+        instance = instance.piece
+    assert isinstance(instance, Piece)
+    key = piece_cache_key(None, instance.issue, instance.section.slug,
+            instance.slug)
+    cache.delete(key)
 
 class Piece(models.Model):
     """Block of content in the paper. Holds text and media."""
@@ -208,5 +225,10 @@ class Artist(models.Model):
     def __unicode__(self):
         return self.get_type_display().replace(u'(name)',
                 unicode(self.contributor))
+
+for m in [Piece, Unit, Copy, Image, Byline, Artist]:
+    models.signals.pre_save.connect(delete_cached_piece, sender=m)
+    models.signals.pre_delete.connect(delete_cached_piece, sender=m)
+del m
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
