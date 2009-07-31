@@ -17,7 +17,8 @@ def random_image_ad(type):
     alt = conditional_escape(ad.caption)
     url = ad.image.url
     return mark_safe(('<a class="ad" href="%s" title="%s" rel="nofollow">'
-                      '<img src="%s" width="%d" height="%d" alt="%s" /></a>')
+                      '<img src="%s" width="%d" height="%d" alt="%s" />'
+                      '<small>Advertisement</small></a>')
             % (ad.get_redirect_url(), alt, url, ad.image.width,
                 ad.image.height, alt))
 
