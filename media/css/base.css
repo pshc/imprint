@@ -40,7 +40,7 @@ header .ad { float: left; }
 	margin: 0 auto;
 	display: block;
 }
-aside ad { text-align: right; }
+.ad small { font-family: sans-serif; }
 footer .ad { text-align: center; }
 
 header ul {
