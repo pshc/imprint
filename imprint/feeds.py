@@ -8,7 +8,7 @@ class LatestPieces(Feed):
     title = Site.objects.get_current().name
     description = "News from the latest issue of " + \
             Site.objects.get_current().name
-    ttl = "86400" # One day
+    ttl = "9001"
 
     def link(self):
         return reverse('latest-issue')
