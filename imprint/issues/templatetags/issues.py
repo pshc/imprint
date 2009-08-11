@@ -1,7 +1,7 @@
 from django import template
 from django.core.urlresolvers import reverse
 from django.utils.html import conditional_escape
-from utils import date_tuple
+from imprint.utils import date_tuple
 
 register = template.Library()
 
