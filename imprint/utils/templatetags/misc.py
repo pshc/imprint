@@ -28,8 +28,8 @@ def _do_url_sub(match):
     text = url if len(url) <= 80 else url[:77] + '&hellip;'
     return u'<a href="%s" rel="nofollow" >%s</a>' % (url, text)
 
-url_re = re.compile(r'''https?://[a-zA-Z0-9/.-_+~=?%&;,:'\[\]{}`!#$^*()]+'''
-    r'''[a-zA-Z0-9#?/-_+=]''')
+url_re = re.compile(r'''https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
+    r'''[a-zA-Z0-9#?/\-_+=)]''')
 @register.filter
 def clickablelinks(text):
     text = conditional_escape(text)
