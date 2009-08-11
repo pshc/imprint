@@ -22,6 +22,19 @@ var pageTracker = _gat._getTracker("API_KEY");
 pageTracker._trackPageview();
 } catch(err) {}</script>""".replace('API_KEY', key))
 
+def _do_url_sub(match):
+    # paranoia
+    url = match.group(0).replace('"', '').replace('<', '').replace('>', '')
+    text = url if len(url) <= 80 else url[:77] + '&hellip;'
+    return u'<a href="%s" rel="nofollow" >%s</a>' % (url, text)
+
+url_re = re.compile(r'''https?://[a-zA-Z0-9/.-_+~=?%&;,:'\[\]{}`!#$^*()]+'''
+    r'''[a-zA-Z0-9#?/-_+=]''')
+@register.filter
+def clickablelinks(text):
+    text = conditional_escape(text)
+    return mark_safe(url_re.sub(_do_url_sub, text))
+
 # For debugging
 @register.filter
 def togglesqlfields(stmt):
