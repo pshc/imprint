@@ -112,7 +112,7 @@ header td a { color: gray; }
 /* main */
 
 h1 {
-	margin-bottom: 0.5em;
+	margin: 0.5em 0;
 	font-size: 250%;
 	letter-spacing: 0.02em;
 }
