@@ -27,7 +27,10 @@ address { font-style: oblique; }
 
 header {
 	text-align: center;
+	color: gray;
 }
+
+header a { color: navy; }
 
 header h1 { /* logo */
 	background: url("../images/logo3.jpg") no-repeat;
@@ -92,7 +95,6 @@ header nav.static {
 	border-top: 1px solid #ddd;
 	width: 100%;
 	height: 12pt;
-	color: gray;
 	background-color: #eee;
 	overflow: hidden;
 }
@@ -102,10 +104,9 @@ header nav.static a {
 	text-transform: uppercase;
 	padding: 0.5em;
 	border-bottom: 0;
-	color: navy;
 }
 
-header table { color: gray; line-height: 150%; }
+header table { line-height: 150%; }
 header th { text-align: right; padding-right: 1em; }
 header td a { color: gray; }
 
