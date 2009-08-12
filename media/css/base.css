@@ -33,6 +33,7 @@ header h1 { /* logo */
 	height: 0px;
 	overflow: hidden;
 	margin: 0 auto 1em auto;
+	clear: both;
 }
 
 header .ad { float: left; }
@@ -79,6 +80,33 @@ header div {
 	background-color: white;
 	overflow: hidden;
 }
+
+header div.static_links {
+	float: right;
+	text-align: left;
+	padding: 2px;
+	margin: 1em 0;
+	border: 0px solid #ddd;
+	border-top: 1px solid #ddd;
+	width: 100%;
+	height: 12pt;
+	color: gray;
+	background-color: #eee;
+	overflow: hidden;
+}
+
+header div.static_links a {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+	padding: 0.5em;
+	border-bottom: 0;
+	color: navy;
+}
+
+header div.static_links a:hover {
+	color: white;
+}
+
 
 header table { color: gray; line-height: 150%; }
 header th { text-align: right; padding-right: 1em; }
