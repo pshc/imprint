@@ -135,6 +135,10 @@ article p {
 	padding-bottom: 1em;
 }
 
+article table td {
+	padding: 0.5em 1em 0.5em 0;
+}
+
 article section {
 	padding: 1em 0;
 	clear: both;
