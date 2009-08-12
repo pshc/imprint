@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^robots.txt$', direct_to_template, {'template': 'robots.txt',
                                            'mimetype': 'text/plain'}),
     (r'^', include('content.urls')),
+    (r'^', include('static.urls')),
     # Must be last
     (r'^', include('issues.urls')),
 )

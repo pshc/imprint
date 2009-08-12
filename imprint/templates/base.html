@@ -14,11 +14,11 @@
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
 	<header id="hd"><!-- for Yahoo! UI -->
 		<!-- Static links. These are the same for the whole site. -->
-		<div class="static_links">
-			<a href="http://imprint.uwaterloo.ca">About Imprint</a> &#8212;
-			<a href="http://imprint.uwaterloo.ca">Volunteer</a> &#8212;
-			<a href="http://imprint.uwaterloo.ca">Contact</a>
-		</div>
+		<nav class="static">
+			<a href="{% url static-about %}">About Imprint</a> &mdash;
+			<a href="{% url static-volunteer %}">Volunteer</a> &mdash;
+			<a href="{% url static-contact %}">Contact</a>
+		</nav>
 		<!-- Imprint logo and link to the current front page -->
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
 		{% load advertising %}{% random_image_ad 1 %}
