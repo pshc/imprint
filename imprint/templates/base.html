@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- actually HTML 5 -->
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>{% block title %}{{ site.name }}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />{% if canonical %}
 	<link rel="canonical" href="{{ canonical }}" />{% endif %}
 	<!--[if lte IE 8]>
 	<script src="{{ MEDIA_URL }}js/html5.js" type="text/javascript"></script>
-	<![endif]-->
-{% block head %}{% endblock %}
+	<![endif]-->{% block head %}
+{% endblock %}
 {% if debug %}{% include "jquery.html" %}{% endif %}</head>
 <body>
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
-	<header id="hd"><!-- for Yahoo! UI -->
-		<!-- Static links. These are the same for the whole site. -->
+	<header id="hd">
 		<nav class="static">
 			<a href="{% url static-about %}">About Imprint</a> &mdash;
 			<a href="{% url static-volunteer %}">Volunteer</a> &mdash;
 			<a href="{% url static-contact %}">Contact</a> &mdash;
 			<a href="{% url static-jobs %}">Now hiring: Sysadmin</a>
 		</nav>
-		<!-- Imprint logo and link to the current front page -->
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
 		{% load advertising %}{% random_image_ad 1 %}
 		<nav>
