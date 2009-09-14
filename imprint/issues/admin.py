@@ -23,6 +23,7 @@ class IssueAdmin(admin.ModelAdmin):
     form = IssueForm
     inlines = (IssueSectionInline,)
     actions = None
+    list_display = ['__unicode__', 'date', 'is_live']
 
 class EditorshipInline(admin.TabularInline):
     model = SectionEditorship
