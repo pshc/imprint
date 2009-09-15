@@ -236,23 +236,23 @@ hr {
 
 /* bottom */
 
-.comments li {
+#comments li {
 	margin: 1.5em 0;
 	padding: 0.5em;
 	border: 1px solid #ddd;
 }
-.comments span { /* comment meta */
+#comments span { /* comment meta */
 	color: #555;
 	font-style: oblique;
 }
-.comments span em { font-style: normal; }
+#comments span em { font-style: normal; }
 
-.comments div { /* reply box */
+#comments div { /* reply box */
 	margin: 0 0 2em 2em;
 	padding: 0.5em;
 	background-color: #eee;
 }
-.comments div h3 { margin-top: 0; }
+#comments div h3 { margin-top: 0; }
 
 input, textarea {
 	font-family: Georgia, serif;
