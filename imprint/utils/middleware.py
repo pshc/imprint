@@ -19,7 +19,7 @@ class Firefox2HTML5Workaround(object):
         request.using_xhtml = (old_firefox or 'xhtml' in request.GET)
 
     def process_response(self, request, response):
-        if request.using_xhtml:
+        if getattr(request, 'using_xhtml', False):
             response['Content-Type'] = 'application/xhtml+xml'
             response['X-Your-Browser'] = 'needs an upgrade'
             map = get_entity_map()

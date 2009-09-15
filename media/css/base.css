@@ -46,7 +46,10 @@ header .ad { float: left; }
 	margin: 0 auto;
 	display: block;
 }
-.ad small { font-family: sans-serif; }
+.ad small {
+	font-family: sans-serif;
+	display: block;
+}
 footer .ad { text-align: center; }
 
 header ul {
