@@ -1,11 +1,7 @@
-{% if request.using_xhtml %}<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-{% else %}<!DOCTYPE html>
+{% include "utils/html_open_head.html" %}{% comment %}
 <html>
-{% endif %}<head>{% if not request.using_xhtml %}
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />{% endif %}
-	<title>{% block title %}{{ site.name }}{% endblock %}</title>
+<head>
+{% endcomment %}	<title>{% block title %}{{ site.name }}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />{% if canonical %}
 	<link rel="canonical" href="{{ canonical }}" />{% endif %}
