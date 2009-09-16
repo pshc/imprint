@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block mainbanner %}{% if issue and not issue.is_live %}
+		<h3>This issue is not live on the public site.</h3>
+{% endif %}{% endblock %}

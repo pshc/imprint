@@ -29,6 +29,7 @@
 	<div id="bd">{% block bd %}<div id="yui-main">
 	<div class="yui-b">
 	<{% block maintag %}div{% endblock %} class="yui-g">
+		{% block mainbanner %}{% endblock %}
 		{% block content %}{% endblock %}
 	</{% block maintagclose %}div{% endblock %}></div></div>
 	<aside class="yui-b">{% block aside %}
