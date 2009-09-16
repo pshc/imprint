@@ -1,6 +1,6 @@
 $("#id_url").focus(function () { $("#id_comment").focus(); }).parent().parent().css("text-indent", "-9001em").find("th").css("text-align", "left");
 
-$(".comments span > a").click(function () {
+$("#comments span > a").click(function () {
 	var form = $("#comment_form").clone();
 	form.find("textarea").val("");
 	form.find("#id_url").parent().parent().hide();
