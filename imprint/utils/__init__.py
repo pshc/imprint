@@ -1,8 +1,11 @@
 from django.core.cache import cache
+from django.core.files import storage
 from django.core.xheaders import populate_xheaders
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import dates
+from django.utils.http import urlquote
+import os
 import random
 
 def renders(template, request_context=True, mimetype=None):
@@ -71,5 +74,11 @@ def cache_with_key(key_func, not_found=object()):
 
 def date_tuple(date):
     return (date.year, unicode(dates.MONTHS_3[date.month]), date.day)
+
+class FileSystemStorage(storage.FileSystemStorage):
+    def url(self, name):
+        """Urlencode the file path properly."""
+        name = '/'.join(map(urlquote, name.split(os.path.sep)))
+        return super(FileSystemStorage, self).url(name)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

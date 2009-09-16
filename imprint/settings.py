@@ -44,6 +44,8 @@ FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 )
 
+DEFAULT_FILE_STORAGE = 'utils.FileSystemStorage'
+
 ROOT_URLCONF = 'imprint.urls'
 
 COMMENTS_APP = 'imprint.nested_comments'

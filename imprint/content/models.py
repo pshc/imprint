@@ -4,6 +4,7 @@ from django.core.cache import cache
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils.html import strip_tags
+from django.utils.http import urlquote
 from issues.models import Issue, Section, Series, latest_issue_or
 import os
 from people.models import Contributor
@@ -211,7 +212,7 @@ class Image(Unit):
         y, m, d = date_tuple(piece.issue.date)
         return ('image-detail', (), {'y': y, 'm': m, 'd': d,
             'section': piece.section.slug, 'slug': piece.slug,
-            'image': os.path.basename(self.image.name)})
+            'image': urlquote(os.path.basename(self.image.name))})
 
 PHOTOGRAPHER, GRAPHIC_ARTIST = 1, 2
 ARTIST_TYPES = ((PHOTOGRAPHER, u'Photo by (name)'),

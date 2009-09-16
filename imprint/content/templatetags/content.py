@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.template import Library
 from django.utils.html import conditional_escape, strip_tags
+from django.utils.http import urlquote
 import os
 import Image as pil
 
@@ -48,7 +49,7 @@ def thumbnail(unit):
         alt = strip_tags(conditional_escape(unit.cutline))
         extra = ' alt="%s" title="%s"' % (alt, alt)
     return '<img src="%s%s" width="%d" height="%d"%s />' % (
-            settings.MEDIA_URL, path, w, h, extra)
+            settings.MEDIA_URL, urlquote(path), w, h, extra)
 
 @register.simple_tag
 def full_thumbnail(unit):
@@ -63,6 +64,6 @@ def full_thumbnail(unit):
         if not exists:
             create_thumbnail(image.name, path, w, h)
     return '<img src="%s%s" width="%d" height="%d" />' % (
-            settings.MEDIA_URL, path, w, h)
+            settings.MEDIA_URL, urlquote(path), w, h)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
