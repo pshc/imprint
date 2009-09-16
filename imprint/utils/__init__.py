@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import dates
 from django.utils.http import urlquote
+from middleware import get_current_user
 import os
 import random
 
@@ -61,6 +62,8 @@ def cache_with_key(key_func, not_found=object()):
     def decorate(f):
         def decorated(*args, **kwargs):
             key = key_func(*args, **kwargs)
+            user = get_current_user()
+            key = key + '_staff' + ('Y' if (user and user.is_staff) else 'N')
             cached = cache.get(key, not_found)
             if cached is not not_found:
                 return cached

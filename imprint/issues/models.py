@@ -6,7 +6,7 @@ from django.db import models
 from django.utils import dates
 from people.models import Contributor
 import os
-from utils import cache_with_key, date_tuple
+from utils import cache_with_key, date_tuple, get_current_user
 # XXX: Move this to views:
 from django.shortcuts import get_object_or_404
 from django.http import Http404
@@ -74,13 +74,22 @@ class SectionEditorship(models.Model):
     class Meta:
         ordering = ('section', 'assistant')
 
+def filter_live():
+    """Returns kwargs suitable for .filter(), for issue permissions"""
+    user = get_current_user()
+    return {} if user and user.is_staff else {'is_live': True}
+
 class IssueManager(CurrentSiteManager):
     def latest_issue(self):
+        user = get_current_user()
+        # Staff can see non-live issues
+        if user and user.is_staff:
+            return self.all()[0]
+        # Otherwise, only show live issues
         global CACHED_LATEST_ISSUE
         if not CACHED_LATEST_ISSUE:
             try:
-                CACHED_LATEST_ISSUE = super(IssueManager, self).filter(
-                        is_live=True)[0]
+                CACHED_LATEST_ISSUE = self.filter(is_live=True)[0]
                 dummy = CACHED_LATEST_ISSUE.previous
             except IndexError:
                 raise self.model.DoesNotExist
@@ -94,8 +103,8 @@ class IssueManager(CurrentSiteManager):
         except:
             # XXX: Views? In MY models?
             raise Http404
-        issue = get_object_or_404(self.model, date__exact=date, is_live=True,
-                site=Site.objects.get_current())
+        issue = get_object_or_404(self.model, date__exact=date,
+                site=Site.objects.get_current(), **filter_live())
         dummy = issue.previous; dummy = issue.next
         return issue
 
@@ -176,7 +185,7 @@ class Issue(models.Model):
     def previous(self):
         if not hasattr(self, '_previous'):
             try:
-                self._previous = self.get_previous_by_date(is_live=True)
+                self._previous = self.get_previous_by_date(**filter_live())
             except Issue.DoesNotExist:
                 self._previous = None
         return self._previous
@@ -185,7 +194,7 @@ class Issue(models.Model):
     def next(self):
         if not hasattr(self, '_next'):
             try:
-                self._next = self.get_next_by_date(is_live=True)
+                self._next = self.get_next_by_date(**filter_live())
             except Issue.DoesNotExist:
                 self._next = None
         return self._next
