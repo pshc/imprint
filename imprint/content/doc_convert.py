@@ -43,7 +43,6 @@ class DocConverter(HTMLParser):
         self.documents = []
         self.document = {}
         self.warnings = []
-        self.prev_bylines = None
 
     def warn(self, message, *args):
         self.warnings.append(message % args)
@@ -196,11 +195,6 @@ class DocConverter(HTMLParser):
 
     def finish_document(self):
         self.document['copy'] = ''.join(self.document.get('copy', []))
-        # Preserve bylines if missing from part to part
-        if self.prev_bylines and not self.document.get('bylines'):
-            self.document['bylines'] = self.prev_bylines[:]
-        else:
-            self.prev_bylines = self.document.get('bylines')
         self.documents.append(self.document)
         self.document = {}
 
