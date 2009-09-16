@@ -18,9 +18,9 @@ from utils import renders, unescape
 text_input = lambda: forms.TextInput(attrs={'class': 'vTextField'})
 small_input = lambda: forms.TextInput(attrs={'class': 'vSmallField'})
 
-def extract_name_and_position(name):
-    m = re.match(r'^\s*(.+?)\s*\((.+)\)\s*$', name)
-    return m.groups() if m else (name, "")
+def extract_names_and_positions(name):
+    """Finds comma-separated names with optional (positions) appended"""
+    return re.findall(r'(?!\s)([^,(]+?)\s*(?:\(([^)]+)\)\s*)?,', name+',')
 
 def get_or_create_contributor(name, position):
     """Not quite the same as Contributor.objects.get_or_create(...)."""
@@ -30,15 +30,13 @@ def get_or_create_contributor(name, position):
         return Contributor.objects.create(name=name, position=position)
 
 def add_artists(image, artists, type, ids):
-    for name, pos in (extract_name_and_position(nm)
-                      for nm in artists.split(',') if nm.strip()):
+    for name, pos in extract_names_and_positions(artists):
         c = get_or_create_contributor(name, pos)
         ids.add(c.id)
         Artist.objects.create(image=image, contributor=c, type=type)
 
 def add_bylines(copy, bylines, ids):
-    for name, pos in (extract_name_and_position(nm)
-                      for nm in bylines.split(',') if nm.strip()):
+    for name, pos in extract_names_and_positions(bylines):
         after_copy, name = name.startswith('-'), name.strip('-').strip()
         if not name:
             continue
