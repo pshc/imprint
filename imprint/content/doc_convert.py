@@ -163,7 +163,7 @@ class DocConverter(HTMLParser):
                 '').replace('&ndash;', '')
         email = email.strip().strip('-').strip() # Yes, two strip()s
         if email.lower().startswith('with files from'):
-            self.document['sources'] = email[17:].strip()
+            self.document['sources'] = email[15:].strip()
         elif '@' in email:
             self.document.setdefault('emails', []).append(email)
         else: # Name at end?
