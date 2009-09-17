@@ -33,8 +33,12 @@ def fit_to_fixed_width(w, h, dest=FIXED_WIDTH):
 
 def create_thumbnail(orig, thumb, w, h):
     img = pil.open(os.path.join(settings.MEDIA_ROOT, orig))
-    img = img.resize((w, h), pil.ANTIALIAS)
-    img.save(os.path.join(settings.MEDIA_ROOT, thumb))
+    img = img.convert("RGB").resize((w, h), pil.ANTIALIAS)
+    dest = os.path.join(settings.MEDIA_ROOT, thumb)
+    if img.format == 'JPEG':
+        img.save(dest, quality=90)
+    else:
+        img.save(dest)
 
 @register.simple_tag
 def thumbnail(unit):
