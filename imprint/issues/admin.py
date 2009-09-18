@@ -34,12 +34,12 @@ class SectionAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     actions = None
 
-class SeriesContributorInline(admin.TabularInline):
-    model = Contributor
+def series_contributors(series):
+    return ', '.join(unicode(c) for c in series.contributors.all())
 
 class SeriesAdmin(admin.ModelAdmin):
-    #inlines = [SeriesContributorInline]
     prepopulated_fields = {'slug': ('name',)}
+    list_display = ['__unicode__', 'slug', series_contributors]
 
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Section, SectionAdmin)
