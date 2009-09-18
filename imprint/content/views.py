@@ -117,7 +117,7 @@ class PieceForm(forms.Form):
             ext = ext[1:].lower()
             if ext == 'doc':
                 try:
-                    (docs, warnings) = doc_convert(path)
+                    (title, docs, warnings) = doc_convert(path)
                     errors += ["%s: %s" % (file.name, w) for w in warnings]
                 except DocConvertException, e:
                     errors.append(str(e))

@@ -4,6 +4,8 @@ import re
 import subprocess
 import sys
 
+# TODO: Rewrite with XPath or something
+
 OK_TAGS = {'i': 'em', 'b': 'strong', 's': 'del'}
 
 HANDLERS = {}
@@ -43,16 +45,24 @@ class DocConverter(HTMLParser):
         self.documents = []
         self.document = {}
         self.warnings = []
+        self.title = ''
+        self.expecting_title = False # oh god more hacks
 
     def warn(self, message, *args):
         self.warnings.append(message % args)
 
     def write(self, data):
-        if not self.ignoring and self.font_tag_level > 0:
+        if self.expecting_title:
+            self.title += data
+        elif not self.ignoring and self.font_tag_level > 0:
             assert self.paragraph is not None
             self.paragraph.append(data)
+        elif data.strip():
+            self.warn('Omitting unknown text: ' + data.strip())
 
     def handle_starttag(self, tag, attrs):
+        if tag == 'title':
+            self.expecting_title = True
         if tag == 'div':
             self.ignoring = False
             self.handler = HANDLERS.get(dict(attrs).get('name'))
@@ -80,6 +90,8 @@ class DocConverter(HTMLParser):
         return True
 
     def handle_endtag(self, tag):
+        if tag == 'title':
+            self.expecting_title = False
         if tag == 'div':
             self.ignoring = True
         if self.ignoring:
@@ -223,17 +235,17 @@ def doc_convert(filename):
     converter = DocConverter()
     converter.feed(html)
     converter.close()
-    return (converter.documents, converter.warnings)
+    return (converter.title, converter.documents, converter.warnings)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print >>sys.stderr, "You must supply a doc file to convert."
         sys.exit(-1)
-    docs, warnings = doc_convert(sys.argv[1])
+    title, docs, warnings = doc_convert(sys.argv[1])
     for warning in warnings:
         print >>sys.stderr, "WARNING:", warning
     for doc in docs:
-        print 'DOCUMENT'
+        print 'DOCUMENT:', title
         print doc.get('title', '')
         print doc.get('emails', [])
         print doc.get('bylines', [])
