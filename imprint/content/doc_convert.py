@@ -193,7 +193,7 @@ class DocConverter(HTMLParser):
     def handle_arts23(self):
         self.paragraph_class = 'first'
 
-    @handler('Briefs headline')
+    @handler('Briefs headline', 'Subhead')
     def handle_briefs(self):
         """Chop up multi-part articles."""
         if self.document:
