@@ -50,9 +50,11 @@ class Section(models.Model):
     class Meta:
         ordering = ('name',)
 
-    @property
-    def highlights(self):
-        return self.pieces.all()[:HIGHLIGHT_COUNT]
+    def get_highlights(self, issue=None):
+        qs = self.pieces.all()
+        if issue:
+            qs = qs.filter(issue=issue)
+        return qs[:HIGHLIGHT_COUNT]
 
 class SectionEditorship(models.Model):
     """Represents one (co/assistant/etc.) editorship position."""

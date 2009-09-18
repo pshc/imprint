@@ -36,4 +36,32 @@ class SectionLinkNode(template.Node):
             url = section.get_absolute_url()
         return '<a href="%s">%s</a>' % (url, conditional_escape(name))
 
+class IssueSectionHighlightsNode(template.Node):
+    """Sets a variable containing the highlighted pieces from the given issue
+    and section."""
+    def __init__(self, issue, section, var_name):
+        self.issue, self.section = map(template.Variable, (issue, section))
+        self.var_name = var_name
+    def render(self, context):
+        try:
+            issue = self.issue.resolve(context)
+            section = self.section.resolve(context)
+            context[self.var_name] = section.get_highlights(issue)
+        except template.VariableDoesNotExist:
+            pass
+        return ''
+
+@register.tag
+def issuesectionhighlights(parser, token):
+    toks = token.split_contents()
+    try:
+        tag_name, issue, section, as_, var = toks
+    except ValueError:
+        raise template.TemplateSyntaxError, ("%r tag requires <issue> "
+                "<section> as <varname> arguments") % toks[0]
+    if as_ != 'as':
+        raise template.TemplateSyntaxError, \
+                "%r tag's third argument must be 'as'" % tag_name
+    return IssueSectionHighlightsNode(issue, section, var)
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
