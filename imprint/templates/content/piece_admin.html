@@ -36,6 +36,7 @@
 <table cellspacing="0">
 <thead>
 <tr>
+<th></th>
 <th>Headline</th>
 <th>Section</th>
 <th>Contributors</th>
@@ -44,7 +45,9 @@
 </thead>
 <tbody>
 {% for piece in pieces %}
-	<tr class="{% cycle row1,row2 %}"><th><a href="{{ piece.id }}/">{{ piece.headline|striptags|safe }}</a></th>
+	<tr class="{% cycle row1,row2 %}">
+	<th></th>
+	<th><a href="{{ piece.id }}/">{{ piece.headline|striptags|safe }}</a></th>
 	<td>{{ piece.section }}</td>
 	<td>{{ piece.contributors.all|join:", " }}</td>
 	<td><img src="/media/admin/img/admin/icon-{{ piece.is_live|yesno }}.gif" /></td></tr>
