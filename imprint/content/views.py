@@ -55,7 +55,6 @@ class PieceForm(forms.Form):
     issue = forms.IntegerField(initial=latest_issue_or(lambda i: i.number, ''),
             widget=small_input())
     series = forms.ModelChoiceField(Series.objects, required=False)
-    is_live = forms.BooleanField(required=False, initial=True)
     is_featured = forms.BooleanField(required=False, initial=False)
 
     def clean_issue(self):
@@ -170,7 +169,7 @@ class PieceForm(forms.Form):
         deleted_fields = ['type', 'name']
         preserved_fields = ['photographers', 'artists', 'bylines']
         piece = Piece(**self.cleaned_data)
-        piece.is_live = True
+        piece.is_live = False
         piece.save()
         ids = set()
         for unit in self.units:

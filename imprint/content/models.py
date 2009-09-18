@@ -227,6 +227,16 @@ class Artist(models.Model):
         return self.get_type_display().replace(u'(name)',
                 unicode(self.contributor))
 
+def propagate_liveness(sender, instance=None, **kwargs):
+    """If an issue's liveness changes, set all its content's liveness too."""
+    live = instance.is_live
+    # So much for bulk UPDATE
+    for piece in instance.pieces.filter(is_live=not live):
+        piece.is_live = live
+        piece.save()
+
+models.signals.post_save.connect(propagate_liveness, sender=Issue)
+
 for m in [Piece, Unit, Copy, Image, Byline, Artist]:
     models.signals.pre_save.connect(delete_cached_piece, sender=m)
     models.signals.pre_delete.connect(delete_cached_piece, sender=m)

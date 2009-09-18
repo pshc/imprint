@@ -132,12 +132,14 @@ class Issue(models.Model):
             default=latest_issue_or(lambda i: i.number + 1, 1))
     volume = models.PositiveSmallIntegerField(db_index=True,
             default=latest_issue_or(lambda i: i.volume, 32))
-    is_live = models.BooleanField('Live', default=False)
+    is_live = models.BooleanField('Live on site', default=False,
+            help_text='Enable this once all content is uploaded.')
     site = models.ForeignKey(Site, related_name='issues',
             default=Site.objects.get_current)
     sections = models.ManyToManyField(Section, related_name='issues',
             through='IssueSection')
     thumbnail = models.ImageField(blank=True, null=True,
+            help_text='Should be 170 px wide.',
             upload_to=lambda i, f: i.get_subdir_filename(f))
 
     class Meta:
