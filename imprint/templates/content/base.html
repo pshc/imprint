@@ -1,3 +1,5 @@
 {% extends "base.html" %}
 {% block head %}
 {% include "jquery.html" %}{% endblock %}
+{% block mainbanner %}{% if object and not object.is_live %}
+	<h3>This content is not live on the main site.</h3>{% endif %}{% endblock %}
