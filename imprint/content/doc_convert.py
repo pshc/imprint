@@ -167,7 +167,7 @@ class DocConverter(HTMLParser):
         except AssertionError:
             self.warn('Orphaned byline title "%s" ignored', title)
 
-    @handler('E-mail address')
+    @handler('E-mail address', 'Pullquote - with speaker - speaker')
     @no_tags
     def handle_email(self):
         # Not always an e-mail address, sometimes a name... oh well
