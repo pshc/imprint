@@ -147,6 +147,7 @@ class PieceForm(forms.Form):
                 try:
                     dest = os.path.join(settings.MEDIA_ROOT, new_path)
                     move(path, dest)
+                    os.chmod(dest, 0644)
                 except OSError, e:
                     errors.append("Could not save image %s to issue folder."
                             % file.name)

@@ -44,7 +44,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 FILE_UPLOAD_HANDLERS = (
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 )
-FILE_UPLOAD_PERMISSIONS = 0644
 DEFAULT_FILE_STORAGE = 'utils.FileSystemStorage'
 
 ROOT_URLCONF = 'imprint.urls'
