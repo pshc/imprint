@@ -188,7 +188,8 @@ class DocConverter(HTMLParser):
             self.finish_document()
         self.document['title'] = self.clear_paragraph()
 
-    @handler('jump: See WORD, page X', 'jump: Continued from page x')
+    @handler('jump: See WORD,page X', 'jump: See WORD, page X',
+             'jump: Continued from page x')
     def handle_jump(self):
         self.warn("Jump ignored: %s", ''.join(self.paragraph))
         self.paragraph = []
@@ -208,7 +209,7 @@ class DocConvertException(Exception):
 
 def doc_convert(filename):
     try:
-        wv = subprocess.Popen(["wvWare", "-c=utf-8", filename],
+        wv = subprocess.Popen(["wvWare", "-cutf-8", filename],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                 universal_newlines=True)
     except OSError, e:
