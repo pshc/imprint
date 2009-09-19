@@ -198,7 +198,13 @@ class DocConverter(HTMLParser):
         """Chop up multi-part articles."""
         if self.document:
             self.finish_document()
-        self.document['title'] = self.clear_paragraph()
+        title = self.clear_paragraph()
+        # XXX terrible hack
+        if title.startswith('<strong>'):
+            title = title[8:]
+        if title.endswith('</strong>'):
+            title = title[:-9]
+        self.document['title'] = title
 
     @handler('jump: See WORD,page X', 'jump: See WORD, page X',
              'jump: Continued from page x')
