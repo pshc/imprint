@@ -6,7 +6,7 @@ import re
 
 tag_re = re.compile(r'<\s*a\s+href', re.I)
 bb_re = re.compile(r'\[\s*url(?:=.*?)?\s*\]', re.I)
-split_long_words_re = re.compile(r'([^ ]{75})')
+split_long_words_re = re.compile(r'([^ ]{120})')
 
 class NestedCommentForm(CommentDetailsForm):
     name = forms.CharField(max_length=50, required=False)
