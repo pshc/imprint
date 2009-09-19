@@ -167,19 +167,19 @@ class DocConverter(HTMLParser):
         except AssertionError:
             self.warn('Orphaned byline title "%s" ignored', title)
 
-    @handler('E-mail address', 'Pullquote - with speaker - speaker')
+    @handler('E-mail address', 'Pullquote - with speaker - speaker',
+             'Byline editorials and reviews')
     @no_tags
-    def handle_email(self):
-        # Not always an e-mail address, sometimes a name... oh well
-        email = self.clear_paragraph().replace('&mdash;',
+    def handle_end_credit(self):
+        credit = self.clear_paragraph().replace('&mdash;',
                 '').replace('&ndash;', '')
-        email = email.strip().strip('-').strip() # Yes, two strip()s
-        if email.lower().startswith('with files from'):
-            self.document['sources'] = email[15:].strip()
-        elif '@' in email:
-            self.document.setdefault('emails', []).append(email)
-        else: # Name at end?
-            self.document.setdefault('bylines', []).append('-' + email)
+        credit = credit.strip().strip('-').strip() # Yes, two strip()s
+        if credit.lower().startswith('with files from'):
+            self.document['sources'] = credit[15:].strip()
+        elif '@' in credit:
+            self.document.setdefault('emails', []).append(credit)
+        else:
+            self.document.setdefault('bylines', []).append('-' + credit)
 
     @handler('Arts: 1 Band/Film/Author')
     def handle_arts_title(self):
