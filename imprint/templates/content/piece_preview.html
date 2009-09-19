@@ -8,8 +8,8 @@
 		<div class="copy">
 		{{ copy.preview|safe }}
 		{% get_comment_count for object as comment_count %}
-		<a href="{{ object.get_absolute_url }}"><strong>Read more...</strong></a>
-		<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a>
+		<a href="{{ object.get_absolute_url }}"><strong>Read&nbsp;more...</strong></a>
+		<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a>
 		</p>
 		</div>
 	</section>{% endwith %}{% endif %}
@@ -20,7 +20,7 @@
 		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
 		</legend>
 		{% get_comment_count for object as comment_count %}
-		<p><a href="{{ object.get_absolute_url }}#comments">({{ comment_count }} comment{{ comment_count|pluralize }})</a></p>
+		<p><a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a></p>
 	{% else %}
 		{% thumbnail image %}
 	{% endifequal %}
