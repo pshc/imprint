@@ -171,7 +171,8 @@ class PieceForm(forms.Form):
         piece = Piece(**self.cleaned_data)
         piece.is_live = False
         piece.save()
-        ids = set()
+        ids = set() if not piece.series \
+              else set(piece.series.contributors.values_list('id', flat=True))
         for unit in self.units:
             construct = {'Copy': Copy, 'Image': Image}[unit['type']]
             for field in deleted_fields:
