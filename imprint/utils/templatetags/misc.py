@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.template import Library
-from django.utils.html import conditional_escape
+from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
+from utils import unescape
 import re
 
 register = Library()
@@ -22,10 +23,10 @@ var pageTracker = _gat._getTracker("API_KEY");
 pageTracker._trackPageview();
 } catch(err) {}</script>""".replace('API_KEY', key))
 
-def _do_url_sub(match):
+def do_url_sub(match):
     # paranoia
     url = match.group(0).replace('"', '').replace('<', '').replace('>', '')
-    text = url if len(url) <= 80 else url[:77] + '&hellip;'
+    text = url if len(url) <= 80 else url[:77] + u'...'
     return u'<a href="%s" rel="nofollow" >%s</a>' % (url, text)
 
 url_re = re.compile(r'''https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
@@ -33,7 +34,16 @@ url_re = re.compile(r'''https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
 @register.filter
 def clickablelinks(text):
     text = conditional_escape(text)
-    return mark_safe(url_re.sub(_do_url_sub, text))
+    return mark_safe(url_re.sub(do_url_sub, text))
+
+html_tag_re = re.compile(r'(<[^<]*>)')
+break_re = re.compile(r'([^ ]{100})')
+@register.filter
+def breaklongwords(text):
+    pieces = [p if p.startswith(u'<')
+              else escape(break_re.sub(u'\\1 ', unescape(p)))
+              for p in html_tag_re.split(text)]
+    return mark_safe(u''.join(pieces))
 
 # For debugging
 @register.filter

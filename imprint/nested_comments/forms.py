@@ -6,7 +6,6 @@ import re
 
 tag_re = re.compile(r'<\s*a\s+href', re.I)
 bb_re = re.compile(r'\[\s*url(?:=.*?)?\s*\]', re.I)
-split_long_words_re = re.compile(r'([^ ]{120})')
 
 class NestedCommentForm(CommentDetailsForm):
     name = forms.CharField(max_length=50, required=False)
@@ -22,7 +21,6 @@ class NestedCommentForm(CommentDetailsForm):
             raise forms.ValidationError("HTML tags are output in plaintext. Please don't use them.")
         elif bb_re.search(text):
             raise forms.ValidationError('BBCode is not supported.')
-        text = split_long_words_re.sub('\\1 ', text)
         return text
 
     def clean_url(self):
