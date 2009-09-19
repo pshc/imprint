@@ -2,7 +2,7 @@ from django.conf import settings
 from django.template import Library
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
-from utils import unescape
+from imprint.utils import unescape
 import re
 
 register = Library()
