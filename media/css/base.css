@@ -246,6 +246,8 @@ hr {
 	font-style: oblique;
 }
 #comments span em { font-style: normal; }
+#comments span a { font-style: normal; font-weight: bold; }
+#comments span em a { font-weight: normal; }
 
 #comments div { /* reply box */
 	margin: 0 0 2em 2em;
