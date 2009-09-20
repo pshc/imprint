@@ -64,4 +64,12 @@ def issuesectionhighlights(parser, token):
                 "%r tag's third argument must be 'as'" % tag_name
     return IssueSectionHighlightsNode(issue, section, var)
 
+series_link_template = template.loader.get_template('issues/series_link.html')
+
+@register.simple_tag
+def series_link(series):
+    if not series:
+        return ''
+    return series_link_template.render(template.Context({'series': series}))
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

@@ -1,9 +1,10 @@
 {% extends "content/fullwidth.html" %}
-{% load people %}
+{% load issues people %}
 {% if object %}{% block header %}{{ object.headline|striptags }}{% endblock %}{% endif %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}{% if object %}
+	{% series_link object.series %}
 	<h1>{{ object.headline|safe }}</h1>{% if object.deck %}
 	<h2>{{ object.deck|safe }}</h2>{% endif %}{% endif %}
 	<figure style="width: {{ image.image.width }}px;">

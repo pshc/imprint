@@ -1,0 +1,1 @@
+{% load people %}<a href="{{ series.get_absolute_url }}"><strong>{{ series }}</strong></a> {% for c in series.contributors.all %}{% if forloop.first %} &mdash; {% endif %}{% contributor_link c %}{% if not forloop.last %}, {% endif %}{% endfor %}
