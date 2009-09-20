@@ -155,15 +155,19 @@ class Issue(models.Model):
         return ('issue-detail', date_tuple(self.date))
 
     def save(self, **kwargs):
-        make_sections = not self.id
+        make_sections = False
+        if not self.id:
+            try:
+                prev = Issue.objects.latest_issue()
+                make_sections = True
+            except Issue.DoesNotExist:
+                pass
         super(Issue, self).save(**kwargs)
         # Copy over navigation from the previous issue
         if make_sections:
-            def copy_previous_sections(issue):
-                for i,s in enumerate(IssueSection.objects.filter(issue=issue)):
-                    IssueSection.objects.create(issue=self, section=s.section,
-                            alt_section_name=s.alt_section_name, order=i+1)
-            latest_issue_or(copy_previous_sections, lambda: None)()
+            for i,s in enumerate(IssueSection.objects.filter(issue=prev)):
+                IssueSection.objects.create(issue=self, section=s.section,
+                        alt_section_name=s.alt_section_name, order=i+1)
         try:
             os.makedirs(os.path.join(settings.MEDIA_ROOT, self.media_dir))
         except OSError, e:
