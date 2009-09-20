@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% block head %}
+{% include "jquery.html" %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/show-email.js" />
+{% endblock %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
 	<h1>{{ object }}</h1>
 	{% if object.position %}<h2>{{ object.position }}</h2>{% endif %}
-	{% if object.email and user.is_authenticated %}<h3><a href="mailto:{{ object.email }}">{{ object.email }}</a></h3>{% endif %}
+	{% if object.email %}<h3><a href="#" id="email{{ object.id }}">(Show email)</a></h3>{% endif %}
 	<section>
 	<ul>{% for piece in pieces %}
 		<li><a href="{{ piece.get_absolute_url }}">{{ piece }}</a></li>
