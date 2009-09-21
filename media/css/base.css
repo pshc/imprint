@@ -187,11 +187,11 @@ p.first { /* :first-child isn't adequate here */
 	font: normal 3.8em/0.9em serif;
 }
 
-.byline, legend ul {
+.byline, .legend ul {
 	font-family: Tahoma, sans-serif;
 	text-transform: uppercase;
 }
-.byline a, legend ul a {
+.byline a, .legend ul a {
 	font-weight: bold;
 }
 .sources {
