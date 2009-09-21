@@ -1,5 +1,5 @@
 {% extends "content/fullwidth.html" %}
-{% load issues people %}
+{% load content issues people %}
 {% if object %}{% block header %}{{ object.headline|striptags }}{% endblock %}{% endif %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
@@ -9,7 +9,7 @@
 	<h2>{{ object.deck|safe }}</h2>{% endif %}{% endif %}
 	<figure style="width: {{ image.image.width }}px;">
 		<img src="{{ MEDIA_URL }}{{ image.image }}" width="{{ image.image.width }}" height="{{ image.image.height }}" />
-		{% include "content/image_legend.html" %}
+		{% fullimagelegend image %}
 	</figure>
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

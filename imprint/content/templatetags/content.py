@@ -70,4 +70,18 @@ def full_thumbnail(unit):
     return '<img src="%s%s" width="%d" height="%d" />' % (
             settings.MEDIA_URL, urlquote(path), w, h)
 
+@register.inclusion_tag('content/image_legend.html')
+def shortimagelegend(image):
+    cutline = image.cutline
+    if len(cutline) > 80:
+        shortened = cutline[:80] + cutline[80:].split(' ', 1)[0]
+        if len(shortened) + 6 < cutline:
+            cutline = strip_tags(shortened)
+            cutline_link = True
+    return locals()
+
+@register.inclusion_tag('content/image_legend.html')
+def fullimagelegend(image):
+    return {'image': image, 'cutline': image.cutline}
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

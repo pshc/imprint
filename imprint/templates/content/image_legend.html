@@ -3,6 +3,7 @@
 				<li>{% contributor_link credit.contributor %}</li>
 			{% endfor %}{% if image.courtesy %}
 				<li>Courtesy {{ image.courtesy }}</li>
-			{% endif %}</ul>
-			{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
+			{% endif %}</ul>{% if cutline %}
+			<p>{{ cutline|safe }}{% if cutline_link %}
+			<a href="{{ image.get_absolute_url }}">[...]</a>{% endif %}</p>{% endif %}
 		</legend>

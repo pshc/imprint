@@ -26,10 +26,10 @@
 	{% if unit.is_image %}{% with unit.image as image %}
 	{% if forloop.first %}<figure>
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
-		{% include "content/image_legend.html" %}
+		{% fullimagelegend image %}
 		{% else %}<figure style="width: 300px;">
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
-		{% include "content/image_legend.html" %}
+		{% shortimagelegend image %}
 		{% endif %}
 	</figure>{% endwith %}{% endif %}
 	{% endfor %}
