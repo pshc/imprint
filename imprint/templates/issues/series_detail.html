@@ -1,5 +1,6 @@
 {% extends "issues/base.html" %}
-{% block content %}
-	<h1>{{ object }}</h1>
+{% block content %}{% load people %}
+	<h1>{{ series }}</h1>{% for c in series.contributors.all %}
+	{% contributor_link c %}{% if not forloop.last %}, {% endif %}{% endfor %}
 	{% for object in pieces %}{% include "content/piece_preview.html" %}{% endfor %}
 {% endblock %}
