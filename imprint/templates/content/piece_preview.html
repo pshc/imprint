@@ -6,6 +6,7 @@
 	{% for unit in object.preview %}
 	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
 		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
+		{% renderbylines copy %}
 		<div class="copy">
 		{{ copy.preview|safe }}
 		{% get_comment_count for object as comment_count %}

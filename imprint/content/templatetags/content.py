@@ -84,4 +84,8 @@ def shortimagelegend(image):
 def fullimagelegend(image):
     return {'image': image, 'cutline': image.cutline}
 
+@register.inclusion_tag('content/copy_bylines.html')
+def renderbylines(copy):
+    return {'copy': copy}
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

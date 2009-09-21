@@ -1,0 +1,6 @@
+{% load people %}<ul class="byline">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
+			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
+			{{ byline.position }}{% endif %}
+			</li>
+		{% endif %}{% endfor %}</ul>
+

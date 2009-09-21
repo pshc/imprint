@@ -9,11 +9,7 @@
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in units %}
 	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
-		<ul class="byline">{% for byline in copy.bylines %}{% if not byline.is_after_copy %}
-			<li>{% contributor_link byline.contributor %}{% if byline.position %}<br />
-			{{ byline.position }}{% endif %}
-			</li>
-		{% endif %}{% endfor %}</ul>
+		{% renderbylines copy %}
 		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		<div class="copy">
 		{{ copy.body|safe }}
