@@ -26,17 +26,10 @@
 	{% if unit.is_image %}{% with unit.image as image %}
 	{% if forloop.first %}<figure>
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
-		<legend>
-		<ul>{% for credit in image.credits %}
-			<li>{% contributor_link credit.contributor %}</li>
-		{% endfor %}{% if image.courtesy %}
-			<li>Courtesy {{ image.courtesy }}</li>
-		{% endif %}</ul>
-		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
-		</legend>
-	{% else %}<figure style="width: 300px;">
+		{% include "content/image_legend.html" %}
+		{% else %}<figure style="width: 300px;">
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
-		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
+		{% include "content/image_legend.html" %}
 		{% endif %}
 	</figure>{% endwith %}{% endif %}
 	{% endfor %}

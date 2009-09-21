@@ -17,9 +17,7 @@
 	{% if unit.is_image %}{% with unit.image as image %}<figure>
 	{% ifequal image.prominence "all" %}
 		<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
-		<legend>
-		{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
-		</legend>
+		{% include "content/image_legend.html" %}
 		{% get_comment_count for object as comment_count %}
 		<p><a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a></p>
 	{% else %}

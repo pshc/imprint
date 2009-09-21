@@ -1,0 +1,8 @@
+{% load people %}<legend>
+			<ul>{% for credit in image.credits %}
+				<li>{% contributor_link credit.contributor %}</li>
+			{% endfor %}{% if image.courtesy %}
+				<li>Courtesy {{ image.courtesy }}</li>
+			{% endif %}</ul>
+			{% if image.cutline %}<p>{{ image.cutline|safe }}</p>{% endif %}
+		</legend>
