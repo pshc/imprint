@@ -73,9 +73,9 @@ def full_thumbnail(unit):
 @register.inclusion_tag('content/image_legend.html')
 def shortimagelegend(image):
     cutline = image.cutline
-    if len(cutline) > 80:
-        shortened = cutline[:80] + cutline[80:].split(' ', 1)[0]
-        if len(shortened) + 6 < cutline:
+    if len(cutline) > 100:
+        shortened = cutline[:100] + cutline[100:].split(' ', 1)[0]
+        if len(shortened) < len(cutline) - 50:
             cutline = strip_tags(shortened)
             cutline_link = True
     return locals()

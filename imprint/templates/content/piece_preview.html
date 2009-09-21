@@ -14,17 +14,17 @@
 		</p>
 		</div>
 	</section>{% endwith %}{% endif %}
-	{% if unit.is_image %}{% with unit.image as image %}<figure>
-	{% ifequal image.prominence "all" %}
+	{% if unit.is_image %}{% with unit.image as image %}
+	{% ifequal image.prominence "all" %}<figure>
 		<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% fullimagelegend image %}
 		{% get_comment_count for object as comment_count %}
 		<p><a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a></p>
-	{% else %}
+	</figure>{% else %}<figure style="width: 300px;">
 		{% thumbnail image %}
 		{% shortimagelegend image %}
-	{% endifequal %}
-	</figure>{% endwith %}{% endif %}
+	</figure>{% endifequal %}
+	{% endwith %}{% endif %}
 	{% endfor %}
 	</article>{# vi: set syntax=htmldjango: #}
 	{% if forloop and not forloop.last %}<hr />{% endif %}
