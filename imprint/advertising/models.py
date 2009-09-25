@@ -19,8 +19,9 @@ def get_ad_dir(self, filename):
     return os.path.join(CACHED_MEDIA_DIR, filename)
 
 AD_TYPES = ((1, 'Left Square (180x150)'),
-            (2, 'Skyscraper (160x600)'),
-            (3, 'Bottom Banner (728x90)'))
+            (2, 'Skyscraper (top) (160x600)'),
+            (3, 'Skyscraper (bottom) (160x600)'),
+            (4, 'Bottom Banner (728x90)'))
 
 class ImageAd(models.Model):
     image = models.ImageField(upload_to=get_ad_dir)
