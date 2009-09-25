@@ -137,6 +137,20 @@ class DocConverter(HTMLParser):
     def handle_entityref(self, name):
         self.write('&%s;' % name)
 
+    @classmethod
+    def strip_dashes(cls, text):
+        text = text.strip()
+        dashes = True
+        if text.startswith('&mdash;'):
+            text = text[7:]
+        elif text.startswith('&ndash;'):
+            text = text[7:]
+        elif text.startswith('-'):
+            text = text.lstrip('-')
+        else:
+            dashes = False
+        return text.strip(), dashes
+
     @handler('Copy: first paragraph')
     def handle_copy(self):
         """Connects a drop cap that has been separated from the paragraph."""
@@ -173,9 +187,7 @@ class DocConverter(HTMLParser):
              'Byline editorials and reviews')
     @no_tags
     def handle_end_credit(self):
-        credit = self.clear_paragraph().replace('&mdash;',
-                '').replace('&ndash;', '')
-        credit = credit.strip().strip('-').strip() # Yes, two strip()s
+        credit, had_dash = self.strip_dashes(self.clear_paragraph())
         if credit.lower().startswith('with files from'):
             self.document['sources'] = credit[15:].strip()
         elif '@' in credit:
