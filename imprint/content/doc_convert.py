@@ -217,7 +217,7 @@ class DocConverter(HTMLParser):
     @handler('Briefs headline', 'Subhead')
     def handle_briefs(self):
         """Chop up multi-part articles."""
-        if self.document:
+        if self.document and set(self.document.keys()) != set(['bylines']):
             self.finish_document()
         title = self.clear_paragraph()
         # XXX terrible hack
