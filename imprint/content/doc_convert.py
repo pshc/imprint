@@ -92,7 +92,7 @@ class DocConverter(HTMLParser):
     def call_handler(self):
         if not self.handler:
             return '<p>', '</p>'
-        self.prev = (self.handler, self.handler(self))
+        self.prev = (self.handler.__name__, self.handler(self))
         p_class, self.paragraph_class = self.paragraph_class, None
         return ('<p class="%s">' % p_class if p_class else '<p>'), '</p>'
 
@@ -153,7 +153,7 @@ class DocConverter(HTMLParser):
     def handle_copy(self):
         """Connects a drop cap that has been separated from the paragraph."""
         prev_handler, drop_cap = self.prev
-        if prev_handler == self.handle_copy and drop_cap:
+        if prev_handler == 'handle_copy' and drop_cap:
             self.paragraph[0] = '<span class="drop">%s</span>%s' % (drop_cap,
                     self.paragraph[0])
         elif 1 <= len(self.paragraph) <= 2:
