@@ -1,7 +1,7 @@
 
 /* Defaults removed by reset */
 strong { font-weight: bold; }
-em { font-style: oblique; }
+em, cite { font-style: oblique; }
 del { text-decoration: line-through; }
 th { font-weight: normal; }
 
