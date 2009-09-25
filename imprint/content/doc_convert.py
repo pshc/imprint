@@ -107,6 +107,7 @@ class DocConverter(HTMLParser):
             # Done our paragraph!
             if self.has_paragraph_content():
                 open_tag, close_tag = self.call_handler()
+                self.detect_with_files_from()
                 if self.has_paragraph_content():
                     prevent_widow(self.paragraph)
                     # OK, actually write the paragraph.
@@ -185,12 +186,21 @@ class DocConverter(HTMLParser):
     @no_tags
     def handle_end_credit(self):
         credit, had_dash = self.strip_dashes(self.clear_paragraph())
-        if credit.lower().startswith('with files from'):
-            self.document['sources'] = credit[15:].strip()
+        if self.detect_with_files_from(credit, had_dash):
+            pass
         elif '@' in credit:
             self.document.setdefault('emails', []).append(credit)
         else:
             self.document.setdefault('bylines', []).append('-' + credit)
+
+    def detect_with_files_from(self, text=None, dash=None):
+        if text is None:
+            text, dash = self.strip_dashes(''.join(remove_tags(self.paragraph)))
+        if dash and text.lower().startswith('with files from'):
+            self.document['sources'] = text[15:].strip()
+            self.paragraph = []
+            return True
+        return False
 
     @handler('Arts: 1 Band/Film/Author')
     def handle_arts_title(self):
@@ -263,9 +273,10 @@ if __name__ == '__main__':
         print >>sys.stderr, "WARNING:", warning
     for doc in docs:
         print 'DOCUMENT:', title
-        print doc.get('title', '')
-        print doc.get('emails', [])
-        print doc.get('bylines', [])
+        print 'Title:', doc.get('title', '')
+        print 'Emails:', ', '.join(doc.get('emails', []))
+        print 'Bylines:', ', '.join(map(str, doc.get('bylines', [])))
+        print 'Sources:', doc.get('sources', '')
         print doc['copy']
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
