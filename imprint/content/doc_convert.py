@@ -144,8 +144,10 @@ class DocConverter(HTMLParser):
         if prev_handler == 'copy' and drop_cap:
             self.paragraph[0] = '<span class="drop">%s</span>%s' % (drop_cap,
                     self.paragraph[0])
-        elif len(self.paragraph) == 1 and len(self.paragraph[0]) < 3:
-            return self.clear_paragraph()
+        elif 1 <= len(self.paragraph) <= 2:
+            drop_cap = ''.join(self.paragraph[:2]).strip()
+            if len(drop_cap) < 10:
+                return self.clear_paragraph()
         self.paragraph_class = 'first'
 
     @handler('Byline name')
