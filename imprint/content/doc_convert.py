@@ -165,21 +165,24 @@ class DocConverter(HTMLParser):
     @handler('Byline name')
     @no_tags
     def handle_byline_name(self):
-        if self.document and self.document.get('copy'):
-            self.finish_document()
-        self.document.setdefault('bylines', []).append(self.clear_paragraph())
+        name = self.clear_paragraph().strip()
+        if name:
+            if self.document and self.document.get('copy'):
+                self.finish_document()
+            self.document.setdefault('bylines', []).append(name)
 
     @handler('Byline title')
     @no_tags
     def handle_byline_title(self):
-        title = self.clear_paragraph()
-        try:
-            #assert self.prev[0] == 'byline_name'
-            bylines = self.document['bylines']
-            assert bylines and isinstance(bylines[-1], basestring)
-            bylines[-1] = (bylines[-1], title.capitalize())
-        except AssertionError:
-            self.warn('Orphaned byline title "%s" ignored', title)
+        title = self.clear_paragraph().strip()
+        if title:
+            try:
+                #assert self.prev[0] == 'byline_name'
+                bylines = self.document['bylines']
+                assert bylines and isinstance(bylines[-1], basestring)
+                bylines[-1] = (bylines[-1], title.capitalize())
+            except AssertionError:
+                self.warn('Orphaned byline title "%s" ignored', title)
 
     @handler('E-mail address', 'Pullquote - with speaker - speaker',
              'Byline editorials and reviews')
