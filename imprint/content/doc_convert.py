@@ -83,11 +83,18 @@ class DocConverter(HTMLParser):
         self.paragraph = []
         return ret
 
-    def is_paragraph_empty(self):
+    def has_paragraph_content(self):
         for text in self.paragraph:
             if text.strip():
-                return False
-        return True
+                return True
+        return False
+
+    def call_handler(self):
+        if not self.handler:
+            return '<p>', '</p>'
+        self.prev = (self.handler, self.handler(self))
+        p_class, self.paragraph_class = self.paragraph_class, None
+        return ('<p class="%s">' % p_class if p_class else '<p>'), '</p>'
 
     def handle_endtag(self, tag):
         if tag == 'title':
@@ -98,24 +105,14 @@ class DocConverter(HTMLParser):
             return
         if tag == 'p':
             # Done our paragraph!
-            p_class = None
-            if self.is_paragraph_empty():
-                self.paragraph = None
-                return
-            if self.handler:
-                self.prev = (self.handler.__name__.replace('handle_', ''),
-                             self.handler(self))
-                p_class, self.paragraph_class = self.paragraph_class, None
-                if self.is_paragraph_empty():
-                    self.paragraph = None
-                    return
-            prevent_widow(self.paragraph)
-            # OK, actually write the paragraph.
-            self.paragraph.insert(0, '<p class="%s">' % p_class if p_class
-                                                                else '<p>')
-            self.paragraph.append('</p>\n')
-            final_text = ''.join(self.paragraph)
-            self.document.setdefault('copy',[]).append(final_text)
+            if self.has_paragraph_content():
+                open_tag, close_tag = self.call_handler()
+                if self.has_paragraph_content():
+                    prevent_widow(self.paragraph)
+                    # OK, actually write the paragraph.
+                    final_text = open_tag + ''.join(self.paragraph) \
+                               + close_tag + '\n'
+                    self.document.setdefault('copy', []).append(final_text)
             self.paragraph = None
         elif tag == 'font':
             self.font_tag_level -= 1
@@ -155,7 +152,7 @@ class DocConverter(HTMLParser):
     def handle_copy(self):
         """Connects a drop cap that has been separated from the paragraph."""
         prev_handler, drop_cap = self.prev
-        if prev_handler == 'copy' and drop_cap:
+        if prev_handler == self.handle_copy and drop_cap:
             self.paragraph[0] = '<span class="drop">%s</span>%s' % (drop_cap,
                     self.paragraph[0])
         elif 1 <= len(self.paragraph) <= 2:
