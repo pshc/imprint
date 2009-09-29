@@ -1,4 +1,6 @@
 {% extends "issues/base.html" %}
+{% block head %}
+	<link rel="alternate" type="application/rss+xml" title="Latest content from this series" href="/feeds/series/{{ series.slug }}" />{% endblock %}
 {% block content %}{% load people %}
 	<h1>{{ series }}</h1>{% for c in series.contributors.all %}
 	{% contributor_link c %}{% if not forloop.last %}, {% endif %}{% endfor %}
