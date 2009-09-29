@@ -83,11 +83,18 @@ class DocConverter(HTMLParser):
         self.paragraph = []
         return ret
 
-    def is_paragraph_empty(self):
+    def has_paragraph_content(self):
         for text in self.paragraph:
             if text.strip():
-                return False
-        return True
+                return True
+        return False
+
+    def call_handler(self):
+        if not self.handler:
+            return '<p>', '</p>'
+        self.prev = (self.handler.__name__, self.handler(self))
+        p_class, self.paragraph_class = self.paragraph_class, None
+        return ('<p class="%s">' % p_class if p_class else '<p>'), '</p>'
 
     def handle_endtag(self, tag):
         if tag == 'title':
@@ -98,24 +105,15 @@ class DocConverter(HTMLParser):
             return
         if tag == 'p':
             # Done our paragraph!
-            p_class = None
-            if self.is_paragraph_empty():
-                self.paragraph = None
-                return
-            if self.handler:
-                self.prev = (self.handler.__name__.replace('handle_', ''),
-                             self.handler(self))
-                p_class, self.paragraph_class = self.paragraph_class, None
-                if self.is_paragraph_empty():
-                    self.paragraph = None
-                    return
-            prevent_widow(self.paragraph)
-            # OK, actually write the paragraph.
-            self.paragraph.insert(0, '<p class="%s">' % p_class if p_class
-                                                                else '<p>')
-            self.paragraph.append('</p>\n')
-            final_text = ''.join(self.paragraph)
-            self.document.setdefault('copy',[]).append(final_text)
+            if self.has_paragraph_content():
+                open_tag, close_tag = self.call_handler()
+                self.detect_with_files_from()
+                if self.has_paragraph_content():
+                    prevent_widow(self.paragraph)
+                    # OK, actually write the paragraph.
+                    final_text = open_tag + ''.join(self.paragraph) \
+                               + close_tag + '\n'
+                    self.document.setdefault('copy', []).append(final_text)
             self.paragraph = None
         elif tag == 'font':
             self.font_tag_level -= 1
@@ -137,49 +135,75 @@ class DocConverter(HTMLParser):
     def handle_entityref(self, name):
         self.write('&%s;' % name)
 
+    @classmethod
+    def strip_dashes(cls, text):
+        text = text.strip()
+        dashes = True
+        if text.startswith('&mdash;'):
+            text = text[7:]
+        elif text.startswith('&ndash;'):
+            text = text[7:]
+        elif text.startswith('-'):
+            text = text.lstrip('-')
+        else:
+            dashes = False
+        return text.strip(), dashes
+
     @handler('Copy: first paragraph')
     def handle_copy(self):
         """Connects a drop cap that has been separated from the paragraph."""
         prev_handler, drop_cap = self.prev
-        if prev_handler == 'copy' and drop_cap:
+        if prev_handler == 'handle_copy' and drop_cap:
             self.paragraph[0] = '<span class="drop">%s</span>%s' % (drop_cap,
                     self.paragraph[0])
-        elif len(self.paragraph) == 1 and len(self.paragraph[0]) < 3:
-            return self.clear_paragraph()
+        elif 1 <= len(self.paragraph) <= 2:
+            drop_cap = ''.join(self.paragraph[:2]).strip()
+            if len(drop_cap) < 10:
+                return self.clear_paragraph()
         self.paragraph_class = 'first'
 
     @handler('Byline name')
     @no_tags
     def handle_byline_name(self):
-        if self.document and self.document.get('copy'):
-            self.finish_document()
-        self.document.setdefault('bylines', []).append(self.clear_paragraph())
+        name = self.clear_paragraph().strip()
+        if name:
+            if self.document and self.document.get('copy'):
+                self.finish_document()
+            self.document.setdefault('bylines', []).append(name)
 
     @handler('Byline title')
     @no_tags
     def handle_byline_title(self):
-        title = self.clear_paragraph()
-        try:
-            #assert self.prev[0] == 'byline_name'
-            bylines = self.document['bylines']
-            assert bylines and isinstance(bylines[-1], basestring)
-            bylines[-1] = (bylines[-1], title.capitalize())
-        except AssertionError:
-            self.warn('Orphaned byline title "%s" ignored', title)
+        title = self.clear_paragraph().strip()
+        if title:
+            try:
+                #assert self.prev[0] == 'byline_name'
+                bylines = self.document['bylines']
+                assert bylines and isinstance(bylines[-1], basestring)
+                bylines[-1] = (bylines[-1], title.capitalize())
+            except AssertionError:
+                self.warn('Orphaned byline title "%s" ignored', title)
 
     @handler('E-mail address', 'Pullquote - with speaker - speaker',
              'Byline editorials and reviews')
     @no_tags
     def handle_end_credit(self):
-        credit = self.clear_paragraph().replace('&mdash;',
-                '').replace('&ndash;', '')
-        credit = credit.strip().strip('-').strip() # Yes, two strip()s
-        if credit.lower().startswith('with files from'):
-            self.document['sources'] = credit[15:].strip()
+        credit, had_dash = self.strip_dashes(self.clear_paragraph())
+        if self.detect_with_files_from(credit, had_dash):
+            pass
         elif '@' in credit:
             self.document.setdefault('emails', []).append(credit)
         else:
             self.document.setdefault('bylines', []).append('-' + credit)
+
+    def detect_with_files_from(self, text=None, dash=None):
+        if text is None:
+            text, dash = self.strip_dashes(''.join(remove_tags(self.paragraph)))
+        if dash and text.lower().startswith('with files from'):
+            self.document['sources'] = text[15:].strip()
+            self.paragraph = []
+            return True
+        return False
 
     @handler('Arts: 1 Band/Film/Author')
     def handle_arts_title(self):
@@ -196,7 +220,7 @@ class DocConverter(HTMLParser):
     @handler('Briefs headline', 'Subhead')
     def handle_briefs(self):
         """Chop up multi-part articles."""
-        if self.document:
+        if self.document and set(self.document.keys()) != set(['bylines']):
             self.finish_document()
         title = self.clear_paragraph()
         # XXX terrible hack
@@ -252,9 +276,10 @@ if __name__ == '__main__':
         print >>sys.stderr, "WARNING:", warning
     for doc in docs:
         print 'DOCUMENT:', title
-        print doc.get('title', '')
-        print doc.get('emails', [])
-        print doc.get('bylines', [])
+        print 'Title:', doc.get('title', '')
+        print 'Emails:', ', '.join(doc.get('emails', []))
+        print 'Bylines:', ', '.join(map(str, doc.get('bylines', [])))
+        print 'Sources:', doc.get('sources', '')
         print doc['copy']
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
