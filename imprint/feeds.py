@@ -16,7 +16,7 @@ class PieceFeed(Feed):
         return obj.get_absolute_url()
 
     def items(self, obj):
-        return obj.pieces.filter(is_live=True).order_by('issue__date',
+        return obj.pieces.filter(is_live=True).order_by('-issue__date',
                 'order')[:20]
 
     def item_pubdate(self, item):
