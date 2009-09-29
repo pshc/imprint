@@ -1,7 +1,7 @@
 {% load comments content issues %}
 	<article class="preview">{% if not series %}
 	{% series_link object.series %}{% endif %}
-	<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>
+	{% if not omit_headline %}<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in object.preview %}
 	{% if unit.is_copy %}{% with unit.copy as copy %}<section>

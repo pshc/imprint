@@ -1,4 +1,6 @@
 {% extends "issues/base.html" %}
+{% block head %}
+	<link rel="alternate" type="application/rss+xml" title="Latest content from this section" href="/feeds/section/{{ section.slug }}" />{% endblock %}
 {% load people %}
 {% block content %}
 	<h1>{{ object }}</h1>
