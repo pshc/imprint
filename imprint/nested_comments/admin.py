@@ -12,11 +12,11 @@ class NestedCommentsAdmin(admin.ModelAdmin):
         ),
      )
 
-    list_display = ('comment_preview', 'poster_name', 'commented_object', 'ip_address', 'submit_date', 'is_removed')
+    list_display = ('comment_preview', 'poster_name', 'target', 'submit_date', 'is_removed')
     list_filter = ('submit_date', 'site', 'is_removed')
     date_hierarchy = 'submit_date'
     ordering = ('-submit_date',)
-    search_fields = ('comment', 'user__username', 'user_name', 'user_email', 'user_url', 'ip_address')
+    search_fields = ('comment', 'user_name', 'user_email', 'user_url', 'ip_address')
     actions = ['remove_comments']
 
     def remove_comments(self, request, queryset):
@@ -26,15 +26,15 @@ class NestedCommentsAdmin(admin.ModelAdmin):
     remove_comments.short_description = "Remove selected comments"
 
     def comment_preview(self, obj):
-        if len(obj.comment) > 80:
-            return obj.comment[:77] + "..."
+        if len(obj.comment) > 45:
+            return obj.comment[:42] + " ..."
         else:
             return obj.comment
 
-    def commented_object(self, obj):
+    def target(self, obj):
         return '<a href="%s">%s</a>' % (obj.content_object.get_absolute_url(),
                 conditional_escape(unicode(obj.content_object)))
-    commented_object.allow_tags = True
+    target.allow_tags = True
 
 admin.site.register(NestedComment, NestedCommentsAdmin)
 
