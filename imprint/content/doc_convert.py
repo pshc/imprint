@@ -223,12 +223,8 @@ class DocConverter(HTMLParser):
         if self.document and set(self.document.keys()) != set(['bylines']):
             self.finish_document()
         title = self.clear_paragraph()
-        # XXX terrible hack
-        if title.startswith('<strong>'):
-            title = title[8:]
-        if title.endswith('</strong>'):
-            title = title[:-9]
-        self.document['title'] = title
+        title = title.replace('<strong>', '').replace('</strong>', '')
+        self.document['title'] = title.strip()
 
     @handler('jump: See WORD,page X', 'jump: See WORD, page X',
              'jump: Continued from page x')
