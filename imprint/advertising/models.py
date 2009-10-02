@@ -30,8 +30,9 @@ class ImageAd(models.Model):
     is_active = models.BooleanField('Active', default=True, db_index=True)
     caption = models.CharField(max_length=100, blank=True,
             help_text='Alternate text displayed while/if the image loads.')
-    client = models.CharField(max_length=50, blank=True,
-            help_text='Organizational purposes only.')
+    client = models.SlugField(max_length=50,
+            help_text='For Google Analytics tracking. '
+                      'Letters, numbers, and dashes only.')
 
     hits = models.PositiveIntegerField(editable=False, default=0)
     site = models.ForeignKey(Site, related_name='ads', editable=False,
@@ -51,6 +52,6 @@ class ImageAd(models.Model):
     # Not get_absolute_url to prevent false clicks
     @models.permalink
     def get_redirect_url(self):
-        return ('ad-redirect', (), {'id': self.id})
+        return ('image-ad-redirect', (), {'client': self.client})
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
