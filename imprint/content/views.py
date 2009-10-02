@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, \
 from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
 import os
-from people.models import Contributor
+from people.models import Contributor, slugify_name
 import re
 from shutil import move
 from utils import renders, unescape
@@ -27,7 +27,10 @@ def get_or_create_contributor(name, position):
     try:
         return Contributor.objects.get(name__iexact=name)
     except Contributor.DoesNotExist:
-        return Contributor.objects.create(name=name, position=position)
+        try:
+            return Contributor.objects.get(slug=slugify_name(name))
+        except Contributor.DoesNotExist:
+            return Contributor.objects.create(name=name, position=position)
 
 def add_artists(image, artists, type, ids):
     for name, pos in extract_names_and_positions(artists):
