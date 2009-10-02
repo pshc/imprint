@@ -34,13 +34,13 @@ def area_detail(request, slug):
     try:
         section = object = Section.objects.get(slug=slug)
         issue = Issue.objects.latest_issue()
-        pieces = section.pieces.filter(issue=issue)
+        pieces = section.pieces.filter(issue=issue, **filter_live())
         canonical = reverse('section-detail',
                 args=date_tuple(issue.date) + (slug,))
         editorships = SectionEditorship.objects.filter()
     except Section.DoesNotExist:
         series = object = get_object_or_404(Series, slug=slug)
-        pieces = series.pieces.all()
+        pieces = series.pieces.filter(**filter_live())
         template = 'issues/series_detail.html'
     return locals()
 

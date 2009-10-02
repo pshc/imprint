@@ -1,12 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from people.models import *
+from issues.models import filter_live
 from utils import renders
 
 @renders('people/contributor_detail.html')
 def contributor_detail(request, slug):
     object = get_object_or_404(Contributor, slug=slug)
-    pieces = object.pieces.all()
+    pieces = object.pieces.filter(**filter_live())
     return locals()
 
 def contributor_email(request, slug, id):
