@@ -178,6 +178,7 @@ class DocConverter(HTMLParser):
         if title:
             try:
                 #assert self.prev[0] == 'byline_name'
+                assert 'bylines' in self.document
                 bylines = self.document['bylines']
                 assert bylines and isinstance(bylines[-1], basestring)
                 bylines[-1] = (bylines[-1], title.capitalize())
