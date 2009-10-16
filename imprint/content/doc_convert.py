@@ -58,7 +58,7 @@ class DocConverter(HTMLParser):
             assert self.paragraph is not None
             self.paragraph.append(data)
         elif data.strip():
-            self.warn('Omitting unknown text: ' + data.strip())
+            self.warn(u'Omitting unknown text: %s', data.strip())
 
     def handle_starttag(self, tag, attrs):
         if tag == 'title':
@@ -124,7 +124,7 @@ class DocConverter(HTMLParser):
         if 'tag' == 'br':
             self.write('<br />')
         else:
-            self.warn('Unknown self-contained tag "%s"', tag)
+            self.warn(u'Unknown self-contained tag "%s"', tag)
 
     def handle_data(self, data):
         self.write(re.sub(r'\s+', ' ', data))
@@ -182,7 +182,7 @@ class DocConverter(HTMLParser):
                 assert bylines and isinstance(bylines[-1], basestring)
                 bylines[-1] = (bylines[-1], title.capitalize())
             except AssertionError:
-                self.warn('Orphaned byline title "%s" ignored', title)
+                self.warn(u'Orphaned byline title "%s" ignored', title)
 
     @handler('E-mail address', 'Pullquote - with speaker - speaker',
              'Byline editorials and reviews')
@@ -229,7 +229,7 @@ class DocConverter(HTMLParser):
     @handler('jump: See WORD,page X', 'jump: See WORD, page X',
              'jump: Continued from page x')
     def handle_jump(self):
-        self.warn("Jump ignored: %s", ''.join(self.paragraph))
+        self.warn(u"Jump ignored: %s", ''.join(self.paragraph))
         self.paragraph = []
 
     def finish_document(self):
@@ -259,7 +259,7 @@ def doc_convert(filename):
         print >>sys.stderr, errors
         raise DocConvertException("wvWare could not process the doc file.")
     converter = DocConverter()
-    converter.feed(html)
+    converter.feed(html.decode('UTF-8'))
     converter.close()
     return (converter.title, converter.documents, converter.warnings)
 

@@ -120,9 +120,9 @@ class PieceForm(forms.Form):
             if ext == 'doc':
                 try:
                     (title, docs, warnings) = doc_convert(path)
-                    errors += ["%s: %s" % (file.name, w) for w in warnings]
+                    errors += [u"%s: %s" % (file.name, w) for w in warnings]
                 except DocConvertException, e:
-                    errors.append(str(e))
+                    errors.append(unicode(e))
                     continue
                 for doc in docs:
                     if not doc.get('copy', '').strip():
