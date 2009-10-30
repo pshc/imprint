@@ -55,6 +55,9 @@ header .ad { float: left; }
 	margin: 0 auto;
 	display: block;
 }
+.ad img {
+	background-color: white;
+}
 .ad small {
 	font-family: sans-serif;
 	display: block;
