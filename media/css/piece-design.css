@@ -1,0 +1,10 @@
+[contenteditable=true] {
+	border: thin dashed black;
+}
+#droptarget {
+	width: 200px; height: 200px;
+	border: thin solid black;
+}
+.dragover {
+	background-color: #ffffa0;
+}

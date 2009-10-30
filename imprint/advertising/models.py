@@ -9,7 +9,7 @@ CACHED_MEDIA_DIR = None
 def get_ad_dir(self, filename):
     global CACHED_MEDIA_DIR
     if not CACHED_MEDIA_DIR:
-        dir = os.path.join(settings.SITE_MEDIA_SUBDIR, 'ads')
+        dir = os.path.join(settings.SITE_PREFIX, 'ads')
         try:
             os.makedirs(os.path.join(settings.MEDIA_ROOT, dir))
         except OSError, e:

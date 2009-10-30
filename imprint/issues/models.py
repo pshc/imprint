@@ -176,7 +176,7 @@ class Issue(models.Model):
 
     @property
     def media_dir(self):
-        return os.path.join(settings.SITE_MEDIA_SUBDIR,
+        return os.path.join(settings.SITE_PREFIX,
                 'vol%02d' % self.volume, 'issue%02d' % self.number)
 
     def get_subdir_filename(self, filename):

@@ -279,4 +279,13 @@ def image_detail(request, y, m, d, section, slug, image):
     section = image.piece.section
     return locals()
 
+@renders('content/piece_design.html')
+def piece_design(request):
+    return locals()
+
+def design_convert_doc(request):
+    if request.method != 'POST': # or not request.FILES:
+        return HttpResponse(status=412)
+    return HttpResponse("Nice doc, bro.")
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+	<title>Piece designer</title>
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/base.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/piece-design.css" />
+{% include "jquery.html" %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/gears-init.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/piece-design.js"></script>
+</head>
+<body>
+<article>
+	<h1 contenteditable="true">Headline</h1>
+	<h2 contenteditable="true">Deck</h2>
+	<section class="copy">
+		<p contenteditable="true"></p>
+	</section>
+	<form>
+		<input id="addcopy" type="button" value="Add copy" />
+	</form>
+</article>
+</body>
+</html>
