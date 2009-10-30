@@ -139,6 +139,8 @@ class DocConverter(HTMLParser):
     def strip_dashes(cls, text):
         text = text.strip()
         dashes = True
+        if text.startswith('&shy;'):
+            text = text[5:].strip()
         if text.startswith('&mdash;'):
             text = text[7:]
         elif text.startswith('&ndash;'):
