@@ -17,6 +17,8 @@ def time_tag(value, str):
 @register.filter
 def html5naturalday(value, arg=None):
     formatted = humanize.naturalday(value, arg)
+    if formatted not in ('today', 'yesterday', 'tomorrow'):
+        formatted = 'on ' + formatted
     return time_tag(value, formatted)
 
 @register.filter
