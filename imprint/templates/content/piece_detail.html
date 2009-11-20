@@ -1,5 +1,6 @@
 {% extends "content/base.html" %}
 {% load content people issues %}
+{% block title %}{{ object.headline|striptags }}{% endblock %}
 {% block header %}{{ object.headline|striptags }} - {{ object.section }}{% endblock %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
