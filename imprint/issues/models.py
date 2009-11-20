@@ -88,14 +88,7 @@ class IssueManager(CurrentSiteManager):
         if user and user.is_staff:
             return self.all()[0]
         # Otherwise, only show live issues
-        global CACHED_LATEST_ISSUE
-        if not CACHED_LATEST_ISSUE:
-            try:
-                CACHED_LATEST_ISSUE = self.filter(is_live=True)[0]
-                dummy = CACHED_LATEST_ISSUE.previous
-            except IndexError:
-                raise self.model.DoesNotExist
-        return CACHED_LATEST_ISSUE
+        return self.filter(is_live=True)[0]
 
     @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%s/%d' % (
             Site.objects.get_current().id, int(y), m, int(d)))
@@ -233,17 +226,5 @@ class IssueSection(models.Model):
 
     class Meta:
         ordering = ('order', 'id')
-
-# This is so commonly used, we'll just cache it right here
-CACHED_LATEST_ISSUE = None
-def clear_issue_cache(*args, **kwargs):
-    global CACHED_LATEST_ISSUE
-    CACHED_LATEST_ISSUE = None
-
-# Keep it fresh
-for m in [Issue, Section, Site]:
-    models.signals.post_save.connect(clear_issue_cache, sender=m)
-    models.signals.post_delete.connect(clear_issue_cache, sender=m)
-del m
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
