@@ -224,6 +224,16 @@ class IssueSection(models.Model):
     def __unicode__(self):
         return self.section_name
 
+    def save(self, **kwargs):
+        if not self.id and self.order is None:
+            # Put this at the bottom
+            try:
+                self.order = IssueSection.objects.filter(issue=self.issue,
+                        section=self.section).order_by('-order')[0].order + 1
+            except IndexError:
+                self.order = 1
+        super(IssueSection, self).save(**kwargs)
+
     class Meta:
         ordering = ('order', 'id')
 
