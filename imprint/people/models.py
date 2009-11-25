@@ -34,4 +34,24 @@ class Contributor(models.Model):
         self.slug = slugify_name(self.name)
         super(Contributor, self).save(*args, **kwargs)
 
+    def merge_with(self, people):
+        #from content.models import Byline, Artist
+        for p in people:
+            assert p.id != self.id
+            for a in p.byline_set.all():
+                a.contributor = self
+                a.save()
+            for a in p.artist_set.all():
+                a.contributor = self
+                a.save()
+            for piece in p.pieces.all():
+                piece.contributors.remove(p)
+                piece.contributors.add(self)
+                piece.save()
+            for series in p.series.all():
+                series.contributors.remove(p)
+                series.contributors.add(self)
+            p.delete()
+
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
