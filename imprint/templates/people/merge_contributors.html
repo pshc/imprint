@@ -1,5 +1,9 @@
-<!doctype html>
-<title>Merge contributors - {{ site.name }}</title>
+{% include "utils/html_open_head.html" %}{% comment %}
+<html>
+<head>
+{% endcomment %}	<title>Merge contributors - {{ site.name }}</title>
+</head>
+<body>
 <h1>Merge contributors</h1>
 <p><strong>All of the following contributors will be merged into the selected
 	   contributor:</strong></p>
@@ -10,3 +14,5 @@
 <input type="submit" value="Merge" />
 </form>
 <a href="{{ admin_url }}">Back</a>
+</body>
+</html>
