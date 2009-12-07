@@ -59,7 +59,7 @@ class Piece(models.Model):
 
     class Meta:
         unique_together = [('issue', 'headline'), ('issue', 'slug')]
-        ordering = ('order', 'id')
+        ordering = ('-order', 'id')
 
     def __unicode__(self):
         return unescape(strip_tags(self.headline))

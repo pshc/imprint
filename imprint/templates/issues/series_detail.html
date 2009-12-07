@@ -1,4 +1,5 @@
 {% extends "issues/base.html" %}
+{% block title %}{{ series }} - {{ site.name }}{% endblock %}
 {% block head %}
 	<link rel="alternate" type="application/rss+xml" title="Latest content from this series" href="/feeds/series/{{ series.slug }}" />{% endblock %}
 {% block content %}{% load people %}

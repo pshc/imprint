@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}{{ object }} - {{ site.name }}{% endblock %}
 {% block head %}
 {% include "jquery.html" %}
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/show-email.js"></script>

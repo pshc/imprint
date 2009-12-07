@@ -1,0 +1,12 @@
+<!doctype html>
+<title>Merge contributors - {{ site.name }}</title>
+<h1>Merge contributors</h1>
+<p><strong>All of the following contributors will be merged into the selected
+	   contributor:</strong></p>
+<form action="{% url merge-contributors ids %}" method="POST">
+<ul>{% for id, contributor in objects.iteritems %}
+	<li><input type="radio" name="dest" value="{{ id }}" id="c{{ id }}" /> <label for="c{{ id }}">{{ contributor }}</label></li>{% endfor %}
+</ul>
+<input type="submit" value="Merge" />
+</form>
+<a href="{{ admin_url }}">Back</a>
