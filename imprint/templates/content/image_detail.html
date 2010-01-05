@@ -1,7 +1,6 @@
 {% extends "content/fullwidth.html" %}
 {% load content issues people %}
-{% block title %}{{ object.headline|striptags }}{% endblock %}
-{% if object %}{% block header %}{{ object.headline|striptags }}{% endblock %}{% endif %}
+{% if object %}{% block title %}{{ object.headline|striptags }}{% endblock %}{% endif %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}{% if object %}

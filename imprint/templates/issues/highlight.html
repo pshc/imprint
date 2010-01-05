@@ -1,1 +1,1 @@
-			<tr><th>{% ifnotequal section highlight.section %}{{ highlight.section }}{% endifnotequal %}</th><td><a href="{{ highlight.get_absolute_url }}"><strong>{{ highlight }}</strong> &raquo;</a></td></tr>
+			<tr><th>{% ifnotequal section highlight.section %}{{ highlight.section }}{% endifnotequal %}</th><td><a href="{{ highlight.get_absolute_url }}"><strong>{{ highlight|safe }}</strong> &raquo;</a></td></tr>
