@@ -1,0 +1,8 @@
+{% extends "archive/base.html" %}
+{% block title %}{{ object.publication }} archive for {{ object.date|date }}{% endblock %}
+{% block content %}
+	<h1><cite>{{ object.publication }}</cite> on {{ object.date|date }}</h1>
+	<section><ul>{% for page in object_list %}
+		<li><a href="{{ page.get_absolute_url }}">Page {{ page.page_from }}{% if page.page_to %} &ndash; {{ page.page_to }}{% endif %}</a></li>{% endfor %}
+	</ul></section>
+{% endblock %}
