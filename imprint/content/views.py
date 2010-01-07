@@ -5,7 +5,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import permission_required
-from django.http import HttpResponse, HttpResponseRedirect, \
+from django.http import Http404, HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
@@ -252,13 +252,20 @@ def piece_admin(request):
         pieces_count = pieces.count()
     return locals()
 
+def get_issue_and_piece(y, m, d, section, slug):
+    try:
+        issue = Issue.objects.get_by_date(y, m, d)
+        piece = Piece.objects.get_by_issue_section_slug(issue, section, slug)
+    except (Issue.DoesNotExist, Piece.DoesNotExist):
+        raise Http404
+    return (issue, piece)
+
 @renders('content/piece_detail.html')
 def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece with comments."""
     if 'c' in request.GET:
         return HttpResponseRedirect('#c%d' % int(request.GET['c']))
-    issue = Issue.objects.get_by_date(y, m, d)
-    object = Piece.objects.get_by_issue_section_slug(issue, section, slug)
+    issue, object = get_issue_and_piece(y, m, d, section, slug)
     units = object.units
     preview = object.preview
     if len(preview) == 1 and preview[0].is_image \
@@ -272,8 +279,7 @@ def piece_detail(request, y, m, d, section, slug):
 @renders('content/image_detail.html')
 def image_detail(request, y, m, d, section, slug, image):
     """Display the image in full resolution."""
-    issue = Issue.objects.get_by_date(y, m, d)
-    piece = Piece.objects.get_by_issue_section_slug(issue, section, slug)
+    issue, piece = get_issue_and_piece(y, m, d, section, slug)
     image = os.path.join(issue.media_dir, image)
     image = get_object_or_404(Image, piece=piece, image=image)
     section = image.piece.section
