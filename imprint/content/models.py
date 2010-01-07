@@ -2,7 +2,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.core.cache import cache
 from django.db import models
-from django.shortcuts import get_object_or_404
 from django.utils.html import strip_tags
 from django.utils.http import urlquote
 from issues.models import Issue, Section, Series, latest_issue_or, filter_live
@@ -16,8 +15,8 @@ def piece_cache_key(_, issue, section, slug):
 class PieceManager(models.Manager):
     @cache_with_key(piece_cache_key)
     def get_by_issue_section_slug(self, issue, section, slug):
-        piece = get_object_or_404(Piece, issue=issue, section__slug=section,
-                slug=slug, **filter_live())
+        piece = self.get(issue=issue, section__slug=section, slug=slug,
+                **filter_live())
         dummy = piece.units
         return piece
 

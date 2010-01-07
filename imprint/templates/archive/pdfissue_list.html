@@ -1,0 +1,9 @@
+{% extends "archive/base.html" %}
+{% block content %}
+	<h1>{% block heading %}{% endblock %}</h1>
+	<section>
+		<ul>{% for object in object_list %}
+			<li><a href="{{ object.get_absolute_url }}">{{ object.date|date }}'s <cite>{{ object.publication }}</cite></a></li>{% endfor %}
+		</ul>
+	</section>
+{% endblock %}

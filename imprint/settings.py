@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'django_authopenid',
     'django_extensions',
     'imprint.advertising',
+    'imprint.archive',
     'imprint.content',
     'imprint.issues',
     'imprint.people',

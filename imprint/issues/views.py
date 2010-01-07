@@ -1,13 +1,17 @@
 from content.models import *
 import datetime
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from issues.models import *
 from utils import renders, date_tuple
 
 @renders('issues/issue_detail.html')
 def issue_detail(request, y, m, d):
-    object = issue = Issue.objects.get_by_date(y, m, d)
+    try:
+        object = issue = Issue.objects.get_by_date(y, m, d)
+    except Issue.DoesNotExist:
+        raise Http404
     pieces = issue.pieces.all()[:5]
     return locals()
 
@@ -24,7 +28,10 @@ def latest_issue(request):
 @renders('issues/section_detail.html')
 def section_detail(request, y, m, d, slug):
     section = object = get_object_or_404(Section, slug=slug)
-    issue = Issue.objects.get_by_date(y, m, d)
+    try:
+        issue = Issue.objects.get_by_date(y, m, d)
+    except Issue.DoesNotExist:
+        raise Http404
     pieces = Piece.objects.filter(section=object, issue=issue)
     return locals()
 

@@ -5,11 +5,8 @@ from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import dates
 from people.models import Contributor
-import os
 from utils import cache_with_key, date_tuple, get_current_user
-# XXX: Move this to views:
-from django.shortcuts import get_object_or_404
-from django.http import Http404
+import os
 
 HIGHLIGHT_COUNT = 4
 
@@ -96,10 +93,9 @@ class IssueManager(CurrentSiteManager):
         try:
             date = datetime.date(int(y), dates.MONTHS_3_REV[m], int(d))
         except:
-            # XXX: Views? In MY models?
-            raise Http404
-        issue = get_object_or_404(self.model, date__exact=date,
-                site=Site.objects.get_current(), **filter_live())
+            raise Issue.DoesNotExist
+        issue = self.get(date__exact=date, site=Site.objects.get_current(),
+                **filter_live())
         dummy = issue.previous; dummy = issue.next
         return issue
 
