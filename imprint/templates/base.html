@@ -17,7 +17,8 @@
 			<a href="{% url static-about %}">About Imprint</a> &mdash;
 			<a href="{% url static-volunteer %}">Volunteer</a> &mdash;
 			<a href="{% url static-contact %}">Contact</a> &mdash;
-			<a href="{% url static-jobs %}">Now hiring: Sysadmin</a>
+			<a href="{% url static-jobs %}">Now hiring: Sysadmin</a> &mdash;
+			<a href="{% url static-eic %}">Wanted: Editor-in-Chief</a>
 		</nav>
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
 		{% load advertising %}{% random_image_ad 1 %}
