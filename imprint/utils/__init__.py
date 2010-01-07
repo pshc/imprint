@@ -24,7 +24,7 @@ def renders(template, request_context=True, mimetype=None):
                                           mimetype=mimetype)
                 # If there is a unique object for this view, add headers
                 obj = d.get('object')
-                if obj is not None:
+                if obj is not None and hasattr(obj, 'pk'):
                     populate_xheaders(req, resp, obj.__class__, obj.pk)
                 if 'canonical' in d:
                     resp['Content-Location'] = d['canonical']
