@@ -35,6 +35,7 @@ def renders(template, request_context=True, mimetype=None):
         # Impersonate the original view function
         new_view.__name__ = f.__name__
         new_view.__module__ = f.__module__
+        new_view.__doc__ = f.__doc__
         return new_view
     return dec
 

@@ -1,0 +1,15 @@
+{% extends "content/base.html" %}
+{% load content people issues %}
+{% block title %}{{ object.headline|striptags|safe }} &mdash; {{ object.section }}{% endblock %}
+{% block maintag %}article{% endblock %}
+{% block maintagclose %}article{% endblock %}
+{% block content %}
+	<h1>{{ object.id }}</h1>
+	<form method="POST" action=".">
+		<p><label>Date:</label> <input type="date" name="date" value="{{ object.date }}" /></p>
+		<input type="hidden" name="rev" value="{{ object.rev }}" />
+		{% for text in object.body %}
+		<textarea name="body{{ forloop.counter0 }}">{{ text }}</textarea><br />{% endfor %}
+		<input type="submit" />
+	</form>
+{% endblock %}

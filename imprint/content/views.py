@@ -1,3 +1,4 @@
+from content import db, couchdb_view, get_resource_or_404
 from content.doc_convert import doc_convert, DocConvertException
 from content.models import *
 import datetime
@@ -293,5 +294,45 @@ def design_convert_doc(request):
     if request.method != 'POST': # or not request.FILES:
         return HttpResponse(status=412)
     return HttpResponse("Nice doc, bro.")
+
+@renders('content/couchdb_index.html')
+def couchdb_index(request):
+    """
+    by_date = function(doc) {
+        emit(doc.date, null);
+    }
+    """
+    object_list = couchdb_view('couchdb_index.by_date', descending=True)
+    return locals()
+
+body_re = re.compile('body(\d+)$')
+
+@renders('content/couchdb_piece.html')
+def couchdb_piece(request, slug):
+    if request.method == 'POST':
+        rev = request.POST['rev']
+        body = []
+        i = 0
+        for name, text in request.POST.iteritems():
+            m = re.match(r'body(\d+)$', name)
+            if m:
+                body.append((int(m.group(1)), text))
+        body = [text for index, text in sorted(body)]
+        date = request.POST['date']
+        [(succ, docid, rev)] = db.update([{'_id': slug, '_rev': rev,
+            'body': body, 'date': date}])
+        if not succ:
+            # uh oh
+            pass
+        return HttpResponseRedirect('.')
+    object = get_resource_or_404(slug)
+    return locals()
+
+def couchdb_create(request):
+    oldrev = get_resource_or_404('hello')['_rev']
+    [(succ, docid, rev)] = db.update([
+        {'_id': 'hello', '_rev': oldrev,
+            'body': ['First area', 'Second area'], 'date': [2009,1,1]}])
+    return HttpResponse('Made:' + str((succ, docid, rev)))
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

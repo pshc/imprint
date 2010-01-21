@@ -26,4 +26,13 @@ if not hasattr(settings, 'couchdb_db'):
         settings.couchdb_db = server[DATABASE_NAME]
 db = settings.couchdb_db
 
+def couchdb_view(name, **kwargs):
+    return db.view('%s/%s' % (DESIGN_DOCNAME, name), **kwargs)
+
+def get_resource_or_404(id):
+    try:
+        return db[id]
+    except couchdb.client.ResourceNotFound:
+        raise Http404
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

@@ -1,0 +1,8 @@
+{% extends "content/base.html" %}
+{% block title %}CouchDB index{% endblock %}
+{% block content %}
+	<h1>CouchDB Index</h1>
+	<ul>{% for object in object_list %}
+		<li><a href="{{ object.id }}/">{{ object.key }}</a></li>{% endfor %}
+	</ul>
+{% endblock %}
