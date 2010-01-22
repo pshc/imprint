@@ -56,7 +56,8 @@ def get_pdf_filename(page, filename):
 
 class PDFFile(models.Model):
     file = models.FileField(upload_to=get_pdf_filename)
-    pdfissue = models.ForeignKey(PDFIssue, related_name='pages')
+    pdfissue = models.ForeignKey(PDFIssue, related_name='pages',
+            verbose_name='Issue')
     page_from = models.PositiveSmallIntegerField(db_index=True,
             verbose_name='First page')
     page_to = models.PositiveSmallIntegerField(blank=True, null=True,
