@@ -112,7 +112,7 @@ class DocConverter(HTMLParser):
                     prevent_widow(self.paragraph)
                     # OK, actually write the paragraph.
                     final_text = open_tag + ''.join(self.paragraph) \
-                               + close_tag + '\n'
+                               + close_tag + '\n\n'
                     self.document.setdefault('copy', []).append(final_text)
             self.paragraph = None
         elif tag == 'font':

@@ -19,6 +19,7 @@
 <style type="text/css">
 .vSmallField { width: 6em; }
 .expand { cursor: pointer; text-decoration: underline; }
+textarea { width: 80%; }
 </style>
 <script type="text/javascript">
 makeAutoCompleteInput = function(input, with_position) {
@@ -130,7 +131,7 @@ $(document).ready(function () {
 		</div></div>
 		<div class="form-row cutline {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-cutline">Cutline:</label>
-<textarea name="{{ unit.name }}-cutline" id="id_{{ unit.name }}-cutline" class="vLargeTextField" rows="3" cols="30" />
+<textarea name="{{ unit.name }}-cutline" id="id_{{ unit.name }}-cutline" class="vLargeTextField" rows="4">
 {{ unit.cutline }}</textarea>
 		<p class="help">Markup is OK.</p>
 		</div></div>
@@ -175,8 +176,9 @@ $(document).ready(function () {
 
 		<div class="form-row body {{ unit.class }}"><div>
 			<label class="required">Copy:</label>
-			{{ unit.body|safe }}
-			<input type="hidden" name="{{ unit.name }}-body" value="{{ unit.body }}" />
+<textarea name="{{ unit.name }}-body" rows="15">
+{{ unit.body }}
+</textarea>
 		</div></div>
 		<div class="form-row bylines {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-bylines">Bylines:</label>
