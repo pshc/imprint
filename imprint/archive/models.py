@@ -54,7 +54,7 @@ def get_pdf_filename(page, filename):
             issue.date.strftime('%Y-%m-%d'), range)
     return os.path.join(*['archive'] + path + [pdf])
 
-class PDFPage(models.Model):
+class PDFFile(models.Model):
     file = models.FileField(upload_to=get_pdf_filename)
     pdfissue = models.ForeignKey(PDFIssue, related_name='pages')
     page_from = models.PositiveSmallIntegerField(db_index=True,
@@ -66,7 +66,7 @@ class PDFPage(models.Model):
     def save(self, **kwargs):
         if self.page_to is not None and self.page_to <= self.page_from:
             self.page_to = None
-        super(PDFPage, self).save(**kwargs)
+        super(PDFFile, self).save(**kwargs)
 
     class Meta:
         ordering = ('page_from',)

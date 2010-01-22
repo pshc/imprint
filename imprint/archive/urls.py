@@ -1,6 +1,4 @@
-from django.conf import settings
 from django.conf.urls.defaults import *
-from archive.models import PDFIssue, PDFPage
 
 urlpatterns = patterns('archive.views',
     url(r'^$', 'archive_index', name='archive-index'),
