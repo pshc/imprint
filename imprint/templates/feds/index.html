@@ -1,6 +1,6 @@
 {% extends "feds/base.html" %}
 {% block content %}
-	<h1>Feds Election</h1>
+	<h1>Feds Executive Nominations</h1>
 	<form action="." method="POST">
 	{% for position in positions %}{% with position.candidates.count as cancount %}
 	<table class="feds">
