@@ -34,7 +34,7 @@ class Candidate(models.Model):
         ordering = ['name']
 
 class UserAgent(models.Model):
-    agent = models.CharField(max_length=500, unique=True)
+    agent = models.CharField(max_length=255, unique=True)
 
     def __unicode__(self):
         return self.agent
@@ -44,6 +44,7 @@ class VoteManager(models.Manager):
         if isinstance(candidate, basestring):
             candidate = Candidate.objects.get(slug=candidate)
         if isinstance(user_agent, basestring):
+            user_agent = user_agent[:255]
             user_agent = UserAgent.objects.get_or_create(agent=user_agent)[0]
         if voted_on is None:
             voted_on = datetime.now()
