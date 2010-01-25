@@ -3,7 +3,7 @@
 	<h1>Feds Election</h1>
 	<form action="." method="POST">
 	{% for position in positions %}{% with position.candidates.count as cancount %}
-	<table id="feds">
+	<table class="feds">
 	{# TODO: CSRF #}
 	<tr><th colspan="{{ cancount }}">{{ position }} {% ifequal cancount 1 %}acclamation{% else %}nominees{% endifequal %}</th></tr>
 	<tr>{% for candidate in position.candidates.all %}
@@ -15,5 +15,14 @@
 	</table>
 	{% endwith %}{% endfor %}
 	{% if can_vote %}<input type="submit" value="Vote" />{% endif %}
+
+	<table class="feds">
+	<tr><th colspan="5">Senate Nominations</th></tr>
+	<tr><td><label>Faculty of Arts</label></td><td><label>Faculty of Math</label></td><td><label>Faculty of Environment</label></td><td><label>Faculty of Science</label></td><td><label>At-Large Senator</label></td></tr>
+	<tr><td>Arjun Dhingra</td><td>Ian Charlesworth</td><td>Adwitya Das Gupta</td><td>Jonathan Cluett</td><td>Iyinoluwa Aboyeji</td></tr>
+	<tr><td>Juwairyah Khalid</td><td>Ian Kasper</td><td>Natalie Liushitz</td><td></td><td>Reemah Khalid</td></tr>
+	<tr><td>Luke Burke</td><td>Jennifer Qiao</td><td>Stephen Krysak</td><td></td><td>Yousif Al-Khder</td></tr>
+	<tr><td></td><td>Sarah Sun</td><td></td><td></td><td></td></tr>
+	</table>
 	</form>
 {% endblock %}
