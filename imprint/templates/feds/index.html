@@ -2,12 +2,12 @@
 {% block content %}
 	<h1>Feds Executive nominations</h1>
 	<form action="." method="POST">
-	{% for position in positions %}{% with position.candidates.count as cancount %}
+	{% for position in positions %}{% with position.acclaimed as acclaimed %}
 	<table class="feds">
 	{# TODO: CSRF #}
-	<tr><th colspan="{{ cancount }}">{{ position }} {% ifequal cancount 1 %}acclamation{% else %}nominees{% endifequal %}</th></tr>
+	<tr><th colspan="{{ position.candidates.count }}">{{ position }} {% if acclaimed %}acclamation{% else %}nominees{% endif %}</th></tr>
 	<tr>{% for candidate in position.candidates.all %}
-		<td>{% if not can_vote %}<label>{{ candidate }}</label>
+		<td>{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
 		<p>{{ candidate.description|safe }}</p>
 		</td>{% endfor %}
