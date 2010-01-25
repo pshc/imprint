@@ -1,7 +1,15 @@
 {% extends "feds/base.html" %}
+{% block meta %}
+	<meta name="title" content="Feds Exec nominees poll" />
+	<meta name="description" content="Imprint Online is holding an informal daily poll over the Feds election season. Vote for your favourite candidates!" />
+	<link rel="image_src" href="{{ MEDIA_URL }}images/logo-facebook-icon.png" />
+{% endblock %}
 {% block content %}
 	<h1>Feds Executive nominations</h1>
 	<p><em>Imprint</em> is holding an informal non-scientific daily poll. We'll be publishing results daily soon. Vote for your favourite candidates below!</p>
+
+	{# FACEBOOK LINK #}<a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+
 	<form action="." method="POST">
 	{% for position in positions %}{% with position.acclaimed as acclaimed %}
 	<table class="feds">
