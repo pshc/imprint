@@ -11,7 +11,7 @@ EXT_VOTES_PER_DAY = 5
 EXT_VOTE_INTERVAL = 30*60
 
 def can_submit_vote(ip, user_agent, cookies):
-    if ip == '129.97.194.14': # Imprint office?
+    if ip.startswith('10.'): # Imprint office?
         return False
     # This is unreliable but probably Good Enough(TM)
     for cookie in cookies:
@@ -47,6 +47,9 @@ def feds_index(request):
         pass
     positions = Position.objects.all()
     ip = request.META['REMOTE_ADDR']
+    # XXX: Workaround
+    if ip == '127.0.0.1' and 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META['HTTP_X_FORWARDED_FOR']
     user_agent = request.META['HTTP_USER_AGENT']
     voted_on = datetime.datetime.now()
     can_vote = can_submit_vote(ip, user_agent, request.COOKIES)
