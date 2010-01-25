@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'imprint.people',
     'imprint.static',
     'imprint.utils',
+    'imprint.feds',
     'registration',
 )
 

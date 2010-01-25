@@ -234,6 +234,25 @@ hr {
 	border-style: none none dotted;
 }
 
+/* feds */
+
+#feds th {
+	font-size: 200%;
+}
+
+#feds td {
+	vertical-align: top;
+}
+
+#feds td label {
+	font-weight: bold;
+	margin: 0.5em;
+}
+
+#feds td p {
+	margin: 0.5em;
+}
+
 /* bottom */
 
 #comments li {
