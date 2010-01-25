@@ -1,6 +1,7 @@
 {% extends "feds/base.html" %}
 {% block content %}
 	<h1>Feds Executive nominations</h1>
+	<p><em>Imprint</em> is holding an informal non-scientific daily poll. We'll be publishing results daily soon. Vote for your favourite candidates below!</p>
 	<form action="." method="POST">
 	{% for position in positions %}{% with position.acclaimed as acclaimed %}
 	<table class="feds">
