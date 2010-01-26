@@ -17,7 +17,10 @@
 	{# TODO: CSRF #}
 	<tr><th colspan="{{ position.candidates.count }}">{{ position }} {% if acclaimed %}acclamation{% else %}nominees{% endif %}</th></tr>
 	<tr>{% for candidate in position.candidates.all %}
-		<td>{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
+		<td>{% if candidate.image %}
+		<img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" /><br />
+		{% endif %}
+		{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
 		<p>{{ candidate.description|safe }}{% if candidate.website %}
 		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
