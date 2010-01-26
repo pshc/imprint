@@ -19,7 +19,8 @@
 	<tr>{% for candidate in position.candidates.all %}
 		<td>{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
-		<p>{{ candidate.description|safe }}</p>
+		<p>{{ candidate.description|safe }}{% if candidate.website %}
+		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
 		</td>{% endfor %}
 	</tr>
 	</table>
