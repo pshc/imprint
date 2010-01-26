@@ -37,14 +37,20 @@ def can_submit_vote(ip, user_agent, cookies):
         pass
     return True
 
-@renders('feds/index.html')
-def feds_index(request):
+def get_relevant_article():
+    issue = object = section = None
     try: # to keep the relevant issue/piece in context
         issue = Issue.objects.get(number=23, volume=32)
         object = issue.pieces.get(slug='feds-executive-nominations')
         section = object.section
-    except (Issue.DoesNotExist, Section.DoesNotExist, Piece.DoesNotExist):
+    except (Issue.DoesNotExist, Piece.DoesNotExist):
         pass
+    return (issue, object, section)
+ 
+
+@renders('feds/index.html')
+def feds_index(request):
+    issue, object, section = get_relevant_article()
     positions = Position.objects.all()
     ip = request.META['REMOTE_ADDR']
     # XXX: Workaround
@@ -73,6 +79,12 @@ def feds_index(request):
         return response
     elif 'vote-thanks' in request.COOKIES:
         vote_thanks = True
+    return locals()
+
+@renders('feds/results.html')
+def feds_results(request):
+    issue, object, section = get_relevant_article()
+    positions = Position.objects.all()
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
