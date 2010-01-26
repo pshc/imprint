@@ -12,11 +12,13 @@
 		<li><a href="{% url feds-index %}">Candidates</a></li>
 		<li><strong>Results</strong></li>
 	</ul>
+	<section class="feds">
 	<table>
 	{% for position in positions %}{% if not position.acclaimed %}
 		<tr><td>{% google_chart position %}</td></tr>
 	{% endif %}{% endfor %}
 	</table>
+	</section>
 
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

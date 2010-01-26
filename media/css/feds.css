@@ -1,3 +1,15 @@
+.feds {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	margin: 0 0 1em 0;
+	padding: 0;
+}
+
+.feds table {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	width: 100%;
+}
 
 .feds th {
 	font-size: 200%;
@@ -5,28 +17,61 @@
 
 .feds td {
 	vertical-align: top;
+	padding-left: 1em;
 }
 
 .feds td label {
 	font-weight: bold;
-	margin: 0.5em;
 }
 
 .feds td p {
-	margin: 0.5em;
+	padding: 1em 0;
 }
 
 .tabs {
 	text-align: center;
 	display: block;
-	padding: 2em;
+	padding: 1em;
 }
 
 .tabs li {
 	font-family: Tahoma, sans-serif;
 	text-transform: uppercase;
-	padding: 0.5em 1em;
 	display: inline;
+}
+
+.tabs li a {
+	padding: 1em;
 	background-color: #eee;
 	border: 1px solid #ddd;
+}
+
+.tabs li a:hover {
+	background-color: #f8f8f8;
+	text-decoration: none;
+}
+
+.tabs li strong {
+	padding: 1em;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid white;
+	z-index: 10;
+}
+
+.controls {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.controls input {
+	padding: 0;
+	border: none;
+	background: url('../images/button110x74.png') no-repeat top left;
+	width: 110px;
+	height: 74px;
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+	text-shadow: white 1px 1px 1px;
+	cursor: pointer;
 }

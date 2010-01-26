@@ -14,25 +14,29 @@
 		<li><a href="{% url feds-results %}">Results</a></li>
 	</ul>
 	<form action="." method="POST">
-	{% for position in positions %}{% with position.acclaimed as acclaimed %}
-	<table class="feds">
+	<section class="feds">
+	{% for position in positions %}{% with position.acclaimed as acclaimed %}{% with position.candidates.all as candidates %}
+	<table>
 	{# TODO: CSRF #}
 	<tr><th colspan="{{ position.candidates.count }}">{{ position }} {% if acclaimed %}acclamation{% else %}nominees{% endif %}</th></tr>
-	<tr>{% for candidate in position.candidates.all %}
+	<tr>{% for candidate in candidates %}
 		<td>{% if candidate.image %}
-		<img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" /><br />
-		{% endif %}
-		{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
+		<img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" />{% endif %}</td>{% endfor %}
+	</tr>
+	<tr>{% for candidate in candidates %}
+		<td>{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
 		<p>{{ candidate.description|safe }}{% if candidate.website %}
 		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
 		</td>{% endfor %}
 	</tr>
 	</table>
-	{% endwith %}{% endfor %}
-	{% if can_vote %}<input type="submit" value="Vote" />{% endif %}
+	{% endwith %}{% endwith %}{% endfor %}
+	</section>
+	{% if can_vote %}<section class="controls"><input type="submit" value="Vote" /></section>{% endif %}
 
-	<table class="feds">
+	<section class="feds">
+	<table>
 	<tr><th colspan="5">Senate nominations</th></tr>
 	<tr><td><label>Faculty of Arts</label></td><td><label>Faculty of Math</label></td><td><label>Faculty of Environment</label></td><td><label>Faculty of Science</label></td><td><label>At-Large Senator</label></td></tr>
 	<tr><td>Arjun Dhingra</td><td>Ian Charlesworth</td><td>Adwitya Das Gupta</td><td>Jonathan Cluett</td><td>Iyinoluwa Aboyeji</td></tr>
@@ -40,6 +44,7 @@
 	<tr><td>Luke Burke</td><td>Jennifer Qiao</td><td>Stephen Krysak</td><td></td><td>Yousif Al-Khder</td></tr>
 	<tr><td></td><td>Sarah Sun</td><td></td><td></td><td></td></tr>
 	</table>
+	</section>
 	</form>
 
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
