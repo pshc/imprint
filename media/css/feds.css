@@ -15,3 +15,18 @@
 .feds td p {
 	margin: 0.5em;
 }
+
+.tabs {
+	text-align: center;
+	display: block;
+	padding: 2em;
+}
+
+.tabs li {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+	padding: 0.5em 1em;
+	display: inline;
+	background-color: #eee;
+	border: 1px solid #ddd;
+}

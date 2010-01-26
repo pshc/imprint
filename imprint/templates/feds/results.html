@@ -8,6 +8,10 @@
 {% block content %}
 	<h1>Poll results</h1>
 	{% include "feds/facebook_link.html" %}
+	<ul class="tabs">
+		<li><a href="{% url feds-index %}">Candidates</a></li>
+		<li><strong>Results</strong></li>
+	</ul>
 	<table>
 	{% for position in positions %}{% if not position.acclaimed %}
 		<tr><td>{% google_chart position %}</td></tr>

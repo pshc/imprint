@@ -7,8 +7,12 @@
 {% block content %}
 	<h1>Feds Executive nominations</h1>
 	{% if vote_thanks %}<p><strong>Thanks for voting!</strong></p>{% endif %}
-	<p><em>Imprint</em> is holding an informal non-scientific daily poll. We'll be publishing results daily soon. Vote for your favourite candidates below!</p>
+	<p><em>Imprint</em> is holding an informal non-scientific daily poll. Vote for your favourite candidates below!</p>
 	{% include "feds/facebook_link.html" %}
+	<ul class="tabs">
+		<li><strong>Candidates</strong></li>
+		<li><a href="{% url feds-results %}">Results</a></li>
+	</ul>
 	<form action="." method="POST">
 	{% for position in positions %}{% with position.acclaimed as acclaimed %}
 	<table class="feds">
