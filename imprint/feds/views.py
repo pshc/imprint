@@ -56,6 +56,7 @@ def feds_index(request):
     expires = datetime.date.today() + datetime.timedelta(days=1)
     if request.method == 'POST' and can_vote:
         response = HttpResponseRedirect('.')
+        voted = False
         for pos in positions:
             try:
                 candidate = pos.candidates.get(slug=request.POST.get(pos.slug))
@@ -66,7 +67,12 @@ def feds_index(request):
             response.set_cookie(str('voted-' + pos.slug),
                     value='No, this is not scientific.',
                     expires=expires.strftime('%a, %d %b %Y %H:%M:%S'))
+            voted = True
+        if voted:
+            response.set_cookie('vote-thanks', 'One-shot')
         return response
+    elif 'vote-thanks' in request.COOKIES:
+        vote_thanks = True
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
