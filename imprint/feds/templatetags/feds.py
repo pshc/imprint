@@ -12,7 +12,7 @@ def google_chart(position):
     labels = []
     options = {'cht': 'p', 'chs': '600x300',
             'chtt': position.name.replace(' ', '+'),
-            'chl': '|'.join(name for name, count in vote_counts),
+            'chl': '|'.join('%s (%d)' % tuple(nc) for nc in vote_counts),
             'chd': 't:' + ','.join(str(count) for name, count in vote_counts),
             }
     options = '&'.join('%s=%s' % kv for kv in options.iteritems())
