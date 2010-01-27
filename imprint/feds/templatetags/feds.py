@@ -7,13 +7,14 @@ register = Library()
 @register.simple_tag
 def google_chart(position):
     """Renders a chart with the results for the given poll."""
-    vote_counts = position.candidates.annotate(Count('votes')).values_list(
-            'name', 'votes__count')
-    labels = []
+    counts = position.candidates.annotate(Count('votes')).values(
+            'name', 'votes__count', 'graph_colour')
+    labels = ('%s (%d)' % (v['name'], v['votes__count']) for v in counts)
     options = {'cht': 'p', 'chs': '600x300',
             'chtt': position.name.replace(' ', '+'),
-            'chl': '|'.join('%s (%d)' % tuple(nc) for nc in vote_counts),
-            'chd': 't:' + ','.join(str(count) for name, count in vote_counts),
+            'chl': '|'.join(labels),
+            'chd': 't:' + ','.join(str(v['votes__count']) for v in counts),
+            'chco': ','.join(v['graph_colour'] for v in counts),
             }
     options = '&'.join('%s=%s' % kv for kv in options.iteritems())
     image_url = "http://chart.apis.google.com/chart?" + options

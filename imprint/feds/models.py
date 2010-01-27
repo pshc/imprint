@@ -26,6 +26,8 @@ class Candidate(models.Model):
     description = models.TextField(blank=True, help_text="HTML.")
     image = models.ImageField(upload_to='images/feds', blank=True)
     website = models.URLField(blank=True)
+    graph_colour = models.CharField(max_length=8, # optional alpha
+            help_text="Hexadecimal RRGGBB notation.")
 
     def __unicode__(self):
         return self.name
