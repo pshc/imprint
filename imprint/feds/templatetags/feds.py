@@ -15,6 +15,7 @@ def google_chart(position):
             'chl': '|'.join(labels),
             'chd': 't:' + ','.join(str(v['votes__count']) for v in counts),
             'chco': ','.join(v['graph_colour'] for v in counts),
+            'chp': '5.5', # angle in radians
             }
     options = '&'.join('%s=%s' % kv for kv in options.iteritems())
     image_url = "http://chart.apis.google.com/chart?" + options
