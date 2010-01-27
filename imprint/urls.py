@@ -31,6 +31,7 @@ urlpatterns = patterns('',
 
 # Site-specific apps
 urlpatterns += patterns('',
+    (r'^kiwi/', include('kiwi.urls')),
     (r'^2010/feds/', include('feds.urls')),
     (r'^feds', redirect_to, {'url': '/2010/feds/'}),
     (r'^2010/jan/22/news/feds-executive-nominations', redirect_to,

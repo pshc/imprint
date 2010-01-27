@@ -53,6 +53,8 @@ SECRET_KEY = '9u8t#q0)^)a^%76r&qu_*_i*8316)ae1&y71xbg1v-jgu61v2@'
 
 GOOGLE_ANALYTICS_KEY = None
 
+KIWI_API_CODE = None
+
 TEMPLATE_DIRS = (
     '/home/pshc/projects/py/imprint/imprint/templates/',
 )

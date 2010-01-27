@@ -11,6 +11,8 @@ DATE_FORMAT = 'F j, Y'
 
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
@@ -67,6 +69,7 @@ INSTALLED_APPS = (
     'imprint.archive',
     'imprint.content',
     'imprint.issues',
+    'imprint.kiwi',
     'imprint.people',
     'imprint.static',
     'imprint.utils',
