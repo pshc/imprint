@@ -15,7 +15,11 @@ def kiwi_get(action, **kwargs):
     return urlopen(kiwi_url(action, **kwargs)).read()
 
 def absolutify(local_path):
-    return 'http://%s%s' % (Site.objects.get_current().domain, local_path)
+    domain = Site.objects.get_current().domain
+    # TEMP: Domain debug considerations
+    if settings.DEBUG and getattr(settings, 'DEBUG_DOMAIN', False):
+        domain = settings.DEBUG_DOMAIN
+    return 'http://%s%s' % (domain, local_path)
 
 def set_kiwi_return_url(request, return_url):
     if return_url.startswith('/'):
@@ -25,9 +29,7 @@ def set_kiwi_return_url(request, return_url):
 def kiwi_login(request):
     if 'kiwi_referer' not in request.session:
         request.session['kiwi_referer'] = request.META.get('HTTP_REFERER')
-    domain = Site.objects.get_current().domain
-    url = kiwi_url('login',
-            __kiwi_referer__='http://%s%s' % (domain, reverse(kiwi_postback)))
+    url = kiwi_url('login',__kiwi_referer__=absolutify(reverse(kiwi_postback)))
     return http.HttpResponseRedirect(url)
 
 def kiwi_logout(request):
