@@ -53,9 +53,6 @@ def feds_index(request):
     issue, object, section = get_relevant_article()
     positions = Position.objects.all()
     ip = request.META['REMOTE_ADDR']
-    # XXX: Workaround
-    if ip == '127.0.0.1' and 'HTTP_X_FORWARDED_FOR' in request.META:
-        ip = request.META['HTTP_X_FORWARDED_FOR']
     user_agent = request.META['HTTP_USER_AGENT']
     voted_on = datetime.datetime.now()
     can_vote = can_submit_vote(ip, user_agent, request.COOKIES)
