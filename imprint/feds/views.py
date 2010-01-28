@@ -1,4 +1,5 @@
 from content.models import Piece
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from issues.models import Issue, Section
 from models import *
@@ -58,7 +59,7 @@ def feds_index(request):
     can_vote = can_submit_vote(ip, user_agent, request.COOKIES)
     expires = datetime.date.today() + datetime.timedelta(days=1)
     if request.method == 'POST' and can_vote:
-        response = HttpResponseRedirect('.')
+        response = HttpResponseRedirect(reverse(feds_results))
         voted = False
         for pos in positions:
             try:
@@ -72,16 +73,17 @@ def feds_index(request):
                     expires=expires.strftime('%a, %d %b %Y %H:%M:%S'))
             voted = True
         if voted:
-            response.set_cookie('vote-thanks', 'One-shot')
+            request.session['feds_vote_thanks'] = True
         return response
-    elif 'vote-thanks' in request.COOKIES:
-        vote_thanks = True
     return locals()
 
 @renders('feds/results.html')
 def feds_results(request):
     issue, object, section = get_relevant_article()
     positions = Position.objects.all()
+    if 'feds_vote_thanks' in request.session:
+        del request.session['feds_vote_thanks']
+        vote_thanks = True
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
