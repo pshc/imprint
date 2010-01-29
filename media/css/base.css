@@ -264,6 +264,7 @@ hr {
 #comments span em { font-style: normal; }
 #comments span a { font-style: normal; font-weight: bold; }
 #comments span em a { font-weight: normal; }
+#comments span strong { font-style: normal; color: #704000; }
 
 #comments div { /* reply box */
 	margin: 0 0 2em 2em;
@@ -271,6 +272,16 @@ hr {
 	background-color: #eee;
 }
 #comments div h3 { margin-top: 0; }
+
+#comments table li {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.kiwi label {
+	font-weight: bold;
+}
 
 input, textarea {
 	font-family: Georgia, serif;

@@ -41,6 +41,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django_authopenid.context_processors.authopenid',
     'utils.context_processors.current_site',
     'issues.context_processors.latest_issue',
+    'kiwi.context_processors.kiwi_info',
 )
 
 FILE_UPLOAD_HANDLERS = (

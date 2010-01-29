@@ -8,6 +8,15 @@ from urllib2 import urlopen
 
 # Bleh, non-idempotent GETs. Well, Kiwi has to fix it, not us
 
+def kiwi_required(func):
+    """If kiwi isn't enabled, raises a 404 instead of processing the view."""
+    def decorated_view(*args, **kwargs):
+        if not getattr(settings, 'KIWI_API_CODE', False):
+            raise http.Http404
+        return func(*args, **kwargs)
+    decorated_view.__name__ = func.__name__
+    return decorated_view
+
 def kiwi_url(action, **kwargs):
     return 'http://kiwi.uwaterloo.ca/user/%s?%s' % (action, urlencode(kwargs))
 
@@ -26,15 +35,17 @@ def set_kiwi_return_url(request, return_url):
         return_url = absolutify(return_url)
     request.session['kiwi_referer'] = return_url
 
+@kiwi_required
 def kiwi_login(request):
     if 'kiwi_referer' not in request.session:
         request.session['kiwi_referer'] = request.META.get('HTTP_REFERER')
     url = kiwi_url('login',__kiwi_referer__=absolutify(reverse(kiwi_postback)))
     return http.HttpResponseRedirect(url)
 
+@kiwi_required
 def kiwi_logout(request):
     try:
-        del request.session['kiwi_username'], request.session['kiwi_info']
+        del request.session['kiwi_info']
     except KeyError:
         pass
     return_to = request.META.get('HTTP_REFERER') or absolutify('/')
@@ -51,6 +62,7 @@ def get_kiwi_details(username, attrs=None):
     return dict((n.nodeName, n.firstChild.nodeValue) for n in doc.childNodes
             if n.nodeName in attrs)
 
+@kiwi_required
 def kiwi_postback(request):
     id = request.GET.get('__kiwi_id__')
     if not id:
@@ -63,13 +75,32 @@ def kiwi_postback(request):
             raise
         return http.HttpResponseServerError('Kiwi login error')
     username = doc.attributes['username'].value
-    request.session['kiwi_username'] = username
-    request.session['kiwi_info'] = get_kiwi_details(username)
+    info = get_kiwi_details(username)
+    # "firstname" contains middle names; guess the first name
+    info['firstlastname'] = info['firstname'].split(' ', 1)[0] \
+            + ' ' + info['lastname']
+    info['username'] = username
+    request.session['kiwi_info'] = info
     return_to = request.session.get('kiwi_referer')
     if return_to:
         del request.session['kiwi_referer']
     else:
         return_to = absolutify('/')
     return http.HttpResponseRedirect(return_to)
+
+@kiwi_required
+def kiwi_toggle(request):
+    if not settings.DEBUG:
+        raise http.Http404
+    if 'kiwi_info' in request.session:
+        del request.session['kiwi_info']
+        return http.HttpResponse('Unset!')
+    else:
+        request.session['kiwi_info'] = {'name': 'John Black Smith',
+                'firstname': 'John Black', 'lastname': 'Smith',
+                'firstlastname': 'John Smith',
+                'email': 'pewpew@imprint.uwaterloo.ca',
+                'username': 'pewpew'}
+        return http.HttpResponse('Set!')
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
