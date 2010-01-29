@@ -1,4 +1,5 @@
 from content.models import Piece
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from issues.models import Issue, Section
@@ -72,6 +73,7 @@ def feds_index(request):
                     value='No, this is not scientific.',
                     expires=expires.strftime('%a, %d %b %Y %H:%M:%S'))
             voted = True
+            cache.delete('feds-%s-results' % pos.slug)
         if voted:
             request.session['feds_vote_thanks'] = True
         return response

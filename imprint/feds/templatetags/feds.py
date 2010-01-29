@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.db.models import Count
 from django.template import Library
 from django.template.loader import render_to_string
@@ -25,6 +26,9 @@ def google_pie_chart(position):
 @register.simple_tag
 def google_daily_line_graph(position):
     """Renders a line chart with by-day vote counts for the given poll."""
+    html = cache.get('feds-%s-results' % position.slug)
+    if html:
+        return html
     from imprint.feds.models import Vote
     candidates = position.candidates
     # XXX: Terrible temporary hack
@@ -68,6 +72,8 @@ def google_daily_line_graph(position):
                     max_day_count, max_day_count),
             }
     image_url = "http://chart.apis.google.com/chart?" + urlencode(options)
-    return render_to_string('feds/google_chart.html', locals())
+    html = render_to_string('feds/google_chart.html', locals())
+    cache.set('feds-%s-results' % position.slug, html)
+    return html
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
