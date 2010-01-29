@@ -1,12 +1,12 @@
 from django.db.models import Count
-from django.template import Context, Library
-from django.template.loader import get_template
+from django.template import Library
+from django.template.loader import render_to_string
 
 register = Library()
 
 @register.simple_tag
-def google_chart(position):
-    """Renders a chart with the results for the given poll."""
+def google_pie_chart(position):
+    """Renders a pie chart with the overall results for the given poll."""
     counts = position.candidates.annotate(Count('votes')).values(
             'name', 'votes__count', 'graph_colour')
     labels = ('%s (%d)' % (v['name'], v['votes__count']) for v in counts)
@@ -19,6 +19,6 @@ def google_chart(position):
             }
     options = '&'.join('%s=%s' % kv for kv in options.iteritems())
     image_url = "http://chart.apis.google.com/chart?" + options
-    return get_template('feds/google_chart.html').render(Context(locals()))
+    return render_to_string('feds/google_chart.html', locals())
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
