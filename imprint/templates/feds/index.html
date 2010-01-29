@@ -4,6 +4,7 @@
 	<meta name="description" content="Imprint Online is holding an informal daily poll over the Feds election season. Vote for your favourite candidates!" />
 	<link rel="image_src" href="{{ MEDIA_URL }}images/logo-facebook-icon.png" />
 {% endblock %}
+{% load feds %}
 {% block content %}
 	<h1>Feds Executive nominations</h1>
 	<p><em>Imprint</em> is holding an informal non-scientific daily poll. Vote for your favourite candidates below!</p>
@@ -27,6 +28,7 @@
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
 		<p>{{ candidate.description|safe }}{% if candidate.website %}
 		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
+		{% if candidate.twitter_username %}{% twitter_status candidate.twitter_username %}{% endif %}
 		</td>{% endfor %}
 	</tr>
 	</table>

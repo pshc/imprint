@@ -79,4 +79,18 @@ def google_daily_line_graph(position):
     cache.set('feds-%s-results' % position.slug, html)
     return html
 
+@register.simple_tag
+def twitter_status(twitter_username):
+    status = cache.get('feds-%s-status' % twitter_username)
+    if status is None:
+        try:
+            import twitter
+            user = twitter.Api().GetUser(twitter_username)
+            status = user.status
+            status = render_to_string('feds/twitter_status.html', locals())
+        except:
+            status = ''
+        cache.set('feds-%s-status' % twitter_username, status)
+    return status
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

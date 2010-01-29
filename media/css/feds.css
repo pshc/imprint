@@ -75,3 +75,13 @@
 	text-shadow: white 1px 1px 1px;
 	cursor: pointer;
 }
+
+.tweet {
+	font-size: 80%;
+}
+
+.tweet q {
+	font-family: sans-serif;
+	display: block;
+}
+
