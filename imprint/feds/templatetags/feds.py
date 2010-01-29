@@ -34,9 +34,12 @@ def google_daily_line_graph(position):
     # XXX: Terrible temporary hack
     data = dict((c.id, []) for c in candidates.all())
     last_month = None
+    today = datetime.date.today().timetuple()[:3]
     labels = []
     max_day_count = 1 
     for day in Vote.objects.dates('voted_on', 'day'):
+        if day.timetuple()[:3] == today:
+            continue # Don't show in-progress results
         if last_month != day.month: # New month?
             last_month = day.month
             labels.append(day.strftime('%b %e'))
