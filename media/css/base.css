@@ -222,6 +222,22 @@ figure ul li {
 	text-transform: uppercase;
 }
 
+.scoreboard {
+	float: right;
+	margin: 0 0 1em 2em;
+}
+
+.scoreboard th {
+	background-color: black;
+	color: white;
+	padding: 0.5em;
+	font-weight: bold;
+}
+
+.scoreboard td {
+	padding: 0.5em;
+}
+
 .preview h1 {
 	font-size: 200%;
 }
