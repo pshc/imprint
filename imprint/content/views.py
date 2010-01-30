@@ -136,7 +136,12 @@ class PieceForm(forms.Form):
                         'title': doc.get('title', ''), 'body': doc['copy'],
                         'sources': unescape(doc.get('sources', '')),
                         'bylines': ', '.join(bylines)})
-
+            elif ext == 'txt':
+                order += 1
+                self.units.append({'type': 'Copy', 'order': order,
+                    'class': 'errors', 'name': 'unit%02d' % order,
+                    'title': '', 'body': open(path).read(),
+                    'sources': '', 'bylines': ''})
             elif ext in ('gif', 'jpg', 'jpeg', 'png'):
                 order += 1
                 unit = {'order': order, 'name': 'unit%02d' % order,
