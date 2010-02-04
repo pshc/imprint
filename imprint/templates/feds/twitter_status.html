@@ -1,1 +1,1 @@
-{% load misc %}<span class="tweet"><a href="http://twitter.com/{{ twitter_username }}">Twitter status</a>: <q>{{ status.text|clickablelinks }}</q> <em>{{ status.GetRelativeCreatedAt }}</em></span>
+{% load misc %}<span class="tweet"><a href="http://twitter.com/{{ twitter_username }}">Twitter status</a>: <q>{{ text|clickablelinks }}</q> <em>{{ status.GetRelativeCreatedAt }}</em></span>

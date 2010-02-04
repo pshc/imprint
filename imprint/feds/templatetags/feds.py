@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.template import Library
 from django.template.loader import render_to_string
 from urllib import urlencode
+from utils import unescape
 import datetime
 
 register = Library()
@@ -87,6 +88,7 @@ def twitter_status(twitter_username):
             import twitter
             user = twitter.Api().GetUser(twitter_username)
             status = user.status
+            text = unescape(status.text)
             status = render_to_string('feds/twitter_status.html', locals())
         except:
             status = ''
