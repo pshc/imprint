@@ -20,10 +20,10 @@
 		{% if copy.sources %}<p class="sources">&mdash; With files from {{ copy.sources }}</p>{% endif %}
 	</section>{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
-	{% if forloop.first %}<figure>
+	{% if forloop.first %}<figure style="width: {% full_thumbnail_width image %}px;">
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% fullimagelegend image %}
-		{% else %}<figure style="width: 300px;">
+		{% else %}<figure style="width: {% thumbnail_width image %}px;">
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
 		{% shortimagelegend image %}
 		{% endif %}

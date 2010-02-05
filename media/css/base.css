@@ -221,6 +221,10 @@ figure ul li {
 	font: normal 75%/100% Tahoma, sans-serif;
 	text-transform: uppercase;
 }
+figure.feature {
+	float: right;
+	margin: 0em 0em 1em 2em;
+}
 
 .scoreboard {
 	float: right;

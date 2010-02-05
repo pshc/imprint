@@ -273,7 +273,7 @@ def piece_detail(request, y, m, d, section, slug):
     issue, object = get_issue_and_piece(y, m, d, section, slug)
     units = object.units
     preview = object.preview
-    if len(preview) == 1 and preview[0].is_image \
+    if len(units) == 1 and preview[0].is_image \
             and getattr(preview[0].image, 'prominence', '') == 'all':
         # Just an image on its own
         image = preview[0].image
