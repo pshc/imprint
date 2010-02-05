@@ -12,8 +12,10 @@
 		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>{% endif %}
 		</span></li>{% endfor %}
 	</ol>{% endwith %}
-	{% endif %}
 	<h2>Post a comment</h2>
+	{% else %}
+	<h2 id="comments">Post a comment</h2>
+	{% endif %}
 	{% get_comment_form for object as form %}
 	<form action="{% comment_form_target %}" method="POST" id="comment_form"><table>
 {% if kiwi %}
