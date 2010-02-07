@@ -7,7 +7,7 @@
 
 {% block extrahead %}
 <!-- OH GOD -->
-<script type="text/javascript" src="../../../jsi18n/"></script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
 <script type="text/javascript" src="{% admin_media_prefix %}js/urlify.js"></script>
@@ -17,8 +17,8 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}js/admin-sortable.js"></script>
 <link rel="stylesheet" href="{{ MEDIA_URL }}css/jquery.autocomplete.css" type="text/css" />
 <style type="text/css">
+.vHugeField { width: 40em; }
 .vSmallField { width: 6em; }
-.expand { cursor: pointer; text-decoration: underline; }
 textarea { width: 80%; }
 </style>
 <script type="text/javascript">
@@ -28,30 +28,21 @@ makeAutoCompleteInput = function(input, with_position) {
 	input.autocomplete(url, {
 		multiple: true, matchContains: true, mustMatch: false});
 };
-
-/* Hide the entire copy except for the first two paragraphs */
-$(document).ready(function () {
-	$(".body").each(function (i) {
-		var p = $(this).find("p:first").next();
-		var next = p.nextAll().filter("p");
-		next.hide();
-		p.after($("<p class=\"expand\">Expand</p>")
-			.click(function (event) {
-				next.show();
-				$(this).hide();
-			}));
-	});
-});
 </script>
 
 {% endblock %}
 
 {% block bodyclass %}content-section change-form{% endblock %}
 
-{% block morebreadcrumbs %}&rsaquo; Add piece{% endblock %}
+{% block morebreadcrumbs %}&rsaquo; {% if piece %}{{ piece }}{% else %}{{ title }}{% endif %}{% endblock %}
 
 {% block content %}
 <div id="content-main">
+{% if modifying %}
+<ul class="object-tools"><li><a href="history/" class="historylink">History</a></li>
+<li><a href="{{ piece.get_absolute_url }}" class="viewsitelink">View on site</a></li>
+</ul>
+{% endif %}
 <form enctype="multipart/form-data" action="" method="post" id="section_form">
 <div>
 {% if form.errors %}
@@ -91,7 +82,7 @@ $(document).ready(function () {
 		{{ form.section.errors }}
 		<label for="id_section" class="required">Section:</label>
 		{{ form.section }}
-		<a href="../../../issues/section/add/" class="add-another" id="add_id_section" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+		<a href="/admin/issues/section/add/" class="add-another" id="add_id_section" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 	</div></div>
 	<div class="form-row issue{% if form.issue.errors %} errors{% endif %}"><div>
 		{{ form.issue.errors }}
@@ -102,22 +93,45 @@ $(document).ready(function () {
 
 		{# TODO: Auto-populate #}
 		<select name="issue_dummy" id="id_issue_dummy" style="display: none;"><option value="">Ignore me</option></select>
-		<a href="../../../issues/issue/add/" class="add-another" id="add_id_issue_dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+		<a href="/admin/issues/issue/add/" class="add-another" id="add_id_issue_dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 	</div></div>
 	<div class="form-row series{% if form.series.errors %} errors{% endif %}"><div>
 		{{ form.series.errors }}
 		<label for="id_series">Series:</label>
 		{{ form.series }}
-		<a href="../../../issues/series/add/" class="add-another" id="add_id_series" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+		<a href="/admin/issues/series/add/" class="add-another" id="add_id_series" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 		<p class="help">For example, a weekly column or comic.</p>
 	</div></div>
 </fieldset>
+{% if modifying %}
+<fieldset class="module aligned">
+	<h2>Visibility</h2>
+	<div class="form-row is_live{% if form.is_live.errors %} errors{% endif %}"><div>
+		{{ form.is_live.errors }}
+		{{ form.is_live }}
+		<label for="id_is_live" class="vCheckboxLabel">Live</label>
+		<p class="help">{{ form.is_live.help_text }}</p>
+	</div></div>
+	<div class="form-row is_featured{% if form.is_featured.errors %} errors{% endif %}"><div>
+		{{ form.is_featured.errors }}
+		{{ form.is_featured }}
+		<label for="id_is_featured" class="vCheckboxLabel">Feature</label>
+		<p class="help">{{ form.is_featured.help_text }}</p>
+	</div></div>
+	<div class="form-row order{% if form.order.errors %} errors{% endif %}"><div>
+		{{ form.order.errors }}
+		<label for="id_order">Order:</label>
+		{{ form.order }}
+	</div></div>
+</fieldset>
+{% endif %}
 <div class="inline-group">
 	<h2>Content (drag to reorder)</h2>
 	{% for unit in form.units %}
 	<div class="inline-related">
 	<h3><b>{{ unit.type }}</b></h3>
 	<fieldset class="module aligned">
+	{% if unit.id %}<input type="hidden" name="{{ unit.name }}-id" value="{{ unit.id }}" />{% endif %}
 	<div class="form-row order {{ unit.class }}"><div>
 		<label for="id_{{ unit.name }}-order">Order:</label>
 		<input name="{{ unit.name }}-order" id="id_{{ unit.name }}-order" class="vSmallField" type="text" value="{{ unit.order }}" />
@@ -138,19 +152,19 @@ $(document).ready(function () {
 
 		<div class="form-row photographers {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-photographers">Photographers:</label>
-			<input name="{{ unit.name }}-photographers" id="id_{{ unit.name }}-photographers" class="vTextField" type="text" value="{{ unit.photographers }}" />
+			<input name="{{ unit.name }}-photographers" id="id_{{ unit.name }}-photographers" class="vHugeField" type="text" value="{{ unit.photographers }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
 			<input id="id_{{ unit.name }}-photographers-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-photographers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<a href="/admin/people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-photographers-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names.</p>
 		</div></div>
 
 		<div class="form-row artists {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-artists">Graphic artists:</label>
-			<input name="{{ unit.name }}-artists" id="id_{{ unit.name }}-artists" class="vTextField" type="text" value="{{ unit.artists }}" />
+			<input name="{{ unit.name }}-artists" id="id_{{ unit.name }}-artists" class="vHugeField" type="text" value="{{ unit.artists }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
 			<input id="id_{{ unit.name }}-artists-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-artists-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<a href="/admin/people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-artists-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names.</p>
 		</div></div>
 
@@ -163,14 +177,14 @@ $(document).ready(function () {
 
 		<div class="form-row courtesy {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-courtesy">Courtesy:</label>
-			<input name="{{ unit.name }}-courtesy" id="id_{{ unit.name }}-courtesy" class="vTextField" type="text" value="{{ unit.courtesy }}" />
+			<input name="{{ unit.name }}-courtesy" id="id_{{ unit.name }}-courtesy" class="vHugeField" type="text" value="{{ unit.courtesy }}" />
 		</div></div>
 
 	{% endifequal %}
 	{% ifequal unit.type "Copy" %}
 		<div class="form-row title {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-title">Title:</label>
-			<input name="{{ unit.name }}-title" id="id_{{ unit.name }}-title" class="vTextField" type="text" value="{{ unit.title }}" />
+			<input name="{{ unit.name }}-title" id="id_{{ unit.name }}-title" class="vHugeField" type="text" value="{{ unit.title }}" />
 			<p class="help">Optional subtitle.</p>
 		</div></div>
 
@@ -182,10 +196,10 @@ $(document).ready(function () {
 		</div></div>
 		<div class="form-row bylines {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-bylines">Bylines:</label>
-			<input name="{{ unit.name }}-bylines" id="id_{{ unit.name }}-bylines" class="vTextField" type="text" value="{{ unit.bylines }}" />
+			<input name="{{ unit.name }}-bylines" id="id_{{ unit.name }}-bylines" class="vHugeField" type="text" value="{{ unit.bylines }}" />
 			{% comment %}TODO: Populate automatically{% endcomment %}
 			<input id="id_{{ unit.name }}-bylines-dummy" type="hidden" />
-			<a href="../../../people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+			<a href="/admin/people/contributor/add/" class="add-another" id="add_id_{{ unit.name }}-bylines-dummy" onclick="return showAddAnotherPopup(this);"> <img src="{% admin_media_prefix %}img/admin/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
 			<p class="help">Comma-separated list of names. A person's name can be followed by their position, in parentheses.</p>
 		</div></div>
 		<script type="text/javascript">
@@ -196,7 +210,7 @@ $(document).ready(function () {
 
 		<div class="form-row sources {{ unit.class }}"><div>
 			<label for="id_{{ unit.name }}-sources">Sources:</label>
-			<input name="{{ unit.name }}-sources" id="id_{{ unit.name }}-sources" class="vTextField" type="text" value="{{ unit.sources }}" />
+			<input name="{{ unit.name }}-sources" id="id_{{ unit.name }}-sources" class="vHugeField" type="text" value="{{ unit.sources }}" />
 			<p class="help">Appears as &quot;&mdash; With files from...&quot;</p>
 		</div></div>
 	{% endifequal %}
@@ -219,7 +233,12 @@ $(document).ready(function () {
 </fieldset>
 </div>
 <div class="submit-row" >
+{% if modifying %}
+<input type="submit" value="Save" class="default" name="_save" />
+<p class="deletelink-box"><a href="delete/" class="deletelink">Delete</a></p>
+{% else %}
 <input type="submit" value="Upload" class="default" name="_upload" />
+{% endif %}
 </div>
 </form>
 </div>
