@@ -9,7 +9,5 @@ urlpatterns = patterns('django.views.generic.simple',
 		{'template': 'static/contact.html'}, name='static-contact'),
 	url(r'^jobs/$', 'direct_to_template',
 		{'template': 'static/jobs.html'}, name='static-jobs'),
-	url(r'^eic/$', 'direct_to_template',
-		{'template': 'static/eic.html'}, name='static-eic'),
 )
 
