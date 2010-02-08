@@ -60,6 +60,7 @@ def fill_form_from_piece(piece):
     series = piece.series and piece.series.id
     is_live, is_featured = piece.is_live, piece.is_featured
     order, id = piece.order, piece.id
+    redirect_to = piece.redirect_to
     form = PieceForm(locals())
     form.units = map(convert_unit_back, piece.units)
     return form
@@ -79,6 +80,9 @@ class PieceForm(forms.Form):
     is_featured = forms.BooleanField(required=False, initial=False,
             help_text="Should this appear in the cover preview?")
     order = forms.IntegerField(required=False, widget=small_input())
+    redirect_to = forms.CharField(max_length=100, required=False,
+            help_text="If set, redirects to the given URL instead of "
+                      "displaying the article.")
     id = forms.IntegerField(required=False)
 
     def clean_issue(self):
@@ -371,6 +375,8 @@ def piece_detail(request, y, m, d, section, slug):
     if 'c' in request.GET:
         return HttpResponseRedirect('#c%d' % int(request.GET['c']))
     issue, object = get_issue_and_piece(y, m, d, section, slug)
+    if object.redirect_to:
+        return HttpResponseRedirect(object.redirect_to)
     units = object.units
     preview = object.preview
     if len(units) == 1 and preview[0].is_image \

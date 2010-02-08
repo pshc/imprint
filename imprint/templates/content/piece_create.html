@@ -123,6 +123,12 @@ makeAutoCompleteInput = function(input, with_position) {
 		<label for="id_order">Order:</label>
 		{{ form.order }}
 	</div></div>
+	<div class="form-row redirect_to{% if form.redirect_to.errors %} errors{% endif %}"><div>
+		{{ form.redirect_to.errors }}
+		<label for="id_redirect_to">Redirect to:</label>
+		{{ form.redirect_to }}
+		<p class="help">{{ form.redirect_to.help_text }}</p>
+	</div></div>
 </fieldset>
 {% endif %}
 <div class="inline-group">

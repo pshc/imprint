@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from django.views.generic.simple import direct_to_template, redirect_to
+from django.views.generic.simple import direct_to_template
 from feeds import *
 
 admin.autodiscover()
@@ -33,9 +33,6 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     (r'^kiwi/', include('kiwi.urls')),
     (r'^2010/feds/', include('feds.urls')),
-    (r'^feds', redirect_to, {'url': '/2010/feds/'}),
-    (r'^2010/jan/22/news/feds-executive-nominations', redirect_to,
-        {'url': '/2010/feds/'}),
 )
 
 # Catch-all root patterns

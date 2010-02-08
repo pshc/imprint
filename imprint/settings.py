@@ -30,6 +30,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django_authopenid.middleware.OpenIDMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -62,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.humanize',
+    'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django_authopenid',

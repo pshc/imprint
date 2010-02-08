@@ -52,6 +52,9 @@ class Piece(models.Model):
             help_text='Should this appear in the cover preview?')
     order = models.PositiveSmallIntegerField(db_index=True, null=True,
             blank=True)
+    redirect_to = models.CharField(max_length=100, blank=True,
+            help_text='If set, redirects to the given URL instead of '
+                      'displaying the article.')
     # Denormalized:
     contributors = models.ManyToManyField(Contributor, related_name='pieces',
             editable=False)
