@@ -3,7 +3,7 @@
 <head>
 {% endcomment %}	<title>{% block title %}{{ site.name }}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/{% ifequal issue.number 15 %}halloween{% else %}base{% endifequal %}.css" />{% if canonical %}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/{% ifequal issue.number 15 %}halloween{% else %}base-rev2{% endifequal %}.css" />{% if canonical %}
 	<link rel="canonical" href="{{ canonical }}" />{% endif %}
 	<!--[if lte IE 8]>
 	<script src="{{ MEDIA_URL }}js/html5.js" type="text/javascript"></script>
@@ -22,6 +22,7 @@
 			<a href="{% url static-eic %}">Wanted: Editor-in-Chief</a> &mdash;
 			<a href="{% url feds-index %}">Feds Exec poll</a>
 		</nav>
+{% include "banner.html" %}
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
 		{% load advertising %}{% random_image_ad 1 %}
 		<nav>

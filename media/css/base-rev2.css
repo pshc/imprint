@@ -41,6 +41,16 @@ header h1 { /* logo */
 	clear: both;
 }
 
+#banner {
+	background-color: #333;
+	color: #eee;
+	padding: 0.5em;
+}
+
+#banner a {
+	color: #ffaa00;
+}
+
 header .ad { float: left; }
 .ad {
 	margin: 0 auto;
