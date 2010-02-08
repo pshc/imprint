@@ -384,6 +384,12 @@ def piece_detail(request, y, m, d, section, slug):
         # Just an image on its own
         image = preview[0].image
         template = 'content/image_detail.html'
+    for unit in preview:
+        if unit.is_copy:
+            description = unit.copy.preview + '</p>'
+            break
+    else:
+        description = "See more..."
     section = object.section
     return locals()
 

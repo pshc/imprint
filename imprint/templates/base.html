@@ -1,16 +1,15 @@
 {% include "utils/html_open_head.html" %}{% comment %}
 <html>
 <head>
-{% endcomment %}	<title>{% block title %}{{ site.name }}{% endblock %}</title>
+{% endcomment %}	<title>{% block title %}{{ site.name }}{% endblock %}</title>{% block meta %}
+{% endblock %}	<link rel="image_src" href="{{ MEDIA_URL }}images/logo-facebook-icon.png" />
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/{% ifequal issue.number 15 %}halloween{% else %}base-rev2{% endifequal %}.css" />{% if canonical %}
 	<link rel="canonical" href="{{ canonical }}" />{% endif %}
 	<!--[if lte IE 8]>
 	<script src="{{ MEDIA_URL }}js/html5.js" type="text/javascript"></script>
 	<![endif]-->{% block head %}
-{% endblock %}{% block meta %}
-{% endblock %}
-{% if debug %}{% include "jquery.html" %}{% endif %}</head>
+{% endblock %}{% if debug %}{% include "jquery.html" %}{% endif %}</head>
 <body>
 <div id="doc4" class="{% block bodydivclass %}yui-t4{% endblock %}">
 	<header id="hd">

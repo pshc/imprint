@@ -2,13 +2,12 @@
 {% block meta %}
 	<meta name="title" content="Feds Exec nominees poll" />
 	<meta name="description" content="Imprint Online is holding an informal daily poll over the Feds election season. Vote for your favourite candidates!" />
-	<link rel="image_src" href="{{ MEDIA_URL }}images/logo-facebook-icon.png" />
 {% endblock %}
 {% load feds %}
 {% block content %}
 	<h1>Feds Executive nominations</h1>
 	<p><em>Imprint</em> is holding an informal non-scientific daily poll. Vote for your favourite candidates below!</p>
-	{% include "feds/facebook_link.html" %}
+	{% include "content/facebook_link.html" %}
 	<ul class="tabs">
 		<li><strong>Candidates</strong></li>
 		<li><a href="{% url feds-results %}">Results</a></li>

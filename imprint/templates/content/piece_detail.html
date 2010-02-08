@@ -1,6 +1,10 @@
 {% extends "content/base.html" %}
 {% load content people issues %}
 {% block title %}{{ object.headline|striptags|safe }} &mdash; {{ object.section }}{% endblock %}
+{% block meta %}
+	<meta name="title" content="{{ object.headline|striptags|safe }}" />{% if description %}
+	<meta name="description" content="{{ description|striptags|safe }}" />{% endif %}
+{% endblock %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
@@ -29,5 +33,6 @@
 		{% endif %}
 	</figure>{% endwith %}{% endif %}
 	{% endfor %}
+	{% include "content/facebook_link.html" %}
 	{% include "comments/nested_list.html" %}
 {% endblock %}
