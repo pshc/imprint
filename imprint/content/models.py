@@ -60,7 +60,7 @@ class Piece(models.Model):
             editable=False)
 
     class Meta:
-        unique_together = [('issue', 'headline'), ('issue', 'slug')]
+        unique_together = [('issue', 'slug')]
         ordering = ('-order', 'id')
 
     def __unicode__(self):
