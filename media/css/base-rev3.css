@@ -252,6 +252,29 @@ figure.feature {
 	padding: 0.5em;
 }
 
+.quotes li {
+	display: block;
+	margin: 1em;
+	padding: 2em 0;
+	line-height: 150%;
+	font-size: 120%;
+	text-align: justify;
+}
+
+.quotes mark {
+	color: red;
+}
+
+.quotes cite {
+	display: block;
+	float: right;
+	color: gray;
+}
+
+.quotes cite em {
+	font-style: normal;
+}
+
 .preview h1 {
 	font-size: 200%;
 }
