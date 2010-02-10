@@ -7,10 +7,14 @@ from models import *
 from utils import renders
 import datetime
 
+# Be sure to restart the fcgiserver after changing any of these
+
 UW_VOTES_PER_DAY = 10
 UW_VOTE_INTERVAL = 5*60
 EXT_VOTES_PER_DAY = 5
 EXT_VOTE_INTERVAL = 30*60
+
+VOTING_OPEN = True
 
 def can_submit_vote(ip, user_agent, cookies):
     if ip.startswith('10.'): # Imprint office?
@@ -54,11 +58,15 @@ def get_relevant_article():
 def feds_index(request):
     issue, object, section = get_relevant_article()
     positions = Position.objects.all()
-    ip = request.META['REMOTE_ADDR']
-    user_agent = request.META['HTTP_USER_AGENT']
-    voted_on = datetime.datetime.now()
-    can_vote = can_submit_vote(ip, user_agent, request.COOKIES)
-    expires = datetime.date.today() + datetime.timedelta(days=1)
+    voting_open = VOTING_OPEN
+    if voting_open:
+        ip = request.META['REMOTE_ADDR']
+        user_agent = request.META['HTTP_USER_AGENT']
+        voted_on = datetime.datetime.now()
+        can_vote = can_submit_vote(ip, user_agent, request.COOKIES)
+        expires = datetime.date.today() + datetime.timedelta(days=1)
+    else:
+        can_vote = False
     if request.method == 'POST' and can_vote:
         response = HttpResponseRedirect(reverse(feds_results))
         voted = False
@@ -86,6 +94,7 @@ def feds_results(request):
     if 'feds_vote_thanks' in request.session:
         del request.session['feds_vote_thanks']
         vote_thanks = True
+    voting_open = VOTING_OPEN
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
