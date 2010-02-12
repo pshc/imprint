@@ -8,7 +8,7 @@
 	<h1>Feds Executive nominations</h1>
 	{% if voting_open %}<p><em>Imprint</em> is holding an informal non-scientific daily poll. Vote for your favourite candidates below!</p>
 	{% else %}
-	<p>The poll is now closed. Thanks for taking part, and be sure to <a href="http://vote.feds.ca/">vote at Feds.ca!</a></p>
+	<p>The poll is now closed. Thanks for taking part!</p>
 	{% endif %}
 	{% include "content/facebook_link.html" %}
 	<ul class="tabs">
@@ -30,7 +30,7 @@
 		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
 		<p>{{ candidate.description|safe }}{% if candidate.website %}
 		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
-		{% if candidate.twitter_username %}{% twitter_status candidate.twitter_username %}{% endif %}
+		{% if voting_open and candidate.twitter_username %}{% twitter_status candidate.twitter_username %}{% endif %}
 		</td>{% endfor %}
 	</tr>
 	</table>

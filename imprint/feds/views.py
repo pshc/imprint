@@ -14,7 +14,7 @@ UW_VOTE_INTERVAL = 5*60
 EXT_VOTES_PER_DAY = 5
 EXT_VOTE_INTERVAL = 30*60
 
-VOTING_OPEN = True
+VOTING_OPEN = False
 
 def can_submit_vote(ip, user_agent, cookies):
     if ip.startswith('10.'): # Imprint office?
