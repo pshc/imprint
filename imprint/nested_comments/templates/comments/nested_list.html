@@ -21,7 +21,9 @@
 {% if kiwi %}
 		<tr><th></th><td>You can post as<ul class="kiwi">
 			<li><input type="radio" name="kiwi_name_format" value="firstlast" id="id_kiwi_firstlast"{% ifequal kiwi_name_pref 'firstlast' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_firstlast">{{ kiwi.firstlastname }} @ UW</label></li>
+{% ifnotequal kiwi.name kiwi.firstlastname %}
 			<li><input type="radio" name="kiwi_name_format" value="full" id="id_kiwi_full"{% ifequal kiwi_name_pref 'full' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_full">{{ kiwi.name }} @ UW</label></li>
+{% endifnotequal %}
 			<li>or <a href="{% url kiwi-logout %}">log out of your UW credentials</a>.</li>
 		</ul></td></tr>
 {% else %}
