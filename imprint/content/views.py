@@ -131,9 +131,14 @@ class PieceForm(forms.Form):
             order = int(attr('order'))
             max_order = max(order, max_order)
             unit.update({'order': order, 'name': 'unit%02d' % order})
-            if attr('id'):
-                unit['id'] = int(attr('id'))
-            self.units.append(unit)
+            id = int(attr('id', 0))
+            if id:
+                unit['id'] = id
+            if attr('delete'):
+                if id:
+                    Unit.objects.get(id=id).delete()
+            else:
+                self.units.append(unit)
         data = self.cleaned_data
         order = max_order
         # Append any uploaded files

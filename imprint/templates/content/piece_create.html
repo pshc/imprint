@@ -135,7 +135,9 @@ makeAutoCompleteInput = function(input, with_position) {
 	<h2>Content (drag to reorder)</h2>
 	{% for unit in form.units %}
 	<div class="inline-related">
-	<h3><b>{{ unit.type }}</b></h3>
+	<h3><b>{{ unit.type }}</b>
+		<span class="delete"><input type="checkbox" name="{{ unit.name }}-delete" id="id_{{ unit.name }}-delete" /> <label for="id_{{ unit.name }}-delete" class="vCheckboxLabel inline">Delete</label></span>
+	</h3>
 	<fieldset class="module aligned">
 	{% if unit.id %}<input type="hidden" name="{{ unit.name }}-id" value="{{ unit.id }}" />{% endif %}
 	<div class="form-row order {{ unit.class }}"><div>
