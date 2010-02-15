@@ -1,6 +1,10 @@
 {% extends "content/base.html" %}
 {% load content people issues %}
 {% block title %}{{ object.headline|striptags|safe }} &mdash; {{ object.section }}{% endblock %}
+{% block meta %}
+	<meta name="title" content="{{ object.headline|striptags|safe }}" />{% if description %}
+	<meta name="description" content="{{ description|striptags|safe }}" />{% endif %}
+{% endblock %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
@@ -20,14 +24,15 @@
 		{% if copy.sources %}<p class="sources">&mdash; With files from {{ copy.sources }}</p>{% endif %}
 	</section>{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
-	{% if forloop.first %}<figure>
+	{% if forloop.first %}<figure style="width: {% full_thumbnail_width image %}px;">
 		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% fullimagelegend image %}
-		{% else %}<figure style="width: 300px;">
+		{% else %}<figure style="width: {% thumbnail_width image %}px;">
 		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
 		{% shortimagelegend image %}
 		{% endif %}
 	</figure>{% endwith %}{% endif %}
 	{% endfor %}
+	<section>{% include "content/facebook_link.html" %}</section>
 	{% include "comments/nested_list.html" %}
 {% endblock %}

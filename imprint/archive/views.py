@@ -43,12 +43,12 @@ def pdfpage_detail(request, y, m, d, pub, page):
         pub = Publication.objects.get(slug=pub)
         pdfissue = PDFIssue.objects.get_by_date_and_publication(y, m, d, pub)
         try:
-            object = PDFPage.objects.get(pdfissue=pdfissue, page_from=page)
-        except PDFPage.DoesNotExist:
-            object = PDFPage.objects.get(pdfissue=pdfissue, page_from__le=page,
+            object = PDFFile.objects.get(pdfissue=pdfissue, page_from=page)
+        except PDFFile.DoesNotExist:
+            object = PDFFile.objects.get(pdfissue=pdfissue, page_from__le=page,
                     page_to__ge=page)
     except (Publication.DoesNotExist, PDFIssue.DoesNotExist,
-            PDFPage.DoesNotExist):
+            PDFFile.DoesNotExist):
         return Http404
     return HttpResponsePermanentRedirect(object.file.url)
 

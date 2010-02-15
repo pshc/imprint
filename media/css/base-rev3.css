@@ -41,6 +41,16 @@ header h1 { /* logo */
 	clear: both;
 }
 
+#banner {
+	background-color: #333;
+	color: #eee;
+	padding: 0.5em;
+}
+
+#banner a {
+	color: #ffaa00;
+}
+
 header .ad { float: left; }
 .ad {
 	margin: 0 auto;
@@ -221,6 +231,49 @@ figure ul li {
 	font: normal 75%/100% Tahoma, sans-serif;
 	text-transform: uppercase;
 }
+figure.feature {
+	float: right;
+	margin: 0em 0em 1em 2em;
+}
+
+.scoreboard {
+	float: right;
+	margin: 0 0 1em 2em;
+}
+
+.scoreboard th {
+	background-color: black;
+	color: white;
+	padding: 0.5em;
+	font-weight: bold;
+}
+
+.scoreboard td {
+	padding: 0.5em;
+}
+
+.quotes li {
+	display: block;
+	margin: 1em;
+	padding: 2em 0;
+	line-height: 150%;
+	font-size: 120%;
+	text-align: justify;
+}
+
+.quotes mark {
+	color: red;
+}
+
+.quotes cite {
+	display: block;
+	float: right;
+	color: gray;
+}
+
+.quotes cite em {
+	font-style: normal;
+}
 
 .preview h1 {
 	font-size: 200%;
@@ -248,6 +301,7 @@ hr {
 #comments span em { font-style: normal; }
 #comments span a { font-style: normal; font-weight: bold; }
 #comments span em a { font-weight: normal; }
+#comments span strong { font-style: normal; color: #704000; }
 
 #comments div { /* reply box */
 	margin: 0 0 2em 2em;
@@ -255,6 +309,16 @@ hr {
 	background-color: #eee;
 }
 #comments div h3 { margin-top: 0; }
+
+#comments table li {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.kiwi label {
+	font-weight: bold;
+}
 
 input, textarea {
 	font-family: Georgia, serif;

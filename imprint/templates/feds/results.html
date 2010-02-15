@@ -1,0 +1,27 @@
+{% extends "feds/base.html" %}
+{% load feds %}
+{% block meta %}
+	<meta name="title" content="Feds Exec nominees poll results" />
+	<meta name="description" content="Imprint Online is holding an informal daily poll over the Feds election season. See the results here!" />
+	<link rel="image_src" href="{{ MEDIA_URL }}images/logo-facebook-icon.png" />
+{% endblock %}
+{% block content %}
+	<h1>Poll results</h1>
+	{% if vote_thanks %}<p><strong>Thanks for voting!
+	Your vote will appear in tomorrow's results.</strong></p>{% endif %}
+	<p>These are per-day vote statistics since Monday, January 25.</p>
+	{% include "content/facebook_link.html" %}
+	<ul class="tabs">
+		<li><a href="{% url feds-index %}">Candidates</a></li>
+		<li><strong>Results</strong></li>
+	</ul>
+	<section class="feds">
+	<table>
+	{% for position in positions %}{% if not position.acclaimed %}
+		<tr><td>{% google_daily_line_graph position %}</td></tr>
+	{% endif %}{% endfor %}
+	</table>
+	</section>
+
+	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
+{% endblock %}

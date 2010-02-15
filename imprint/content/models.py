@@ -52,12 +52,15 @@ class Piece(models.Model):
             help_text='Should this appear in the cover preview?')
     order = models.PositiveSmallIntegerField(db_index=True, null=True,
             blank=True)
+    redirect_to = models.CharField(max_length=100, blank=True,
+            help_text='If set, redirects to the given URL instead of '
+                      'displaying the article.')
     # Denormalized:
     contributors = models.ManyToManyField(Contributor, related_name='pieces',
             editable=False)
 
     class Meta:
-        unique_together = [('issue', 'headline'), ('issue', 'slug')]
+        unique_together = [('issue', 'slug')]
         ordering = ('-order', 'id')
 
     def __unicode__(self):
@@ -86,19 +89,18 @@ class Piece(models.Model):
             return []
         first = self.units[0]
         if first.type is Image:
-            if len(self.units) == 1:
-                first.image.prominence = 'all'
-            else:
-                first.image.prominence = 'featured'
+            first.image.prominence = 'all'
+            if len(self.units) != 1:
                 second = self.units[1]
                 if second.type is Copy:
+                    first.image.prominence = 'featured'
                     return [first, second]
-        elif first.type is Copy:
-            if len(self.units) > 1:
-                second = self.units[1]
-                if second.type is Image:
-                    second.image.prominence = 'featured'
-                    return [first, second]
+                for unit in self.units[2:]:
+                    if unit.type is Copy:
+                        first.image.read_more = True
+                        break
+                else:
+                    first.image.see_more = True
         return [first]
 
 class Unit(models.Model):
@@ -106,6 +108,8 @@ class Unit(models.Model):
     order = models.PositiveSmallIntegerField(db_index=True)
     piece = models.ForeignKey(Piece, related_name='unit_set')
     prominence = None
+    see_more = False
+    read_more = False
 
     def __unicode__(self):
         return u"#%d" % self.order

@@ -1,0 +1,54 @@
+{% extends "feds/base.html" %}
+{% block meta %}
+	<meta name="title" content="Feds Exec nominees poll" />
+	<meta name="description" content="Imprint Online is holding an informal daily poll over the Feds election season." />
+{% endblock %}
+{% load feds %}
+{% block content %}
+	<h1>Feds Executive nominations</h1>
+	{% if voting_open %}<p><em>Imprint</em> is holding an informal non-scientific daily poll. Vote for your favourite candidates below!</p>
+	{% else %}
+	<p>The poll is now closed. Thanks for taking part!</p>
+	{% endif %}
+	{% include "content/facebook_link.html" %}
+	<ul class="tabs">
+		<li><strong>Candidates</strong></li>
+		<li><a href="{% url feds-results %}">Results</a></li>
+	</ul>
+	<form action="." method="POST">
+	<section class="feds">
+	{% for position in positions %}{% with position.acclaimed as acclaimed %}{% with position.candidates.all as candidates %}
+	<table>
+	{# TODO: CSRF #}
+	<tr><th colspan="{{ position.candidates.count }}">{{ position }} {% if acclaimed %}acclamation{% else %}nominees{% endif %}</th></tr>
+	<tr>{% for candidate in candidates %}
+		<td>{% if candidate.image %}
+		<img src="{{ candidate.image.url }}" alt="{{ candidate.name }}" />{% endif %}</td>{% endfor %}
+	</tr>
+	<tr>{% for candidate in candidates %}
+		<td>{% if acclaimed or not can_vote %}<label>{{ candidate }}</label>
+		{% else %}<input type="radio" name="{{ position.slug }}" value="{{ candidate.slug }}" id="id-{{ candidate.slug }}" /> <label for="id-{{ candidate.slug }}">{{ candidate }}</label>{% endif %}
+		<p>{{ candidate.description|safe }}{% if candidate.website %}
+		<a href="{{ candidate.website }}">(website)</a>{% endif %}</p>
+		{% if voting_open and candidate.twitter_username %}{% twitter_status candidate.twitter_username %}{% endif %}
+		</td>{% endfor %}
+	</tr>
+	</table>
+	{% endwith %}{% endwith %}{% endfor %}
+	</section>
+	{% if can_vote %}<section class="controls"><input type="submit" value="Vote" /></section>{% endif %}
+
+	<section class="feds">
+	<table>
+	<tr><th colspan="5">Senate nominations</th></tr>
+	<tr><td><label>Faculty of Arts</label></td><td><label>Faculty of Math</label></td><td><label>Faculty of Environment</label></td><td><label>Faculty of Science</label></td><td><label>At-Large Senator</label></td></tr>
+	<tr><td>Arjun Dhingra</td><td>Ian Charlesworth</td><td>Adwitya Das Gupta</td><td>Jonathan Cluett</td><td>Iyinoluwa Aboyeji</td></tr>
+	<tr><td>Juwairyah Khalid</td><td>Ian Kasper</td><td>Natalie Liushitz</td><td></td><td>Reemah Khalid</td></tr>
+	<tr><td>Luke Burke</td><td>Jennifer Qiao</td><td>Stephen Krysak</td><td></td><td>Yousif Al-Khder</td></tr>
+	<tr><td></td><td>Sarah Sun</td><td></td><td></td><td></td></tr>
+	</table>
+	</section>
+	</form>
+
+	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
+{% endblock %}

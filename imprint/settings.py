@@ -11,6 +11,8 @@ DATE_FORMAT = 'F j, Y'
 
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
@@ -28,6 +30,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
     'django_authopenid.middleware.OpenIDMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -39,6 +42,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django_authopenid.context_processors.authopenid',
     'utils.context_processors.current_site',
     'issues.context_processors.latest_issue',
+    'kiwi.context_processors.kiwi_info',
 )
 
 FILE_UPLOAD_HANDLERS = (
@@ -59,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.humanize',
+    'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django_authopenid',
@@ -67,9 +72,11 @@ INSTALLED_APPS = (
     'imprint.archive',
     'imprint.content',
     'imprint.issues',
+    'imprint.kiwi',
     'imprint.people',
     'imprint.static',
     'imprint.utils',
+    'imprint.feds',
     'registration',
 )
 

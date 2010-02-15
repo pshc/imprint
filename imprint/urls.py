@@ -27,6 +27,16 @@ urlpatterns = patterns('',
 	    {'feed_dict': feeds}),
     (r'^robots.txt$', direct_to_template, {'template': 'robots.txt',
                                            'mimetype': 'text/plain'}),
+)
+
+# Site-specific apps
+urlpatterns += patterns('',
+    (r'^kiwi/', include('kiwi.urls')),
+    (r'^2010/feds/', include('feds.urls')),
+)
+
+# Catch-all root patterns
+urlpatterns += patterns('',
     (r'^', include('content.urls')),
     (r'^', include('static.urls')),
     # Must be last
@@ -37,3 +47,4 @@ if settings.DEBUG:
     urlpatterns.append(url(r'^media/(.*)$', 'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT,
                             'show_indexes': True}))
+# vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

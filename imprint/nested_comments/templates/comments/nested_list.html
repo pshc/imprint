@@ -6,17 +6,37 @@
 		<li style="margin-left: {{ comment.indentation|multiply:2 }}em;" id="c{{ comment.id }}">
 		<p>{% if comment.is_removed %}<em>[removed]</em>
 		{% else %}{{ comment.comment|clickablelinks|breaklongwords|linebreaksbr }}{% endif %}</p>
-		<span>&mdash; {% if comment.is_removed %}{{ comment.submit_date|html5naturalday }}{% else %}<em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em> {{ comment.submit_date|html5naturalday }}
+		<span>&mdash; {% if comment.is_removed %}{{ comment.submit_date|html5naturalday }}{% else %}<em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
+		{% if comment.kiwi_verified %}<strong title="The author's identity has been verified by UW.">@ UW</strong>{% endif %}
+		{{ comment.submit_date|html5naturalday }}
 		<a href="{% url nested-comments-reply comment.id %}">(reply)</a>{% endif %}
 		</span></li>{% endfor %}
 	</ol>{% endwith %}
-	{% endif %}
 	<h2>Post a comment</h2>
+	{% else %}
+	<h2 id="comments">Post a comment</h2>
+	{% endif %}
 	{% get_comment_form for object as form %}
 	<form action="{% comment_form_target %}" method="POST" id="comment_form"><table>
-		{{ form.as_table }}
+{% if kiwi %}
+		<tr><th></th><td>You can post as<ul class="kiwi">
+			<li><input type="radio" name="kiwi_name_format" value="firstlast" id="id_kiwi_firstlast"{% ifequal kiwi_name_pref 'firstlast' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_firstlast">{{ kiwi.firstlastname }} @ UW</label></li>
+{% ifnotequal kiwi.name kiwi.firstlastname %}
+			<li><input type="radio" name="kiwi_name_format" value="full" id="id_kiwi_full"{% ifequal kiwi_name_pref 'full' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_full">{{ kiwi.name }} @ UW</label></li>
+{% endifnotequal %}
+			<li>or <a href="{% url kiwi-logout %}">log out of your UW credentials</a>.</li>
+		</ul></td></tr>
+{% else %}
+		{% if kiwi_enabled %}<tr><th></th><td><a href="{% url kiwi-login %}">Login with your UW credentials</a> to post with a verified username.</td></tr>{% endif %}
+		<tr><th>{{ form.name.label_tag }}:</th><td>{{ form.name }}{{ form.name.errors }}</td></tr>
+		<tr><th>{{ form.email.label_tag }}:</th><td>{{ form.email }}{{ form.email.errors }}</td></tr>
+		<tr><th>{{ form.url.label_tag }}:</th><td>{{ form.url }}{{ form.url.errors }}</td></tr>
+{% endif %}
+		<tr><th>{{ form.comment.label_tag }}:</th><td>{{ form.comment }}{{ form.comment.errors }}</td></tr>
 		<tr><td></td><td><input type="submit" value="Reply" /></td></tr>
 	</table>
+{% for field in form.hidden_fields %}
+	{{ field }}{% endfor %}
 	<input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
 	</form>{# vi: set syntax=htmldjango: #}
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.validate.js"></script>

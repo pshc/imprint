@@ -41,6 +41,12 @@ def create_thumbnail(orig, thumb, w, h):
         img.save(dest)
 
 @register.simple_tag
+def thumbnail_width(unit):
+    image = unit.image
+    w, h = fit(image.width, image.height, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
+    return '%d' % w
+
+@register.simple_tag
 def thumbnail(unit):
     """Renders a small thumbnail for the given image."""
     image = unit.image
@@ -54,6 +60,15 @@ def thumbnail(unit):
         extra = ' alt="%s" title="%s"' % (alt, alt)
     return '<img src="%s%s" width="%d" height="%d"%s />' % (
             settings.MEDIA_URL, urlquote(path), w, h, extra)
+
+@register.simple_tag
+def full_thumbnail_width(unit):
+    image = unit.image
+    if image.width <= FIXED_WIDTH:
+        w = image.width
+    else:
+        w, h = fit_to_fixed_width(image.width, image.height)
+    return '%d' % w
 
 @register.simple_tag
 def full_thumbnail(unit):

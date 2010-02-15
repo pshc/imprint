@@ -3,8 +3,8 @@
 	{% series_link object.series %}{% endif %}
 	{% if not omit_headline %}<h1><a href="{{ object.get_absolute_url }}">{{ object.headline|safe }}</a></h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% for unit in object.preview %}
-	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
+	<section>{% for unit in object.preview %}
+	{% if unit.is_copy %}{% with unit.copy as copy %}
 		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
 		{% renderbylines copy %}
 		<div class="copy">
@@ -14,18 +14,20 @@
 		<a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a>
 		</p>
 		</div>
-	</section>{% endwith %}{% endif %}
+	{% endwith %}{% endif %}
 	{% if unit.is_image %}{% with unit.image as image %}
-	{% ifequal image.prominence "all" %}<figure>
+	{% ifequal image.prominence "all" %}<figure style="width: {% full_thumbnail_width image %}px;">
 		<a href="{{ object.get_absolute_url }}">{% full_thumbnail image %}</a>
 		{% fullimagelegend image %}
 		{% get_comment_count for object as comment_count %}
 		<p><a href="{{ object.get_absolute_url }}#comments">({{ comment_count }}&nbsp;comment{{ comment_count|pluralize }})</a></p>
-	</figure>{% else %}<figure style="width: 300px;">
-		{% thumbnail image %}
+	</figure>{% else %}<figure class="feature" style="width: {% thumbnail_width image %}px;">
+		<a href="{{ object.get_absolute_url }}">{% thumbnail image %}</a>
 		{% shortimagelegend image %}
 	</figure>{% endifequal %}
+	{% if image.see_more %}<section><a href="{{ object.get_absolute_url }}"><strong>See&nbsp;more...</strong></a></section>{% endif %}
+	{% if image.read_more %}<section><a href="{{ object.get_absolute_url }}"><strong>Read&nbsp;more...</strong></a></section>{% endif %}
 	{% endwith %}{% endif %}
-	{% endfor %}
+	{% endfor %}</section>
 	</article>{# vi: set syntax=htmldjango: #}
 	{% if forloop and not forloop.last %}<hr />{% endif %}

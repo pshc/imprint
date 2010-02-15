@@ -33,6 +33,7 @@ class NestedComment(Comment):
     objects = NestedCommentManager()
     nesting = models.CharField(max_length=MAX_NESTING_LEVEL * NESTING_DIGITS,
             db_index=True)
+    kiwi_verified = models.BooleanField(default=False)
 
     @property
     def indentation(self):

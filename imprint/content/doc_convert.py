@@ -24,17 +24,6 @@ def no_tags(f):
     decorated.__name__ = f.__name__
     return decorated
 
-def prevent_widow(paragraph):
-    first = True
-    for i in xrange(len(paragraph) - 1, -1, -1):
-        frag = paragraph[i]
-        if first:
-            frag = frag.rstrip()
-        if not frag.startswith('<') and ' ' in frag:
-            paragraph[i] = '&nbsp;'.join(frag.rsplit(' ', 1))
-            break
-        first = False
-
 class DocConverter(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
@@ -109,10 +98,9 @@ class DocConverter(HTMLParser):
                 open_tag, close_tag = self.call_handler()
                 self.detect_with_files_from()
                 if self.has_paragraph_content():
-                    prevent_widow(self.paragraph)
                     # OK, actually write the paragraph.
                     final_text = open_tag + ''.join(self.paragraph) \
-                               + close_tag + '\n'
+                               + close_tag + '\n\n'
                     self.document.setdefault('copy', []).append(final_text)
             self.paragraph = None
         elif tag == 'font':

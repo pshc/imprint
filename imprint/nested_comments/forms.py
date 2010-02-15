@@ -4,8 +4,9 @@ from django.contrib.contenttypes.models import ContentType
 from nested_comments.models import *
 import re
 
-tag_re = re.compile(r'<\s*a\s+href', re.I)
+tag_re = re.compile(r'<\s*a\s+[^>]*href', re.I)
 bb_re = re.compile(r'\[\s*url(?:=.*?)?\s*\]', re.I)
+spam_re = re.compile(r'waterloo\s*tech\s*news', re.I)
 
 class NestedCommentForm(CommentDetailsForm):
     name = forms.CharField(max_length=50, required=False)
@@ -21,6 +22,8 @@ class NestedCommentForm(CommentDetailsForm):
             raise forms.ValidationError("HTML tags are output in plaintext. Please don't use them.")
         elif bb_re.search(text):
             raise forms.ValidationError('BBCode is not supported.')
+        elif spam_re.search(text):
+            raise forms.ValidationError('Your comment looks like spam.')
         return text
 
     def clean_url(self):
