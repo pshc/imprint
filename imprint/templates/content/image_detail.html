@@ -3,6 +3,10 @@
 {% if object %}{% block title %}{{ object.headline|striptags }}{% endblock %}{% endif %}
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
+{% block meta %}
+	<meta name="title" content="{{ object.headline|striptags|safe }}" />
+	<meta name="description" content="{{ object.deck|striptags|safe }}" />
+{% endblock %}
 {% block content %}{% if object %}
 	{% series_link object.series %}
 	<h1>{{ object.headline|safe }}</h1>{% if object.deck %}
@@ -11,5 +15,6 @@
 		<img src="{{ MEDIA_URL }}{{ image.image }}" width="{{ image.image.width }}" height="{{ image.image.height }}" />
 		{% fullimagelegend image %}
 	</figure>
+	<section>{% include "content/facebook_link.html" %}</section>
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}
