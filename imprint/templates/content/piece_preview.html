@@ -25,8 +25,8 @@
 		<a href="{{ object.get_absolute_url }}">{% thumbnail image %}</a>
 		{% shortimagelegend image %}
 	</figure>{% endifequal %}
-	{% if image.see_more %}<p><a href="{{ object.get_absolute_url }}"><strong>See&nbsp;more...</strong></a></p>{% endif %}
-	{% if image.read_more %}<p><a href="{{ object.get_absolute_url }}"><strong>Read&nbsp;more...</strong></a></p>{% endif %}
+	{% if image.see_more %}<section><a href="{{ object.get_absolute_url }}"><strong>See&nbsp;more...</strong></a></section>{% endif %}
+	{% if image.read_more %}<section><a href="{{ object.get_absolute_url }}"><strong>Read&nbsp;more...</strong></a></section>{% endif %}
 	{% endwith %}{% endif %}
 	{% endfor %}</section>
 	</article>{# vi: set syntax=htmldjango: #}
