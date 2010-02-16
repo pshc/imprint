@@ -450,11 +450,9 @@ def couchdb_piece(request, slug):
     object = get_resource_or_404(slug)
     return locals()
 
-def couchdb_create(request):
-    oldrev = get_resource_or_404('hello')['_rev']
-    [(succ, docid, rev)] = db.update([
-        {'_id': 'hello', '_rev': oldrev,
-            'body': ['First area', 'Second area'], 'date': [2009,1,1]}])
-    return HttpResponse('Made:' + str((succ, docid, rev)))
+def couchdb_reset(request):
+    from content import server, DATABASE_NAME
+    server.delete(DATABASE_NAME)
+    return HttpResponse('Database %s deleted!' % DATABASE_NAME)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

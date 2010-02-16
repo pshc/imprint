@@ -22,17 +22,33 @@ server = settings.couchdb_server
 if not hasattr(settings, 'couchdb_db'):
     try:
         settings.couchdb_db = server.create(DATABASE_NAME)
-    except couchdb.client.PreconditionFailed:
+    except couchdb.http.PreconditionFailed as e:
+        if 'file_exists' not in str(e):
+            raise
         settings.couchdb_db = server[DATABASE_NAME]
 db = settings.couchdb_db
 
-def couchdb_view(name, **kwargs):
-    return db.view('%s/%s' % (DESIGN_DOCNAME, name), **kwargs)
+# Stupid hack
+def _couchdb_view_empty_ok(name, **kwargs):
+    try:
+        for obj in db.view(name, **kwargs):
+            yield obj
+    except couchdb.http.ResourceNotFound as e:
+        if 'missing' in str(e):
+            raise StopIteration
+        else:
+            raise
+
+def couchdb_view(name, empty_ok=True, **kwargs):
+    name = '%s/%s' % (DESIGN_DOCNAME, name)
+    if empty_ok:
+        return _couchdb_view_empty_ok(name, **kwargs)
+    return db.view(name, **kwargs)
 
 def get_resource_or_404(id):
     try:
         return db[id]
-    except couchdb.client.ResourceNotFound:
+    except couchdb.http.ResourceNotFound:
         raise Http404
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

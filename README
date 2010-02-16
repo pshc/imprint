@@ -1,7 +1,7 @@
 Dependencies:
 
 CouchDB
-couchdb-python
+couchdb-python (hg revision from 2010 and newer)
 Django 1.1
 django_authopenid
 django_extensions
