@@ -420,11 +420,11 @@ def design_convert_doc(request):
 @renders('content/couchdb_index.html')
 def couchdb_index(request):
     """
-    by_date = function(doc) {
-        emit(doc.date, null);
+    named = function(doc) {
+        emit(doc.headline, null);
     }
     """
-    object_list = couchdb_view('couchdb_index.by_date', descending=True)
+    object_list = couchdb_view('couchdb_index.named', descending=True)
     return locals()
 
 body_re = re.compile('body(\d+)$')

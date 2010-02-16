@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.management import base
 from django.template.defaultfilters import slugify, striptags
+import couchdb
 import re
 import os
 
@@ -152,23 +153,26 @@ def ensure_image_in_right_folder(filename, pub, volume, issue, verbosity):
 def article_id(data):
     return '%(publication)s.%(date)s.%(slug)s' % data
 
+def create_document_from(piece, verbosity):
+    from content import db
+    if verbosity:
+        print 'Converting', piece.issue, '-', piece.slug
+    data = convert_piece(piece, verbosity)
+    id = article_id(data)
+    try:
+        db[id] = data
+    except couchdb.http.ResourceConflict:
+        print 'Overwriting', id
+        data['_rev'] = db[id]['_rev']
+        db[id] = data
+
 class Command(base.NoArgsCommand):
     help = "Converts DB-backed Pieces to CouchDB."
     def handle_noargs(self, verbosity=0, **options):
         from content.models import Piece
-        from content import db
         if verbosity:
             print 'Converting', Piece.objects.count(), 'pieces...'
         for piece in Piece.objects.all():
-            if verbosity:
-                print 'Converting', piece.issue, '-', piece.slug
-            data = convert_piece(piece, verbosity)
-            id = article_id(data)
-            if id in db:
-                if verbosity:
-                    print 'Overwriting', id
-                doc = db[id]
-                db.delete(doc)
-            db[id] = data
+            create_document_from(piece, verbosity)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
