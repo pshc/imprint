@@ -9,6 +9,7 @@ from django.db import DatabaseError
 from django.http import Http404, HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
+from django.utils import dates
 import djcouch
 from issues.models import *
 import os
@@ -380,7 +381,10 @@ def piece_detail(request, y, m, d, section, slug):
     """Display the requested piece with comments."""
     if 'c' in request.GET:
         return HttpResponseRedirect('#c%d' % int(request.GET['c']))
-    issue, object = get_issue_and_piece(y, m, d, section, slug)
+    try:
+        issue, object = get_issue_and_piece(y, m, d, section, slug)
+    except Http404: # CouchDB fallback
+        return article_detail(request, y, m, d, 'imprint', slug)
     if object.redirect_to:
         return HttpResponseRedirect(object.redirect_to)
     units = object.units
@@ -453,5 +457,16 @@ def couchdb_piece(request, slug):
 def couchdb_reset(request):
     djcouch.server.delete(djcouch.DATABASE_NAME)
     return HttpResponse('Database %s deleted!' % djcouch.DATABASE_NAME)
+
+def by_slugs(cls, list):
+    return dict((s, cls.objects.get(slug=s)) for s in list)
+
+@renders("content/article_detail.html")
+def article_detail(request, y, m, d, pub, slug):
+    id = '%s.%s-%02d-%s.%s' % (pub, y, dates.MONTHS_3_REV[m], d, slug)
+    object = djcouch.get_document_or_404(id)
+    sections = by_slugs(Section, object['sections'])
+    contributors = by_slugs(Contributor, object['contributors'])
+    return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

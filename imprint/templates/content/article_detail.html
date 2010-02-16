@@ -1,0 +1,41 @@
+{% extends "content/base.html" %}
+{% load content people issues %}
+{% block title %}{{ object.headline|striptags|safe }} &mdash; {{ sections.values|join:", " }}{% endblock %}
+{% block meta %}
+	<meta name="title" content="{{ object.headline|striptags|safe }}" />
+	<meta name="description" content="{{ description|striptags|safe }}" />
+{% endblock %}
+{% block maintag %}article{% endblock %}
+{% block maintagclose %}article{% endblock %}
+{% block content %}
+	{#{% series_link object.series %}#}
+	<h1>{{ object.headline|safe }}</h1>
+	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
+	{% for unit in object.body %}
+	{% render_unit unit %}
+{#
+	{% if unit.is_copy %}{% with unit.copy as copy %}<section>
+		{% renderbylines copy %}
+		{% if copy.title %}<h3>{{ copy.title|safe }}</h3>{% endif %}
+		<div class="copy">
+		{{ copy.body|safe }}
+		</div>
+		{% for byline in copy.bylines %}{% if byline.is_after_copy %}
+		<p class="sources">&mdash; {% contributor_link byline.contributor %}</p>
+		{% endif %}{% endfor %}
+		{% if copy.sources %}<p class="sources">&mdash; With files from {{ copy.sources }}</p>{% endif %}
+	</section>{% endwith %}{% endif %}
+	{% if unit.is_image %}{% with unit.image as image %}
+	{% if forloop.first %}<figure style="width: {% full_thumbnail_width image %}px;">
+		<a href="{{ image.get_absolute_url }}">{% full_thumbnail image %}</a>
+		{% fullimagelegend image %}
+		{% else %}<figure style="width: {% thumbnail_width image %}px;">
+		<a href="{{ image.get_absolute_url }}">{% thumbnail image %}</a>
+		{% shortimagelegend image %}
+		{% endif %}
+	</figure>{% endwith %}{% endif %}
+#}
+	{% endfor %}
+	<section>{% include "content/facebook_link.html" %}</section>
+	{# {% include "comments/nested_list.html" %} #}
+{% endblock %}

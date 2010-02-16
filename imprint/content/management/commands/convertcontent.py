@@ -7,7 +7,7 @@ import os
 
 conversion_fields = [
     'issue', 'volume', 'publication',
-    'section', 'series',
+    'sections', 'series',
     'headline', 'deck',
     'body', 'redirect_to',
     'contributors',
@@ -17,7 +17,7 @@ conversion_fields = [
 def convert_piece(piece, verbosity):
     issue, volume = piece.issue.number, piece.issue.volume
     publication = 'imprint'
-    section = [piece.section.slug]
+    sections = [piece.section.slug]
     if piece.series:
         series = [piece.series.slug]
     if not piece.series or piece.series.name.lower() != piece.headline.lower():
@@ -76,20 +76,21 @@ def convert_copy(copy, body, contributors, ids_already_used):
     title = striptags(copy.title).strip()
     if title:
         id = sane_unique_slugify(title, ids_already_used)
-        body.append(['subhead', id, copy.title.strip()])
+        body.append(dict(type='subhead', id=id, title=copy.title.strip()))
     for byline in filter(lambda b: not b.is_after_copy, bylines):
         slug = byline.contributor.slug
         contributors.add(slug)
-        body.append(['byline', slug, byline.position])
+        body.append(dict(type='byline', contributor=slug,
+                position=byline.position))
 
     body.append(copy.body.strip())
 
     for byline in filter(lambda b: b.is_after_copy, bylines):
         slug = byline.contributor.slug
         contributors.add(slug)
-        body.append(['end-byline', slug])
+        body.append(dict(type='end byline', contributor=slug))
     if copy.sources:
-        body.append(['with-files-from', copy.sources])
+        body.append(dict(type='with files from', sources=copy.sources))
 
 def convert_image(image, filename, body, contributors):
     from content.models import PHOTOGRAPHER, GRAPHIC_ARTIST
@@ -113,7 +114,7 @@ def convert_image(image, filename, body, contributors):
     if credits:
         figure['credits'] = credits
     if is_photo and is_graphic:
-        figure['type'] = 'photo-graphic'
+        figure['type'] = 'photo graphic'
     elif is_photo:
         figure['type'] = 'photo'
     elif is_graphic:
