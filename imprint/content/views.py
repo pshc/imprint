@@ -1,4 +1,3 @@
-from content import db, couchdb_view, get_resource_or_404
 from content.doc_convert import doc_convert, DocConvertException
 from content.models import *
 import datetime
@@ -10,6 +9,7 @@ from django.db import DatabaseError
 from django.http import Http404, HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
+import djcouch
 from issues.models import *
 import os
 from people.models import Contributor, slugify_name
@@ -424,7 +424,7 @@ def couchdb_index(request):
         emit(doc.headline, null);
     }
     """
-    object_list = couchdb_view('couchdb_index.named', descending=True)
+    object_list = djcouch.view('couchdb_index.named', descending=True)
     return locals()
 
 body_re = re.compile('body(\d+)$')
@@ -441,18 +441,17 @@ def couchdb_piece(request, slug):
                 body.append((int(m.group(1)), text))
         body = [text for index, text in sorted(body)]
         date = request.POST['date']
-        [(succ, docid, rev)] = db.update([{'_id': slug, '_rev': rev,
+        [(succ, docid, rev)] = djcouch.db.update([{'_id': slug, '_rev': rev,
             'body': body, 'date': date}])
         if not succ:
             # uh oh
             pass
         return HttpResponseRedirect('.')
-    object = get_resource_or_404(slug)
+    object = djcouch.get_document_or_404(slug)
     return locals()
 
 def couchdb_reset(request):
-    from content import server, DATABASE_NAME
-    server.delete(DATABASE_NAME)
-    return HttpResponse('Database %s deleted!' % DATABASE_NAME)
+    djcouch.server.delete(djcouch.DATABASE_NAME)
+    return HttpResponse('Database %s deleted!' % djcouch.DATABASE_NAME)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

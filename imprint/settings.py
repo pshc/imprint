@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'imprint.utils',
     'imprint.feds',
     'registration',
+    'djcouch',
 )
 
 from local_settings import *

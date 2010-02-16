@@ -154,7 +154,7 @@ def article_id(data):
     return '%(publication)s.%(date)s.%(slug)s' % data
 
 def create_document_from(piece, verbosity):
-    from content import db
+    from djcouch import db
     if verbosity:
         print 'Converting', piece.issue, '-', piece.slug
     data = convert_piece(piece, verbosity)
