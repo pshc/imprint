@@ -382,9 +382,10 @@ def piece_detail(request, y, m, d, section, slug):
     if 'c' in request.GET:
         return HttpResponseRedirect('#c%d' % int(request.GET['c']))
     try:
-        issue, object = get_issue_and_piece(y, m, d, section, slug)
-    except Http404: # CouchDB fallback
         return article_detail(request, y, m, d, 'imprint', slug)
+    except Http404:
+        pass
+    issue, object = get_issue_and_piece(y, m, d, section, slug)
     if object.redirect_to:
         return HttpResponseRedirect(object.redirect_to)
     units = object.units
@@ -458,15 +459,22 @@ def couchdb_reset(request):
     djcouch.server.delete(djcouch.DATABASE_NAME)
     return HttpResponse('Database %s deleted!' % djcouch.DATABASE_NAME)
 
-def by_slugs(cls, list):
-    return dict((s, cls.objects.get(slug=s)) for s in list)
+def by_slugs(cls, list, as_dict=False):
+    if as_dict:
+        return dict((s, cls.objects.get(slug=s)) for s in list)
+    else: # Laziness would be nice, but...
+        return [cls.objects.get(slug=s) for s in list]
+
+       
 
 @renders("content/article_detail.html")
 def article_detail(request, y, m, d, pub, slug):
     id = '%s.%s-%02d-%s.%s' % (pub, y, dates.MONTHS_3_REV[m], d, slug)
     object = djcouch.get_document_or_404(id)
+    series = by_slugs(Series, object.get('series', []))
     sections = by_slugs(Section, object['sections'])
-    contributors = by_slugs(Contributor, object['contributors'])
+    contributors = by_slugs(Contributor, object.get('contributors', []),
+            as_dict=True)
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
