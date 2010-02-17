@@ -84,7 +84,7 @@ class WithThumbnailNode(template.Node):
         cache_key = ('%s/%s' % (path, image['filename']))
         info = cache.get(cache_key)
         if not info:
-            info = thumbnail_info(image, article, path)
+            info = thumbnail_info(image, path)
             cache.set(cache_key, info)
         context.push()
         context.update(info)
@@ -92,16 +92,42 @@ class WithThumbnailNode(template.Node):
         context.pop()
         return html
 
-def thumbnail_info(image, article, path):
-    abs_path = os.path.join(settings.MEDIA_ROOT,
-            path.replace('/', os.path.sep), image['filename'])
-    dim = imagemagick('identify', '-format', '%[fx:w] %[fx:h]', abs_path)
-    width, height = map(int, dim.split())
-    return dict(width=width, height=height,
-            image=settings.MEDIA_URL + path + '/' + image['filename'])
+THUMBNAIL_FIELDS = ('width', 'height', 'image_src',
+        'thumb_width', 'thumb_height', 'thumb_src')
+
+def image_dimensions(abs_path):
+    dim = imagemagick('identify', '-format', '%[fx:w]x%[fx:h]', abs_path)
+    return map(int, dim.split('x'))
+
+def thumbnail_info(image, path):
+    # First get some info about the image itself
+    join = os.path.join
+    filename = image['filename']
+    media_image = join(path.replace('/', os.path.sep), filename)
+    abs_image = join(settings.MEDIA_ROOT, media_image)
+    width, height = image_dimensions(abs_image)
+    # Now generate the thumbnail
+    is_full_width = image.get('full-width')
+    if is_full_width:
+        thumb_width, thumb_height = fit_to_fixed_width(width, height)
+        thumb_dir = 'fullthumb'
+    else:
+        thumb_width, thumb_height = fit(width, height)
+        thumb_dir = 'thumbnail'
+    media_thumb, thumb_exists = thumb_existence(media_image, thumb_dir)
+    abs_thumb = join(settings.MEDIA_ROOT, media_thumb)
+    if not thumb_exists:
+        thumb_dim = '%dx%d' % (thumb_width, thumb_height)
+        imagemagick('convert', '-thumbnail', thumb_dim, abs_image, abs_thumb)
+    # Image URLs
+    http_path = settings.MEDIA_URL + path
+    image_src = '/'.join((http_path, filename))
+    thumb_src = '/'.join((http_path, thumb_dir, filename))
+    ls = locals()
+    return dict((k, ls[k]) for k in THUMBNAIL_FIELDS)
 
 def imagemagick(cmd, *args):
-    assert cmd in ('identify', 'mogrify')
+    assert cmd in ('identify', 'convert')
     p = subprocess.Popen((cmd,) + args,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
@@ -120,7 +146,7 @@ FIXED_WIDTH = 770
 THUMBNAIL_WIDTH = 300
 THUMBNAIL_HEIGHT = 300
 
-def thumb_dir(filename, prefix):
+def thumb_existence(filename, prefix):
     path, file = os.path.split(filename)
     path = os.path.join(path, prefix)
     fsdir = os.path.join(settings.MEDIA_ROOT, path)
@@ -130,7 +156,7 @@ def thumb_dir(filename, prefix):
         os.mkdir(fsdir)
     return os.path.join(path, file), False
 
-def fit(w, h, mw, mh):
+def fit(w, h, mw=THUMBNAIL_WIDTH, mh=THUMBNAIL_HEIGHT):
     if w > mw:
         h, w = int(round(float(mw) * float(h) / float(w))), mw
     if h > mh:
@@ -152,14 +178,14 @@ def create_thumbnail(orig, thumb, w, h):
 @register.simple_tag
 def thumbnail_width(unit):
     image = unit.image
-    w, h = fit(image.width, image.height, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
+    w, h = fit(image.width, image.height)
     return '%d' % w
 
 @register.simple_tag
 def thumbnail(unit):
     """Renders a small thumbnail for the given image."""
     image = unit.image
-    path, exists = thumb_dir(image.name, 'thumbnail')
+    path, exists = thumb_existence(image.name, 'thumbnail')
     w, h = fit(image.width, image.height, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT)
     if not exists:
         create_thumbnail(image.name, path, w, h)
@@ -187,7 +213,7 @@ def full_thumbnail(unit):
         path = image.name
         w, h = image.width, image.height
     else:
-        path, exists = thumb_dir(image.name, 'fullthumb')
+        path, exists = thumb_existence(image.name, 'fullthumb')
         w, h = fit_to_fixed_width(image.width, image.height)
         if not exists:
             create_thumbnail(image.name, path, w, h)
