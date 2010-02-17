@@ -1,11 +1,11 @@
+from django import template
 from django.conf import settings
-from django.template import Library
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 from imprint.utils import unescape
 import re
 
-register = Library()
+register = template.Library()
 
 @register.simple_tag
 def googleanalytics():
@@ -55,5 +55,40 @@ def togglesqlfields(stmt):
     $(this).hide(); $(this).next('span').show();
     ">...</span><span style="display: none;">%s</span> FROM %s'''
         % tuple(map(conditional_escape, m.groups())))
+
+
+@register.tag
+def lookup(parser, token):
+    """Uses template variables to perform a dict lookup and name the result."""
+    in_ = as_ = None
+    try:
+        tag_name, key, in_, d, as_, name = token.split_contents()
+    except ValueError:
+        pass
+    if in_ != 'in' or as_ != 'as':
+        raise template.TemplateSyntaxError, ("lookup syntax: {% lookup "
+                "<key> in <dict> as <bound name> %}...{% endlookup %}")
+    nodelist = parser.parse(('endlookup',))
+    parser.delete_first_token()
+    return LookupNode(key, d, name, nodelist)
+
+class LookupNode(template.Node):
+    def __init__(self, key, d, name, nodelist):
+        self.key = template.Variable(key)
+        self.d = template.Variable(d)
+        self.name = name
+        self.nodelist = nodelist
+
+    def __repr__(self):
+        return '<LookupNode>'
+
+    def render(self, context):
+        key = self.key.resolve(context)
+        d = self.d.resolve(context)
+        context.push()
+        context[self.name] = d.get(key, '')
+        html = self.nodelist.render(context)
+        context.pop()
+        return html
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

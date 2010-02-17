@@ -1,9 +1,11 @@
 from django import template
 from django.conf import settings
+from django.core.cache import cache
 from django.utils.html import conditional_escape, strip_tags
 from django.utils.http import urlquote
 import os
 import Image as pil
+import subprocess
 
 register = template.Library()
 
@@ -40,7 +42,7 @@ class RenderUnitNode(template.Node):
             try:
                 path = 'content/unit_%s.html' % type.replace(' ', '_')
                 tmpl = template.loader.get_template(path)
-            except template.TemplateDoesNotExist:
+            except template.TemplateDoesNotExist as e:
                 tmpl = None
             UNIT_TEMPLATES[type] = tmpl
         else:
@@ -55,39 +57,64 @@ class RenderUnitNode(template.Node):
         return html
 
 @register.tag
-def lookup(parser, token):
-    """Uses template variables to perform a dict lookup and name the result."""
-    in_ = as_ = None
+def with_thumbnail(parser, token):
+    """Augments the context with information about the image's thumbnail."""
     try:
-        tag_name, key, in_, d, as_, name = token.split_contents()
+        tag_name, image, article = token.split_contents()
     except ValueError:
-        pass
-    if in_ != 'in' or as_ != 'as':
-        raise template.TemplateSyntaxError, ("lookup syntax: {% lookup "
-                "<key> in <dict> as <bound name> %}...{% endlookup %}")
-    nodelist = parser.parse(('endlookup',))
+        raise template.TemplateSyntaxError, ("with_thumbnail syntax: "
+                "{% with_thumbnail <image> <article> %}...{% endwith %}")
+    nodelist = parser.parse(('endwith',))
     parser.delete_first_token()
-    return LookupNode(key, d, name, nodelist)
+    return WithThumbnailNode(image, article, nodelist)
 
-class LookupNode(template.Node):
-    def __init__(self, key, d, name, nodelist):
-        var = template.Variable
-        self.key = var(key)
-        self.d = var(d)
-        self.name = name
+class WithThumbnailNode(template.Node):
+    def __init__(self, image, article, nodelist):
+        self.image = template.Variable(image)
+        self.article = template.Variable(article)
         self.nodelist = nodelist
 
     def __repr__(self):
-        return '<LookupNode>'
+        return '<WithThumbnailNode>'
 
     def render(self, context):
-        key = self.key.resolve(context)
-        d = self.d.resolve(context)
+        image = self.image.resolve(context)
+        article = self.article.resolve(context)
+        path = '%(publication)s/vol%(volume)02d/issue%(issue)02d' % article
+        cache_key = ('%s/%s' % (path, image['filename']))
+        info = cache.get(cache_key)
+        if not info:
+            info = thumbnail_info(image, article, path)
+            cache.set(cache_key, info)
         context.push()
-        context[self.name] = d.get(key, '')
+        context.update(info)
         html = self.nodelist.render(context)
         context.pop()
         return html
+
+def thumbnail_info(image, article, path):
+    abs_path = os.path.join(settings.MEDIA_ROOT,
+            path.replace('/', os.path.sep), image['filename'])
+    dim = imagemagick('identify', '-format', '%[fx:w] %[fx:h]', abs_path)
+    width, height = map(int, dim.split())
+    return dict(width=width, height=height,
+            image=settings.MEDIA_URL + path + '/' + image['filename'])
+
+def imagemagick(cmd, *args):
+    assert cmd in ('identify', 'mogrify')
+    p = subprocess.Popen((cmd,) + args,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        raise Exception(stderr.strip())
+    return stdout.strip()
+
+try:
+    imagemagick('identify', '-version')
+except Exception as e:
+    raise Exception("There is a problem with imagemagick: %s" % e)
+
+# old code
 
 FIXED_WIDTH = 770
 THUMBNAIL_WIDTH = 300

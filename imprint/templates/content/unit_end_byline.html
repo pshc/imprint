@@ -1,1 +1,1 @@
-{% load content %}<p class="sources">&mdash; <a href="{% url contributor-detail unit.contributor %}">{% lookup unit.contributor in contributors as c %}{{ c.name }}{% endlookup %}</a></p>
+<p class="sources">&mdash; {% with unit.contributor as object %}{% include "people/contributor_url.html" %}{% endwith %}</a></p>

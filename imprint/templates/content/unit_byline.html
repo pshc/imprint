@@ -1,1 +1,1 @@
-{% load content %}<ul class="byline"><li><a href="{% url contributor-detail unit.contributor %}">{% lookup unit.contributor in contributors as c %}{{ c }}{% endlookup %}</a>{% if unit.position %}<br />{{ unit.position }}{% endif %}</li></ul>
+{% load content %}<ul class="byline"><li>{% with unit.contributor as object %}{% include "people/contributor_url.html" %}{% endwith %}{% if unit.position %}<br />{{ unit.position }}{% endif %}</li></ul>

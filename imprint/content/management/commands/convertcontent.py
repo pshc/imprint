@@ -114,11 +114,11 @@ def convert_image(image, filename, body, contributors):
     if credits:
         figure['credits'] = credits
     if is_photo and is_graphic:
-        figure['type'] = 'photo graphic'
+        figure['image-type'] = 'photo graphic'
     elif is_photo:
-        figure['type'] = 'photo'
+        figure['image-type'] = 'photo'
     elif is_graphic:
-        figure['type'] = 'graphic'
+        figure['image-type'] = 'graphic'
     body.append(figure)
 
 def remove_filename_underscore(filename):
