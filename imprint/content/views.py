@@ -10,6 +10,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 import djcouch
+from functools import wraps
 from issues.models import *
 import os
 from people.models import Contributor, slugify_name
@@ -469,6 +470,7 @@ def by_slugs(cls, slugs):
     return dict((s, cls.objects.get(slug=s)) for s in slugs)
 
 def with_article_context(func):
+    @wraps(func)
     def decorated(request, *args, **kwargs):
         c = func(request, *args, **kwargs)
         assert isinstance(c, dict), 'Expected context dict'
@@ -483,9 +485,6 @@ def with_article_context(func):
         c['section_map'] = by_slugs(Section, scs)
         c['contributor_map'] = by_slugs(Contributor, cs)
         return c
-    decorated.__name__ = func.__name__
-    decorated.__module__ = func.__module__
-    decorated.__doc__ = func.__doc__
     return decorated
 
 @renders("content/article_detail.html")

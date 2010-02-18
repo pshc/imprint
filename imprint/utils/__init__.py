@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import dates
 from django.utils.http import urlquote
+from functools import wraps
 from middleware import get_current_user
 import os
 import random
@@ -16,6 +17,7 @@ def renders(template, request_context=True, mimetype=None):
     Return a dictionary from your view function to render it.
     Adds debugging niceties if there is a template variable named "object"."""
     def dec(f):
+        @wraps(f)
         def new_view(req, *args, **kwargs):
             d = f(req, *args, **kwargs)
             if isinstance(d, dict):
@@ -33,10 +35,6 @@ def renders(template, request_context=True, mimetype=None):
                 resp['X-' + header.replace(' ', '-')] = val
                 return resp
             return d
-        # Impersonate the original view function
-        new_view.__name__ = f.__name__
-        new_view.__module__ = f.__module__
-        new_view.__doc__ = f.__doc__
         return new_view
     return dec
 
@@ -62,6 +60,7 @@ def unescape(html):
 
 def cache_with_key(key_func, not_found=object()):
     def decorate(f):
+        @wraps(f)
         def decorated(*args, **kwargs):
             key = key_func(*args, **kwargs)
             user = get_current_user()
@@ -72,9 +71,6 @@ def cache_with_key(key_func, not_found=object()):
             ret = f(*args, **kwargs)
             cache.set(key, ret)
             return ret
-        decorated.__name__ = f.__name__
-        decorated.__module__ = f.__module__
-        decorated.__doc__ = f.__doc__
         return decorated
     return decorate
 
