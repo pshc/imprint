@@ -14,7 +14,7 @@ import os
 from people.models import Contributor, slugify_name
 import re
 from shutil import move
-from utils import renders, unescape
+from utils import renders, unescape, format_ymd
 
 huge_input = lambda: forms.TextInput(attrs={'class': 'vHugeField'})
 small_input = lambda: forms.TextInput(attrs={'class': 'vSmallField'})

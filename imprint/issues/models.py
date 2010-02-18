@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from django.db import models
 from django.utils import dates
 from people.models import Contributor
-from utils import cache_with_key, date_tuple, get_current_user
+from utils import cache_with_key, date_tuple, get_current_user, parse_ymd
 import os
 
 HIGHLIGHT_COUNT = 4
@@ -90,9 +90,8 @@ class IssueManager(CurrentSiteManager):
     @cache_with_key(lambda s,y,m,d: 'site%d/issue/%d/%s/%d' % (
             Site.objects.get_current().id, int(y), m, int(d)))
     def get_by_date(self, y, m, d):
-        try:
-            date = datetime.date(int(y), dates.MONTHS_3_REV[m], int(d))
-        except:
+        date = parse_ymd(y, m, d)
+        if not date:
             raise Issue.DoesNotExist
         issue = self.get(date__exact=date, site=Site.objects.get_current(),
                 **filter_live())
