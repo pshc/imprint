@@ -465,8 +465,6 @@ def by_slugs(cls, list, as_dict=False):
     else: # Laziness would be nice, but...
         return [cls.objects.get(slug=s) for s in list]
 
-       
-
 @renders("content/article_detail.html")
 def article_detail(request, y, m, d, pub, slug):
     id = '%s.%s-%02d-%s.%s' % (pub, y, dates.MONTHS_3_REV[m], d, slug)

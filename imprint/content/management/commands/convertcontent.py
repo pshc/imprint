@@ -9,7 +9,7 @@ conversion_fields = [
     'issue', 'volume', 'publication',
     'sections', 'series',
     'headline', 'deck',
-    'body', 'redirect_to',
+    'body', 'redirect_to', 'preview',
     'contributors',
     'date', 'slug', 'is_live', '_id',
     ]
@@ -29,7 +29,7 @@ def convert_piece(piece, verbosity):
     subhead_ids = set()
     for unit in piece.units:
         if unit.is_copy:
-            convert_copy(unit.copy, body, contributors, subhead_ids)
+            body += convert_copy(unit.copy, contributors, subhead_ids)
         elif unit.is_image:
             image = unit.image.image
             new_path = ensure_image_in_right_folder(image.name,
@@ -38,10 +38,28 @@ def convert_piece(piece, verbosity):
                 image.name = new_path
                 unit.image.save()
             base = os.path.basename(image.name)
-            convert_image(unit.image, base, body, contributors)
+            body.append(convert_image(unit.image, base, contributors))
     if piece.redirect_to: # Don't store body (only preview) if redirecting
         redirect_to = piece.redirect_to
         del body
+    # Store a preview explicitly
+    preview = []
+    for unit in piece.preview:
+        if unit.is_copy:
+            preview += convert_copy(unit.copy, set(), None)
+            preview.append(dict(type='jump'))
+        elif unit.is_image:
+            base = os.path.basename(unit.image.image.name)
+            fig = convert_image(unit.image, base, set())
+            if unit.prominence == 'all':
+                fig['prominence'] = 'full'
+            elif unit.prominence == 'featured':
+                fig['prominence'] = 'side'
+            preview.append(fig)
+            if unit.read_more:
+                preview.append(dict(type='jump'))
+            elif unit.see_more:
+                preview.append(dict(type='jump', text='See more'))
     contributors = sorted(contributors)
     slug = piece.slug
     date = piece.issue.date.strftime('%Y-%m-%d')
@@ -71,12 +89,16 @@ def sane_unique_slugify(src, ids_already_used):
     ids_already_used.add(id)
     return id
 
-def convert_copy(copy, body, contributors, ids_already_used):
+def convert_copy(copy, contributors, ids_already_used):
+    body = []
     bylines = copy.bylines
     title = striptags(copy.title).strip()
     if title:
-        id = sane_unique_slugify(title, ids_already_used)
-        body.append(dict(type='subhead', id=id, title=copy.title.strip()))
+        if ids_already_used is not None:
+            id = sane_unique_slugify(title, ids_already_used)
+            body.append(dict(type='subhead', id=id, title=copy.title.strip()))
+        else: # preview
+            body.append(dict(type='subhead', title=copy.title.strip()))
     for byline in filter(lambda b: not b.is_after_copy, bylines):
         slug = byline.contributor.slug
         contributors.add(slug)
@@ -91,6 +113,7 @@ def convert_copy(copy, body, contributors, ids_already_used):
         body.append(dict(type='end byline', contributor=slug))
     if copy.sources:
         body.append(dict(type='with files from', sources=copy.sources))
+    return body
 
 def reformat_text(text):
     text = text.strip().replace('&nbsp;', ' ')
@@ -111,7 +134,7 @@ def reformat_text(text):
             paragraphs.append(para)
     return paragraphs
 
-def convert_image(image, filename, body, contributors):
+def convert_image(image, filename, contributors):
     from content.models import PHOTOGRAPHER, GRAPHIC_ARTIST
     figure = dict(type='image', filename=filename)
     if image.cutline:
@@ -138,7 +161,7 @@ def convert_image(image, filename, body, contributors):
         figure['image-type'] = 'photo'
     elif is_graphic:
         figure['image-type'] = 'graphic'
-    body.append(figure)
+    return figure
 
 def remove_filename_underscore(filename):
     path, ext = os.path.splitext(filename)
