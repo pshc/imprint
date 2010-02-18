@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from issues.models import *
-from utils import dates
+from utils import parse_ymd
 import os.path
 import datetime
 
@@ -15,9 +15,8 @@ class Publication(models.Model):
 
 class PDFIssueManager(models.Manager):
     def get_by_date_and_publication(self, y, m, d, pub):
-        try:
-            date = datetime.date(int(y), dates.MONTHS_3_REV[m], int(d))
-        except:
+        date = parse_ymd(y, m, d)
+        if not date:
             raise PDFIssue.DoesNotExist
         return self.get(date__exact=date, publication=pub)
 

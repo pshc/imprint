@@ -9,14 +9,13 @@ from django.db import DatabaseError
 from django.http import Http404, HttpResponse, HttpResponseRedirect, \
         HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
-from django.utils import dates
 import djcouch
 from issues.models import *
 import os
 from people.models import Contributor, slugify_name
 import re
 from shutil import move
-from utils import renders, unescape
+from utils import renders, unescape, format_ymd
 
 huge_input = lambda: forms.TextInput(attrs={'class': 'vHugeField'})
 small_input = lambda: forms.TextInput(attrs={'class': 'vSmallField'})
@@ -467,7 +466,7 @@ def by_slugs(cls, list, as_dict=False):
 
 @renders("content/article_detail.html")
 def article_detail(request, y, m, d, pub, slug):
-    id = '%s.%s-%02d-%s.%s' % (pub, y, dates.MONTHS_3_REV[m], d, slug)
+    id = '.'.join((pub, format_ymd(y, m, d), slug))
     object = djcouch.get_document_or_404(id)
     series = by_slugs(Series, object.get('series', []))
     sections = by_slugs(Section, object['sections'])

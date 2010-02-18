@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
-from utils import renders, date_tuple
+from utils import renders, date_tuple, format_ymd
 
 @renders('issues/issue_detail.html')
 def issue_detail(request, y, m, d):

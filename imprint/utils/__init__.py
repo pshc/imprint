@@ -1,3 +1,4 @@
+import datetime
 from django.core.cache import cache
 from django.core.files import storage
 from django.core.xheaders import populate_xheaders
@@ -78,6 +79,17 @@ def cache_with_key(key_func, not_found=object()):
 
 def date_tuple(date):
     return (date.year, unicode(dates.MONTHS_3[date.month]), date.day)
+
+def parse_ymd(y, m, d):
+    try:
+        return datetime.date(int(y), dates.MONTHS_3_REV[m], int(d))
+    except:
+        return None
+
+def format_ymd(y, m, d):
+    date = parse_ymd(y, m, d)
+    if date:
+        return date.strftime('%Y-%m-%d')
 
 class FileSystemStorage(storage.FileSystemStorage):
     def url(self, name):
