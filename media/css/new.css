@@ -20,8 +20,9 @@ article p {
 	font: normal 3.8em/0.9em serif;
 }
 
-.series, .byline a, .legend ul a {
+.series, .byline a {
 	font-weight: bold;
+	font-size: 110%;
 }
 
 .byline {

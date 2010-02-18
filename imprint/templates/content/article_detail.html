@@ -1,6 +1,6 @@
 {% extends "content/base_new.html" %}
 {% load content people issues %}
-{% block title %}{{ object.headline|striptags|safe }} &mdash; {{ sections|join:", " }}{% endblock %}
+{% block title %}{{ object.headline|striptags|safe }} &mdash; {{ section_map.values|join:", " }}{% endblock %}
 {% block meta %}
 	{# TODO: These will use the preview, once it's done #}
 	<meta name="title" content="{{ title|striptags|safe }}" />
@@ -9,8 +9,7 @@
 {% block maintag %}article{% endblock %}
 {% block maintagclose %}article{% endblock %}
 {% block content %}
-	{% for s in series %}
-	<a href="{{ s.get_absolute_url }}" class="series">{{ s }}</a>{% endfor %}
+	{% include "issues/series_list.html" %}
 	{% if object.headline %}<h1>{{ object.headline|safe }}</h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 {% for unit in object.body %}

@@ -83,10 +83,14 @@ class LookupNode(template.Node):
         return '<LookupNode>'
 
     def render(self, context):
-        key = self.key.resolve(context)
         d = self.d.resolve(context)
+        try:
+            key = self.key.resolve(context)
+            v = d.get(key, '')
+        except template.VariableDoesNotExist:
+            v = ''
         context.push()
-        context[self.name] = d.get(key, '')
+        context[self.name] = v
         html = self.nodelist.render(context)
         context.pop()
         return html

@@ -1,0 +1,3 @@
+{% load misc %}{% for slug in object.series %}{% lookup slug in series_map as series %}
+	<a href="{{ series.get_absolute_url }}" class="series">{{ series }}</a>{# TODO: contributors #}{% endlookup %}{% endfor %}
+

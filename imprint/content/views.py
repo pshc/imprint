@@ -458,20 +458,39 @@ def couchdb_reset(request):
     djcouch.server.delete(djcouch.DATABASE_NAME)
     return HttpResponse('Database %s deleted!' % djcouch.DATABASE_NAME)
 
-def by_slugs(cls, list, as_dict=False):
-    if as_dict:
-        return dict((s, cls.objects.get(slug=s)) for s in list)
-    else: # Laziness would be nice, but...
-        return [cls.objects.get(slug=s) for s in list]
+def reduce_sets(objs, keys):
+    sets = dict((k, set()) for k in keys)
+    for obj in objs:
+        for key, s in sets.iteritems():
+            s.update(obj.get(key, []))
+    return [sets[k] for k in keys]
+
+def by_slugs(cls, slugs):
+    return dict((s, cls.objects.get(slug=s)) for s in slugs)
+
+def with_article_context(func):
+    def decorated(request, *args, **kwargs):
+        c = func(request, *args, **kwargs)
+        assert isinstance(c, dict), 'Expected context dict'
+        if 'article' in c:
+            objs = [c['article']]
+        elif 'articles' in c:
+            objs = c['articles']
+        else:
+            assert False, 'Expected article(s) in context'
+        srs, scs, cs = reduce_sets(objs, ('series','sections','contributors'))
+        c['series_map'] = by_slugs(Series, srs)
+        c['section_map'] = by_slugs(Section, scs)
+        c['contributor_map'] = by_slugs(Contributor, cs)
+        return c
+    decorated.__name__ = func.__name__
+    return decorated
 
 @renders("content/article_detail.html")
+@with_article_context
 def article_detail(request, y, m, d, pub, slug):
     id = '.'.join((pub, format_ymd(y, m, d), slug))
-    object = djcouch.get_document_or_404(id)
-    series = by_slugs(Series, object.get('series', []))
-    sections = by_slugs(Section, object['sections'])
-    contributors = by_slugs(Contributor, object.get('contributors', []),
-            as_dict=True)
+    article = object = djcouch.get_document_or_404(id)
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

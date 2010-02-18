@@ -1,1 +1,1 @@
-{% load misc %}<a href="{% url contributor-detail object %}">{% lookup object in contributors as c %}{{ c }}{% endlookup %}</a>
+{% load misc %}<a href="{% url contributor-detail object %}">{% lookup object in contributor_map as c %}{{ c }}{% endlookup %}</a>
