@@ -1,8 +1,8 @@
 from content.models import *
 import datetime
 from django.core.urlresolvers import reverse
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect
 from issues.models import *
 from utils import renders, date_tuple
 
@@ -34,7 +34,7 @@ def section_detail(request, y, m, d, slug):
         raise Http404
     pieces = Piece.objects.filter(section=object, issue=issue)
     if pieces.count() == 1:
-        return HttpResponseRedirect(pieces[0].get_absolute_url())
+        return redirect(pieces[0])
     return locals()
 
 # Handles any root-level slug; currently sections or series
@@ -44,6 +44,8 @@ def area_detail(request, slug):
         section = object = Section.objects.get(slug=slug)
         issue = Issue.objects.latest_issue()
         pieces = section.pieces.filter(issue=issue, **filter_live())
+        if pieces.count() == 1:
+            return redirect(pieces[0])
         canonical = reverse('section-detail',
                 args=date_tuple(issue.date) + (slug,))
         editorships = SectionEditorship.objects.filter()
