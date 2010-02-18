@@ -13,7 +13,8 @@
 	<a href="{{ s.get_absolute_url }}" class="series">{{ s }}</a>{% endfor %}
 	{% if object.headline %}<h1>{{ object.headline|safe }}</h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
-	{% for unit in object.body %}{% render_unit unit %}{% endfor %}
+{% for unit in object.body %}
+	{% render_unit unit %}{% endfor %}
 	<section>{% include "content/facebook_link.html" %}</section>
 	{# {% include "comments/nested_list.html" %} #}
 {% endblock %}
