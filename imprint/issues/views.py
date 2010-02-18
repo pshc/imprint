@@ -51,8 +51,7 @@ def new_section_detail(request, y, m, d, pub, slug):
         raise Http404
     # new code
     key = '.'.join((pub, format_ymd(y, m, d), slug))
-    articles = [row.value for row in
-              djcouch.view('new_section_detail.by_section', key=key)]
+    articles = [row.value for row in djcouch.view('by_section', key=key)]
     if len(articles) == 1:
         pass # TODO: return redirect(pieces[0])
     return locals()

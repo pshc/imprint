@@ -74,6 +74,7 @@ def cache_with_key(key_func, not_found=object()):
             return ret
         decorated.__name__ = f.__name__
         decorated.__module__ = f.__module__
+        decorated.__doc__ = f.__doc__
         return decorated
     return decorate
 

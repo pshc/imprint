@@ -424,11 +424,11 @@ def design_convert_doc(request):
 @renders('content/couchdb_index.html')
 def couchdb_index(request):
     """
-    named = function(doc) {
+    by_headline = function(doc) {
         emit(doc.headline, null);
     }
     """
-    object_list = djcouch.view('couchdb_index.named', descending=True)
+    object_list = djcouch.view('by_headline')
     return locals()
 
 body_re = re.compile('body(\d+)$')
@@ -484,6 +484,8 @@ def with_article_context(func):
         c['contributor_map'] = by_slugs(Contributor, cs)
         return c
     decorated.__name__ = func.__name__
+    decorated.__module__ = func.__module__
+    decorated.__doc__ = func.__doc__
     return decorated
 
 @renders("content/article_detail.html")
