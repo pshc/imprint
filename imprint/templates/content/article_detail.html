@@ -1,4 +1,4 @@
-{% extends "content/base.html" %}
+{% extends "content/base_new.html" %}
 {% load content people issues %}
 {% block title %}{{ object.headline|striptags|safe }} &mdash; {{ sections|join:", " }}{% endblock %}
 {% block meta %}
@@ -10,7 +10,7 @@
 {% block maintagclose %}article{% endblock %}
 {% block content %}
 	{% for s in series %}
-	<a href="{{ s.get_absolute_url }}"><strong>{{ s }}</strong></a>{% endfor %}
+	<a href="{{ s.get_absolute_url }}" class="series">{{ s }}</a>{% endfor %}
 	{% if object.headline %}<h1>{{ object.headline|safe }}</h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in object.body %}{% render_unit unit %}{% endfor %}

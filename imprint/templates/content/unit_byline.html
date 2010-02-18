@@ -1,1 +1,1 @@
-{% load content %}<ul class="byline"><li>{% with unit.contributor as object %}{% include "people/contributor_url.html" %}{% endwith %}{% if unit.position %}<br />{{ unit.position }}{% endif %}</li></ul>
+{% load content %}<div class="byline">{% with unit.contributor as object %}{% include "people/contributor_link.html" %}{% endwith %}{% if unit.position %} {{ unit.position }}{% endif %}</div>

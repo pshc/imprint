@@ -1,0 +1,114 @@
+article p {
+	line-height: 175%;
+	font-size: 110%;
+	text-align: justify;
+	text-indent: 2em;
+	padding-bottom: 0.5em;
+}
+
+.first {
+	text-indent: 0;
+}
+
+.first big {
+	font: normal 6em/0.85em serif;
+	display: block;
+	float: left;
+}
+
+.preview big {
+	font: normal 3.8em/0.9em serif;
+}
+
+.series, .byline a, .legend ul a {
+	font-weight: bold;
+}
+
+.byline {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+	margin-bottom: 0.5em;
+}
+
+.byline a {
+	display: block;
+}
+
+.legend ul {
+	font-family: Tahoma, sans-serif;
+	text-transform: uppercase;
+}
+
+.sources {
+	display: block;
+	text-align: right;
+	font-style: italic;
+}
+
+figure {
+	float: left;
+	margin: 1em 0.5em;
+}
+figure img {
+	border: 1px solid black;
+}
+figure p { /* cutline */
+	font-weight: bold;
+	margin-top: 0.5em;
+	text-align: justify;
+}
+figure p a {
+	font-weight: normal;
+}
+figure ul { /* credit */
+	text-align: right;
+}
+figure ul li {
+	font: normal 75%/100% Tahoma, sans-serif;
+	text-transform: uppercase;
+}
+figure.feature {
+	float: right;
+	margin: 0em 0em 1em 2em;
+}
+
+.scoreboard {
+	float: right;
+	margin: 0 0 1em 2em;
+}
+
+.scoreboard th {
+	background-color: black;
+	color: white;
+	padding: 0.5em;
+	font-weight: bold;
+}
+
+.scoreboard td {
+	padding: 0.5em;
+}
+
+.quotes li {
+	display: block;
+	margin: 1em;
+	padding: 2em 0;
+	line-height: 150%;
+	font-size: 120%;
+	text-align: justify;
+}
+
+.quotes cite {
+	display: block;
+	float: right;
+	color: gray;
+}
+
+.quotes cite em {
+	font-style: normal;
+}
+
+.preview h1 {
+	font-size: 200%;
+}
+
+

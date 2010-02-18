@@ -1,7 +1,7 @@
 
 /* Defaults removed by reset */
 strong { font-weight: bold; }
-em, cite { font-style: oblique; }
+em, cite, address { font-style: italic; }
 del { text-decoration: line-through; }
 th { font-weight: normal; }
 
@@ -30,7 +30,7 @@ a {
 a:hover { text-decoration: underline; }
 a.more { font-weight: bold; }
 
-address { font-style: oblique; }
+mark { color: red; }
 
 /* header */
 
@@ -48,6 +48,16 @@ header h1 { /* logo */
 	overflow: hidden;
 	margin: 0 auto 1em auto;
 	clear: both;
+}
+
+#banner {
+	background-color: #333;
+	color: #eee;
+	padding: 0.5em;
+}
+
+#banner a {
+	color: navy;
 }
 
 header .ad { float: left; }
@@ -136,7 +146,7 @@ h1 {
 h2 { /* deck */
 	margin-bottom: 0.25em;
 	font-size: 150%;
-	font-style: oblique;
+	font-style: italic;
 }
 
 h3 {
@@ -144,20 +154,6 @@ h3 {
 	font-weight: bold;
 	font-size: 120%;
 	letter-spacing: 0.01em;
-}
-
-article p {
-	line-height: 175%;
-	padding-bottom: 1em;
-}
-
-article table td {
-	padding: 0.5em 1em 0.5em 0;
-}
-
-article section {
-	padding: 1em 0;
-	clear: both;
 }
 
 aside {
@@ -178,66 +174,6 @@ aside .archive img {
 	margin-top: 0.5em;
 }
 
-.copy {
-	margin: 0.5em 0;
-	font-size: 110%;
-}
-.copy p {
-	text-align: justify;
-	text-indent: 2em;
-	padding-bottom: 0.5em;
-}
-p.first { /* :first-child isn't adequate here */
-	text-indent: 0;
-}
-.drop { /* nor is :first-letter capable; might be several letters */
-	font: normal 6em/0.85em serif;
-	display: block;
-	float: left;
-}
-.preview .drop {
-	font: normal 3.8em/0.9em serif;
-}
-
-.byline, .legend ul {
-	font-family: Tahoma, sans-serif;
-	text-transform: uppercase;
-}
-.byline a, .legend ul a {
-	font-weight: bold;
-}
-.sources {
-	text-align: right;
-	font-style: oblique;
-}
-
-figure {
-	float: left;
-	margin: 1em 0.5em;
-}
-figure img {
-	border: 1px solid white;
-}
-figure p { /* cutline */
-	font-weight: bold;
-	margin-top: 0.5em;
-	text-align: justify;
-}
-figure p a {
-	font-weight: normal;
-}
-figure ul { /* credit */
-	text-align: right;
-}
-figure ul li {
-	font: normal 75%/100% Tahoma, sans-serif;
-	text-transform: uppercase;
-}
-
-.preview h1 {
-	font-size: 200%;
-}
-
 hr {
 	clear: both;
 	color: black;
@@ -255,7 +191,7 @@ hr {
 }
 #comments span { /* comment meta */
 	color: #bbb;
-	font-style: oblique;
+	font-style: italic;
 }
 #comments span em { font-style: normal; }
 #comments span a { font-style: normal; font-weight: bold; }
@@ -267,6 +203,16 @@ hr {
 	background-color: #111;
 }
 #comments div h3 { margin-top: 0; }
+
+#comments table li {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.kiwi label {
+	font-weight: bold;
+}
 
 input, textarea {
 	font-family: Georgia, serif;
