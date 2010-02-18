@@ -1,1 +1,1 @@
-<h3 id="{{ unit.id }}">{{ unit.title|safe }}</h3>
+<h3{% if unit.id %} id="{{ unit.id }}"{% endif %}>{{ unit.title|safe }}</h3>

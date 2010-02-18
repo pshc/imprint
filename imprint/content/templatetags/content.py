@@ -9,6 +9,14 @@ import subprocess
 
 register = template.Library()
 
+@register.simple_tag
+def dropcap(unit):
+    body = unit['body']
+    drop = unit.get('drop')
+    if not drop:
+        return body
+    return '<big>%s</big>%s' % (body[:drop], body[drop:])
+
 # Unit template cache
 UNIT_TEMPLATES = {}
 

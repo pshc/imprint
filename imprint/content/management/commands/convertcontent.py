@@ -92,13 +92,20 @@ def sane_unique_slugify(src, ids_already_used):
 def convert_copy(copy, contributors, ids_already_used):
     body = []
     bylines = copy.bylines
-    title = striptags(copy.title).strip()
-    if title:
-        if ids_already_used is not None:
-            id = sane_unique_slugify(title, ids_already_used)
-            body.append(dict(type='subhead', id=id, title=copy.title.strip()))
+    plain_title = striptags(copy.title).strip()
+    if plain_title:
+        title = copy.title.strip()
+        too_strong = re.match(r'<strong>(.*)</strong>$', title)
+        if too_strong:
+            title = too_strong.group(1).strip()
+        if not title:
+            pass
+        elif ids_already_used is not None:
+            id = sane_unique_slugify(plain_title, ids_already_used)
+            body.append(dict(type='subhead', id=id, title=title))
         else: # preview
-            body.append(dict(type='subhead', title=copy.title.strip()))
+            body.append(dict(type='subhead', title=title))
+
     for byline in filter(lambda b: not b.is_after_copy, bylines):
         slug = byline.contributor.slug
         contributors.add(slug)
@@ -115,6 +122,9 @@ def convert_copy(copy, contributors, ids_already_used):
         body.append(dict(type='with files from', sources=copy.sources))
     return body
 
+def remove_redundant_tags(text):
+    return re.sub(r'<(em|strong)>(\s*)</\1>', '\\2', text)
+
 def reformat_text(text):
     text = text.strip().replace('&nbsp;', ' ')
     paragraphs = []
@@ -124,14 +134,19 @@ def reformat_text(text):
             paragraphs.append(pieces[0])
             break
         before, opentag, para, endtag, text = [p.strip() for p in pieces]
-        if before:
+        if before and striptags(before).strip():
             paragraphs.append(before)
+        para = remove_redundant_tags(para)
+        if not striptags(para).strip():
+            continue
         if 'first' in opentag:
-            para = re.sub(r'<span\s+class="drop">([^<]+)</span>',
-                    '<big>\\1</big>', para)
-            paragraphs.append(dict(type='first', body=para))
-        else:
-            paragraphs.append(para)
+            drop = re.match(r'<span\s+class="drop">([^<]*)</span>(.*)$', para)
+            para = dict(type='first', body=para)
+            if drop:
+                letters = drop.group(1).strip()
+                para['drop'] = len(letters)
+                para['body'] = letters + drop.group(2)
+        paragraphs.append(para)
     return paragraphs
 
 def convert_image(image, filename, contributors):
