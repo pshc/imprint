@@ -30,7 +30,7 @@ class RenderUnitNode(template.Node):
         except template.VariableDoesNotExist:
             return ''
         if isinstance(unit, basestring):
-            return unit
+            return '\t<p>%s</p>\n' % unit
         # Figure out the unit's type
         type = None
         if isinstance(unit, dict):

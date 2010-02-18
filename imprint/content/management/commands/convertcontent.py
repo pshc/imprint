@@ -83,7 +83,7 @@ def convert_copy(copy, body, contributors, ids_already_used):
         body.append(dict(type='byline', contributor=slug,
                 position=byline.position))
 
-    body.append(reformat_text(copy.body))
+    body += reformat_text(copy.body)
 
     for byline in filter(lambda b: b.is_after_copy, bylines):
         slug = byline.contributor.slug
@@ -94,9 +94,22 @@ def convert_copy(copy, body, contributors, ids_already_used):
 
 def reformat_text(text):
     text = text.strip().replace('&nbsp;', ' ')
-    text = re.sub(r'<span\s+class="drop">([^<]+)</span>',
-            '<big>\\1</big>', text)
-    return text
+    paragraphs = []
+    while text:
+        pieces = re.split(r'(<p[^<]*>)(.+?)(</p>)', text, 1)
+        if len(pieces) == 1:
+            paragraphs.append(pieces[0])
+            break
+        before, opentag, para, endtag, text = [p.strip() for p in pieces]
+        if before:
+            paragraphs.append(before)
+        if 'first' in opentag:
+            para = re.sub(r'<span\s+class="drop">([^<]+)</span>',
+                    '<big>\\1</big>', para)
+            paragraphs.append(dict(type='first', body=para))
+        else:
+            paragraphs.append(para)
+    return paragraphs
 
 def convert_image(image, filename, body, contributors):
     from content.models import PHOTOGRAPHER, GRAPHIC_ARTIST
