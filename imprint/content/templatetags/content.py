@@ -9,13 +9,7 @@ import subprocess
 
 register = template.Library()
 
-@register.simple_tag
-def dropcap(unit):
-    body = unit['body']
-    drop = unit.get('drop')
-    if not drop:
-        return body
-    return '<big>%s</big>%s' % (body[:drop], body[drop:])
+# TODO: Some kind of @simple_contextual_tag
 
 # Unit template cache
 UNIT_TEMPLATES = {}
@@ -37,32 +31,65 @@ class RenderUnitNode(template.Node):
             unit = self.unit.resolve(context)
         except template.VariableDoesNotExist:
             return ''
-        if isinstance(unit, basestring):
-            return '<p>%s</p>\n' % unit
-        # Figure out the unit's type
-        type = None
-        if isinstance(unit, dict):
-            type = unit.get('type')
-        if not type:
+        return render_fragment(unit, context, is_paragraph=True)
+
+def render_fragment(frag, context, is_paragraph=False):
+    """Workhorse. Turns JSON into HTML."""
+    # If this is just a string or list of strings, take the easy way out
+    html = None
+    if isinstance(frag, basestring):
+        html = frag
+    elif isinstance(frag, list):
+        html = ''.join(render_fragment(f, context) for f in frag)
+    if html is not None:
+        return ('<p>%s</p>\n' % html) if is_paragraph else html
+    # Figure out the fragment's type
+    type = None
+    if isinstance(frag, dict):
+        type = frag.get('type')
+    if not type:
+        return ''
+    # Use the type to look up the appropriate template
+    if settings.DEBUG or type not in UNIT_TEMPLATES:
+        try:
+            path = 'content/unit_%s.html' % type.replace(' ', '_')
+            tmpl = template.loader.get_template(path)
+        except template.TemplateDoesNotExist as e:
+            tmpl = None
+        UNIT_TEMPLATES[type] = tmpl
+    else:
+        tmpl = UNIT_TEMPLATES[type]
+    if not tmpl:
+        return ''
+    # Render the obtained template (ignore `is_paragraph`)
+    context.push()
+    context['unit'] = frag
+    html = tmpl.render(context)
+    context.pop()
+    return html.rstrip()
+
+@register.tag
+def dropcap(parser, token):
+    try:
+        tag_name, unit = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, "dropcap takes one argument"
+    return DropCapNode(unit)
+
+class DropCapNode(template.Node):
+    def __init__(self, unit):
+        self.unit = template.Variable(unit)
+
+    def render(self, context):
+        try:
+            unit = self.unit.resolve(context)
+        except template.VariableDoesNotExist:
             return ''
-        # Use the type to look up the appropriate template
-        if settings.DEBUG or type not in UNIT_TEMPLATES:
-            try:
-                path = 'content/unit_%s.html' % type.replace(' ', '_')
-                tmpl = template.loader.get_template(path)
-            except template.TemplateDoesNotExist as e:
-                tmpl = None
-            UNIT_TEMPLATES[type] = tmpl
-        else:
-            tmpl = UNIT_TEMPLATES[type]
-        if not tmpl:
-            return ''
-        # Render the obtained template
-        context.push()
-        context['unit'] = unit
-        html = tmpl.render(context)
-        context.pop()
-        return html
+        body = render_fragment(unit['body'], context)
+        drop = unit.get('drop')
+        if not drop:
+            return body
+        return '<big>%s</big>%s' % (body[:drop], body[drop:])
 
 @register.tag
 def with_thumbnail(parser, token):

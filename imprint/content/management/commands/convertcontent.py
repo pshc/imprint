@@ -46,8 +46,7 @@ def convert_piece(piece, verbosity):
     preview = []
     for unit in piece.preview:
         if unit.is_copy:
-            preview += convert_copy(unit.copy, set(), None)
-            preview.append(dict(type='jump'))
+            preview += convert_copy(unit.copy, set(), None, preview=True)
         elif unit.is_image:
             base = os.path.basename(unit.image.image.name)
             fig = convert_image(unit.image, base, set())
@@ -59,7 +58,7 @@ def convert_piece(piece, verbosity):
             if unit.read_more:
                 preview.append(dict(type='jump'))
             elif unit.see_more:
-                preview.append(dict(type='jump', text='See more'))
+                preview.append(dict(type='jump', text='See&nbsp;more'))
     contributors = sorted(contributors)
     slug = piece.slug
     date = piece.issue.date.strftime('%Y-%m-%d')
@@ -89,7 +88,18 @@ def sane_unique_slugify(src, ids_already_used):
     ids_already_used.add(id)
     return id
 
-def convert_copy(copy, contributors, ids_already_used):
+def append_element(to, element, sep=''):
+    if isinstance(to, basestring):
+        return [to + sep, element]
+    elif isinstance(to, dict):
+        assert 'body' in to
+        to['body'] = append_element(to['body'], element, sep)
+        return to
+    elif isinstance(to, list):
+        return (to + [sep, element]) if sep else (to + [element])
+    assert False
+
+def convert_copy(copy, contributors, ids_already_used, preview=False):
     body = []
     bylines = copy.bylines
     plain_title = striptags(copy.title).strip()
@@ -100,7 +110,7 @@ def convert_copy(copy, contributors, ids_already_used):
             title = too_strong.group(1).strip()
         if not title:
             pass
-        elif ids_already_used is not None:
+        elif not preview:
             id = sane_unique_slugify(plain_title, ids_already_used)
             body.append(dict(type='subhead', id=id, title=title))
         else: # preview
@@ -112,6 +122,10 @@ def convert_copy(copy, contributors, ids_already_used):
         body.append(dict(type='byline', contributor=slug,
                 position=byline.position))
 
+    if preview:
+        prevs = reformat_text(copy.preview + '</p>')
+        prevs[-1] = append_element(prevs[-1], dict(type='jump'), sep=' ')
+        return body + prevs
     body += reformat_text(copy.body)
 
     for byline in filter(lambda b: b.is_after_copy, bylines):
