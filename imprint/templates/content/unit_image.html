@@ -1,10 +1,10 @@
 {% load content %}{% with_thumbnail unit object %}<figure style="width: {{ thumb_width }}px;">
 		<a href="{{ unit.filename }}"><img src="{{ thumb_src }}" /></a>
-		<div class="legend">{% if unit.credits %}
-		<ul>{% for credit in unit.credits %}
-			<li>{% ifequal credit.0 "courtesy" %}Courtesy {{ credit.1 }}{% else %}{% with credit.1 as object %}{% include "people/contributor_link.html" %}{% endwith %}{% endifequal %}</li>
-			{% endfor %}</ul>{% endif %}{% if unit.cutline %}
+		{% if unit.credits %}<ul>{% for credit in unit.credits %}
+			<li>{% ifequal credit.0 "courtesy" %}Courtesy {{ credit.1 }}
+			{% else %}{% with credit.1 as object %}{% include "people/contributor_link.html" %}{% endwith %}
+			{% endifequal %}</li>
+		{% endfor %}</ul>{% endif %}{% if unit.cutline %}
 		<p>{{ unit.cutline|safe }}{% if cutline_link %}
 		<a href="{{ image_page }}">[...]</a>{% endif %}</p>{% endif %}
-		</div>
 	</figure>{% endwith %}
