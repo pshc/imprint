@@ -459,16 +459,6 @@ def couchdb_reset(request):
     djcouch.server.delete(djcouch.DATABASE_NAME)
     return HttpResponse('Database %s deleted!' % djcouch.DATABASE_NAME)
 
-def reduce_sets(objs, keys):
-    sets = dict((k, set()) for k in keys)
-    for obj in objs:
-        for key, s in sets.iteritems():
-            s.update(obj.get(key, []))
-    return [sets[k] for k in keys]
-
-def by_slugs(cls, slugs):
-    return dict((s, cls.objects.get(slug=s)) for s in slugs)
-
 def with_article_context(func):
     @wraps(func)
     def decorated(request, *args, **kwargs):
@@ -480,10 +470,12 @@ def with_article_context(func):
             objs = c['articles']
         else:
             assert False, 'Expected article(s) in context'
-        srs, scs, cs = reduce_sets(objs, ('series','sections','contributors'))
-        c['series_map'] = by_slugs(Series, srs)
-        c['section_map'] = by_slugs(Section, scs)
-        c['contributor_map'] = by_slugs(Contributor, cs)
+        tags = set()
+        for obj in objs:
+            tags.update(obj['tags'])
+        # TODO: Bulk document API
+        db = djcouch.dbs['tags']
+        c['tag_map'] = dict((tag, db[tag]) for tag in tags)
         return c
     return decorated
 

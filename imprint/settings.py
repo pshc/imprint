@@ -2,7 +2,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-COUCHDB_DATABASES = ['imprint']
+COUCHDB_DATABASES = ['imprint', 'tags']
 COUCHDB_DEFAULT_DATABASE = 'imprint'
 
 APPEND_SLASH = True

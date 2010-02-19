@@ -33,33 +33,50 @@ def latest_issue(request):
 # By vol/issue: need to maintain a separate (date -> vol/issue) mapping
 # This trouble will probably go away if we move to a less issue-oriented format
 
-@renders('issues/new_section_detail.html')
+@renders('issues/tag_detail.html')
 @with_article_context
-def new_section_detail(request, y, m, d, pub, slug):
+def date_tag_detail(request, y, m, d, pub, slug):
     """
-    by_section = function(doc) {
-        for each (var s in doc.sections) {
-            emit([doc.publication, doc.date, s].join("."), doc);
+    articles_by_date_and_tag = function(doc) {
+        for each (var tag in doc.tags) {
+            emit([doc.publication, doc.date, tag].join("."), doc);
         }
     }
     """
     # old code
-    section = object = get_object_or_404(Section, slug=slug)
     try:
         issue = Issue.objects.get_by_date(y, m, d)
     except Issue.DoesNotExist:
         raise Http404
     # new code
+    tag = object = djcouch.get_document_or_404(slug, db='tags')
     key = '.'.join((pub, format_ymd(y, m, d), slug))
-    articles = [row.value for row in djcouch.view('by_section', key=key)]
-    if len(articles) == 1:
+    articles = [row.value
+            for row in djcouch.view('articles_by_date_and_tag', key=key)]
+    if object['type'] == 'section' and len(articles) == 1:
         pass # TODO: return redirect(pieces[0])
+    return locals()
+
+@renders('issues/tag_detail.html')
+@with_article_context
+def tag_detail(request, slug):
+    """
+    articles_by_tag = function(doc) {
+        for each (var tag in doc.tags) {
+            emit(tag, doc);
+        }
+    }
+    """
+    tag = object = djcouch.get_document_or_404(slug, db='tags')
+    articles = [row.value for row in djcouch.view('articles_by_tag', key=slug)]
+    if object['type'] == 'section' and len(articles) == 1:
+        pass # TODO
     return locals()
 
 @renders('issues/section_detail.html')
 def section_detail(request, y, m, d, slug):
     try:
-        return new_section_detail(request, y, m, d, 'imprint', slug)
+        return date_tag_detail(request, y, m, d, 'imprint', slug)
     except Http404:
         pass
     section = object = get_object_or_404(Section, slug=slug)
@@ -75,6 +92,10 @@ def section_detail(request, y, m, d, slug):
 # Handles any root-level slug; currently sections or series
 @renders('issues/section_detail.html')
 def area_detail(request, slug):
+    try:
+        return tag_detail(request, slug)
+    except Http404:
+        pass
     try:
         section = object = Section.objects.get(slug=slug)
         issue = Issue.objects.latest_issue()

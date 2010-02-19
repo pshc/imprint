@@ -27,19 +27,20 @@ article p {
 }
 
 .series {
-	float: right;
-}
-
-.series, .byline a {
 	font-weight: bold;
 	font-size: 110%;
 	display: block;
+	float: right;
 }
 
 .byline {
 	font-family: Tahoma, sans-serif;
 	text-transform: uppercase;
 	margin-bottom: 0.5em;
+}
+.byline a {
+	font-weight: bold;
+	display: block;
 }
 
 .sources {

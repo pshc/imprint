@@ -1,3 +1,2 @@
-{% load misc %}{% for slug in object.series %}{% lookup slug in series_map as series %}
-	<a href="{{ series.get_absolute_url }}" class="series">{{ series }}</a>{# TODO: contributors #}{% endlookup %}{% endfor %}
-
+{% load misc %}{% for slug in object.tags %}{% lookup slug in tag_map as series %}{% ifequal series.type "tag" %}
+	<a href="{{ series.get_absolute_url }}" class="series">{{ series }}</a>{# TODO: contributors #}{% endifequal %}{% endlookup %}{% endfor %}{# vi: set syntax=htmldjango: #}

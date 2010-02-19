@@ -1,0 +1,9 @@
+{% extends "issues/base_new.html" %}
+{% block title %}{{ object.name }} {% if issue %}- {{ issue.date|date }} {% endif %}- {{ site.name }}{% endblock %}
+{% block head %}
+	<link rel="alternate" type="application/rss+xml" title="Latest content from this {{ object.type }}" href="/feeds/{{ object.slug }}" />{% endblock %}
+{% load people %}
+{% block content %}
+	<h1>{{ object.name }}</h1>
+	{% for object in articles %}{% include "content/article_preview.html" %}{% endfor %}
+{% endblock %}

@@ -7,19 +7,18 @@ import os
 
 conversion_fields = [
     'issue', 'volume', 'publication',
-    'sections', 'series',
+    'tags',
     'headline', 'deck',
     'body', 'redirect_to', 'preview',
-    'contributors',
     'date', 'slug', 'is_live', '_id',
     ]
 
 def convert_piece(piece, verbosity):
     issue, volume = piece.issue.number, piece.issue.volume
     publication = 'imprint'
-    sections = [piece.section.slug]
+    tags = [piece.section.slug]
     if piece.series:
-        series = [piece.series.slug]
+        tags.append(piece.series.slug)
     if not piece.series or piece.series.name.lower() != piece.headline.lower():
         headline = piece.headline
     if piece.deck:
@@ -59,7 +58,7 @@ def convert_piece(piece, verbosity):
                 preview.append(dict(type='jump'))
             elif unit.see_more:
                 preview.append(dict(type='jump', text='See&nbsp;more'))
-    contributors = sorted(contributors)
+    tags += sorted(contributors)
     slug = piece.slug
     date = piece.issue.date.strftime('%Y-%m-%d')
     is_live = piece.is_live
@@ -225,18 +224,54 @@ def ensure_image_in_right_folder(filename, pub, volume, issue, verbosity):
 def article_id(data):
     return '%(publication)s.%(date)s.%(slug)s' % data
 
+def overwrite(db, id, data, verbosity):
+    try:
+        db[id] = data
+    except couchdb.http.ResourceConflict:
+        if verbosity:
+            print 'Overwriting', id
+        data['_rev'] = db[id]['_rev']
+        db[id] = data
+
 def create_document_from(piece, verbosity):
     from djcouch import db
     if verbosity:
         print 'Converting', piece.issue, '-', piece.slug
     data = convert_piece(piece, verbosity)
     id = article_id(data)
-    try:
-        db[id] = data
-    except couchdb.http.ResourceConflict:
-        print 'Overwriting', id
-        data['_rev'] = db[id]['_rev']
-        db[id] = data
+    overwrite(db, id, data, verbosity)
+
+def create_tag_documents(verbosity):
+    from issues.models import Section, Series
+    from people.models import Contributor
+    from djcouch import dbs
+    db = dbs['tags']
+    if verbosity:
+        print 'Converting sections, series, contributors into tags...'
+    for section in Section.objects.all():
+        if verbosity:
+            print 'Converting', section.name
+        data = dict(type='section', name=section.name)
+        overwrite(db, section.slug, data, verbosity)
+
+    for series in Series.objects.all():
+        if verbosity:
+            print 'Converting', series.name
+        data = dict(type='series', name=series.name)
+        cs = series.contributors.values_list('slug', flat=True)
+        if cs.count():
+            data['contributors'] = list(cs)
+        overwrite(db, series.slug, data, verbosity)
+
+    for c in Contributor.objects.all():
+        if verbosity:
+            print 'Converting', c.name
+        data = dict(type='contributor', name=c.name)
+        if c.email:
+            data['email'] = c.email
+        if c.position:
+            data['position'] = c.position
+        overwrite(db, c.slug, data, verbosity)
 
 class Command(base.NoArgsCommand):
     help = "Converts DB-backed Pieces to CouchDB."
@@ -246,5 +281,7 @@ class Command(base.NoArgsCommand):
             print 'Converting', Piece.objects.count(), 'pieces...'
         for piece in Piece.objects.all():
             create_document_from(piece, verbosity)
+        create_tag_documents(verbosity)
+            
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

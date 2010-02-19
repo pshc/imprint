@@ -1,6 +1,6 @@
 {% load comments content issues %}
 	<article class="preview">
-	{% if not series %}{% include "issues/series_list.html" %}{% endif %}
+	{% ifnotequal tag.type "series" %}{% include "issues/series_list.html" %}{% endifnotequal %}
 	{% if object.headline and not omit_headline %}<h1><a href="{{ object.absolute_url }}">{{ object.headline|safe }}</a></h1>{% endif %}
 	{% if object.deck %}<h2>{{ object.deck|safe }}</h2>{% endif %}
 	{% for unit in object.preview %}{% render_unit unit %}{% endfor %}

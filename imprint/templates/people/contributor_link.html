@@ -1,1 +1,1 @@
-{% load misc %}<a href="{% url contributor-detail object %}">{% lookup object in contributor_map as c %}{{ c }}{% endlookup %}</a>
+{% load misc %}<a href="{% url area-detail object %}">{% lookup object in tag_map as c %}{{ c.name }}{% endlookup %}</a>
