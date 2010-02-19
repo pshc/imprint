@@ -275,6 +275,22 @@ figure.feature {
 	font-style: normal;
 }
 
+.results {
+	border: 1px solid gray;
+	float: left;
+	margin: 1em;
+}
+.results th {
+	border-bottom: 1px solid gray;
+	padding: 0.5em;
+}
+.results th, .results .winner {
+	font-weight: bold;
+}
+.results td {
+	padding: 0.5em;
+}
+
 .preview h1 {
 	font-size: 200%;
 }
