@@ -8,8 +8,23 @@ import djcouch
 from issues.models import *
 from utils import renders, date_tuple, format_ymd
 
+@renders('issues/tag_detail.html')
+@with_article_context
+def new_issue_detail(request, publication, y, m, d):
+    id = '%s.%s' % (publication, format_ymd(y, m, d))
+    object = issue = djcouch.get_document_or_404(id, db='tags')
+    articles = [r.value for r in djcouch.view('articles_by_tag', key=id)]
+    template = 'issues/tag_detail.html'
+    return locals()
+
 @renders('issues/issue_detail.html')
 def issue_detail(request, y, m, d):
+    # new
+    try:
+        return new_issue_detail(request, 'imprint', y, m, d)
+    except Http404:
+        pass
+    # old
     try:
         object = issue = Issue.objects.get_by_date(y, m, d)
     except Issue.DoesNotExist:
@@ -26,12 +41,6 @@ def latest_issue(request):
     except Issue.DoesNotExist:
         pass
     return locals()
-
-# XXX: Should we do the lookup by date, or by vol/issue?
-# By date: means everything has to be published on the same day
-#          (will break web exclusives...)
-# By vol/issue: need to maintain a separate (date -> vol/issue) mapping
-# This trouble will probably go away if we move to a less issue-oriented format
 
 @renders('issues/tag_detail.html')
 @with_article_context

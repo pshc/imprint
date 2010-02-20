@@ -6,8 +6,7 @@ import re
 import os
 
 conversion_fields = [
-    'issue', 'volume', 'publication',
-    'tags',
+    'publication', 'tags',
     'headline', 'deck',
     'body', 'redirect_to', 'preview',
     'date', 'slug', 'is_live', '_id',
@@ -61,6 +60,7 @@ def convert_piece(piece, verbosity):
     tags += sorted(contributors)
     slug = piece.slug
     date = piece.issue.date.strftime('%Y-%m-%d')
+    tags.insert(0, '%s.%s' % (publication, date))
     is_live = piece.is_live
     # Okay, store everything in a CouchDB document
     ls = locals()
@@ -242,12 +242,25 @@ def create_document_from(piece, verbosity):
     overwrite(db, id, data, verbosity)
 
 def create_tag_documents(verbosity):
-    from issues.models import Section, Series
+    from issues.models import Issue, Section, Series
     from people.models import Contributor
     from djcouch import dbs
     db = dbs['tags']
     if verbosity:
-        print 'Converting sections, series, contributors into tags...'
+        print 'Converting issues, sections, series, contributors into tags...'
+    for issue in Issue.objects.all():
+        if verbosity:
+            print 'Converting', unicode(issue)
+        publication = 'imprint'
+        date = issue.date.strftime('%Y-%m-%d')
+        sections = [[s.section.slug, s.section_name]
+                for s in issue.nav_sections]
+        data = dict(type='issue', web=True, publication=publication,
+                date=date, number=issue.number, volume=issue.volume,
+                is_live=issue.is_live)
+        id = '%s.%s' % (publication, date)
+        overwrite(db, id, data, verbosity)
+
     for section in Section.objects.all():
         if verbosity:
             print 'Converting', section.name
@@ -282,6 +295,5 @@ class Command(base.NoArgsCommand):
         for piece in Piece.objects.all():
             create_document_from(piece, verbosity)
         create_tag_documents(verbosity)
-            
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
