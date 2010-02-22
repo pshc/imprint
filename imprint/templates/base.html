@@ -37,7 +37,10 @@
 {% include "google-custom-search.html" %}
 		</section>
 {% include "issues/sidebar.html" %}
-{% include "registration/sidebar.html" %}
+		{% if request.user.is_authenticated %}<section class="account">
+			<p>Logged in as {{ request.user }}</p>
+			<p>{% if request.user.is_staff %}<a href="{% url admin:index %}">Admin</a> | {% endif %}<a href="{% url admin:logout %}?next={{ request.path }}">Logout</a></p>
+		</section>{% endif %}
 		{% endblock %}
 		{% random_image_ad 2 %}
 		{% random_image_ad 3 %}

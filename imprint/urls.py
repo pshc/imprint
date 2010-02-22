@@ -13,8 +13,6 @@ feeds = {
 }
 
 urlpatterns = patterns('',
-    (r'^accounts/profile/$', 'imprint.views.account_profile'),
-    (r'^accounts/', include('django_authopenid.urls')),
     (r'^admin/content/piece/', include('content.admin_urls')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),

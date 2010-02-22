@@ -66,7 +66,6 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django_authopenid',
     'django_extensions',
     'imprint.advertising',
     'imprint.archive',
@@ -77,7 +76,6 @@ INSTALLED_APPS = (
     'imprint.static',
     'imprint.utils',
     'imprint.feds',
-    'registration',
 )
 
 from local_settings import *
