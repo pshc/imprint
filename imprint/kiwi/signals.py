@@ -13,6 +13,9 @@ def kiwi_verification(sender, comment, request, **kwargs):
             elif format == 'full':
                 comment.name = kiwi['name']
                 request.session['kiwi_name_pref'] = 'full'
+            elif format == 'middleinitials':
+                comment.name = kiwi['middleinitialsname']
+                request.session['kiwi_name_pref'] = 'middleinitials'
             else:
                 return False
             comment.email = kiwi['email']

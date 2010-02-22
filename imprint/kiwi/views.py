@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from xml.dom import minidom
 from urllib import urlencode
 from urllib2 import urlopen
+import re
 
 # Bleh, non-idempotent GETs. Well, Kiwi has to fix it, not us
 
@@ -77,8 +78,12 @@ def kiwi_postback(request):
     username = doc.attributes['username'].value
     info = get_kiwi_details(username)
     # "firstname" contains middle names; guess the first name
-    info['firstlastname'] = info['firstname'].split(' ', 1)[0] \
-            + ' ' + info['lastname']
+    if ' ' in info['firstname']:
+        last = info['lastname']
+        first, middle = info['firstname'].split(' ', 1)
+        info['firstlastname'] = '%s %s' % (first, last)
+        mi = [m[0]+'.' for m in re.split(r'[\s-]+', middle)]
+        info['middleinitialsname'] = ' '.join([first]+mi+[last])
     info['username'] = username
     request.session['kiwi_info'] = info
     return_to = request.session.get('kiwi_referer')
