@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
       $(this).find('div.inline-related').each(function(i) {
         var r = $(this);
         var f = function(t, nm) { return r.find(t+'[name$='+nm+']').val(); };
-        if (f('input','body') || f('input','image') || f('select','section')) {
+        if (f('textarea','body') || f('input','image') || f('select','section')) {
           r.find('input[id$=order]').val(i+1);
         }
       });

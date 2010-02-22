@@ -116,6 +116,7 @@ class PieceForm(forms.Form):
         self.is_ready = True # Since this is a multi-stage form, can we save?
         # Deal with filled-in units
         max_order = 0
+        orders_seen = set()
         for p in sorted(filter(self.is_unit, self.data), cmp=self.unit_cmp):
             attr = lambda s, d=None: self.data.get(p.replace('order', s), d)
             if attr('image') is not None:
@@ -129,6 +130,9 @@ class PieceForm(forms.Form):
                 continue
             unit.update(dict((field, attr(field, '')) for field in fields))
             order = int(attr('order'))
+            while order in orders_seen:
+                order += 1
+            orders_seen.add(order)
             max_order = max(order, max_order)
             unit.update({'order': order, 'name': 'unit%02d' % order})
             id = int(attr('id', 0))
