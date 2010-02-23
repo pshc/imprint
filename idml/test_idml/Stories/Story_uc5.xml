@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="6.0">
+	<Story Self="uc5" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection"/>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]" HyphenateLadderLimit="0" HyphenationZone="34" MaximumWordSpacing="200" MinimumWordSpacing="50" DesiredLetterSpacing="10" MaximumLetterSpacing="25" MinimumLetterSpacing="-5" KeepFirstLines="1" KeepLastLines="1" RuleAboveTint="100" RuleBelowTint="100">
+			<Properties>
+				<TabList type="list">
+					<ListItem type="record">
+						<Alignment type="enumeration">LeftAlign</Alignment>
+						<AlignmentCharacter type="string">.</AlignmentCharacter>
+						<Leader type="string"></Leader>
+						<Position type="unit">18</Position>
+					</ListItem>
+				</TabList>
+				<RuleAboveColor type="object">Color/Black</RuleAboveColor>
+				<RuleBelowColor type="object">Color/Black</RuleBelowColor>
+			</Properties>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FillColor="Color/u23d" PointSize="14" Capitalization="SmallCaps" AppliedLanguage="$ID/English: UK">
+				<Properties>
+					<Leading type="unit">14</Leading>
+					<AppliedFont type="string">Garamond</AppliedFont>
+				</Properties>
+				<Content> </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="14" Capitalization="SmallCaps" AppliedLanguage="$ID/English: UK">
+				<Properties>
+					<Leading type="unit">14</Leading>
+					<AppliedFont type="string">Garamond</AppliedFont>
+				</Properties>
+				<Content>Friday, October 23, 2009  </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="20" Capitalization="SmallCaps" AppliedLanguage="$ID/English: UK">
+				<Properties>
+					<Leading type="unit">14</Leading>
+					<AppliedFont type="string">Garamond</AppliedFont>
+				</Properties>
+				<Content>  </Content>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

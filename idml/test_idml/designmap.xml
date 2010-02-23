@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?aid style="50" type="document" readerVersion="6.0" featureSet="257" product="6.0(352)" ?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="6.0" Self="d" StoryList="uc5 udd uf5 u10e u126 u1ac u1c4 u1dc u1f4 u20c u225 u2d2 u328 u342 u360 u39a u3b4 u3cc u3e2 u410 u7c" ZeroPoint="0 0" ActiveLayer="ub1" CMYKProfile="U.S. Web Coated (SWOP) v2" RGBProfile="sRGB IEC61966-2.1" SolidColorIntent="UseColorSettings" AfterBlendingIntent="UseColorSettings" DefaultImageIntent="UseColorSettings" RGBPolicy="PreserveEmbeddedProfiles" CMYKPolicy="ConvertToWorkingSpace" AccurateLABSpots="false">
+	<Language Self="Language/$ID/English%3a UK" Name="$ID/English: UK" SingleQuotes="‘’" DoubleQuotes="“”" PrimaryLanguageName="$ID/English" SublanguageName="$ID/UK" Id="525" HyphenationVendor="Proximity" SpellingVendor="Proximity"/>
+	<Language Self="Language/$ID/English%3a USA" Name="$ID/English: USA" SingleQuotes="‘’" DoubleQuotes="“”" PrimaryLanguageName="$ID/English" SublanguageName="$ID/USA" Id="269" HyphenationVendor="Proximity" SpellingVendor="Proximity"/>
+	<idPkg:Graphic src="Resources/Graphic.xml"/>
+	<idPkg:Fonts src="Resources/Fonts.xml"/>
+	<MojikumiTable Self="MojikumiTable/$ID/kMojikumiDefaultName15" Name="$ID/kMojikumiDefaultName15"/>
+	<MojikumiTable Self="MojikumiTable/$ID/kMojikumiDefaultName16" Name="$ID/kMojikumiDefaultName16"/>
+	<idPkg:Styles src="Resources/Styles.xml"/>
+	<NumberingList Self="NumberingList/$ID/[Default]" Name="$ID/[Default]" ContinueNumbersAcrossStories="false" ContinueNumbersAcrossDocuments="false"/>
+	<NamedGrid Self="NamedGrid/$ID/[Page Grid]" Name="$ID/[Page Grid]">
+		<GridDataInformation FontStyle="Regular" PointSize="9.21259842519685" CharacterAki="0" LineAki="6.909448818897637" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter">
+			<Properties>
+				<AppliedFont type="string">Times New Roman</AppliedFont>
+			</Properties>
+		</GridDataInformation>
+	</NamedGrid>
+	<idPkg:Preferences src="Resources/Preferences.xml"/>
+	<MetadataPacketPreference>
+		<Properties>
+			<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.2-c063 53.352624, 2008/07/30-18:12:18        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:stMfs="http://ns.adobe.com/xap/1.0/sType/ManifestItem#"
+            xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#">
+         <xmpMM:InstanceID>xmp.iid:9D0468C2F1BFDE11BF37AE175743B327</xmpMM:InstanceID>
+         <xmpMM:DocumentID>adobe:docid:indd:310c15d0-bd62-11de-921e-fbfa7d76b3e5</xmpMM:DocumentID>
+         <xmpMM:RenditionClass>default</xmpMM:RenditionClass>
+         <xmpMM:OriginalDocumentID>adobe:docid:indd:310c15d0-bd62-11de-921e-fbfa7d76b3e5</xmpMM:OriginalDocumentID>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:9C0468C2F1BFDE11BF37AE175743B327</stEvt:instanceID>
+                  <stEvt:when>2009-10-23T12:33:26-04:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign 6.0</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:9D0468C2F1BFDE11BF37AE175743B327</stEvt:instanceID>
+                  <stEvt:when>2009-10-23T12:33:26-04:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe InDesign 6.0</stEvt:softwareAgent>
+                  <stEvt:changed>/metadata</stEvt:changed>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <xmpMM:Manifest>
+            <rdf:Bag>
+               <rdf:li rdf:parseType="Resource">
+                  <stMfs:linkForm>ReferenceStream</stMfs:linkForm>
+                  <stMfs:reference rdf:parseType="Resource">
+                     <stRef:instanceID>uuid:37FAE4E596BEDE11A86CC4BF1D5C7416</stRef:instanceID>
+                     <stRef:documentID>uuid:298F13B696BEDE11A86CC4BF1D5C7416</stRef:documentID>
+                  </stMfs:reference>
+                  <xmpMM:placedXResolution>300.00</xmpMM:placedXResolution>
+                  <xmpMM:placedYResolution>300.00</xmpMM:placedYResolution>
+                  <xmpMM:placedResolutionUnit>Inches</xmpMM:placedResolutionUnit>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stMfs:linkForm>ReferenceStream</stMfs:linkForm>
+                  <stMfs:reference rdf:parseType="Resource">
+                     <stRef:instanceID>uuid:678ba787-cdf1-4f06-9b00-000ff270276f</stRef:instanceID>
+                     <stRef:documentID>xmp.did:0180117407206811AB08ADE16C3A3592</stRef:documentID>
+                  </stMfs:reference>
+                  <xmpMM:placedXResolution>72.00</xmpMM:placedXResolution>
+                  <xmpMM:placedYResolution>72.00</xmpMM:placedYResolution>
+                  <xmpMM:placedResolutionUnit>Inches</xmpMM:placedResolutionUnit>
+               </rdf:li>
+            </rdf:Bag>
+         </xmpMM:Manifest>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpGImg="http://ns.adobe.com/xap/1.0/g/img/">
+         <xmp:CreateDate>2009-10-20T06:28:05Z</xmp:CreateDate>
+         <xmp:ModifyDate>2009-10-23T12:33:26-04:00</xmp:ModifyDate>
+         <xmp:MetadataDate>2009-10-23T12:33:26-04:00</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe InDesign 6.0</xmp:CreatorTool>
+         <xmp:Thumbnails>
+            <rdf:Alt>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpGImg:format>JPEG</xmpGImg:format>
+                  <xmpGImg:width>256</xmpGImg:width>
+                  <xmpGImg:height>256</xmpGImg:height>
+                  <xmpGImg:image>/9j/4AAQSkZJRgABAgEASABIAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABAASAAAAAEA&#xA;AQBIAAAAAQAB/+4AE0Fkb2JlAGSAAAAAAQUAArFD/9sAhAAKBwcHBwcKBwcKDgkJCQ4RDAsLDBEU&#xA;EBAQEBAUEQ8RERERDxERFxoaGhcRHyEhISEfKy0tLSsyMjIyMjIyMjIyAQsJCQ4MDh8XFx8rIh0i&#xA;KzIrKysrMjIyMjIyMjIyMjIyMjIyMjI+Pj4+PjJAQEBAQEBAQEBAQEBAQEBAQEBAQED/wAARCAEA&#xA;ALYDAREAAhEBAxEB/8QBogAAAAcBAQEBAQAAAAAAAAAABAUDAgYBAAcICQoLAQACAgMBAQEBAQAA&#xA;AAAAAAABAAIDBAUGBwgJCgsQAAIBAwMCBAIGBwMEAgYCcwECAxEEAAUhEjFBUQYTYSJxgRQykaEH&#xA;FbFCI8FS0eEzFmLwJHKC8SVDNFOSorJjc8I1RCeTo7M2F1RkdMPS4ggmgwkKGBmElEVGpLRW01Uo&#xA;GvLj88TU5PRldYWVpbXF1eX1ZnaGlqa2xtbm9jdHV2d3h5ent8fX5/c4SFhoeIiYqLjI2Oj4KTlJ&#xA;WWl5iZmpucnZ6fkqOkpaanqKmqq6ytrq+hEAAgIBAgMFBQQFBgQIAwNtAQACEQMEIRIxQQVRE2Ei&#xA;BnGBkTKhsfAUwdHhI0IVUmJy8TMkNEOCFpJTJaJjssIHc9I14kSDF1STCAkKGBkmNkUaJ2R0VTfy&#xA;o7PDKCnT4/OElKS0xNTk9GV1hZWltcXV5fVGVmZ2hpamtsbW5vZHV2d3h5ent8fX5/c4SFhoeIiY&#xA;qLjI2Oj4OUlZaXmJmam5ydnp+So6SlpqeoqaqrrK2ur6/9oADAMBAAIRAxEAPwDpnkz/AJQ/Qf8A&#xA;tm2f/JiPFU6xV2KuxV2KuxVZ60P+/F+8Yq160P8AvxfvGKu9aH/fi/eMVd60P+/F+8Yq71of9+L9&#xA;4xV3rQ/78X7xirvWh/34v3jFXetD/vxfvGKu9aH/AH4v3jFXetD/AL8X7xiq8EEVG4OKt4q7FXYq&#xA;7FXYq7FUl8mf8ofoP/bNs/8AkxHiqdYq7FXYq8d846bp3/K5fL0H1WL0rmCGWaPgvGRxLdDk60oT&#xA;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&#xA;N/6TIP8Aqpir/9k=</xmpGImg:image>
+               </rdf:li>
+            </rdf:Alt>
+         </xmp:Thumbnails>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>application/x-indesign</dc:format>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+            xmlns:xmpG="http://ns.adobe.com/xap/1.0/g/"
+            xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#">
+         <xmpTPg:Colorants>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>Black</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Process</xmpG:type>
+                  <xmpG:cyan>0</xmpG:cyan>
+                  <xmpG:magenta>0</xmpG:magenta>
+                  <xmpG:yellow>0</xmpG:yellow>
+                  <xmpG:black>100</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>Blue</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Process</xmpG:type>
+                  <xmpG:cyan>100</xmpG:cyan>
+                  <xmpG:magenta>100</xmpG:magenta>
+                  <xmpG:yellow>0</xmpG:yellow>
+                  <xmpG:black>0</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>C=0 M=0 Y=100 K=0</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Process</xmpG:type>
+                  <xmpG:cyan>0</xmpG:cyan>
+                  <xmpG:magenta>0</xmpG:magenta>
+                  <xmpG:yellow>100</xmpG:yellow>
+                  <xmpG:black>0</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>PANTONE 1807 M</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Spot</xmpG:type>
+                  <xmpG:cyan>0</xmpG:cyan>
+                  <xmpG:magenta>100</xmpG:magenta>
+                  <xmpG:yellow>96</xmpG:yellow>
+                  <xmpG:black>28.000000000000004</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>PANTONE 1807 M 2</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Spot</xmpG:type>
+                  <xmpG:cyan>0</xmpG:cyan>
+                  <xmpG:magenta>100</xmpG:magenta>
+                  <xmpG:yellow>96.00070118904114</xmpG:yellow>
+                  <xmpG:black>27.99989879131317</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>Paper</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Process</xmpG:type>
+                  <xmpG:cyan>0</xmpG:cyan>
+                  <xmpG:magenta>0</xmpG:magenta>
+                  <xmpG:yellow>0</xmpG:yellow>
+                  <xmpG:black>0</xmpG:black>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:swatchName>Registration</xmpG:swatchName>
+                  <xmpG:mode>CMYK</xmpG:mode>
+                  <xmpG:type>Process</xmpG:type>
+                  <xmpG:cyan>100</xmpG:cyan>
+                  <xmpG:magenta>100</xmpG:magenta>
+                  <xmpG:yellow>100</xmpG:yellow>
+                  <xmpG:black>100</xmpG:black>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpTPg:Colorants>
+         <xmpTPg:Fonts>
+            <rdf:Bag>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TimesNewRomanPSMT</stFnt:fontName>
+                  <stFnt:fontFamily>Times New Roman</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>TimesNewRomanPSMTVersion 5.05</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>times.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TimesNewRomanPS-ItalicMT</stFnt:fontName>
+                  <stFnt:fontFamily>Times New Roman</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>TimesNewRomanPS-ItalicMTVersion 5.05</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>timesi.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TimesNewRomanPS-BoldMT</stFnt:fontName>
+                  <stFnt:fontFamily>Times New Roman</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>TimesNewRomanPS-BoldMTVersion 5.05</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>timesbd.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TimesNewRomanPS-BoldItalicMT</stFnt:fontName>
+                  <stFnt:fontFamily>Times New Roman</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>TimesNewRomanPS-BoldItalicMTVersion 5.05</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>timesbi.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-LightCond</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Light Condensed</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-LightCondVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-LightCondIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Light Condensed Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-LightCondItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Cond</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Condensed</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-CondVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Cond.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-CondIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Condensed Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-CondItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-CondIt.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-SemiboldCond</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Semibold Condensed</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-SemiboldCondVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-SemiboldCondIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Semibold Condensed Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-SemiboldCondItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BoldCond</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Condensed</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BoldCondVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-BoldCond.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BoldCondIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Condensed Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BoldCondItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-BoldCondIt.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BlackCond</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Black Condensed</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BlackCondVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BlackCondIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Black Condensed Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BlackCondItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Light</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Light</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-LightVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-LightIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Light Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-LightItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Regular</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-RegularVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-It</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-ItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-It.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Semibold</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Semibold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-SemiboldVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Semibold.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-SemiboldIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Semibold Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-SemiboldItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-SemiboldIt.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BoldVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Bold.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BoldIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BoldItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-BoldIt.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Black</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Black</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BlackVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-BlackIt</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Black Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>MyriadPro-BlackItVersion 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>Garamond</stFnt:fontName>
+                  <stFnt:fontFamily>Garamond</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>GaramondVersion 2.30</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GARA.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>Garamond-Italic</stFnt:fontName>
+                  <stFnt:fontFamily>Garamond</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>Garamond-ItalicVersion 2.30</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GARAIT.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>Garamond-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Garamond</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>Garamond-BoldVersion 2.30</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GARABD.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>ZurichBT-Roman</stFnt:fontName>
+                  <stFnt:fontFamily>Zurich BT</stFnt:fontFamily>
+                  <stFnt:fontFace>Roman</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>ZurichBT-Romanmfgpctt-v4.4 Dec 23 1998</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>ZURCHN.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>ZurichBT-Italic</stFnt:fontName>
+                  <stFnt:fontFamily>Zurich BT</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>ZurichBT-Italicmfgpctt-v4.4 Dec 23 1998</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>ZURCHI.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>ZurichBT-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Zurich BT</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>ZurichBT-Boldmfgpctt-v4.4 Dec 23 1998</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>ZURCHB.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>ZurichBT-BoldItalic</stFnt:fontName>
+                  <stFnt:fontFamily>Zurich BT</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Italic</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>ZurichBT-BoldItalicmfgpctt-v4.4 Dec 23 1998</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>ZURCHBI.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TrajanPro-Regular</stFnt:fontName>
+                  <stFnt:fontFamily>Trajan Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>TrajanPro-RegularVersion 2.015;PS 002.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>TrajanPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>TrajanPro-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Trajan Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeCFF</stFnt:fontType>
+                  <stFnt:versionString>TrajanPro-BoldVersion 2.015;PS 002.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>TrajanPro-Bold.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>Swiss911BT-ExtraCompressed</stFnt:fontName>
+                  <stFnt:fontFamily>Swiss911 XCm BT</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>Swiss911BT-ExtraCompressedmfgpctt-v4.4 Dec 29 1998</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>SWZ911XC.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>PalatinoLinotype-Roman</stFnt:fontName>
+                  <stFnt:fontFamily>Palatino Linotype</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>PalatinoLinotype-RomanVersion 5.00</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>pala.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>PalatinoLinotype-Italic</stFnt:fontName>
+                  <stFnt:fontFamily>Palatino Linotype</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>PalatinoLinotype-ItalicVersion 5.00</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>palai.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>PalatinoLinotype-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Palatino Linotype</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>PalatinoLinotype-BoldVersion 5.00</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>palab.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>PalatinoLinotype-BoldItalic</stFnt:fontName>
+                  <stFnt:fontFamily>Palatino Linotype</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>PalatinoLinotype-BoldItalicVersion 5.00</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>palabi.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>GillSansMT</stFnt:fontName>
+                  <stFnt:fontFamily>Gill Sans MT</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>GillSansMTVersion 1.65</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GIL____.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>GillSansMT-Italic</stFnt:fontName>
+                  <stFnt:fontFamily>Gill Sans MT</stFnt:fontFamily>
+                  <stFnt:fontFace>Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>GillSansMT-ItalicVersion 1.65</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GILI___.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>GillSansMT-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Gill Sans MT</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>GillSansMT-BoldVersion 1.65</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GILB___.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>GillSansMT-BoldItalic</stFnt:fontName>
+                  <stFnt:fontFamily>Gill Sans MT</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold Italic</stFnt:fontFace>
+                  <stFnt:fontType>OpenTypeTT</stFnt:fontType>
+                  <stFnt:versionString>GillSansMT-BoldItalicVersion 1.65</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>GILBI__.TTF</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>ArialUnicodeMS</stFnt:fontName>
+                  <stFnt:fontFamily>Arial Unicode MS</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>ArialUnicodeMSVersion 0.84</stFnt:versionString>
+                  <stFnt:composite>false</stFnt:composite>
+                  <stFnt:fontFileName>ARIALUNI.TTF</stFnt:fontFileName>
+               </rdf:li>
+            </rdf:Bag>
+         </xmpTPg:Fonts>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:idPriv="http://ns.adobe.com/xmp/InDesign/private">
+         <idPriv:DocChangeCount>8</idPriv:DocChangeCount>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+		</Properties>
+	</MetadataPacketPreference>
+	<ConditionalTextPreference ShowConditionIndicators="ShowIndicators" ActiveConditionSet="n"/>
+	<idPkg:Tags src="XML/Tags.xml"/>
+	<Layer Self="u99" Name="Layer 1" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">LightBlue</LayerColor>
+		</Properties>
+	</Layer>
+	<Layer Self="ub1" Name="Master Default" Visible="true" Locked="false" IgnoreWrap="false" ShowGuides="true" LockGuides="false" UI="true" Expendable="true" Printable="true">
+		<Properties>
+			<LayerColor type="enumeration">Red</LayerColor>
+		</Properties>
+	</Layer>
+	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_ua3.xml"/>
+	<idPkg:MasterSpread src="MasterSpreads/MasterSpread_u1a1.xml"/>
+	<idPkg:Spread src="Spreads/Spread_u9c.xml"/>
+	<Section Self="ua2" Length="1" Name="" PageNumberStyle="Arabic" ContinueNumbering="false" IncludeSectionPrefix="false" PageNumberStart="1" Marker="" PageStart="ub0" SectionPrefix=""/>
+	<DocumentUser Self="dDocumentUser0" UserName="$ID/Unknown User Name">
+		<Properties>
+			<UserColor type="enumeration">Gold</UserColor>
+		</Properties>
+	</DocumentUser>
+	<CrossReferenceFormat Self="u45c" Name="Full Paragraph &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u45cBuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45cBuildingBlock1" BlockType="FullParagraphBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45cBuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45cBuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u45d" Name="Full Paragraph" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u45dBuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45dBuildingBlock1" BlockType="FullParagraphBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45dBuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u45e" Name="Paragraph Text &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u45eBuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45eBuildingBlock1" BlockType="ParagraphTextBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45eBuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45eBuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u45f" Name="Paragraph Text" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u45fBuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45fBuildingBlock1" BlockType="ParagraphTextBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u45fBuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u460" Name="Paragraph Number &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u460BuildingBlock0" BlockType="ParagraphNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u460BuildingBlock1" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText=" on page " AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u460BuildingBlock2" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u461" Name="Paragraph Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u461BuildingBlock0" BlockType="ParagraphNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u462" Name="Text Anchor Name &amp; Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u462BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u462BuildingBlock1" BlockType="BookmarkNameBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u462BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot; on page " AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u462BuildingBlock3" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u463" Name="Text Anchor Name" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u463BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u463BuildingBlock1" BlockType="BookmarkNameBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u463BuildingBlock2" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="&quot;" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<CrossReferenceFormat Self="u464" Name="Page Number" AppliedCharacterStyle="n">
+		<BuildingBlock Self="u464BuildingBlock0" BlockType="CustomStringBuildingBlock" AppliedCharacterStyle="n" CustomText="page " AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+		<BuildingBlock Self="u464BuildingBlock1" BlockType="PageNumberBuildingBlock" AppliedCharacterStyle="n" CustomText="$ID/" AppliedDelimiter="$ID/" IncludeDelimiter="false"/>
+	</CrossReferenceFormat>
+	<idPkg:BackingStory src="XML/BackingStory.xml"/>
+	<idPkg:Story src="Stories/Story_u410.xml"/>
+	<idPkg:Story src="Stories/Story_u3e2.xml"/>
+	<idPkg:Story src="Stories/Story_u3cc.xml"/>
+	<idPkg:Story src="Stories/Story_u3b4.xml"/>
+	<idPkg:Story src="Stories/Story_u39a.xml"/>
+	<idPkg:Story src="Stories/Story_u360.xml"/>
+	<idPkg:Story src="Stories/Story_u342.xml"/>
+	<idPkg:Story src="Stories/Story_u328.xml"/>
+	<idPkg:Story src="Stories/Story_u2d2.xml"/>
+	<idPkg:Story src="Stories/Story_u225.xml"/>
+	<idPkg:Story src="Stories/Story_u20c.xml"/>
+	<idPkg:Story src="Stories/Story_u1f4.xml"/>
+	<idPkg:Story src="Stories/Story_u1dc.xml"/>
+	<idPkg:Story src="Stories/Story_u1c4.xml"/>
+	<idPkg:Story src="Stories/Story_u1ac.xml"/>
+	<idPkg:Story src="Stories/Story_u126.xml"/>
+	<idPkg:Story src="Stories/Story_u10e.xml"/>
+	<idPkg:Story src="Stories/Story_uf5.xml"/>
+	<idPkg:Story src="Stories/Story_udd.xml"/>
+	<idPkg:Story src="Stories/Story_uc5.xml"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Symbol" Name="$ID/kIndexGroup_Symbol" Include="true" Priority="0" HeaderType="Nothing"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Alphabet" Name="$ID/kIndexGroup_Alphabet" Include="true" Priority="1" HeaderType="BasicLatin"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Numeric" Name="$ID/kIndexGroup_Numeric" Include="false" Priority="2" HeaderType="Nothing"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_GreekAlphabet" Name="$ID/kWRIndexGroup_GreekAlphabet" Include="false" Priority="3" HeaderType="Nothing"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkWRIndexGroup_CyrillicAlphabet" Name="$ID/kWRIndexGroup_CyrillicAlphabet" Include="false" Priority="4" HeaderType="Russian"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Kana" Name="$ID/kIndexGroup_Kana" Include="false" Priority="5" HeaderType="HiraganaAll"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Chinese" Name="$ID/kIndexGroup_Chinese" Include="false" Priority="6" HeaderType="ChinesePinyin"/>
+	<IndexingSortOption Self="dIndexingSortOptionnkIndexGroup_Korean" Name="$ID/kIndexGroup_Korean" Include="false" Priority="7" HeaderType="KoreanConsonant"/>
+	<ABullet Self="dABullet0" CharacterType="UnicodeOnly" CharacterValue="8226">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet1" CharacterType="UnicodeOnly" CharacterValue="42">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet2" CharacterType="UnicodeOnly" CharacterValue="9674">
+		<Properties>
+			<BulletsFont type="string">$ID/</BulletsFont>
+			<BulletsFontStyle type="string">$ID/</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet3" CharacterType="UnicodeWithFont" CharacterValue="187">
+		<Properties>
+			<BulletsFont type="string">Myriad Pro</BulletsFont>
+			<BulletsFontStyle type="string">$ID/Regular</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<ABullet Self="dABullet4" CharacterType="GlyphWithFont" CharacterValue="630">
+		<Properties>
+			<BulletsFont type="string">Adobe Jenson Pro</BulletsFont>
+			<BulletsFontStyle type="string">$ID/Regular</BulletsFontStyle>
+		</Properties>
+	</ABullet>
+	<Assignment Self="uaa" Name="$ID/UnassignedInCopy" UserName="$ID/" ExportOptions="AssignedSpreads" IncludeLinksWhenPackage="true" FilePath="$ID/">
+		<Properties>
+			<FrameColor type="enumeration">Nothing</FrameColor>
+		</Properties>
+	</Assignment>
+</Document>

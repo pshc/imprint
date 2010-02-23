@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="6.0">
+	<Story Self="u1f4" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection"/>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Ads">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="125" Tracking="15">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>I</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="100" Tracking="35">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>m</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="100" Tracking="-10">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>p</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="100" Tracking="125">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>r</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="100" Tracking="5">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>i</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" PointSize="100" Tracking="20">
+				<Properties>
+					<AppliedFont type="string">Trajan Pro</AppliedFont>
+				</Properties>
+				<Content>nt</Content>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

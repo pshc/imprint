@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="6.0">
+	<Story Self="u342" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection"/>
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Byline name">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content>Brent Golem</Content>
+				<Br/>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Byline title">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content>sports and living editor</Content>
+				<Br/>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Copy\%3a first paragraph">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" Tracking="-25">
+				<Br/>
+				<Content>Waterloo was able to successfully defend their Naismith title from last year. This past weekend was the first time the Warriors had earned back-to-back Naismith champion status since 1985, when the Warriors won three times in a row. </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Br/>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Copy\%3a regular">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content>The Warriors men’s basketball team had a strong pre-season last year when they won Naismith and had the tournament’s MVP,  in point guard Luke Kieswetter. The Warriors’ season was a rollercoaster, but they found their footing post-season last year even though they eventually came up short in the OUA West semi-finals against Western. The team led for the first half before running out of steam and succumbing to fatigue. Last season gave them a taste of success and their motivation was quite apparent as the Warriors came back onto the court and dominated their Naismith tournament.</Content>
+				<Br/>
+				<Content>The team has worked incredibly hard in the off-season, and the returning veteran core of players of fourth and fifth years have come back in better shape with more experience. The Warriors showed their defensive prowess by holding all three of their Naismith opponents to under 60 points per game, while their offense exploded for 74 points per game.</Content>
+				<Br/>
+				<Content>Warrior Matt Hayes was named this year’s Naismith MVP as he led the team with 26 rebounds and 5 blocks, and added 19 points over the three games.</Content>
+				<Br/>
+				<Content>“Winning the MVP was a really big moment in my career. Obviously winning the Naismith was a far greater success, but taking home the MVP was really special looking back at how my career has progressed,” Hayes said. “Coming in as a tall, awkward, lanky kid from Midland, it’s been a long road of learning the game and developing as a player. This award is a great reminder of how far I’ve come in my career, but I hope there’s much more to come this year.”</Content>
+				<Br/>
+				<Content>Power forward Ben Frisbey was also honoured for his great play by being named to the Naismith All-star team. </Content>
+				<Br/>
+				<Content>That being said, everyone who watched the games realized that the tournament win was a team effort. There was no clear dominating Warriors player that teams could cover. Teams tried to use a zone defense to clog up the key and stop Hayes from getting the ball, but that just led to the other Warriors hitting shots from mid-range and behind the three-point line to take the lead in games. Point guard David Burnett, who is the all-time Waterloo assist record holder, led the offense well as he averaged over six assists per game with 19 in the tournament.</Content>
+				<Br/>
+				<Content>Spectators also saw the inspiring defensive effort of the Warriors. It was rare that an opponent had the ball without also having a hand in their face. The opponent’s guards could not bring the ball down the court without feeling point guard David Burnett or Luke Kieswetter breathe on them. </Content>
+				<Br/>
+				<Content>The stats of the tournament speak for themselves. The Warriors out-bounded their opponents in every game, and out-shot them as well. It is clear that this team is deadly at either end of the court.</Content>
+				<Br/>
+				<Content>“My hopes have been confirmed about this team,” coach Tom Kieswetter told </Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Italic">
+				<Content>Imprint</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Content> after the championship win. “We’ve suffered through a losing season [two seasons ago]; we turned it around last year; and now we’re ready for success. We’ve worked really hard and we’re ready for the pay-off.”</Content>
+				<Br/>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Properties>
+					<Leading type="unit">10</Leading>
+				</Properties>
+				<Content>The pay-off coach Kieswetter is referring to is post-season success, and every player on this team has the same goal. “Back in August at training camp our team sat down together and on a piece of paper we all wrote down what the team’s goal for the season should be,” co-captain point guard David Burnett explained to</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Italic">
+				<Properties>
+					<Leading type="unit">10</Leading>
+				</Properties>
+				<Content> Imprint</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Properties>
+					<Leading type="unit">10</Leading>
+				</Properties>
+				<Content>. “Every player wrote ‘national championship’. We recognized the steps to get there are just as important as the final result but every player had the same final goal.” </Content>
+				<Br/>
+				<Content>With the Warriors’ strong Naismith showing there is no doubt that the team will have the opportunity to try, as this team is destined for the playoffs. </Content>
+				<Br/>
+				<Br/>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+		<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/jump\%3a See WORD, page X">
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Properties>
+					<Leading type="unit">10</Leading>
+				</Properties>
+				<Content>			</Content>
+			</CharacterStyleRange>
+			<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]">
+				<Properties>
+					<Leading type="unit">9</Leading>
+				</Properties>
+				<Content>See NAISMITH, page 30</Content>
+			</CharacterStyleRange>
+		</ParagraphStyleRange>
+	</Story>
+</idPkg:Story>

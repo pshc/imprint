@@ -1,0 +1,1383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Spread xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="6.0">
+	<Spread Self="u9c" PageTransitionType="None" PageTransitionDirection="NotApplicable" PageTransitionDuration="Medium" FlattenerOverride="Default" ShowMasterItems="true" PageCount="1" BindingLocation="0" AllowPageShuffle="true" ItemTransform="1 0 0 1 0 0">
+		<FlattenerPreference LineArtAndTextResolution="300" GradientAndMeshResolution="150" ClipComplexRegions="false" ConvertAllStrokesToOutlines="false" ConvertAllTextToOutlines="false">
+			<Properties>
+				<RasterVectorBalance type="double">50</RasterVectorBalance>
+			</Properties>
+		</FlattenerPreference>
+		<Page Self="ub0" Name="1" AppliedTrapPreset="TrapPreset/$ID/kDefaultTrapStyleName" AppliedMaster="u1a1" OverrideList="u1a9 uc2 u1c1 uda u1d9 uf2 u1f1 u10a u209 u123 u221 u13b u23a u19e u23b u19f u23c u1a0 u222 n" TabOrder="" GridStartingPoint="TopOutside" UseMasterGrid="true">
+			<Properties>
+				<Descriptor type="list">
+					<ListItem type="string"></ListItem>
+					<ListItem type="enumeration">Arabic</ListItem>
+					<ListItem type="boolean">false</ListItem>
+					<ListItem type="boolean">false</ListItem>
+					<ListItem type="long">1</ListItem>
+					<ListItem type="string"></ListItem>
+				</Descriptor>
+			</Properties>
+			<MarginPreference ColumnCount="1" ColumnGutter="14.15" Top="36" Bottom="36" Left="36" Right="36" ColumnDirection="Horizontal" ColumnsPositions="0 747"/>
+			<Guide Self="u40b" Orientation="Vertical" Location="779.4" FitToPage="true" ViewThreshold="5" Locked="false" ItemLayer="ub1" PageIndex="1">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u1a0" Orientation="Horizontal" Location="174" FitToPage="false" ViewThreshold="5" Locked="false" ItemLayer="ub1" PageIndex="0">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u19f" Orientation="Vertical" Location="664" FitToPage="false" ViewThreshold="5" Locked="false" ItemLayer="ub1" PageIndex="0">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<Guide Self="u19e" Orientation="Vertical" Location="150.5" FitToPage="false" ViewThreshold="5" Locked="false" ItemLayer="ub1" PageIndex="0">
+				<Properties>
+					<GuideColor type="enumeration">Cyan</GuideColor>
+				</Properties>
+			</Guide>
+			<GridDataInformation FontStyle="Regular" PointSize="9.21259842519685" CharacterAki="0" LineAki="6.909448818897637" HorizontalScale="100" VerticalScale="100" LineAlignment="LeftOrTopLineJustify" GridAlignment="AlignEmCenter" CharacterAlignment="AlignEmCenter"/>
+		</Page>
+		<TextFrame Self="uc2" ParentStory="uc5" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 578.7797619047619 -311.6761904761905">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-436.2797619047619 -127.52380952380949" LeftDirection="-436.2797619047619 -127.52380952380949" RightDirection="-436.2797619047619 -127.52380952380949"/>
+							<PathPointType Anchor="-436.2797619047619 -106.8571428571428" LeftDirection="-436.2797619047619 -106.8571428571428" RightDirection="-436.2797619047619 -106.8571428571428"/>
+							<PathPointType Anchor="164.22023809523807 -106.8571428571428" LeftDirection="164.22023809523807 -106.8571428571428" RightDirection="164.22023809523807 -106.8571428571428"/>
+							<PathPointType Anchor="164.22023809523807 -127.52380952380949" LeftDirection="164.22023809523807 -127.52380952380949" RightDirection="164.22023809523807 -127.52380952380949"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnFixedWidth="600.5"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="uda" ParentStory="udd" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 590.5489926739926 -358.3964285714285">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-84.77976190476187 -82.375" LeftDirection="-84.77976190476187 -82.375" RightDirection="-84.77976190476187 -82.375"/>
+							<PathPointType Anchor="-84.77976190476187 -62.0625" LeftDirection="-84.77976190476187 -62.0625" RightDirection="-84.77976190476187 -62.0625"/>
+							<PathPointType Anchor="88.82023809523815 -62.0625" LeftDirection="88.82023809523815 -62.0625" RightDirection="88.82023809523815 -62.0625"/>
+							<PathPointType Anchor="88.82023809523815 -82.375" LeftDirection="88.82023809523815 -82.375" RightDirection="88.82023809523815 -82.375"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnFixedWidth="173.60000000000002" VerticalJustification="CenterAlign"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="uf2" ParentStory="uf5" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 446.171176007444 -360.3964285714285">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-72.67117600744398 -79.375" LeftDirection="-72.67117600744398 -79.375" RightDirection="-72.67117600744398 -79.375"/>
+							<PathPointType Anchor="-72.67117600744398 -60.041666666666686" LeftDirection="-72.67117600744398 -60.041666666666686" RightDirection="-72.67117600744398 -60.041666666666686"/>
+							<PathPointType Anchor="103.67339542112738 -60.041666666666686" LeftDirection="103.67339542112738 -60.041666666666686" RightDirection="103.67339542112738 -60.041666666666686"/>
+							<PathPointType Anchor="103.67339542112738 -79.375" LeftDirection="103.67339542112738 -79.375" RightDirection="103.67339542112738 -79.375"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnFixedWidth="176.34457142857136" VerticalJustification="CenterAlign"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u10a" ParentStory="u10e" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 403.05885714285705 -461">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-336.5 -79" LeftDirection="-336.5 -79" RightDirection="-336.5 -79"/>
+							<PathPointType Anchor="-336.5 30.5" LeftDirection="-336.5 30.5" RightDirection="-336.5 30.5"/>
+							<PathPointType Anchor="336.5 30.5" LeftDirection="336.5 30.5" RightDirection="336.5 30.5"/>
+							<PathPointType Anchor="336.5 -79" LeftDirection="336.5 -79" RightDirection="336.5 -79"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="673"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u123" ParentStory="u126" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1.1320240128535435 0 0 1.132024012853544 386.9001215008781 -525.6188316992038">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-255.2436363636363 -13.48531428571431" LeftDirection="-255.2436363636363 -13.48531428571431" RightDirection="-255.2436363636363 -13.48531428571431"/>
+							<PathPointType Anchor="-255.2436363636363 13.48531428571431" LeftDirection="-255.2436363636363 13.48531428571431" RightDirection="-255.2436363636363 13.48531428571431"/>
+							<PathPointType Anchor="275.0745454545455 13.48531428571431" LeftDirection="275.0745454545455 13.48531428571431" RightDirection="275.0745454545455 13.48531428571431"/>
+							<PathPointType Anchor="275.0745454545455 -13.48531428571431" LeftDirection="275.0745454545455 -13.48531428571431" RightDirection="275.0745454545455 -13.48531428571431"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="530.3181818181818"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<GraphicLine Self="u13b" ContentType="Unassigned" StrokeWeight="3" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Graphics Frame]" ItemTransform="1 0 0 1 409.5 0">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="-373.5 -415.6666666666667" LeftDirection="-373.5 -415.6666666666667" RightDirection="-373.5 -415.6666666666667"/>
+							<PathPointType Anchor="373.5 -415.6666666666667" LeftDirection="373.5 -415.6666666666667" RightDirection="373.5 -415.6666666666667"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<Rectangle Self="u2bf" StoryTitle="$ID/" ContentType="GraphicType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 409.25 467.33333333333326">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-371.25 -72" LeftDirection="-371.25 -72" RightDirection="-371.25 -72"/>
+							<PathPointType Anchor="-371.25 72" LeftDirection="-371.25 72" RightDirection="-371.25 72"/>
+							<PathPointType Anchor="371.25 72" LeftDirection="371.25 72" RightDirection="371.25 72"/>
+							<PathPointType Anchor="371.25 -72" LeftDirection="371.25 -72" RightDirection="371.25 -72"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+				<ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false" ContourPathName="$ID/"/>
+			</TextWrapPreference>
+			<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+			<FrameFittingOption LeftCrop="0" TopCrop="0" RightCrop="0" BottomCrop="0" FittingOnEmptyFrame="None" FittingAlignment="TopLeftAnchor"/>
+			<PDF Self="u489" GrayVectorPolicy="IgnoreAll" RGBVectorPolicy="HonorAllProfiles" CMYKVectorPolicy="HonorAllProfiles" LocalDisplaySetting="Default" ImageTypeName="$ID/Adobe Portable Document Format (PDF)" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 -371.25 -72">
+				<Properties>
+					<GraphicBounds Left="0" Top="0" Right="742.5" Bottom="144"/>
+				</Properties>
+				<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+					<Properties>
+						<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+					</Properties>
+					<ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false" ContourPathName="$ID/"/>
+				</TextWrapPreference>
+				<PDFAttribute PageNumber="1" PDFCrop="CropPDF" TransparentBackground="true"/>
+				<MetadataPacketPreference>
+					<Properties>
+						<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.2-c063 53.352624, 2008/07/30-18:12:18        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>application/pdf</dc:format>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">imprint-0129</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpGImg="http://ns.adobe.com/xap/1.0/g/img/">
+         <xmp:CreatorTool>Adobe Illustrator CS4</xmp:CreatorTool>
+         <xmp:CreateDate>2009-08-20T19:27:11-04:00</xmp:CreateDate>
+         <xmp:ModifyDate>2009-08-24T16:25:58-04:00</xmp:ModifyDate>
+         <xmp:MetadataDate>2009-08-24T16:25:58-04:00</xmp:MetadataDate>
+         <xmp:Thumbnails>
+            <rdf:Alt>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpGImg:width>256</xmpGImg:width>
+                  <xmpGImg:height>52</xmpGImg:height>
+                  <xmpGImg:format>JPEG</xmpGImg:format>
+                  <xmpGImg:image>/9j/4AAQSkZJRgABAgEASABIAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABAASAAAAAEA&#xA;AQBIAAAAAQAB/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoK&#xA;DBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8f&#xA;Hx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgANAEAAwER&#xA;AAIRAQMRAf/EAaIAAAAHAQEBAQEAAAAAAAAAAAQFAwIGAQAHCAkKCwEAAgIDAQEBAQEAAAAAAAAA&#xA;AQACAwQFBgcICQoLEAACAQMDAgQCBgcDBAIGAnMBAgMRBAAFIRIxQVEGE2EicYEUMpGhBxWxQiPB&#xA;UtHhMxZi8CRygvElQzRTkqKyY3PCNUQnk6OzNhdUZHTD0uIIJoMJChgZhJRFRqS0VtNVKBry4/PE&#xA;1OT0ZXWFlaW1xdXl9WZ2hpamtsbW5vY3R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo+Ck5SVlpeYmZ&#xA;qbnJ2en5KjpKWmp6ipqqusra6voRAAICAQIDBQUEBQYECAMDbQEAAhEDBCESMUEFURNhIgZxgZEy&#xA;obHwFMHR4SNCFVJicvEzJDRDghaSUyWiY7LCB3PSNeJEgxdUkwgJChgZJjZFGidkdFU38qOzwygp&#xA;0+PzhJSktMTU5PRldYWVpbXF1eX1RlZmdoaWprbG1ub2R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo&#xA;+DlJWWl5iZmpucnZ6fkqOkpaanqKmqq6ytrq+v/aAAwDAQACEQMRAD8A63/zkXd3Vr+Ws0trNJBJ&#xA;9bt15xMUahJ2qpGYms+ke93/ALNwEtVRF+kvlM+YdeAJ/SV1t/xfJ/zVmvp9BOHGB9I+QUU8yeYn&#xA;an6VuUHvPJ/XCQHHhjjI8oj4BWHmLXTuup3RHY+tJ/zVgpyBhxnlEfJ3+INf/wCrldf8j5P+asFJ&#xA;8DH/ADR8nf4g1/8A6uV1/wAj5P8AmrGl8DH/ADR8nf4g1/8A6uV1/wAj5P8AmrGl8DH/ADR8noOn&#xA;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</xmpGImg:image>
+               </rdf:li>
+            </rdf:Alt>
+         </xmp:Thumbnails>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
+            xmlns:stEvt="http://ns.adobe.com/xap/1.0/sType/ResourceEvent#"
+            xmlns:stMfs="http://ns.adobe.com/xap/1.0/sType/ManifestItem#">
+         <xmpMM:DocumentID>xmp.did:0180117407206811AB08ADE16C3A3592</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:678ba787-cdf1-4f06-9b00-000ff270276f</xmpMM:InstanceID>
+         <xmpMM:OriginalDocumentID>uuid:E3060DF2DC8FDD11B8949EF33C4AAD66</xmpMM:OriginalDocumentID>
+         <xmpMM:RenditionClass>proof:pdf</xmpMM:RenditionClass>
+         <xmpMM:DerivedFrom rdf:parseType="Resource">
+            <stRef:instanceID>uuid:761e0897-655e-d44b-897e-50f16dca4ffb</stRef:instanceID>
+            <stRef:documentID>xmp.did:F77F117407206811AFFD8DDDE33359AF</stRef:documentID>
+            <stRef:originalDocumentID>uuid:E3060DF2DC8FDD11B8949EF33C4AAD66</stRef:originalDocumentID>
+            <stRef:renditionClass>proof:pdf</stRef:renditionClass>
+         </xmpMM:DerivedFrom>
+         <xmpMM:History>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:F87F117407206811853CD2736132CE84</stEvt:instanceID>
+                  <stEvt:when>2008-12-21T20:29:04-08:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Illustrator CS4</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:F77F117407206811AFFD8DDDE33359AF</stEvt:instanceID>
+                  <stEvt:when>2009-01-27T19:37:55-08:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Illustrator CS4</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stEvt:action>saved</stEvt:action>
+                  <stEvt:instanceID>xmp.iid:0180117407206811AB08ADE16C3A3592</stEvt:instanceID>
+                  <stEvt:when>2009-08-20T19:27:12-04:00</stEvt:when>
+                  <stEvt:softwareAgent>Adobe Illustrator CS4</stEvt:softwareAgent>
+                  <stEvt:changed>/</stEvt:changed>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:History>
+         <xmpMM:Manifest>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                  <stMfs:reference rdf:parseType="Resource">
+                     <stRef:filePath>/Stacks/Clients/Bikram Yoga KW/!Newest/glasses_only.psd</stRef:filePath>
+                     <stRef:instanceID>xmp.iid:F77F11740720681197A5FDDB4D593D9E</stRef:instanceID>
+                     <stRef:documentID>xmp.did:F77F11740720681197A5FDDB4D593D9E</stRef:documentID>
+                  </stMfs:reference>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stMfs:linkForm>EmbedByReference</stMfs:linkForm>
+                  <stMfs:reference rdf:parseType="Resource">
+                     <stRef:filePath>/Users/quinnbattersby/Desktop/Bikram New/gooder.psd</stRef:filePath>
+                  </stMfs:reference>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpMM:Manifest>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:illustrator="http://ns.adobe.com/illustrator/1.0/">
+         <illustrator:StartupProfile>Print</illustrator:StartupProfile>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+            xmlns:stDim="http://ns.adobe.com/xap/1.0/sType/Dimensions#"
+            xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#"
+            xmlns:xmpG="http://ns.adobe.com/xap/1.0/g/">
+         <xmpTPg:NPages>1</xmpTPg:NPages>
+         <xmpTPg:HasVisibleTransparency>True</xmpTPg:HasVisibleTransparency>
+         <xmpTPg:HasVisibleOverprint>False</xmpTPg:HasVisibleOverprint>
+         <xmpTPg:MaxPageSize rdf:parseType="Resource">
+            <stDim:w>10.312500</stDim:w>
+            <stDim:h>2.000000</stDim:h>
+            <stDim:unit>Inches</stDim:unit>
+         </xmpTPg:MaxPageSize>
+         <xmpTPg:Fonts>
+            <rdf:Bag>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>GothamRounded-Bold</stFnt:fontName>
+                  <stFnt:fontFamily>Gotham Rounded</stFnt:fontFamily>
+                  <stFnt:fontFace>Bold</stFnt:fontFace>
+                  <stFnt:fontType>Open Type</stFnt:fontType>
+                  <stFnt:versionString>Version 1.200</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>GothamRnd-Bold.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>CenturyGothic</stFnt:fontName>
+                  <stFnt:fontFamily>Century Gothic</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>Version 2.35</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>Century Gothic</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>MyriadPro-Regular</stFnt:fontName>
+                  <stFnt:fontFamily>Myriad Pro</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>Open Type</stFnt:fontType>
+                  <stFnt:versionString>Version 2.037;PS 2.000;hotconv 1.0.51;makeotf.lib2.0.18671</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>MyriadPro-Regular.otf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>LHFHappyFunBallREG</stFnt:fontName>
+                  <stFnt:fontFamily>LHF Happy Fun Ball REG</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>6/17/2003  www.letterheadfonts.com</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>LHF Happy Fun Ball REG.ttf</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>HelveticaNeue</stFnt:fontName>
+                  <stFnt:fontFamily>Helvetica Neue</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>6.0d5e1</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>HelveticaNeue.dfont</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>HelveticaNeue-Light</stFnt:fontName>
+                  <stFnt:fontFamily>Helvetica Neue</stFnt:fontFamily>
+                  <stFnt:fontFace>Light</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>6.0d5e1</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>HelveticaNeue.dfont</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>HelveticaNeue-UltraLight</stFnt:fontName>
+                  <stFnt:fontFamily>Helvetica Neue</stFnt:fontFamily>
+                  <stFnt:fontFace>UltraLight</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>6.0d5e1</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>HelveticaNeue.dfont</stFnt:fontFileName>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <stFnt:fontName>SevenSwordsmenBB</stFnt:fontName>
+                  <stFnt:fontFamily>Seven Swordsmen BB</stFnt:fontFamily>
+                  <stFnt:fontFace>Regular</stFnt:fontFace>
+                  <stFnt:fontType>TrueType</stFnt:fontType>
+                  <stFnt:versionString>Macromedia Fontographer 4.1 7/13/04</stFnt:versionString>
+                  <stFnt:composite>False</stFnt:composite>
+                  <stFnt:fontFileName>SEVESBRG.TTF</stFnt:fontFileName>
+               </rdf:li>
+            </rdf:Bag>
+         </xmpTPg:Fonts>
+         <xmpTPg:PlateNames>
+            <rdf:Seq>
+               <rdf:li>Cyan</rdf:li>
+               <rdf:li>Magenta</rdf:li>
+               <rdf:li>Yellow</rdf:li>
+               <rdf:li>Black</rdf:li>
+               <rdf:li>PANTONE 1807 M</rdf:li>
+               <rdf:li>PANTONE 1807 M 2</rdf:li>
+            </rdf:Seq>
+         </xmpTPg:PlateNames>
+         <xmpTPg:SwatchGroups>
+            <rdf:Seq>
+               <rdf:li rdf:parseType="Resource">
+                  <xmpG:groupName>Default Swatch Group</xmpG:groupName>
+                  <xmpG:groupType>0</xmpG:groupType>
+                  <xmpG:Colorants>
+                     <rdf:Seq>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>White</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>Black</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>100.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Red</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Yellow</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Green</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>100.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Cyan</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>100.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Blue</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>100.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>CMYK Magenta</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=15 M=100 Y=90 K=10</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>14.999998</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>90.000000</xmpG:yellow>
+                           <xmpG:black>10.000002</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=90 Y=85 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>90.000000</xmpG:magenta>
+                           <xmpG:yellow>85.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=80 Y=95 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>80.000000</xmpG:magenta>
+                           <xmpG:yellow>95.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=50 Y=100 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>50.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=35 Y=85 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>35.000004</xmpG:magenta>
+                           <xmpG:yellow>85.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=5 M=0 Y=90 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>5.000001</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>90.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=20 M=0 Y=100 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>19.999998</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=50 M=0 Y=100 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>50.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=75 M=0 Y=100 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>75.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=85 M=10 Y=100 K=10</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>85.000000</xmpG:cyan>
+                           <xmpG:magenta>10.000002</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>10.000002</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=90 M=30 Y=95 K=30</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>90.000000</xmpG:cyan>
+                           <xmpG:magenta>30.000002</xmpG:magenta>
+                           <xmpG:yellow>95.000000</xmpG:yellow>
+                           <xmpG:black>30.000002</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=75 M=0 Y=75 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>75.000000</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>75.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=80 M=10 Y=45 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>80.000000</xmpG:cyan>
+                           <xmpG:magenta>10.000002</xmpG:magenta>
+                           <xmpG:yellow>45.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=70 M=15 Y=0 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>70.000000</xmpG:cyan>
+                           <xmpG:magenta>14.999998</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=85 M=50 Y=0 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>85.000000</xmpG:cyan>
+                           <xmpG:magenta>50.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=100 M=95 Y=5 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>100.000000</xmpG:cyan>
+                           <xmpG:magenta>95.000000</xmpG:magenta>
+                           <xmpG:yellow>5.000001</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=100 M=100 Y=25 K=25</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>100.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>25.000000</xmpG:yellow>
+                           <xmpG:black>25.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=75 M=100 Y=0 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>75.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=50 M=100 Y=0 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>50.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>0.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=35 M=100 Y=35 K=10</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>35.000004</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>35.000004</xmpG:yellow>
+                           <xmpG:black>10.000002</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=10 M=100 Y=50 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>10.000002</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>50.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=95 Y=20 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>95.000000</xmpG:magenta>
+                           <xmpG:yellow>19.999998</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=25 M=25 Y=40 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>25.000000</xmpG:cyan>
+                           <xmpG:magenta>25.000000</xmpG:magenta>
+                           <xmpG:yellow>39.999996</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=40 M=45 Y=50 K=5</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>39.999996</xmpG:cyan>
+                           <xmpG:magenta>45.000000</xmpG:magenta>
+                           <xmpG:yellow>50.000000</xmpG:yellow>
+                           <xmpG:black>5.000001</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=50 M=50 Y=60 K=25</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>50.000000</xmpG:cyan>
+                           <xmpG:magenta>50.000000</xmpG:magenta>
+                           <xmpG:yellow>60.000004</xmpG:yellow>
+                           <xmpG:black>25.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=55 M=60 Y=65 K=40</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>55.000000</xmpG:cyan>
+                           <xmpG:magenta>60.000004</xmpG:magenta>
+                           <xmpG:yellow>65.000000</xmpG:yellow>
+                           <xmpG:black>39.999996</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=25 M=40 Y=65 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>25.000000</xmpG:cyan>
+                           <xmpG:magenta>39.999996</xmpG:magenta>
+                           <xmpG:yellow>65.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=30 M=50 Y=75 K=10</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>30.000002</xmpG:cyan>
+                           <xmpG:magenta>50.000000</xmpG:magenta>
+                           <xmpG:yellow>75.000000</xmpG:yellow>
+                           <xmpG:black>10.000002</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=35 M=60 Y=80 K=25</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>35.000004</xmpG:cyan>
+                           <xmpG:magenta>60.000004</xmpG:magenta>
+                           <xmpG:yellow>80.000000</xmpG:yellow>
+                           <xmpG:black>25.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=40 M=65 Y=90 K=35</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>39.999996</xmpG:cyan>
+                           <xmpG:magenta>65.000000</xmpG:magenta>
+                           <xmpG:yellow>90.000000</xmpG:yellow>
+                           <xmpG:black>35.000004</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=40 M=70 Y=100 K=50</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>39.999996</xmpG:cyan>
+                           <xmpG:magenta>70.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>50.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=50 M=70 Y=80 K=70</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>50.000000</xmpG:cyan>
+                           <xmpG:magenta>70.000000</xmpG:magenta>
+                           <xmpG:yellow>80.000000</xmpG:yellow>
+                           <xmpG:black>70.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>PANTONE 1807 M</xmpG:swatchName>
+                           <xmpG:type>SPOT</xmpG:type>
+                           <xmpG:tint>100.000000</xmpG:tint>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>96.000000</xmpG:yellow>
+                           <xmpG:black>28.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>PANTONE 1807 M 2</xmpG:swatchName>
+                           <xmpG:type>SPOT</xmpG:type>
+                           <xmpG:tint>100.000000</xmpG:tint>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>100.000000</xmpG:magenta>
+                           <xmpG:yellow>96.000000</xmpG:yellow>
+                           <xmpG:black>28.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=0 M=30 Y=70 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>30.000002</xmpG:magenta>
+                           <xmpG:yellow>70.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=5 M=70 Y=90 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>5.000001</xmpG:cyan>
+                           <xmpG:magenta>70.000000</xmpG:magenta>
+                           <xmpG:yellow>90.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=5 M=90 Y=75 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>5.000001</xmpG:cyan>
+                           <xmpG:magenta>90.000000</xmpG:magenta>
+                           <xmpG:yellow>75.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=30 M=0 Y=95 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>30.000002</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>95.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=60 M=5 Y=95 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>60.000004</xmpG:cyan>
+                           <xmpG:magenta>5.000001</xmpG:magenta>
+                           <xmpG:yellow>95.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=30 M=0 Y=10 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>30.000002</xmpG:cyan>
+                           <xmpG:magenta>0.000000</xmpG:magenta>
+                           <xmpG:yellow>10.000002</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=60 M=10 Y=5 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>60.000004</xmpG:cyan>
+                           <xmpG:magenta>10.000002</xmpG:magenta>
+                           <xmpG:yellow>5.000001</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>C=80 M=5 Y=10 K=0</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>80.000000</xmpG:cyan>
+                           <xmpG:magenta>5.000001</xmpG:magenta>
+                           <xmpG:yellow>10.000002</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=100</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>255</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=90</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>229</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=80</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>203</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=70</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>178</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=60</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>152</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=50</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>127</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=40</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>101</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=30</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>76</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=20</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>50</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=10</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>25</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>K=5</xmpG:swatchName>
+                           <xmpG:mode>GRAY</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:gray>12</xmpG:gray>
+                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <xmpG:swatchName>New Color Swatch 1</xmpG:swatchName>
+                           <xmpG:mode>CMYK</xmpG:mode>
+                           <xmpG:type>PROCESS</xmpG:type>
+                           <xmpG:cyan>0.000000</xmpG:cyan>
+                           <xmpG:magenta>33.000000</xmpG:magenta>
+                           <xmpG:yellow>100.000000</xmpG:yellow>
+                           <xmpG:black>0.000000</xmpG:black>
+                        </rdf:li>
+                     </rdf:Seq>
+                  </xmpG:Colorants>
+               </rdf:li>
+            </rdf:Seq>
+         </xmpTPg:SwatchGroups>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:pdf="http://ns.adobe.com/pdf/1.3/">
+         <pdf:Producer>Adobe PDF library 9.00</pdf:Producer>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+					</Properties>
+				</MetadataPacketPreference>
+				<Link Self="u469" AssetURL="$ID/" AssetID="$ID/" LinkResourceURI="file:Z:/InDesignCS4_transition/Bikram.pdf" LinkResourceFormat="$ID/Adobe Portable Document Format (PDF)" StoredState="Normal" LinkClassID="35906" LinkClientID="257" LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true" CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport" ExportPolicy="NoAutoExport" LinkImportStamp="file 128956191610000000 7303480" LinkImportModificationTime="2009-08-24T16:26:01" LinkImportTime="2009-10-23T12:30:15"/>
+				<ClippingPathSettings ClippingType="None" InvertPath="false" IncludeInsideEdges="false" RestrictToFrame="false" UseHighResolutionImage="true" Threshold="25" Tolerance="2" InsetFrame="0" AppliedPathName="$ID/" Index="-1"/>
+				<GraphicLayerOption UpdateLinkOption="ApplicationSettings"/>
+			</PDF>
+		</Rectangle>
+		<Rectangle Self="u2d0" StoryTitle="$ID/" ContentType="GraphicType" StrokeWeight="1" StrokeColor="Color/u68" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 343.1666666666667 -244.06">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-240 -157.44000000000003" LeftDirection="-240 -157.44000000000003" RightDirection="-240 -157.44000000000003"/>
+							<PathPointType Anchor="-240 243.37600000000012" LeftDirection="-240 243.37600000000012" RightDirection="-240 243.37600000000012"/>
+							<PathPointType Anchor="371 243.37600000000012" LeftDirection="371 243.37600000000012" RightDirection="371 243.37600000000012"/>
+							<PathPointType Anchor="371 -157.44000000000003" LeftDirection="371 -157.44000000000003" RightDirection="371 -157.44000000000003"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+				<ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false" ContourPathName="$ID/"/>
+			</TextWrapPreference>
+			<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+			<FrameFittingOption LeftCrop="0" TopCrop="0" RightCrop="0" BottomCrop="0" FittingOnEmptyFrame="None" FittingAlignment="TopLeftAnchor"/>
+			<Image Self="u2ca" Space="$ID/#Links_CMYK" ActualPpi="300 300" EffectivePpi="236 236" ImageRenderingIntent="UseColorSettings" LocalDisplaySetting="Default" ImageTypeName="$ID/TIFF" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1.2729166666666667 0 0 1.2729166666666667 -240 -157.44">
+				<Properties>
+					<Profile type="string">$ID/Embedded</Profile>
+					<GraphicBounds Left="0" Top="0" Right="480" Bottom="314.88"/>
+				</Properties>
+				<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+					<Properties>
+						<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+					</Properties>
+					<ContourOption ContourType="SameAsClipping" IncludeInsideEdges="false" ContourPathName="$ID/"/>
+				</TextWrapPreference>
+				<MetadataPacketPreference>
+					<Properties>
+						<Contents><![CDATA[<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.2-c063 53.352624, 2008/07/30-18:12:18        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:tiff="http://ns.adobe.com/tiff/1.0/">
+         <tiff:YCbCrPositioning>2</tiff:YCbCrPositioning>
+         <tiff:XResolution>3000000/10000</tiff:XResolution>
+         <tiff:YResolution>3000000/10000</tiff:YResolution>
+         <tiff:ResolutionUnit>2</tiff:ResolutionUnit>
+         <tiff:Make>NIKON CORPORATION</tiff:Make>
+         <tiff:Model>NIKON D1X</tiff:Model>
+         <tiff:Orientation>1</tiff:Orientation>
+         <tiff:NativeDigest>256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;D521EBF6A00288B01473870AD8DFA8FA</tiff:NativeDigest>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+         <xmp:ModifyDate>2009-10-21T19:16:04-04:00</xmp:ModifyDate>
+         <xmp:CreatorTool>Adobe Photoshop CS2 Windows</xmp:CreatorTool>
+         <xmp:CreateDate>2009-10-21T19:10:17-04:00</xmp:CreateDate>
+         <xmp:MetadataDate>2009-10-21T19:16:04-04:00</xmp:MetadataDate>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:exif="http://ns.adobe.com/exif/1.0/">
+         <exif:ExifVersion>0220</exif:ExifVersion>
+         <exif:FlashpixVersion>0100</exif:FlashpixVersion>
+         <exif:ColorSpace>-1</exif:ColorSpace>
+         <exif:CompressedBitsPerPixel>4/1</exif:CompressedBitsPerPixel>
+         <exif:PixelXDimension>2000</exif:PixelXDimension>
+         <exif:PixelYDimension>1312</exif:PixelYDimension>
+         <exif:DateTimeOriginal>2009-10-18T16:29:51-04:00</exif:DateTimeOriginal>
+         <exif:DateTimeDigitized>2009-10-18T16:29:51-04:00</exif:DateTimeDigitized>
+         <exif:ExposureTime>10/1600</exif:ExposureTime>
+         <exif:FNumber>0/10</exif:FNumber>
+         <exif:ExposureProgram>3</exif:ExposureProgram>
+         <exif:ExposureBiasValue>0/6</exif:ExposureBiasValue>
+         <exif:MaxApertureValue>0/10</exif:MaxApertureValue>
+         <exif:MeteringMode>2</exif:MeteringMode>
+         <exif:LightSource>0</exif:LightSource>
+         <exif:FocalLength>0/10</exif:FocalLength>
+         <exif:SensingMethod>2</exif:SensingMethod>
+         <exif:FileSource>3</exif:FileSource>
+         <exif:SceneType>1</exif:SceneType>
+         <exif:CustomRendered>0</exif:CustomRendered>
+         <exif:ExposureMode>0</exif:ExposureMode>
+         <exif:WhiteBalance>0</exif:WhiteBalance>
+         <exif:DigitalZoomRatio>1/1</exif:DigitalZoomRatio>
+         <exif:FocalLengthIn35mmFilm>0</exif:FocalLengthIn35mmFilm>
+         <exif:SceneCaptureType>0</exif:SceneCaptureType>
+         <exif:GainControl>1</exif:GainControl>
+         <exif:Contrast>0</exif:Contrast>
+         <exif:Saturation>0</exif:Saturation>
+         <exif:Sharpness>0</exif:Sharpness>
+         <exif:SubjectDistanceRange>0</exif:SubjectDistanceRange>
+         <exif:GPSVersionID>2.2.0.0</exif:GPSVersionID>
+         <exif:NativeDigest>36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;4A426135EDC3549B1B59C36113401D60</exif:NativeDigest>
+         <exif:ComponentsConfiguration>
+            <rdf:Seq>
+               <rdf:li>1</rdf:li>
+               <rdf:li>2</rdf:li>
+               <rdf:li>3</rdf:li>
+               <rdf:li>0</rdf:li>
+            </rdf:Seq>
+         </exif:ComponentsConfiguration>
+         <exif:Flash rdf:parseType="Resource">
+            <exif:Fired>False</exif:Fired>
+            <exif:Return>0</exif:Return>
+            <exif:Mode>0</exif:Mode>
+            <exif:Function>False</exif:Function>
+            <exif:RedEyeMode>False</exif:RedEyeMode>
+         </exif:Flash>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#">
+         <xmpMM:DocumentID>uuid:298F13B696BEDE11A86CC4BF1D5C7416</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:37FAE4E596BEDE11A86CC4BF1D5C7416</xmpMM:InstanceID>
+         <xmpMM:DerivedFrom rdf:parseType="Resource">
+            <stRef:instanceID>uuid:288F13B696BEDE11A86CC4BF1D5C7416</stRef:instanceID>
+            <stRef:documentID>uuid:288F13B696BEDE11A86CC4BF1D5C7416</stRef:documentID>
+         </xmpMM:DerivedFrom>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+         <dc:format>image/tiff</dc:format>
+         <dc:description>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">                               </rdf:li>
+            </rdf:Alt>
+         </dc:description>
+      </rdf:Description>
+      <rdf:Description rdf:about=""
+            xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/">
+         <photoshop:ColorMode>4</photoshop:ColorMode>
+         <photoshop:ICCProfile>U.S. Web Coated (SWOP) v2</photoshop:ICCProfile>
+         <photoshop:History/>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="r"?>]]></Contents>
+					</Properties>
+				</MetadataPacketPreference>
+				<Link Self="u467" AssetURL="$ID/" AssetID="$ID/" LinkResourceURI="file://IMPRINT3/IMPRINT/Issues/2009.10.23/Cover/Cover%20Photo.tif" LinkResourceFormat="$ID/TIFF" StoredState="Normal" LinkClassID="35906" LinkClientID="257" LinkResourceModified="false" LinkObjectModified="false" ShowInUI="true" CanEmbed="true" CanUnembed="true" CanPackage="true" ImportPolicy="NoAutoImport" ExportPolicy="NoAutoExport" LinkImportStamp="file 129006405650000000 11080560" LinkImportModificationTime="2009-10-21T19:16:05" LinkImportTime="2009-10-23T12:08:06"/>
+				<ClippingPathSettings ClippingType="None" InvertPath="false" IncludeInsideEdges="false" RestrictToFrame="false" UseHighResolutionImage="true" Threshold="25" Tolerance="2" InsetFrame="0" AppliedPathName="$ID/" Index="-1"/>
+				<ImageIOPreference ApplyPhotoshopClippingPath="true" AllowAutoEmbedding="true" AlphaChannelName="$ID/"/>
+			</Image>
+		</Rectangle>
+		<TextFrame Self="u2e4" ParentStory="u2d2" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 385.99999999999994 -358.0006666666667">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-274 -42.666" LeftDirection="-274 -42.666" RightDirection="-274 -42.666"/>
+							<PathPointType Anchor="-274 113.66733333333335" LeftDirection="-274 113.66733333333335" RightDirection="-274 113.66733333333335"/>
+							<PathPointType Anchor="133.33333333333343 113.66733333333335" LeftDirection="133.33333333333343 113.66733333333335" RightDirection="133.33333333333343 113.66733333333335"/>
+							<PathPointType Anchor="133.33333333333343 -42.666" LeftDirection="133.33333333333343 -42.666" RightDirection="133.33333333333343 -42.666"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting Mode="Drop" Opacity="50" KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="407.3333333333334"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u33a" ParentStory="u328" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" FillColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 358.6666666666667 59">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-256 -52.25" LeftDirection="-256 -52.25" RightDirection="-256 -52.25"/>
+							<PathPointType Anchor="-256 -14.75" LeftDirection="-256 -14.75" RightDirection="-256 -14.75"/>
+							<PathPointType Anchor="356 -14.75" LeftDirection="356 -14.75" RightDirection="356 -14.75"/>
+							<PathPointType Anchor="356 -52.25" LeftDirection="356 -52.25" RightDirection="356 -52.25"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="612"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u354" ParentStory="u342" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 104.9999999999992 173.33333333333334">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-65.39999999999921 -77.33333333333331" LeftDirection="-65.39999999999921 -77.33333333333331" RightDirection="-65.39999999999921 -77.33333333333331"/>
+							<PathPointType Anchor="-65.39999999999921 214.86666666666656" LeftDirection="-65.39999999999921 214.86666666666656" RightDirection="-65.39999999999921 214.86666666666656"/>
+							<PathPointType Anchor="674.4000000000008 214.86666666666656" LeftDirection="674.4000000000008 214.86666666666656" RightDirection="674.4000000000008 214.86666666666656"/>
+							<PathPointType Anchor="674.4000000000008 -77.33333333333331" LeftDirection="674.4000000000008 -77.33333333333331" RightDirection="674.4000000000008 -77.33333333333331"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnCount="3" TextColumnFixedWidth="238.6"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u372" ParentStory="u360" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 377.3333333333333 116">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-307.1333333333333 -54" LeftDirection="-307.1333333333333 -54" RightDirection="-307.1333333333333 -54"/>
+							<PathPointType Anchor="-307.1333333333333 -24.66666666666667" LeftDirection="-307.1333333333333 -24.66666666666667" RightDirection="-307.1333333333333 -24.66666666666667"/>
+							<PathPointType Anchor="432.0666666666668 -24.66666666666667" LeftDirection="432.0666666666668 -24.66666666666667" RightDirection="432.0666666666668 -24.66666666666667"/>
+							<PathPointType Anchor="432.0666666666668 -54" LeftDirection="432.0666666666668 -54" RightDirection="432.0666666666668 -54"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="739.2"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u397" ParentStory="u39a" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 694.3736250000002 372.10833333333335">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-86.3333333333335 -93.33333333333331" LeftDirection="-86.3333333333335 -93.33333333333331" RightDirection="-86.3333333333335 -93.33333333333331"/>
+							<PathPointType Anchor="-86.3333333333335 -55.663888888888884" LeftDirection="-86.3333333333335 -55.663888888888884" RightDirection="-86.3333333333335 -55.663888888888884"/>
+							<PathPointType Anchor="62.37637499999968 -55.663888888888884" LeftDirection="62.37637499999968 -55.663888888888884" RightDirection="62.37637499999968 -55.663888888888884"/>
+							<PathPointType Anchor="62.37637499999968 -93.33333333333331" LeftDirection="62.37637499999968 -93.33333333333331" RightDirection="62.37637499999968 -93.33333333333331"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="148.7097083333332"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<Rectangle Self="u3ad" StoryTitle="$ID/" ContentType="Unassigned" FillColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 12.317791666666722 564.4166666666666">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="560.3085833333332 -300.41666666666663" LeftDirection="560.3085833333332 -300.41666666666663" RightDirection="560.3085833333332 -300.41666666666663"/>
+							<PathPointType Anchor="560.3085833333332 -176.41666666666663" LeftDirection="560.3085833333332 -176.41666666666663" RightDirection="560.3085833333332 -176.41666666666663"/>
+							<PathPointType Anchor="590.2785833333332 -176.41666666666663" LeftDirection="590.2785833333332 -176.41666666666663" RightDirection="590.2785833333332 -176.41666666666663"/>
+							<PathPointType Anchor="590.2785833333332 -300.41666666666663" LeftDirection="590.2785833333332 -300.41666666666663" RightDirection="590.2785833333332 -300.41666666666663"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+			<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false"/>
+			<FrameFittingOption LeftCrop="0" TopCrop="0" RightCrop="0" BottomCrop="0" FittingOnEmptyFrame="None" FittingAlignment="TopLeftAnchor"/>
+		</Rectangle>
+		<GraphicLine Self="u3af" ContentType="Unassigned" StrokeWeight="1" StrokeColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 5.157735526315605 638.1666666666666">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="592.8486394736829 -317.2416666666667" LeftDirection="592.8486394736829 -317.2416666666667" RightDirection="592.8486394736829 -317.2416666666667"/>
+							<PathPointType Anchor="751.7933763157889 -317.2416666666667" LeftDirection="751.7933763157889 -317.2416666666667" RightDirection="751.7933763157889 -317.2416666666667"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<GraphicLine Self="u3b0" ContentType="Unassigned" StrokeWeight="1" StrokeColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 10.157735526315605 720.3333333333334">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="587.4436394736844 -332.66333333333336" LeftDirection="587.4436394736844 -332.66333333333336" RightDirection="587.4436394736844 -332.66333333333336"/>
+							<PathPointType Anchor="746.5922644736843 -332.66333333333336" LeftDirection="746.5922644736843 -332.66333333333336" RightDirection="746.5922644736843 -332.66333333333336"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<TextFrame Self="u3b1" ParentStory="u3b4" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 636.7069583333334 365.4416666666666">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-55.666666666666636 -81.33333333333331" LeftDirection="-55.666666666666636 -81.33333333333331" RightDirection="-55.666666666666636 -81.33333333333331"/>
+							<PathPointType Anchor="-55.666666666666636 -56.66666666666666" LeftDirection="-55.666666666666636 -56.66666666666666" RightDirection="-55.666666666666636 -56.66666666666666"/>
+							<PathPointType Anchor="-31.83333333333333 -56.66666666666666" LeftDirection="-31.83333333333333 -56.66666666666666" RightDirection="-31.83333333333333 -56.66666666666666"/>
+							<PathPointType Anchor="-31.83333333333333 -81.33333333333331" LeftDirection="-31.83333333333333 -81.33333333333331" RightDirection="-31.83333333333333 -81.33333333333331"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextFramePreference TextColumnFixedWidth="23.833333333333307"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<GraphicLine Self="u3c7" ContentType="Unassigned" StrokeWeight="1" StrokeColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 4.587735526315669 569.0929906666667">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="597.5114428421053 -304.55916666666667" LeftDirection="597.5114428421053 -304.55916666666667" RightDirection="597.5114428421053 -304.55916666666667"/>
+							<PathPointType Anchor="751.7933763157896 -304.55916666666667" LeftDirection="751.7933763157896 -304.55916666666667" RightDirection="751.7933763157896 -304.55916666666667"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<GraphicLine Self="u3c8" ContentType="Unassigned" StrokeWeight="1" StrokeColor="Color/Black" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[None]" ItemTransform="1 0 0 1 5.7477916666666715 568.0929906666667">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="true">
+						<PathPointArray>
+							<PathPointType Anchor="750.6580833333335 -304.0929906666664" LeftDirection="750.6580833333335 -304.0929906666664" RightDirection="750.6580833333335 -304.0929906666664"/>
+							<PathPointType Anchor="750.6580833333335 -180.34299066666657" LeftDirection="750.6580833333335 -180.34299066666657" RightDirection="750.6580833333335 -180.34299066666657"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</GraphicLine>
+		<TextFrame Self="u3c9" ParentStory="u3cc" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 716.126375 385">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-107.5 -53" LeftDirection="-107.5 -53" RightDirection="-107.5 -53"/>
+							<PathPointType Anchor="-107.5 -9.666666666666686" LeftDirection="-107.5 -9.666666666666686" RightDirection="-107.5 -9.666666666666686"/>
+							<PathPointType Anchor="34.87362499999994 -9.666666666666686" LeftDirection="34.87362499999994 -9.666666666666686" RightDirection="34.87362499999994 -9.666666666666686"/>
+							<PathPointType Anchor="34.87362499999994 -53" LeftDirection="34.87362499999994 -53" RightDirection="34.87362499999994 -53"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="142.37362499999995"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u3df" ParentStory="u3e2" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 614.126375 373">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="-37.83333333333336 -28.66666666666663" LeftDirection="-37.83333333333336 -28.66666666666663" RightDirection="-37.83333333333336 -28.66666666666663"/>
+							<PathPointType Anchor="-37.83333333333336 -5.999999999999943" LeftDirection="-37.83333333333336 -5.999999999999943" RightDirection="-37.83333333333336 -5.999999999999943"/>
+							<PathPointType Anchor="-6.5000000000000195 -5.999999999999943" LeftDirection="-6.5000000000000195 -5.999999999999943" RightDirection="-6.5000000000000195 -5.999999999999943"/>
+							<PathPointType Anchor="-6.5000000000000195 -28.66666666666663" LeftDirection="-6.5000000000000195 -28.66666666666663" RightDirection="-6.5000000000000195 -28.66666666666663"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="31.333333333333336"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="true" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+		<TextFrame Self="u422" ParentStory="u410" PreviousTextFrame="n" NextTextFrame="n" ContentType="TextType" GradientFillStart="0 0" GradientFillLength="0" GradientFillAngle="0" GradientStrokeStart="0 0" GradientStrokeLength="0" GradientStrokeAngle="0" ItemLayer="ub1" Locked="false" LocalDisplaySetting="Default" GradientFillHiliteLength="0" GradientFillHiliteAngle="0" GradientStrokeHiliteLength="0" GradientStrokeHiliteAngle="0" AppliedObjectStyle="ObjectStyle/$ID/[Normal Text Frame]" ItemTransform="1 0 0 1 651.65 10.399999999999999">
+			<Properties>
+				<PathGeometry>
+					<GeometryPathType PathOpen="false">
+						<PathPointArray>
+							<PathPointType Anchor="18.600000000000023 -9.600000000000001" LeftDirection="18.600000000000023 -9.600000000000001" RightDirection="18.600000000000023 -9.600000000000001"/>
+							<PathPointType Anchor="18.600000000000023 1.8000000000000043" LeftDirection="18.600000000000023 1.8000000000000043" RightDirection="18.600000000000023 1.8000000000000043"/>
+							<PathPointType Anchor="63 1.8000000000000043" LeftDirection="63 1.8000000000000043" RightDirection="63 1.8000000000000043"/>
+							<PathPointType Anchor="63 -9.600000000000001" LeftDirection="63 -9.600000000000001" RightDirection="63 -9.600000000000001"/>
+						</PathPointArray>
+					</GeometryPathType>
+				</PathGeometry>
+			</Properties>
+			<TransparencySetting>
+				<DropShadowSetting KnockedOut="true"/>
+			</TransparencySetting>
+			<TextFramePreference TextColumnFixedWidth="44.39999999999998"/>
+			<TextWrapPreference Inverse="false" ApplyToMasterPageOnly="false" TextWrapSide="BothSides" TextWrapMode="None">
+				<Properties>
+					<TextWrapOffset Top="0" Left="0" Bottom="0" Right="0"/>
+				</Properties>
+			</TextWrapPreference>
+		</TextFrame>
+	</Spread>
+</idPkg:Spread>
