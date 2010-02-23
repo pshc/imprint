@@ -1,9 +1,64 @@
 #!/usr/bin/python
 
 from BeautifulSoup import BeautifulStoneSoup
+import functools
 import os
 import simplejson as json
 import re
+
+def handler(mapping):
+    def decorator(*args):
+        if len(args) == 1 and not isinstance(args[0], basestring):
+            f = args[0]
+            mapping[f.__name__.replace('_', ' ')] = f
+            return f
+        def wrapper(f):
+            mapping.update(dict((name, f) for name in args))
+            return f
+        return wrapper
+    return decorator
+
+CHAR_STYLE_HANDLERS = {}
+PARAGRAPH_STYLE_HANDLERS = {}
+
+char_style = handler(CHAR_STYLE_HANDLERS)
+paragraph_style = handler(PARAGRAPH_STYLE_HANDLERS)
+
+@char_style
+def Italic(state):
+    state.open('<em>')
+
+@char_style('Bold', 'Semibold')
+def Bold(state):
+    state.open('<strong>')
+
+@char_style
+def Normal(state):
+    pass
+
+@paragraph_style
+def Ads(state):
+    return []
+
+@paragraph_style('Copy: regular')
+def copy_regular(state):
+    return state.body
+
+@paragraph_style('Copy: first paragraph')
+def copy_first(state):
+    return [{'type': 'first', 'body': state.body}]
+
+@paragraph_style
+def Byline_name(state):
+    return [{'type': 'byline', 'contributor': ' '.join(state.body)}]
+
+@paragraph_style
+def Byline_title(state):
+    return [{'type': 'byline', 'position': ' '.join(state.body)}]
+
+@paragraph_style
+def Subhead(state):
+    return [{'type': 'subhead', 'body': state.body}]
 
 def dir_files(dir, extension=None):
     for fnm in os.listdir(dir):
@@ -74,84 +129,72 @@ def body_to_paragraphs(body):
 tag_re = re.compile(r'<(\w+)\s*[^>]*>$')
 close_tag_re = re.compile(r'</(\w+)>$')
 
-def last_text_of(body):
-    for text in body[::-1]:
-        if not isinstance(text, basestring):
-            continue # return ''
-        if not text.startswith('<') and not text.endswith('>'):
-            return text
-    return ''
-
-def change_last_text_of(body, regexp, sub):
-    pos = len(body)
-    for text in body[::-1]:
-        pos -= 1
-        assert isinstance(text, basestring)
-        if not text.startswith('<') and not text.endswith('>'):
-            body[pos] = re.sub(regexp, sub, text)
-            return
-    assert False, "Should have been able to find the last text"
-
 def unescape_style(style):
     return re.sub(r'\\%([0-9a-fA-F]{2})',
             lambda m: chr(int(m.group(1), 16)), style)
 
 ending_dash_re = re.compile(r'.+[a-zA-Z]-$')
 
+class BodyState:
+    def __init__(self):
+        self.stack = []
+        self.body = []
+    def add(self, text):
+        self.body.append(text)
+    def open(self, tag):
+        self.add(tag)
+        self.stack.append(tag)
+    def br(self):
+        # Need to close and reopen all the current modifiers
+        for tag in self.stack[::-1]:
+            self.add(tag_re.sub('</\\1>', tag))
+        self.add(BREAK)
+        for tag in self.stack:
+            self.add(tag)
+    def close_tags(self):
+        # Close modifiers
+        for tag in self.stack[::-1]:
+            self.add(tag_re.sub('</\\1>', tag))
+        self.stack = []
+
 def convert_body(p):
     para_style = unescape_style(
             remove_leading('ParagraphStyle/', p['appliedparagraphstyle']))
-    if para_style == 'Ads':
-        return []
-    body = []
-    add = body.append
+    state = BodyState()
     for tag in ignore_whitespace(p.contents):
         if tag.name == 'characterstylerange':
             # This isn't really used...?
             #char_style = remove_leading('CharacterStyle/',
             #                            tag['appliedcharacterstyle'])
-            stack = []
-            push = lambda t: (stack.append(t), add(t))
             # Open modifiers
             style = unescape_style(tag.get('fontstyle', '').strip())
-            if style == 'Italic':
-                push('<em>')
-            elif style in ('Bold', 'Semibold'):
-                push('<strong>')
-            elif style == 'Regular':
-                pass
+            if style in CHAR_STYLE_HANDLERS:
+                CHAR_STYLE_HANDLERS[style](state)
             elif style:
-                push('<span class="%s">' % style)
+                state.open('<span class="%s">' % style)
             # Convert actual content
             for tag in ignore_whitespace(tag.contents):
                 if tag.name == 'content':
                     assert len(tag.contents) == 1
                     text = unicode(tag.contents[0])
-                    if text.startswith(WHITESPACE) and \
-                            not last_text_of(body).endswith('&shy;'):
-                        add(' ')
-                    add(text.strip())
+                    if text.startswith(WHITESPACE):
+                        state.add(' ')
+                    state.add(text.strip())
                     if text.endswith(WHITESPACE):
-                        add(' ')
+                        state.add(' ')
                 elif tag.name == 'br':
-                    # Convert an ending dash into a soft hyphen
-                    if ending_dash_re.match(last_text_of(body)):
-                        change_last_text_of(body, r'-$', '&shy;')
-                        continue
-                    # Need to close and reopen all the current modifiers
-                    for tag in stack[::-1]:
-                        add(tag_re.sub('</\\1>', tag))
-                    add(BREAK)
-                    for tag in stack:
-                        add(tag)
-            # Close modifiers
-            for tag in stack[::-1]:
-                add(tag_re.sub('</\\1>', tag))
-    body = body_to_paragraphs(body)
-    if 'NormalParagraphStyle' in para_style:
+                    state.br()
+            state.close_tags()
+    # Cleanup and dispatch on paragraph style
+    state.body = body_to_paragraphs(state.body)
+    if para_style in PARAGRAPH_STYLE_HANDLERS:
+        body = PARAGRAPH_STYLE_HANDLERS[para_style](state)
+        assert isinstance(body, list), ("Paragraph style handlers must "
+                "return a list")
         return body
-    else:
-        return [{'_style': para_style, 'body': body}]
+    elif 'NormalParagraphStyle' not in para_style:
+        return [{'_style': para_style, 'body': state.body}]
+    return state.body
 
 def convert_story(dir, story_nm):
     story_fnm = os.path.join(dir, 'Stories', 'Story_%s.xml' % (story_nm,))
@@ -161,7 +204,7 @@ def convert_story(dir, story_nm):
     for tag in ignore_whitespace(story.contents):
         if tag.name == 'paragraphstylerange':
             body += convert_body(tag)
-    return [{'_type': 'story', 'body': body}]
+    return [{'_type': 'story', 'body': body}] if body else []
 
 def convert_image(image):
     filename = image.find('link')['linkresourceuri']
@@ -187,6 +230,7 @@ if __name__ == '__main__':
     else:
         d = sys.argv[1]
     converted = convert(d)
-    print json.dumps(converted, sort_keys=True, indent=2)
+    dump = json.dumps(converted, sort_keys=True, indent=2, ensure_ascii=False)
+    print dump.encode('UTF-8')
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
