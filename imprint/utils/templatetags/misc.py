@@ -79,12 +79,14 @@ def recede_url(url):
         elif c == ')': parens += 1
         cutoff -= 1
     return url[:cutoff], url[cutoff:]
- 
-url_re = re.compile(r'''(https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
-    r'''[a-zA-Z0-9#?/\-_+=);])''')
-@register.filter
-def clickablelinks(text):
-    remaining = conditional_escape(text)
+
+html_tag_re = re.compile(r'(<[^<]*>)')
+def apply_to_content(f, text):
+    return u''.join(p if p.startswith(u'<') else f(p)
+                    for p in html_tag_re.split(conditional_escape(text)))
+
+def make_clickable(text):
+    remaining = text
     result = []
     while True:
         split = url_re.split(remaining, 1)
@@ -97,7 +99,13 @@ def clickablelinks(text):
         url, cut = recede_url(url)
         result.append(tag_url(url))
         remaining = u'%s%s%s' % (cut, end, after) if cut or end else after
-    return mark_safe(u''.join(result))
+    return u''.join(result)
+
+url_re = re.compile(r'''(https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
+    r'''[a-zA-Z0-9#?/\-_+=);])''')
+@register.filter
+def clickablelinks(html):
+    return mark_safe(apply_to_content(make_clickable, html))
 
 BREAK_LEN = 50
 
@@ -125,13 +133,9 @@ def break_up_long_words(text):
             result.append(frag)
     return u''.join(result)
 
-html_tag_re = re.compile(r'(<[^<]*>)')
 @register.filter
 def breaklongwords(text):
-    text = conditional_escape(text)
-    pieces = [p if p.startswith(u'<') else break_up_long_words(p)
-              for p in html_tag_re.split(text)]
-    return mark_safe(u''.join(pieces))
+    return mark_safe(apply_to_content(break_up_long_words, text))
 
 # For debugging
 @register.filter
