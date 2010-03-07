@@ -31,6 +31,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     (r'^kiwi/', include('kiwi.urls')),
     (r'^2010/feds/', include('feds.urls')),
+    (r'^march-madness/', include('marchmadness.urls')),
 )
 
 # Catch-all root patterns

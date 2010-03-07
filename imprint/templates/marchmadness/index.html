@@ -1,0 +1,26 @@
+{% extends "marchmadness/base.html" %}
+{% block content %}
+<table>
+<tr>
+	<th>Teams</th>
+{% for team in teams %}
+	<td>{{ team }}</td>
+{% endfor %}
+</tr>
+{% for row in graph %}{% with forloop.counter0 as notfirst %}
+<tr>
+	<th>Round {{ row.round }}</th>
+	{% for match in row.matches %}
+	{% if not match %}
+	<td rowspan="{{ row.rowspan }}">-</td>
+	{% else %}
+	<td{% if notfirst %} rowspan="{{ row.half_rowspan }}"{% endif %}{% ifequal match.winner "first" %} class="winner"{% endifequal %}>{{ match.first }}</td>
+	{% if notfirst %}<td rowspan="{{ row.half_rowspan }}"></td>{% endif %}
+	<td{% if notfirst %} rowspan="{{ row.half_rowspan }}"{% endif %}{% ifequal match.winner "second" %} class="winner"{% endifequal %}>{{ match.second }}</td>
+	{% if notfirst %}<td rowspan="{{ row.half_rowspan }}"></td>{% endif %}
+	{% endif %}
+	{% endfor %}
+</tr>
+{% endwith %}{% endfor %}
+</table>
+{% endblock %}

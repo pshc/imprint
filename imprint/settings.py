@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'imprint.static',
     'imprint.utils',
     'imprint.feds',
+    'imprint.marchmadness',
 )
 
 from local_settings import *
