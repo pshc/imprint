@@ -42,6 +42,8 @@ def generate_chart(teams, matches):
                     d['contesting'] = True
                     winner.last_dict['won'] = True
                     winner.last_dict = d
+                else:
+                    d['id'] = 'round-%d-slot-%d' % (round, row)
                 dest[row-low].append(d)
             span *= 2
             competitors = remaining

@@ -2,32 +2,53 @@
 {% block content %}
 
 <script type="text/javascript">
-$(function () {
-	$(".contesting").draggable({
+
+team_allowed_in_slot = function (team, slot) {
+	return true;
+}
+
+draggable_team = function (node) {
+	node.draggable({
 		opacity: 0.75,
 		helper: 'clone',
-		revert: 'invalid'
-	});
-	$("#chart .blank").droppable({
-		accept: '.contesting',
-		hoverClass: 'hover',
-		drop: function (event, ui) {
+		cursor: 'move',
+		revert: function (slot) {
+			if (!slot || !team_allowed_in_slot($(this), slot))
+				return true;
+			var team = $(this).clone();
+			draggable_team(team);
+			droppable_slot(team);
+			team.attr('id', slot.attr('id'));
+			slot.replaceWith(team);
+			return false;
 		}
 	});
+}
+
+droppable_slot = function (node) {
+	node.droppable({
+		accept: '.contesting',
+		hoverClass: 'hover'
+	});
+}
+
+$(function () {
+	draggable_team($(".contesting"));
+	droppable_slot($("#chart .blank"));
 });
 </script>
 
 <table id="chart">
 <tr>
-	<th>Teams</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Quarter-finals</th><th>Semi-finals</th>
-	<th>Semi-finals</th><th>Quarter-finals</th><th>Round 3</th><th>Round 2</th><th>Round 1</th><th>Teams</th>
+	<th>Teams</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Quarter-finals</th><th colspan="2">Semi-finals</th>
+	<th>Quarter-finals</th><th>Round 3</th><th>Round 2</th><th>Round 1</th><th>Teams</th>
 </tr>
 {% for row in chart %}
 <tr>
 	{% for cell in row %}
 	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}>
         {% if cell.team %}<span{% if cell.id %} id="{{ cell.id }}"{% endif %} class="team{% if cell.contesting %} contesting{% endif %}{% if cell.won %} won{% endif %}">{{ cell.team }}</span>
-	{% else %}<span class="blank">___</span>{% endif %}
+	{% else %}<span{% if cell.id %} id="{{ cell.id }}"{% endif %} class="blank">___</span>{% endif %}
 	</td>{% endfor %}
 </tr>
 {% endfor %}
