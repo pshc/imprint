@@ -16,37 +16,33 @@ class Match(models.Model):
     winner = models.ForeignKey(Team, related_name='wins')
     loser = models.ForeignKey(Team, related_name='losses')
 
-def generate_graph(teams, matches):
-    graph = []
-    round = 1
+def generate_chart(teams, matches):
     results = set((m.winner.index, m.loser.index) for m in matches)
-    rowspan = 1
-    teams = teams[:]
-    while teams:
-        rows = []
-        remaining = []
-        while teams:
-            matchup, teams = teams[:2], teams[2:]
-            if len(matchup) < 2:
-                rows.append(None)
-                break
-            number = lambda n: matchup[n].index
-            if (number(0), number(1)) in results:
-                winner = 'first'
-                remaining.append(matchup[0])
-            elif (number(1), number(0)) in results:
-                winner = 'second'
-                remaining.append(matchup[1])
-            else:
-                rows.append(None)
-                continue
-            rows.append(dict(first=matchup[0], second=matchup[1],
-                    winner=winner))
-        graph.append(dict(round=round, rowspan=rowspan, matches=rows,
-                half_rowspan=rowspan//2))
-        round += 1
-        rowspan *= 2
-        teams = remaining
-    return graph
+    teams = list(teams)
+    def add_teams(low, high):
+        span = 2
+        competitors = dict(enumerate(teams[low:high]))
+        dest = [[] for n in xrange(low, high)]
+        for round in xrange(1, 6):
+            remaining = {}
+            for row in xrange(low, high, span):
+                a, b = competitors.get(row), competitors.get(row + span//2)
+                winner = None
+                if not a or not b:
+                    pass
+                elif (a.index, b.index) in results:
+                    winner = a
+                elif (b.index, a.index) in results:
+                    winner = b
+                dest[row-low].append(dict(team=winner, rowspan=span))
+                if winner:
+                    remaining[row] = winner
+            span *= 2
+            competitors = remaining
+        return dest
+    return [[dict(team=t1)] + ts + st + [dict(team=t2)]
+            for (t1, ts, st, t2) in zip(teams[:32], add_teams(0, 32),
+                [l[::-1] for l in add_teams(32, 64)], teams[32:])]
+
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

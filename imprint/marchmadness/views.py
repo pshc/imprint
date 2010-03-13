@@ -19,7 +19,7 @@ def get_relevant_article():
 def index(request):
     issue, object, section = get_relevant_article()
     teams = Team.objects.all()
-    graph = generate_graph(teams, Match.objects.all())
+    chart = generate_chart(teams, Match.objects.all())
     return locals()
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

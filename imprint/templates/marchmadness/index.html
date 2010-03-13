@@ -2,25 +2,15 @@
 {% block content %}
 <table>
 <tr>
-	<th>Teams</th>
-{% for team in teams %}
-	<td>{{ team }}</td>
-{% endfor %}
+	<th>Teams</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Quarter-finals</th><th>Semi-finals</th>
+	<th>Semi-finals</th><th>Quarter-finals</th><th>Round 3</th><th>Round 2</th><th>Round 1</th><th>Teams</th>
 </tr>
-{% for row in graph %}{% with forloop.counter0 as notfirst %}
+{% for row in chart %}
 <tr>
-	<th>Round {{ row.round }}</th>
-	{% for match in row.matches %}
-	{% if not match %}
-	<td rowspan="{{ row.rowspan }}">-</td>
-	{% else %}
-	<td{% if notfirst %} rowspan="{{ row.half_rowspan }}"{% endif %}{% ifequal match.winner "first" %} class="winner"{% endifequal %}>{{ match.first }}</td>
-	{% if notfirst %}<td rowspan="{{ row.half_rowspan }}"></td>{% endif %}
-	<td{% if notfirst %} rowspan="{{ row.half_rowspan }}"{% endif %}{% ifequal match.winner "second" %} class="winner"{% endifequal %}>{{ match.second }}</td>
-	{% if notfirst %}<td rowspan="{{ row.half_rowspan }}"></td>{% endif %}
-	{% endif %}
+	{% for cell in row %}
+	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}>{% if cell.team %}{{ cell.team }}{% else %}___{% endif %}</td>
 	{% endfor %}
 </tr>
-{% endwith %}{% endfor %}
+{% endfor %}
 </table>
 {% endblock %}
