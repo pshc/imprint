@@ -1,0 +1,38 @@
+#chart {
+	font-size: 90%;
+}
+
+#chart th {
+	font-weight: bold;
+	padding: 0.5em;
+}
+
+#chart td {
+	padding: 0.75em;
+	color: gray;
+}
+
+.team {
+	padding: 0.5em;
+	border: thin solid gray;
+	font-style: italic;
+}
+
+.contesting {
+	cursor: move;
+	color: black;
+	font-style: normal;
+}
+
+.won {
+	font-style: normal;
+}
+
+#chart .blank {
+	padding: 0.5em;
+	background-color: #f0f0f0;
+}
+
+#chart .hover {
+	color: red;
+}

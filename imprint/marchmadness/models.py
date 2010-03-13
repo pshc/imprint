@@ -34,15 +34,35 @@ def generate_chart(teams, matches):
                     winner = a
                 elif (b.index, a.index) in results:
                     winner = b
-                dest[row-low].append(dict(team=winner, rowspan=span))
+                d = dict(team=winner, rowspan=span)
                 if winner:
                     remaining[row] = winner
+                    a.last_dict['contesting'] = False
+                    b.last_dict['contesting'] = False
+                    d['contesting'] = True
+                    winner.last_dict['won'] = True
+                    winner.last_dict = d
+                dest[row-low].append(d)
             span *= 2
             competitors = remaining
         return dest
-    return [[dict(team=t1)] + ts + st + [dict(team=t2)]
-            for (t1, ts, st, t2) in zip(teams[:32], add_teams(0, 32),
-                [l[::-1] for l in add_teams(32, 64)], teams[32:])]
+
+    left_teams = []
+    for team in teams[:32]:
+        d = dict(team=team, id='team-%s' % team.slug, contesting=True)
+        team.last_dict = d
+        left_teams.append([d])
+    right_teams = []
+    for team in teams[32:]:
+        d = dict(team=team, id='team-%s' % team.slug, contesting=True)
+        team.last_dict = d
+        right_teams.append([d])
+
+    left_matches = add_teams(0, 32)
+    right_matches = (l[::-1] for l in add_teams(32, 64))
+
+    return [lt + lm + rm + rt for (lt, lm, rm, rt)
+            in zip(left_teams, left_matches, right_matches, right_teams)]
 
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

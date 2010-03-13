@@ -1,3 +1,7 @@
-<!doctype html>
-<title>March Madness</title>
-{% block content %}{% endblock %}
+{% extends "fullwidth.html" %}
+{% block title %}March Madness{% endblock %}
+{% block head %}
+	{% include "jquery.html" %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/march-madness.css" />
+{% endblock %}

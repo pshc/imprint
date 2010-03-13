@@ -1,6 +1,23 @@
 {% extends "marchmadness/base.html" %}
 {% block content %}
-<table>
+
+<script type="text/javascript">
+$(function () {
+	$(".contesting").draggable({
+		opacity: 0.75,
+		helper: 'clone',
+		revert: 'invalid'
+	});
+	$("#chart .blank").droppable({
+		accept: '.contesting',
+		hoverClass: 'hover',
+		drop: function (event, ui) {
+		}
+	});
+});
+</script>
+
+<table id="chart">
 <tr>
 	<th>Teams</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Quarter-finals</th><th>Semi-finals</th>
 	<th>Semi-finals</th><th>Quarter-finals</th><th>Round 3</th><th>Round 2</th><th>Round 1</th><th>Teams</th>
@@ -8,8 +25,10 @@
 {% for row in chart %}
 <tr>
 	{% for cell in row %}
-	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}>{% if cell.team %}{{ cell.team }}{% else %}___{% endif %}</td>
-	{% endfor %}
+	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}>
+        {% if cell.team %}<span{% if cell.id %} id="{{ cell.id }}"{% endif %} class="team{% if cell.contesting %} contesting{% endif %}{% if cell.won %} won{% endif %}">{{ cell.team }}</span>
+	{% else %}<span class="blank">___</span>{% endif %}
+	</td>{% endfor %}
 </tr>
 {% endfor %}
 </table>
