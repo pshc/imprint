@@ -3,8 +3,26 @@
 
 <script type="text/javascript">
 
+var picks = {{ picks|safe }};
+var unsaved = false;
+
 get_round = function (node) { return parseInt(/^round-(\d+)-/.exec(node.attr('id'))[1]); }
 get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.attr('id'))[1]); }
+
+save_picks = function () {
+	var msg = $('#save_form span');
+	msg.text("Saving...").show();
+	$('#save_form input').attr('disabled', 'disabled');
+	$.post("{% url mm-save-picks %}", picks, function (data, s, xhr) {
+		msg.text(data);
+		if (s == 'success') {
+			setTimeout(function () { msg.fadeOut(); }, 2000);
+			unsaved = false;
+		}
+		else
+			$('#save_form input').removeAttr('disabled');
+	});
+}
 
 team_allowed_in_slot = function (team, slot) {
 	var src_round = get_round(team.parent());
@@ -30,9 +48,16 @@ draggable_team = function (node) {
 				return true;
 			var team = $(this).clone();
 			var team_name = /^round-\d+-team-(.+)$/.exec(team.attr('id'))[1];
-			team.attr('id', 'round-'+get_round(slot)+'-team-'+team_name);
+			var round = get_round(slot);
+			team.attr('id', 'round-'+round+'-team-'+team_name);
+			team.addClass('pick');
 			draggable_team(team);
 			slot.removeClass('blank').empty().append(team);
+			picks['round-'+round+'-slot-'+get_slot(slot)] = team_name;
+			if (!unsaved) {
+				$('#save_form input').removeAttr('disabled')
+				unsaved = true;
+			}
 			return false;
 		}
 	});
@@ -40,30 +65,32 @@ draggable_team = function (node) {
 
 droppable_slot = function (node) {
 	node.droppable({
-		accept: '.contesting',
 		hoverClass: 'hover'
 	});
 }
 
 $(function () {
 	draggable_team($('.contesting'));
+	draggable_team($('.pick'));
 	droppable_slot($('.blank'));
+	$('#save_form input').click(save_picks);
 });
 </script>
 
 <table id="chart">
 <tr>
-	<th>Teams</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Quarter-finals</th><th colspan="2">Semi-finals</th>
-	<th>Quarter-finals</th><th>Round 3</th><th>Round 2</th><th>Round 1</th><th>Teams</th>
+	<th>1st Round</th><th>2nd Round</th><th>Reg. Semis</th><th>Reg. Finals</th><th>Nat. Semis</th><th colspan="2">Championship</th>
+	<th>Nat. Semis</th><th>Reg. Finals</th><th>Reg. Semis</th><th>2nd Round</th><th>1st Round</th>
 </tr>
 {% for row in chart %}
 <tr>
 	{% for cell in row %}
-	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %} id="round-{{ cell.round }}-slot-{{ cell.slot }}"{% if not cell.team %} class="blank"{% endif %}>
-        {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.won %} won{% endif %}">{{ cell.team }}</span>{% else %}
+	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %} id="round-{{ cell.round }}-slot-{{ cell.slot }}" class="{% if cell.editable %}blank {% endif %}{{ cell.class }}">
+        {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.lost %} lost{% endif %}{% if cell.editable %} pick{% endif %}">{{ cell.team }}</span>{% else %}
 	<span>___</span>{% endif %}
 	</td>{% endfor %}
 </tr>
 {% endfor %}
 </table>
+<form id="save_form"><input type="button" value="Save" disabled="disabled" /> <span></span></form>
 {% endblock %}

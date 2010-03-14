@@ -16,15 +16,27 @@ class Match(models.Model):
     winner = models.ForeignKey(Team, related_name='wins')
     loser = models.ForeignKey(Team, related_name='losses')
 
-def generate_chart(teams, matches):
+class Contestant(models.Model):
+    username = models.CharField(max_length=20)
+
+class Pick(models.Model):
+    contestant = models.ForeignKey(Contestant, related_name='picks')
+    round = models.PositiveSmallIntegerField()
+    slot = models.PositiveSmallIntegerField()
+    team = models.ForeignKey(Team, related_name='picks')
+
+def generate_chart(teams, matches, picks=None):
     results = set((m.winner.index, m.loser.index) for m in matches)
+    picks = dict((((p.round, p.slot), p.team) for p in picks) if picks else [])
     teams = list(teams)
-    def add_teams(low, high):
+    def add_teams(low, high, extra_class=None):
         competitors = {}
         dest = []
         # Team column
         for slot, team in enumerate(teams[low:high]):
-            d = dict(team=team, round=0, slot=slot, contesting=True)
+            d = dict(team=team, round=0, slot=slot+low, contesting=True)
+            if extra_class:
+                d['class'] = extra_class
             team.last_dict = d
             dest.append([d])
             competitors[slot] = team
@@ -39,17 +51,22 @@ def generate_chart(teams, matches):
                 if not a or not b:
                     pass
                 elif (a.index, b.index) in results:
-                    winner = a
+                    winner, loser = a, b
                 elif (b.index, a.index) in results:
-                    winner = b
+                    winner, loser = b, a
                 d = dict(team=winner, rowspan=span, round=round, slot=slot)
                 if winner:
                     remaining[row] = winner
                     a.last_dict['contesting'] = False
                     b.last_dict['contesting'] = False
                     d['contesting'] = True
-                    winner.last_dict['won'] = True
+                    loser.last_dict['lost'] = True
                     winner.last_dict = d
+                else:
+                    d['editable'] = True
+                    d['team'] = picks.get((round, slot))
+                if extra_class:
+                    d['class'] = extra_class
                 dest[row-low].append(d)
                 slot += 1
             span *= 2
@@ -57,7 +74,7 @@ def generate_chart(teams, matches):
         return dest
 
     left_matches = add_teams(0, 32)
-    right_matches = (l[::-1] for l in add_teams(32, 64))
+    right_matches = (l[::-1] for l in add_teams(32, 64, 'right'))
 
     return [lm + rm for (lm, rm) in zip(left_matches, right_matches)]
 

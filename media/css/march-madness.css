@@ -5,27 +5,37 @@
 #chart th {
 	font-weight: bold;
 	padding: 0.5em;
+	border-bottom: 1px solid black;
+	background-color: #f0f0f0;
+	text-align: center;
 }
 
 #chart td {
 	padding: 0.75em;
 	color: gray;
+	vertical-align: center;
+}
+
+#chart td.right {
+	text-align: right;
 }
 
 .team {
 	padding: 0.5em;
 	border: thin solid gray;
-	font-style: italic;
 }
 
-.contesting {
+.contesting, .pick {
 	cursor: move;
 	color: black;
-	font-style: normal;
 }
 
-.won {
-	font-style: normal;
+.lost {
+	text-decoration: line-through;
+}
+
+.pick {
+	background-color: #f0f0b0 !important;
 }
 
 #chart .blank span {
@@ -33,6 +43,6 @@
 	background-color: #f0f0f0;
 }
 
-#chart .hover {
-	color: red;
+#chart .hover span {
+	background-color: #ffffb0 !important;
 }
