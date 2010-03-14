@@ -3,7 +3,20 @@
 
 <script type="text/javascript">
 
+get_round = function (node) { return parseInt(/^round-(\d+)-/.exec(node.attr('id'))[1]); }
+get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.attr('id'))[1]); }
+
 team_allowed_in_slot = function (team, slot) {
+	var src_round = get_round(team.parent());
+	var src_slot = get_slot(team.parent());
+	var dest_round = get_round(slot);
+	var dest_slot = get_slot(slot);
+	var dist = dest_round - src_round;
+	if (dist < 1)
+		return false;
+	if (Math.floor(src_slot / Math.pow(2, dist) + 0.00001) != dest_slot)
+		return false;
+	/* TODO: Propagate team across intermediate nodes */
 	return true;
 }
 
@@ -16,10 +29,10 @@ draggable_team = function (node) {
 			if (!slot || !team_allowed_in_slot($(this), slot))
 				return true;
 			var team = $(this).clone();
+			var team_name = /^round-\d+-team-(.+)$/.exec(team.attr('id'))[1];
+			team.attr('id', 'round-'+get_round(slot)+'-team-'+team_name);
 			draggable_team(team);
-			droppable_slot(team);
-			team.attr('id', slot.attr('id'));
-			slot.replaceWith(team);
+			slot.removeClass('blank').empty().append(team);
 			return false;
 		}
 	});
@@ -33,8 +46,8 @@ droppable_slot = function (node) {
 }
 
 $(function () {
-	draggable_team($(".contesting"));
-	droppable_slot($("#chart .blank"));
+	draggable_team($('.contesting'));
+	droppable_slot($('.blank'));
 });
 </script>
 
@@ -46,9 +59,9 @@ $(function () {
 {% for row in chart %}
 <tr>
 	{% for cell in row %}
-	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %}>
-        {% if cell.team %}<span{% if cell.id %} id="{{ cell.id }}"{% endif %} class="team{% if cell.contesting %} contesting{% endif %}{% if cell.won %} won{% endif %}">{{ cell.team }}</span>
-	{% else %}<span{% if cell.id %} id="{{ cell.id }}"{% endif %} class="blank">___</span>{% endif %}
+	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %} id="round-{{ cell.round }}-slot-{{ cell.slot }}"{% if not cell.team %} class="blank"{% endif %}>
+        {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.won %} won{% endif %}">{{ cell.team }}</span>{% else %}
+	<span>___</span>{% endif %}
 	</td>{% endfor %}
 </tr>
 {% endfor %}

@@ -28,7 +28,7 @@
 	font-style: normal;
 }
 
-#chart .blank {
+#chart .blank span {
 	padding: 0.5em;
 	background-color: #f0f0f0;
 }
