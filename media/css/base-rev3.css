@@ -252,6 +252,8 @@ figure.feature {
 	padding: 0.5em;
 }
 
+.scoreboard .team { font-weight: bold; }
+
 .quotes li {
 	display: block;
 	margin: 1em;

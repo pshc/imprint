@@ -108,4 +108,15 @@ def kiwi_toggle(request):
                 'username': 'pewpew'}
         return http.HttpResponse('Set!')
 
+def kiwi_preferred_name(request):
+    kiwi = request.session['kiwi_info']
+    pref = request.session['kiwi_name_pref']
+    if pref == 'firstlast':
+        return kiwi['firstlastname']
+    elif pref == 'full':
+        return kiwi['name']
+    elif pref == 'middleinitials':
+        return kiwi['middleinitialsname']
+    assert False
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

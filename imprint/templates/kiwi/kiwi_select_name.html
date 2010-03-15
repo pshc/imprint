@@ -1,0 +1,10 @@
+		<tr><th></th><td>You can post as<ul class="kiwi">
+{% if kiwi.firstlastname %}{% ifnotequal kiwi.name kiwi.firstlastname %}
+			<li><input type="radio" name="kiwi_name_format" value="firstlast" id="id_kiwi_firstlast"{% ifequal kiwi_name_pref 'firstlast' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_firstlast">{{ kiwi.firstlastname }} @ UW</label></li>
+{% endifnotequal %}{% endif %}
+{% if kiwi.middleinitialsname %}
+			<li><input type="radio" name="kiwi_name_format" value="middleinitials" id="id_kiwi_middleinitials"{% ifequal kiwi_name_pref 'middleinitials' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_middleinitials">{{ kiwi.middleinitialsname }} @ UW</label></li>
+{% endif %}
+			<li><input type="radio" name="kiwi_name_format" value="full" id="id_kiwi_full"{% ifequal kiwi_name_pref 'full' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_full">{{ kiwi.name }} @ UW</label></li>
+			<li>or <a href="{% url kiwi-logout %}">log out of your UW credentials</a>.</li>
+		</ul></td></tr>
