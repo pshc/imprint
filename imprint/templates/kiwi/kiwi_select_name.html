@@ -1,4 +1,3 @@
-{% if kiwi and not request.user.is_authenticated %}
 		<tr><th></th><td>You can post as<ul class="kiwi">
 {% if kiwi.firstlastname %}{% ifnotequal kiwi.name kiwi.firstlastname %}
 			<li><input type="radio" name="kiwi_name_format" value="firstlast" id="id_kiwi_firstlast"{% ifequal kiwi_name_pref 'firstlast' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_firstlast">{{ kiwi.firstlastname }} @ UW</label></li>
@@ -9,5 +8,3 @@
 			<li><input type="radio" name="kiwi_name_format" value="full" id="id_kiwi_full"{% ifequal kiwi_name_pref 'full' %} checked="checked"{% endifequal %} /> <label for="id_kiwi_full">{{ kiwi.name }} @ UW</label></li>
 			<li>or <a href="{% url kiwi-logout %}">log out of your UW credentials</a>.</li>
 		</ul></td></tr>
-{% else %}
-		{% if kiwi_enabled %}<tr><th></th><td>{% if request.user.is_authenticated %}You must <a href="{% url admin:logout %}">log out</a> to post with a UW-verified username.{% else %}<a href="{% url kiwi-login %}">Login with your UW credentials</a> to post with a verified username.{% endif %}</td></tr>{% endif %}

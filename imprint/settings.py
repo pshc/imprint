@@ -31,6 +31,7 @@ MIDDLEWARE_CLASSES = (
     'django_authopenid.middleware.OpenIDMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'kiwi.middleware.KiwiNameFormatMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
