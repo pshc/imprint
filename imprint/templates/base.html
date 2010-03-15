@@ -17,7 +17,7 @@
 			<a href="{% url static-volunteer %}">Volunteer</a> &mdash;
 			<a href="{% url static-contact %}">Contact</a> &mdash;
 			<a href="{% url static-jobs %}">Now hiring: Sysadmin</a> &mdash;
-			<a href="#">March Madness coming Monday</a>
+			<a href="{% url mm-index %}"><strong>March Madness</strong></a>
 		</nav>
 {% include "banner.html" %}
 		<a href="{% url latest-issue %}"><h1>{{ site.name }}</h1></a>
