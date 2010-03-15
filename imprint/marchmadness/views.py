@@ -69,7 +69,7 @@ def save_picks(request):
             team = Team.objects.get(slug=team)
             Pick.objects.create(round=round, slot=slot, team=team,
                     contestant=contestant)
-    except Exception as e:
+    except Exception, e:
         return http.HttpResponseServerError(str(e) if settings.DEBUG else
                 'A server error occurred; could not save.')
     parse_maybe = lambda s: int(s) if s else None
@@ -79,7 +79,7 @@ def save_picks(request):
     return http.HttpResponse('Saved.')
 
 @kiwi_required
-@permission_required('marchmadness.modify_team')
+@permission_required('marchmadness.change_team')
 @renders('marchmadness/edit_teams.html')
 def edit_teams(request):
     if request.method == 'POST':
