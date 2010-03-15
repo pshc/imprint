@@ -12,10 +12,20 @@ class Match(models.Model):
     winner = models.ForeignKey(Team, related_name='wins')
     loser = models.ForeignKey(Team, related_name='losses')
 
+    class Meta:
+        verbose_name_plural = 'matches'
+
+    def __unicode__(self):
+        return u'%s won against %s' % (self.winner, self.loser)
+
 class Contestant(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, blank=True)
+    full_name = models.CharField(max_length=50)
     final_score_1 = models.PositiveSmallIntegerField(null=True)
     final_score_2 = models.PositiveSmallIntegerField(null=True)
+
+    def __unicode__(self):
+        return self.full_name
 
 class Pick(models.Model):
     contestant = models.ForeignKey(Contestant, related_name='picks')

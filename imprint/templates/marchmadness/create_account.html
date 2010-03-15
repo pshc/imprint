@@ -1,0 +1,21 @@
+{% extends "marchmadness/base.html" %}
+{% block content %}
+	<h1 id="march-madness">March Madness</h1>
+
+	<form action="{% url mm-create-account %}" method="POST">
+
+	<h3>You're just a step away from participating in the challenge.</h3>
+
+	<section>
+	<em>Your name will appear as follows in bracket rankings:</em>
+	{% include "kiwi/kiwi_select_name.html" %}
+	</section>
+
+	<section>
+	{% if message %}<strong>{{ message }}</strong><br />{% endif %}
+	<input type="checkbox" name="accepted" id="accepted" value="on" /> <label for="accepted">I accept the <a href="{% url mm-terms %}" target="_blank">Terms and Conditions</a>.</label><br />
+	</section>
+
+	<input type="submit" value="Create my account" />
+	</form>
+{% endblock %}

@@ -1,5 +1,15 @@
+#march-madness {
+	background: url("../images/march-madness.png") no-repeat;
+	padding-top: 213px; width: 974px;
+	height: 0px;
+	overflow: hidden;
+	margin: 0 auto 1em auto;
+	clear: both;
+}
+
 #chart {
 	font-size: 90%;
+	width: 974px;
 }
 
 #chart th {
@@ -57,6 +67,7 @@ td.champ { height: 5em; vertical-align: bottom; }
 #save_form {
 	text-align: center;
 	margin-bottom: 1em;
+	height: 10em;
 }
 
 #save_form input {
@@ -74,4 +85,16 @@ td.champ { height: 5em; vertical-align: bottom; }
 #save_form span {
 	display: block;
 	color: gray;
+}
+
+article {
+	text-align: center;
+}
+
+article a {
+	font-weight: bold;
+}
+
+section {
+	margin: 3em;
 }

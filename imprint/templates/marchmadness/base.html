@@ -1,5 +1,9 @@
 {% extends "fullwidth.html" %}
 {% block title %}March Madness{% endblock %}
+{% block meta %}
+	<meta name="title" content="March Madness with Imprint" />
+	<meta name="description" content="Imprint Online is running a free bracket competition. Win prizes for the best bracket!" />
+{% endblock %}
 {% block head %}
 	{% include "jquery.html" %}
 	<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-ui.js"></script>

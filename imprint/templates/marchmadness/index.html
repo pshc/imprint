@@ -1,132 +1,20 @@
 {% extends "marchmadness/base.html" %}
 {% block content %}
+	<article>
+	<h1 id="march-madness">March Madness</h1>
 
-<script type="text/javascript">
+	<p>Fill out your bracket for free with <em>Imprint</em>. Hundreds of dollars' worth of prizes are available!</p>
 
-var picks = {{ picks|safe }};
-var unsaved = false;
-var autosave_handle;
-var autosave_time = 5000;
+{% if kiwi %}
+	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a> or <a href="{% url kiwi-logout %}">log out</a>.</p>
+	{% else %}<p>You can <a href="{% url mm-create-account %}">create your own bracket</a> or <a href="{% url kiwi-logout %}">log out</a>.</p>{% endif %}
+{% else %}
+	<p><a href="{% url mm-login %}">Log in with your UW credentials</a> to create your own bracket.</p>
+{% endif %}
 
-get_round = function (node) { return parseInt(/^round-(\d+)-/.exec(node.attr('id'))[1]); }
-get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.attr('id'))[1]); }
-
-set_unsaved = function () {
-	unsaved = true;
-	$('#save_form input').removeAttr('disabled');
-	$('#save_form span').hide();
-	clearTimeout(autosave_handle);
-	autosave_handle = setTimeout('save_picks("Autosaving...");', autosave_time);
-}
-
-save_picks = function (save_message) {
-	clearTimeout(autosave_handle);
-	picks['final-score-1'] = $('#final_score_1').val();
-	picks['final-score-2'] = $('#final_score_2').val();
-	var msg = $('#save_form span');
-	msg.text(save_message).show();
-	$('#save_form input').attr('disabled', 'disabled');
-	$.post("{% url mm-save-picks %}", picks, function (data, s, xhr) {
-		msg.text(data);
-		if (s == 'success')
-			unsaved = false;
-		else
-			set_unsaved(true);
-	});
-}
-
-team_allowed_in_slot = function (team, slot) {
-	var src_round = get_round(team.parent());
-	var src_slot = get_slot(team.parent());
-	var dest_round = get_round(slot);
-	var dest_slot = get_slot(slot);
-	var dist = dest_round - src_round;
-	if (dist < 1)
-		return false;
-	if (Math.floor(src_slot / Math.pow(2, dist) + 0.00001) != dest_slot)
-		return false;
-	/* TODO: Propagate team across intermediate nodes */
-	return true;
-}
-
-draggable_team = function (node) {
-	node.draggable({
-		opacity: 0.75,
-		helper: 'clone',
-		cursor: 'move',
-		revert: function (slot) {
-			if (!slot || !team_allowed_in_slot($(this), slot))
-				return true;
-			var team = $(this).clone();
-			var team_name = /^round-\d+-team-(.+)$/.exec(team.attr('id'))[1];
-			var round = get_round(slot);
-			team.attr('id', 'round-'+round+'-team-'+team_name);
-			team.addClass('pick');
-			draggable_team(team);
-			slot.removeClass('blank').empty().append(team);
-			picks['round-'+round+'-slot-'+get_slot(slot)] = team_name;
-			set_unsaved();
-			return false;
-		}
-	});
-}
-
-droppable_slot = function (node) {
-	node.droppable({
-		hoverClass: 'hover'
-	});
-}
-
-$(function () {
-	draggable_team($('.contesting'));
-	draggable_team($('.pick'));
-	droppable_slot($('.blank'));
-	$('#final_score_1').change(set_unsaved).keypress(set_unsaved);
-	$('#final_score_2').change(set_unsaved).keypress(set_unsaved);
-	$('#save_form input').click(function () { save_picks("Saving..."); });
-});
-</script>
-
-<table id="chart">
-<tr>
-	<th>1st Round</th><th>2nd Round</th><th>Reg. Semis</th><th>Reg. Finals</th><th>Nat. Semis</th><th>Championship</th>
-	<th>Nat. Semis</th><th>Reg. Finals</th><th>Reg. Semis</th><th>2nd Round</th><th>1st Round</th>
-</tr>
-{% for row in chart %}
-<tr>
-	{% for cell in row %}
-	{% ifequal cell "top" %}
-
-	<td rowspan="6" class="centre">&nbsp;</td>
-
-	{% else %}{% if cell.champ %}
-	{# Stupid special case. #}
-	<td rowspan="20" class="centre"><table width="100%">
-
-	{% with cell.a as cell %}<tr>{% include "marchmadness/cell.html" %}
-	</tr>{% endwith %}
-	{% with cell.champ as cell %}<tr>{% include "marchmadness/cell.html" %}
-	</tr>{% endwith %}
-	<tr><td id="champ_label">Champion</td></tr>
-	{% with cell.b as cell %}<tr>{% include "marchmadness/cell.html" %}
-	</tr>{% endwith %}
-
-	</table></td>
-	{% else %}{% ifequal cell "bottom" %}
-
-	<td rowspan="6" class="centre">
-		Tiebreaker<br />
-		Final game score:<br />
-		<input id="final_score_1" value="{{ final_score_1 }}" maxlength="3" class="score" />
-		&ndash;
-		<input id="final_score_2" value="{{ final_score_2 }}" maxlength=="3" class="score" />
-	</td>
-
-	{% else %}{% include "marchmadness/cell.html" %}
-	{% endifequal %}{% endif %}{% endifequal %}
-	{% endfor %}
-</tr>
-{% endfor %}
-</table>
-<form id="save_form"><input type="button" value="Save" disabled="disabled" /> <span></span></form>
+	<hr />
+	{% include "marchmadness/chart.html" %}
+	<p>{% include "content/facebook_link.html" %}</p>
+	</article>
+	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

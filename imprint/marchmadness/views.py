@@ -1,8 +1,11 @@
 from content.models import Piece
 from django import http
 from django.contrib.auth.decorators import permission_required
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 from issues.models import Issue
+from kiwi.views import kiwi_required, kiwi_preferred_name, set_kiwi_return_url
 from models import *
 import re
 from utils import renders
@@ -10,32 +13,52 @@ from utils import renders
 def get_relevant_article():
     issue = object = section = None
     try: # to keep the relevant issue/piece in context
-        issue = Issue.objects.get(number=42, volume=32) # TODO
+        issue = Issue.objects.get(number=30, volume=32)
         object = issue.pieces.get(slug='march-madness')
         section = object.section
     except (Issue.DoesNotExist, Piece.DoesNotExist):
         pass
     return (issue, object, section)
 
+@kiwi_required
 @renders('marchmadness/index.html')
 def index(request):
     issue, object, section = get_relevant_article()
     teams = Team.objects.all()
-    # TEMP
-    (contestant, cr) = Contestant.objects.get_or_create(username='pshcolli')
-    final_score_1 = contestant.final_score_1 or ''
-    final_score_2 = contestant.final_score_2 or ''
-    picks = Pick.objects.filter(contestant=contestant)
-    chart = generate_chart(teams, Match.objects.all(), picks)
-    picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
-                for p in picks)
+    chart = generate_chart(teams, Match.objects.all())
+    try:
+        kiwi_username = request.session['kiwi_info']['username']
+        Contestant.objects.get(username=kiwi_username)
+        has_account = True
+    except:
+        has_account = False
     return locals()
 
+@kiwi_required
+@renders('marchmadness/choose_picks.html')
+def choose_picks(request):
+    issue, object, section = get_relevant_article()
+
+    kiwi_username = request.session['kiwi_info']['username']
+    contestant = Contestant.objects.get(username=kiwi_username)
+    picks = contestant.picks.all()
+
+    teams = Team.objects.all()
+    chart = generate_chart(teams, Match.objects.all(), picks)
+
+    final_score_1 = contestant.final_score_1 or ''
+    final_score_2 = contestant.final_score_2 or ''
+    picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
+                for p in picks)
+    editable = True
+    return locals()
+
+@kiwi_required
 def save_picks(request):
     if request.method != 'POST':
         return http.HttpBadRequest('GET required.')
-    # TEMP
-    (contestant, cr) = Contestant.objects.get_or_create(username='pshcolli')
+    kiwi_username = request.session['kiwi_info']['username']
+    contestant = Contestant.objects.get(username=kiwi_username)
     contestant.picks.all().delete()
     try:
         for key, team in request.POST.iteritems():
@@ -55,6 +78,7 @@ def save_picks(request):
     contestant.save()
     return http.HttpResponse('Saved.')
 
+@kiwi_required
 @permission_required('marchmadness.modify_team')
 @renders('marchmadness/edit_teams.html')
 def edit_teams(request):
@@ -89,5 +113,28 @@ def edit_teams(request):
         for invalid in old.itervalues():
             invalid.delete()
     return locals()
+
+@kiwi_required
+@renders('marchmadness/create_account.html')
+def create_account(request):
+    username = request.session['kiwi_info']['username']
+    try:
+        Contestant.objects.get(username=username)
+        return redirect(choose_picks)
+    except Contestant.DoesNotExist:
+        pass
+    if request.method == 'POST':
+        if not request.POST.get('accepted') == 'on':
+            message = 'You must accept the Terms and Conditions to continue.'
+        else:
+            full_name = kiwi_preferred_name(request)
+            Contestant.objects.create(username=username, full_name=full_name)
+            return redirect(choose_picks)
+    return locals()
+
+@kiwi_required
+def login(request):
+    set_kiwi_return_url(request, reverse(create_account))
+    return redirect('kiwi-login')
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

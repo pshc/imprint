@@ -19,7 +19,9 @@
 	{% get_comment_form for object as form %}
 	<form action="{% comment_form_target %}" method="POST" id="comment_form"><table>
 {% if kiwi and not request.user.is_authenticated %}
+		<tr><th></th><td>You can post as
 {% include "kiwi/kiwi_select_name.html" %}
+		</td></tr>
 {% else %}
 		{% if kiwi_enabled %}<tr><th></th><td>{% if request.user.is_authenticated %}You must <a href="{% url admin:logout %}">log out</a> to post with a UW-verified username.{% else %}<a href="{% url kiwi-login %}">Login with your UW credentials</a> to post with a verified username.{% endif %}</td></tr>{% endif %}
 		<tr><th>{{ form.name.label_tag }}:</th><td>{{ form.name }}{{ form.name.errors }}</td></tr>
