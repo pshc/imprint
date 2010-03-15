@@ -4,10 +4,6 @@ from datetime import datetime
 class Team(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20, db_index=True)
-    index = models.PositiveSmallIntegerField(unique=True, db_index=True)
-
-    class Meta:
-        ordering = ['index']
 
     def __unicode__(self):
         return self.name
@@ -18,6 +14,8 @@ class Match(models.Model):
 
 class Contestant(models.Model):
     username = models.CharField(max_length=20)
+    final_score_1 = models.PositiveSmallIntegerField(null=True)
+    final_score_2 = models.PositiveSmallIntegerField(null=True)
 
 class Pick(models.Model):
     contestant = models.ForeignKey(Contestant, related_name='picks')
@@ -26,7 +24,7 @@ class Pick(models.Model):
     team = models.ForeignKey(Team, related_name='picks')
 
 def generate_chart(teams, matches, picks=None):
-    results = set((m.winner.index, m.loser.index) for m in matches)
+    results = set((m.winner.id, m.loser.id) for m in matches)
     picks = dict((((p.round, p.slot), p.team) for p in picks) if picks else [])
     teams = list(teams)
     def add_teams(low, high, extra_class=None):
@@ -58,9 +56,9 @@ def generate_chart(teams, matches, picks=None):
         winner = None
         if not a or not b:
             pass
-        elif (a.index, b.index) in results:
+        elif (a.id, b.id) in results:
             winner, loser = a, b
-        elif (b.index, a.index) in results:
+        elif (b.id, a.id) in results:
             winner, loser = b, a
         d = dict(team=winner, rowspan=span, round=round, slot=slot)
         if winner:

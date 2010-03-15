@@ -9,7 +9,14 @@ var unsaved = false;
 get_round = function (node) { return parseInt(/^round-(\d+)-/.exec(node.attr('id'))[1]); }
 get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.attr('id'))[1]); }
 
+set_unsaved = function () {
+	unsaved = true;
+	$('#save_form input').removeAttr('disabled');
+}
+
 save_picks = function () {
+	picks['final-score-1'] = $('#final_score_1').val();
+	picks['final-score-2'] = $('#final_score_2').val();
 	var msg = $('#save_form span');
 	msg.text("Saving...").show();
 	$('#save_form input').attr('disabled', 'disabled');
@@ -20,7 +27,7 @@ save_picks = function () {
 			unsaved = false;
 		}
 		else
-			$('#save_form input').removeAttr('disabled');
+			set_unsaved(true);
 	});
 }
 
@@ -54,10 +61,7 @@ draggable_team = function (node) {
 			draggable_team(team);
 			slot.removeClass('blank').empty().append(team);
 			picks['round-'+round+'-slot-'+get_slot(slot)] = team_name;
-			if (!unsaved) {
-				$('#save_form input').removeAttr('disabled')
-				unsaved = true;
-			}
+			set_unsaved();
 			return false;
 		}
 	});
@@ -73,6 +77,8 @@ $(function () {
 	draggable_team($('.contesting'));
 	draggable_team($('.pick'));
 	droppable_slot($('.blank'));
+	$('#final_score_1').change(set_unsaved).keypress(set_unsaved);
+	$('#final_score_2').change(set_unsaved).keypress(set_unsaved);
 	$('#save_form input').click(save_picks);
 });
 </script>
@@ -106,7 +112,10 @@ $(function () {
 
 	<td rowspan="6" class="centre">
 		Tiebreaker<br />
-		Final game score:
+		Final game score:<br />
+		<input id="final_score_1" value="{{ final_score_1 }}" maxlength="3" class="score" />
+		&ndash;
+		<input id="final_score_2" value="{{ final_score_2 }}" maxlength=="3" class="score" />
 	</td>
 
 	{% else %}{% include "marchmadness/cell.html" %}

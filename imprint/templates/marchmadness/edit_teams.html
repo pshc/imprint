@@ -1,0 +1,10 @@
+{% extends "marchmadness/base.html" %}
+{% block content %}
+	<h1>Team names</h1>
+	<form action="{% url mm-edit-teams %}" method="POST">
+	{% for team in teams %}{% with forloop.counter as index %}
+	{{ index }}. <input name="team-{{ index }}" value="{{ team }}" maxlength="20" /><br />
+	{% endwith %}{% endfor %}
+	<input type="submit" value="Save" />
+	</form>
+{% endblock %}
