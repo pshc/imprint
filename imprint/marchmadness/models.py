@@ -94,7 +94,7 @@ def generate_chart(teams, matches, picks=None):
         span = lambda r, n: [[r]] + [[] for i in xrange(n-1)]
         return span('top', 6) + span(cell, 20) + span('bottom', 6)
 
-    (left_matches, left) = add_teams(0, 32)
+    (left_matches, left) = add_teams(0, 32, 'left')
     (right_matches, right) = add_teams(32, 64, 'right')
     for m in right_matches:
         m.reverse()
