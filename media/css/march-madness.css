@@ -1,5 +1,5 @@
 #march-madness {
-	background: url("../images/march-madness.png") no-repeat;
+	background: url("../images/marchmadness/banner.png") no-repeat;
 	padding-top: 213px; width: 974px;
 	height: 0px;
 	overflow: hidden;
@@ -26,9 +26,45 @@
 	vertical-align: center;
 }
 
-#chart td.left { text-align: left; }
-#chart td.right { text-align: right; }
+.topright {
+	background: url('../images/marchmadness/top-right.png') no-repeat center left;
+	text-align: right;
+}
+.bottomright {
+	background: url('../images/marchmadness/bottom-right.png') no-repeat center left;
+	text-align: right;
+}
+.topleft {
+	background: url('../images/marchmadness/top-left.png') no-repeat center right;
+	text-align: left;
+}
+.bottomleft {
+	background: url('../images/marchmadness/bottom-left.png') no-repeat center right;
+	text-align: left;
+}
+
+.minitopright {
+	background: url('../images/marchmadness/mini-top-right.png') no-repeat center left;
+	text-align: right;
+}
+.minibottomright {
+	background: url('../images/marchmadness/mini-bottom-right.png') no-repeat center left;
+	text-align: right;
+}
+.minitopleft {
+	background: url('../images/marchmadness/mini-top-left.png') no-repeat center right;
+	text-align: left;
+}
+.minibottomleft {
+	background: url('../images/marchmadness/mini-bottom-left.png') no-repeat center right;
+	text-align: left;
+}
+
 #chart td.centre { text-align: center; }
+td.fromleft { text-align: left; }
+td.fromleft div { margin-left: -1em; }
+td.fromright { text-align: right; }
+td.fromright div { margin-right: -1em; }
 
 td.champ { height: 5em; vertical-align: bottom; }
 #champ_label { height: 5em; vertical-align: top; }
@@ -36,6 +72,7 @@ td.champ { height: 5em; vertical-align: bottom; }
 .team {
 	padding: 0.5em;
 	border: thin solid gray;
+	background-color: white;
 	white-space: nowrap;
 }
 

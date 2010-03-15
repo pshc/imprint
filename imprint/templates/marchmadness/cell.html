@@ -1,5 +1,9 @@
 <td rowspan="{{ cell.rowspan }}" id="round-{{ cell.round }}-slot-{{ cell.slot }}" class="{% if cell.editable %}blank {% endif %}{{ cell.class }}">
+	{% ifequal cell.class "fromleft" %}<div>&#8594;{% endifequal %}
+	{% ifequal cell.class "fromright" %}<div>{% endifequal %}
         {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.lost %} lost{% endif %}{% if cell.editable %} pick{% endif %}">{{ cell.team }}</span>{% else %}
 	<span>___</span>{% endif %}
+	{% ifequal cell.class "fromleft" %}</div>{% endifequal %}
+	{% ifequal cell.class "fromright" %}&#8592;</div>{% endifequal %}
 	</td>
 

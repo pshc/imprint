@@ -108,7 +108,8 @@ $(function () {
 	{# Stupid special case. #}
 	<td rowspan="20" class="centre"><table width="100%">
 
-	{% with cell.a as cell %}<tr>{% include "marchmadness/cell.html" %}
+	{% with cell.a as cell %}<tr>
+	{% include "marchmadness/cell.html" %}
 	</tr>{% endwith %}
 	{% with cell.champ as cell %}<tr>{% include "marchmadness/cell.html" %}
 	</tr>{% endwith %}

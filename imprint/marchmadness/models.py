@@ -37,14 +37,15 @@ def generate_chart(teams, matches, picks=None):
     results = set((m.winner.id, m.loser.id) for m in matches)
     picks = dict((((p.round, p.slot), p.team) for p in picks) if picks else [])
     teams = list(teams)
-    def add_teams(low, high, extra_class=None):
+    def add_teams(low, high, extra_class):
         competitors = {}
         dest = []
         # Team column
         for slot, team in enumerate(teams[low:high]):
             d = dict(team=team, round=0, slot=slot+low, contesting=True)
             if extra_class:
-                d['class'] = extra_class
+                d['class'] = 'mini' + ('bottom' if slot % 2
+                        else 'top') + extra_class
             team.last_dict = d
             dest.append([d])
             competitors[slot] = team
@@ -81,15 +82,18 @@ def generate_chart(teams, matches, picks=None):
         else:
             d['editable'] = True
             d['team'] = picks.get((round, slot))
-        if extra_class:
+        if extra_class in ('left', 'right'):
+            d['class'] = ('bottom' if slot % 2 else 'top') + extra_class
+        else:
             d['class'] = extra_class
         return d
 
     def champion(left, right): # Special case champion final cell
         final = {}
-        a = make_result(left.get(0), left.get(16), 5, final, 'left')
+        a = make_result(left.get(0), left.get(16), 5, final, 'fromleft')
         champ = make_result(final.get(0), final.get(32), 6, {}, 'centre champ')
-        b = make_result(right.get(32), right.get(48), 5, final, 'right', 1, 32)
+        b = make_result(right.get(32), right.get(48), 5, final, 'fromright',
+                1, 32)
         cell = dict(a=a, champ=champ, b=b)
         span = lambda r, n: [[r]] + [[] for i in xrange(n-1)]
         return span('top', 6) + span(cell, 20) + span('bottom', 6)
