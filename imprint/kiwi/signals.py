@@ -1,25 +1,13 @@
 from django.conf import settings
 from django.contrib.comments.signals import comment_will_be_posted
+from kiwi.views import kiwi_preferred_name
 
 def kiwi_verification(sender, comment, request, **kwargs):
     comment.kiwi_verified = False
-    if 'kiwi_name_format' in request.POST:
-        kiwi = request.session.get('kiwi_info', None)
-        if kiwi:
-            format = request.POST.get('kiwi_name_format')
-            if format == 'firstlast':
-                comment.name = kiwi['firstlastname']
-                request.session['kiwi_name_pref'] = 'firstlast'
-            elif format == 'full':
-                comment.name = kiwi['name']
-                request.session['kiwi_name_pref'] = 'full'
-            elif format == 'middleinitials':
-                comment.name = kiwi['middleinitialsname']
-                request.session['kiwi_name_pref'] = 'middleinitials'
-            else:
-                return False
-            comment.email = kiwi['email']
-            comment.kiwi_verified = True
+    if 'kiwi_info' in request.session:
+        comment.name = kiwi_preferred_name(request)
+        comment.email = request.session['kiwi_info']['email']
+        comment.kiwi_verified = True
     return True
 
 if getattr(settings, 'KIWI_API_CODE', False):
