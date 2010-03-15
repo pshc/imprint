@@ -36,6 +36,7 @@ td.champ { height: 5em; vertical-align: bottom; }
 .team {
 	padding: 0.5em;
 	border: thin solid gray;
+	white-space: nowrap;
 }
 
 .contesting, .pick {
