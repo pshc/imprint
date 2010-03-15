@@ -1,0 +1,5 @@
+<td rowspan="{{ cell.rowspan }}" id="round-{{ cell.round }}-slot-{{ cell.slot }}" class="{% if cell.editable %}blank {% endif %}{{ cell.class }}">
+        {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.lost %} lost{% endif %}{% if cell.editable %} pick{% endif %}">{{ cell.team }}</span>{% else %}
+	<span>___</span>{% endif %}
+	</td>
+

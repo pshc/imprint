@@ -16,9 +16,12 @@
 	vertical-align: center;
 }
 
-#chart td.right {
-	text-align: right;
-}
+#chart td.left { text-align: left; }
+#chart td.right { text-align: right; }
+#chart td.centre { text-align: center; }
+
+td.champ { height: 5em; vertical-align: bottom; }
+#champ_label { height: 5em; vertical-align: top; }
 
 .team {
 	padding: 0.5em;

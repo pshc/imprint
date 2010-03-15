@@ -79,16 +79,39 @@ $(function () {
 
 <table id="chart">
 <tr>
-	<th>1st Round</th><th>2nd Round</th><th>Reg. Semis</th><th>Reg. Finals</th><th>Nat. Semis</th><th colspan="2">Championship</th>
+	<th>1st Round</th><th>2nd Round</th><th>Reg. Semis</th><th>Reg. Finals</th><th>Nat. Semis</th><th>Championship</th>
 	<th>Nat. Semis</th><th>Reg. Finals</th><th>Reg. Semis</th><th>2nd Round</th><th>1st Round</th>
 </tr>
 {% for row in chart %}
 <tr>
 	{% for cell in row %}
-	<td{% if cell.rowspan %} rowspan="{{ cell.rowspan }}"{% endif %} id="round-{{ cell.round }}-slot-{{ cell.slot }}" class="{% if cell.editable %}blank {% endif %}{{ cell.class }}">
-        {% if cell.team %}<span id="round-{{ cell.round }}-team-{{ cell.team.slug }}" class="team{% if cell.contesting %} contesting{% endif %}{% if cell.lost %} lost{% endif %}{% if cell.editable %} pick{% endif %}">{{ cell.team }}</span>{% else %}
-	<span>___</span>{% endif %}
-	</td>{% endfor %}
+	{% ifequal cell "top" %}
+
+	<td rowspan="6" class="centre">&nbsp;</td>
+
+	{% else %}{% if cell.champ %}
+	{# Stupid special case. #}
+	<td rowspan="20" class="centre"><table width="100%">
+
+	{% with cell.a as cell %}<tr>{% include "marchmadness/cell.html" %}
+	</tr>{% endwith %}
+	{% with cell.champ as cell %}<tr>{% include "marchmadness/cell.html" %}
+	</tr>{% endwith %}
+	<tr><td id="champ_label">Champion</td></tr>
+	{% with cell.b as cell %}<tr>{% include "marchmadness/cell.html" %}
+	</tr>{% endwith %}
+
+	</table></td>
+	{% else %}{% ifequal cell "bottom" %}
+
+	<td rowspan="6" class="centre">
+		Tiebreaker<br />
+		Final game score:
+	</td>
+
+	{% else %}{% include "marchmadness/cell.html" %}
+	{% endifequal %}{% endif %}{% endifequal %}
+	{% endfor %}
 </tr>
 {% endfor %}
 </table>

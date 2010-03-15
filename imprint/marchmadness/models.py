@@ -42,41 +42,57 @@ def generate_chart(teams, matches, picks=None):
             competitors[slot] = team
         # Match columns
         span = 2
-        for round in xrange(1, 6):
+        for round in xrange(1, 5):
             remaining = {}
             slot = low // (2**round)
             for row in xrange(low, high, span):
                 a, b = competitors.get(row), competitors.get(row + span//2)
-                winner = None
-                if not a or not b:
-                    pass
-                elif (a.index, b.index) in results:
-                    winner, loser = a, b
-                elif (b.index, a.index) in results:
-                    winner, loser = b, a
-                d = dict(team=winner, rowspan=span, round=round, slot=slot)
-                if winner:
-                    remaining[row] = winner
-                    a.last_dict['contesting'] = False
-                    b.last_dict['contesting'] = False
-                    d['contesting'] = True
-                    loser.last_dict['lost'] = True
-                    winner.last_dict = d
-                else:
-                    d['editable'] = True
-                    d['team'] = picks.get((round, slot))
-                if extra_class:
-                    d['class'] = extra_class
-                dest[row-low].append(d)
+                dest[row-low].append(make_result(**locals()))
                 slot += 1
             span *= 2
             competitors = remaining
-        return dest
+        return (dest, competitors)
 
-    left_matches = add_teams(0, 32)
-    right_matches = (l[::-1] for l in add_teams(32, 64, 'right'))
+    def make_result(a=None, b=None, round=None, remaining=None,
+                extra_class=None, slot=0, row=0, span=1, **other):
+        winner = None
+        if not a or not b:
+            pass
+        elif (a.index, b.index) in results:
+            winner, loser = a, b
+        elif (b.index, a.index) in results:
+            winner, loser = b, a
+        d = dict(team=winner, rowspan=span, round=round, slot=slot)
+        if winner:
+            remaining[row] = winner
+            a.last_dict['contesting'] = False
+            b.last_dict['contesting'] = False
+            d['contesting'] = True
+            loser.last_dict['lost'] = True
+            winner.last_dict = d
+        else:
+            d['editable'] = True
+            d['team'] = picks.get((round, slot))
+        if extra_class:
+            d['class'] = extra_class
+        return d
 
-    return [lm + rm for (lm, rm) in zip(left_matches, right_matches)]
+    def champion(left, right): # Special case champion final cell
+        final = {}
+        a = make_result(left.get(0), left.get(16), 5, final, 'left')
+        champ = make_result(final.get(0), final.get(32), 6, {}, 'centre champ')
+        b = make_result(right.get(32), right.get(48), 5, final, 'right', 1, 32)
+        cell = dict(a=a, champ=champ, b=b)
+        span = lambda r, n: [[r]] + [[] for i in xrange(n-1)]
+        return span('top', 6) + span(cell, 20) + span('bottom', 6)
+
+    (left_matches, left) = add_teams(0, 32)
+    (right_matches, right) = add_teams(32, 64, 'right')
+    for m in right_matches:
+        m.reverse()
+
+    return [lm + c + rm for (lm, c, rm)
+            in zip(left_matches, champion(left, right), right_matches)]
 
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
