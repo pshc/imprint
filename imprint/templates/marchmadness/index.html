@@ -5,6 +5,8 @@
 
 var picks = {{ picks|safe }};
 var unsaved = false;
+var autosave_handle;
+var autosave_time = 5000;
 
 get_round = function (node) { return parseInt(/^round-(\d+)-/.exec(node.attr('id'))[1]); }
 get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.attr('id'))[1]); }
@@ -12,20 +14,22 @@ get_slot = function (node) { return parseInt(/^round-\d+-slot-(\d+)$/.exec(node.
 set_unsaved = function () {
 	unsaved = true;
 	$('#save_form input').removeAttr('disabled');
+	$('#save_form span').hide();
+	clearTimeout(autosave_handle);
+	autosave_handle = setTimeout('save_picks("Autosaving...");', autosave_time);
 }
 
-save_picks = function () {
+save_picks = function (save_message) {
+	clearTimeout(autosave_handle);
 	picks['final-score-1'] = $('#final_score_1').val();
 	picks['final-score-2'] = $('#final_score_2').val();
 	var msg = $('#save_form span');
-	msg.text("Saving...").show();
+	msg.text(save_message).show();
 	$('#save_form input').attr('disabled', 'disabled');
 	$.post("{% url mm-save-picks %}", picks, function (data, s, xhr) {
 		msg.text(data);
-		if (s == 'success') {
-			setTimeout(function () { msg.fadeOut(); }, 2000);
+		if (s == 'success')
 			unsaved = false;
-		}
 		else
 			set_unsaved(true);
 	});
@@ -79,7 +83,7 @@ $(function () {
 	droppable_slot($('.blank'));
 	$('#final_score_1').change(set_unsaved).keypress(set_unsaved);
 	$('#final_score_2').change(set_unsaved).keypress(set_unsaved);
-	$('#save_form input').click(save_picks);
+	$('#save_form input').click(function () { save_picks("Saving..."); });
 });
 </script>
 
