@@ -136,3 +136,8 @@ article a {
 section {
 	margin: 3em;
 }
+
+#sponsors td {
+	text-align: center;
+	width: 324px;
+}
