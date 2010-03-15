@@ -6,12 +6,12 @@
 
 	<h3>You're just a step away from participating in the challenge.</h3>
 
-	<section>
+	<section class="account">
 	<em>Your name will appear as follows in bracket rankings:</em>
 	{% include "kiwi/kiwi_select_name.html" %}
 	</section>
 
-	<section>
+	<section class="account">
 	{% if message %}<strong>{{ message }}</strong><br />{% endif %}
 	<input type="checkbox" name="accepted" id="accepted" value="on" /> <label for="accepted">I accept the <a href="{% url mm-terms %}" target="_blank">Terms and Conditions</a>.</label><br />
 	</section>

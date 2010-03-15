@@ -133,7 +133,7 @@ article a {
 	font-weight: bold;
 }
 
-section {
+.account {
 	margin: 3em;
 }
 
@@ -141,3 +141,13 @@ section {
 	text-align: center;
 	width: 324px;
 }
+
+#samples { float: left; }
+#samples table { border: 1px solid gray; }
+#samples th { padding: 1em; font-size: 200%; }
+
+#leaderboard { float: right; clear: none; }
+#leaderboard table { border: 1px solid black; }
+#leaderboard th { padding: 0.5em 1em; background-color: black; color: white; font-weight: bold; }
+#leaderboard td { padding: 0.5em 1em; text-align: left; }
+#leaderboard td a { font-weight: normal; }

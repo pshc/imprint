@@ -2,7 +2,7 @@ from content.models import Piece
 from django import http
 from django.contrib.auth.decorators import permission_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import slugify
 from issues.models import Issue
 from kiwi.views import kiwi_required, kiwi_preferred_name, set_kiwi_return_url
@@ -32,6 +32,7 @@ def index(request):
         has_account = True
     except:
         has_account = False
+    contestants = Contestant.objects.order_by('-id')[:10]
     return locals()
 
 @kiwi_required
@@ -51,6 +52,20 @@ def choose_picks(request):
     picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
                 for p in picks)
     editable = True
+    return locals()
+
+@kiwi_required
+@renders('marchmadness/view_picks.html')
+def view_picks(request, name):
+    issue, object, section = get_relevant_article()
+
+    contestant = get_object_or_404(Contestant,
+            full_name=name.replace('_', ' '))
+    picks = contestant.picks.all()
+
+    teams = Team.objects.all()
+    chart = generate_chart(teams, Match.objects.all(), picks)
+    editable = False
     return locals()
 
 @kiwi_required
@@ -130,6 +145,7 @@ def create_account(request):
             full_name = kiwi_preferred_name(request)
             Contestant.objects.create(username=username, full_name=full_name)
             return redirect(choose_picks)
+    issue, object, section = get_relevant_article()
     return locals()
 
 @kiwi_required

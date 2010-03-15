@@ -3,7 +3,7 @@
 	<article>
 	<h1 id="march-madness">March Madness</h1>
 
-	<p>Fill out your bracket for free with <em>Imprint</em>. Hundreds of dollars' worth of prizes are available!</p>
+	<p>Fill out your bracket for free with <em>Imprint</em>. Hundreds of dollars' worth of prizes are available! <a href="{% url mm-terms %}" style="font-weight: normal">Contest rules</a>.</p>
 
 {% if kiwi %}
 	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a> or <a href="{% url kiwi-logout %}">log out</a>.</p>
@@ -13,11 +13,22 @@
 {% endif %}
 
 	<hr />
+	<!-- IMPRINT'S TABLE EMPORIUM -->
         <table id="sponsors"><tr>
         <td><a href="http://www.waterloostore.uwaterloo.ca"><img src="{{ MEDIA_URL }}images/marchmadness/waterloo-store-logo.png" alt="Waterloo Store" /></a></td>
         <td><h3>Sponsors</h3><a href="http://www.athletics.uwaterloo.ca/"><img src="{{ MEDIA_URL }}images/marchmadness/warriors-logo.png" alt="Waterloo Warriors" /></a></td>
         <td><a href="http://www.feds.ca/"><img src="{{ MEDIA_URL }}images/marchmadness/feds-logo.png" alt="Federation of Students" /></a></td>
         </tr></table>
+	<hr />
+	<section id="samples">
+	</section>
+	<section id="leaderboard">
+		<table>
+			<tr><th>Latest user-submitted brackets</th></tr>{% for contestant in contestants %}
+			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td></tr>{% endfor %}
+			<tr><td style="border-top: 1px solid black;"><em>Rankings to come as matches occur</em></td></tr>
+		</table>
+	</section>
 	{% include "marchmadness/chart.html" %}
 	<p>{% include "content/facebook_link.html" %}</p>
 	</article>

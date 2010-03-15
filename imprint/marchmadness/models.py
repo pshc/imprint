@@ -27,6 +27,10 @@ class Contestant(models.Model):
     def __unicode__(self):
         return self.full_name
 
+    @property
+    def underscored(self):
+        return self.full_name.replace(' ', '_')
+
 class Pick(models.Model):
     contestant = models.ForeignKey(Contestant, related_name='picks')
     round = models.PositiveSmallIntegerField()

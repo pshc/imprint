@@ -1,0 +1,8 @@
+{% extends "marchmadness/base.html" %}
+{% block content %}
+	<article>
+	<h1>{{ contestant.full_name }}&rsquo;s bracket</h1>
+	<p><a href="{% url mm-index %}">Back to main</a></p>
+{% include "marchmadness/chart.html" %}
+	</article>
+{% endblock %}
