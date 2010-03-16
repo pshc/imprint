@@ -3,17 +3,29 @@
 	<article>
 	<h1 id="march-madness">March Madness</h1>
 
-	<p>Fill out your bracket for free with <em>Imprint</em>. Hundreds of dollars' worth of prizes are available! <a href="{% url mm-terms %}" style="font-weight: normal">Contest rules</a>.</p>
+	<!-- IMPRINT'S TABLE EMPORIUM -->
+	<table id="announce">
+	<tr><td>
+		<p>Fill out your bracket for free with <em>Imprint</em>. You could win one of over $400 in prizes! Prizes and the winners structure will be confirmed by the end of the week. So far, they include:</p>
+		<ul><li>$100 to the Grand Prize winner</li>
+		<li>$50 to the &ldquo;Redo Round&rdquo; winner</li>
+		<li>UW Retail store gift certificates</li>
+		<li>UW Athletics cool swag</li>
+		<li>and more to come!</li></ul>
+		<p>Deadline is <strong>Thursday, March 18</strong> at the tip-off of the first game.</p>
+		<p><a href="{% url mm-terms %}" style="font-weight: normal">Contest rules</a>.</p>
+	</td><td><div>
 
 {% if kiwi %}
-	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a> or <a href="{% url kiwi-logout %}">log out</a>.</p>
-	{% else %}<p>You can <a href="{% url mm-create-account %}">create your own bracket</a> or <a href="{% url kiwi-logout %}">log out</a>.</p>{% endif %}
+	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>
+	{% else %}<p>You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>{% endif %}
 {% else %}
-	<p><a href="{% url mm-login %}">Log in with your UW credentials</a> to create your own bracket.</p>
+	<p><a href="{% url mm-login %}">Log in with your UW credentials</a><br /> to create your own bracket.</p>
 {% endif %}
 
+	</div></td></tr></table>
+
 	<hr />
-	<!-- IMPRINT'S TABLE EMPORIUM -->
         <table id="sponsors"><tr>
         <td><a href="http://www.waterloostore.uwaterloo.ca"><img src="{{ MEDIA_URL }}images/marchmadness/waterloo-store-logo.png" alt="Waterloo Store" /></a></td>
         <td><h3>Sponsors</h3><a href="http://www.athletics.uwaterloo.ca/"><img src="{{ MEDIA_URL }}images/marchmadness/warriors-logo.png" alt="Waterloo Warriors" /></a></td>
@@ -21,16 +33,24 @@
         </tr></table>
 	<hr />
 	<section id="samples">
+	<table>
+		<tr><th colspan="2">Sample bracket</th><tr>
+		<tr><td><p>Brent Golem is <em>Imprint</em>'s current Sports and Living editor.</p></td><td>
+		<figure><a href="bracket/Brent_Golem/"><img src="{{ MEDIA_URL }}images/marchmadness/brents-bracket.png" alt="Brent's sample bracket" /></a>
+		<div class="legend"><p><a href="bracket/Brent_Golem/">Click to see Brent's bracket.</a></p></div>
+		</figure>
+		</td></tr>
+	</table>
 	</section>
 	<section id="leaderboard">
 		<table>
 			<tr><th>Latest user-submitted brackets</th></tr>{% for contestant in contestants %}
 			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td></tr>{% endfor %}
-			<tr><td style="border-top: 1px solid black;"><em>Rankings to come as matches occur</em></td></tr>
+			<tr><td>&hellip;</td></tr>
+			<tr><td class="bottom">Rankings to come as matches occur</td></tr>
 		</table>
 	</section>
-	{% include "marchmadness/chart.html" %}
-	<p>{% include "content/facebook_link.html" %}</p>
+	<p style="clear: both;">{% include "content/facebook_link.html" %}</p>
 	</article>
 	{% if object %}{% include "comments/nested_list.html" %}{% endif %}
 {% endblock %}

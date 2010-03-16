@@ -1,10 +1,11 @@
 #march-madness {
 	background: url("../images/marchmadness/banner.png") no-repeat;
-	padding-top: 213px; width: 974px;
+	padding-top: 213px; width: 972px;
 	height: 0px;
 	overflow: hidden;
-	margin: 0 auto 1em auto;
+	margin: 0.2em auto;
 	clear: both;
+	border: 1px solid gray;
 }
 
 #chart {
@@ -142,12 +143,27 @@ article a {
 	width: 324px;
 }
 
-#samples { float: left; }
-#samples table { border: 1px solid gray; }
-#samples th { padding: 1em; font-size: 200%; }
+#announce { text-align: justify; background-color: #f2f2f2; }
+#announce td { width: 50%; }
+#announce p { padding: 0.5em 2em; }
+#announce li { list-style: disc inside; text-indent: 3em; padding: 0.5em; }
+
+#announce div {
+	text-align: center;
+	font-size: 140%;
+	background-color: white;
+}
+
+#announce div a { text-decoration: underline; }
+
+#samples { float: left; text-align: justify; }
+#samples table { border: 1px solid gray; width: 700px; }
+#samples th { padding: 1em 1em; font-size: 150%; }
+#samples td { padding: 0 2em; }
 
 #leaderboard { float: right; clear: none; }
-#leaderboard table { border: 1px solid black; }
-#leaderboard th { padding: 0.5em 1em; background-color: black; color: white; font-weight: bold; }
+#leaderboard table { border: 1px solid gray; }
+#leaderboard th { padding: 0.5em 1em; background-color: gray; color: white; text-align: center; }
 #leaderboard td { padding: 0.5em 1em; text-align: left; }
 #leaderboard td a { font-weight: normal; }
+#leaderboard .bottom { border-top: 1px solid gray; color: gray; font-style: italic; }

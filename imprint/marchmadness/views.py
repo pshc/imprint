@@ -24,8 +24,6 @@ def get_relevant_article():
 @renders('marchmadness/index.html')
 def index(request):
     issue, object, section = get_relevant_article()
-    teams = Team.objects.all()
-    chart = generate_chart(teams, Match.objects.all())
     try:
         kiwi_username = request.session['kiwi_info']['username']
         Contestant.objects.get(username=kiwi_username)
