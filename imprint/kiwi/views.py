@@ -60,8 +60,8 @@ def get_kiwi_details(username, attrs=None):
     doc = minidom.parseString(xml).documentElement
     if attrs is None:
         attrs = ['name', 'firstname', 'lastname', 'email']
-    return dict((n.nodeName, n.firstChild.nodeValue) for n in doc.childNodes
-            if n.nodeName in attrs)
+    return dict((n.nodeName, n.firstChild.nodeValue if n.firstChild else '')
+            for n in doc.childNodes if n.nodeName in attrs)
 
 @kiwi_required
 def kiwi_postback(request):
@@ -84,6 +84,10 @@ def kiwi_postback(request):
         info['firstlastname'] = '%s %s' % (first, last)
         mi = [m[0]+'.' for m in re.split(r'[\s-]+', middle)]
         info['middleinitialsname'] = ' '.join([first]+mi+[last])
+        if 'kiwi_name_pref' not in request.session:
+            request.session['kiwi_name_pref'] = 'firstlast'
+    elif 'kiwi_name_pref' not in request.session:
+        request.session['kiwi_name_pref'] = 'full'
     info['username'] = username
     request.session['kiwi_info'] = info
     return_to = request.session.get('kiwi_referer')
