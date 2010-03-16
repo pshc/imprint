@@ -132,6 +132,8 @@ def edit_teams(request):
 @kiwi_required
 @renders('marchmadness/create_account.html')
 def create_account(request):
+    if 'kiwi_info' not in request.session:
+        return redirect(index)
     username = request.session['kiwi_info']['username']
     try:
         Contestant.objects.get(username=username)
