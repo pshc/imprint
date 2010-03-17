@@ -263,10 +263,6 @@ figure.feature {
 	text-align: justify;
 }
 
-.quotes mark {
-	color: red;
-}
-
 .quotes cite {
 	display: block;
 	float: right;
@@ -276,6 +272,9 @@ figure.feature {
 .quotes cite em {
 	font-style: normal;
 }
+
+mark { color: red; }
+.green { color: green; }
 
 .results {
 	border: 1px solid gray;
