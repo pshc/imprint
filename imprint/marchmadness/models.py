@@ -90,6 +90,11 @@ def generate_chart(teams, matches, picks=None):
             d['class'] = ('bottom' if slot % 2 else 'top') + extra_class
         else:
             d['class'] = extra_class
+        pick = picks.get((round, slot))
+        if pick and winner == pick:
+            d['class'] += ' correct'
+        elif winner:
+            d['class'] += ' incorrect'
         return d
 
     def champion(left, right): # Special case champion final cell

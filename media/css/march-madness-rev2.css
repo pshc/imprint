@@ -90,6 +90,16 @@ td.champ { height: 5em; vertical-align: bottom; }
 	background-color: #f0f0b0 !important;
 }
 
+.correct span {
+	background-color: green !important;
+	color: white;
+}
+
+.incorrect span {
+	background-color: red !important;
+	color: white;
+}
+
 #chart .blank span {
 	padding: 0.5em;
 	background-color: #f0f0f0;
