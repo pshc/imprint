@@ -97,6 +97,7 @@ def generate_chart(teams, matches, picks=None):
         if pick and winner == pick:
             d['class'] += ' correct'
         elif winner:
+            d['team'] = pick
             d['class'] += ' incorrect'
         return d
 
