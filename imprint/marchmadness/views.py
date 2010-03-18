@@ -77,9 +77,9 @@ def view_picks(request, name):
 @kiwi_required
 def save_picks(request):
     if request.method != 'POST':
-        return http.HttpBadRequest('GET required.')
+        return http.HttpResponseBadRequest('GET required.')
     if not first_round_open():
-        return http.HttpBadRequest('Submissions are closed.')
+        return http.HttpResponseBadRequest('Submissions are closed.')
     kiwi_username = request.session['kiwi_info']['username']
     contestant = Contestant.objects.get(username=kiwi_username)
     contestant.picks.all().delete()
