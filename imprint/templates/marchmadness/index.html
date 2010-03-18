@@ -12,15 +12,26 @@
 		<li>UW Retail store gift certificates</li>
 		<li>UW Athletics cool swag</li>
 		<li>and more to come!</li></ul>
-		<p>Deadline is <strong>Thursday, March 18</strong> at the tip-off of the first game.</p>
+		<p>Deadline is <strong>{{ tipoff|date:"l, F j" }}</strong> at the tip-off of the first game ({{ tipoff|date:"P" }} EST).</p>
 		<p><a href="{% url mm-terms %}" style="font-weight: normal">Contest rules</a>.</p>
 	</td><td><div>
 
+{% if tipoff_passed %}
+	<p><strong>Submissions for the first round are closed.</strong><br />
+{% if kiwi %}
+	{% if has_account %}You can <a href="{% url mm-choose-picks %}">view your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.
+	{% else %}Second round coming soon.<br /><a href="{% url kiwi-logout %}">You can click here to log out</a>.{% endif %}
+{% else %}
+	If you made a bracket, <br /><a href="{% url mm-login %}">log in with your UW credentials</a><br /> to see it.
+{% endif %}
+	</p>
+{% else %}{# Still open #}
 {% if kiwi %}
 	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>
 	{% else %}<p>You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>{% endif %}
 {% else %}
 	<p><a href="{% url mm-login %}">Log in with your UW credentials</a><br /> to create your own bracket.</p>
+{% endif %}
 {% endif %}
 
 	</div></td></tr></table>

@@ -9,6 +9,12 @@ from kiwi.views import kiwi_required, kiwi_preferred_name, set_kiwi_return_url
 from models import *
 import re
 from utils import renders
+import datetime
+
+FIRST_TIPOFF = datetime.datetime(2010, 03, 18, 12, 20) # EST
+
+def first_round_open():
+    return datetime.datetime.now() < FIRST_TIPOFF
 
 def get_relevant_article():
     issue = object = section = None
@@ -31,6 +37,8 @@ def index(request):
     except:
         has_account = False
     contestants = Contestant.objects.order_by('-id')[:10]
+    tipoff = FIRST_TIPOFF
+    tipoff_passed = not first_round_open()
     return locals()
 
 @kiwi_required
@@ -49,7 +57,7 @@ def choose_picks(request):
     final_score_2 = contestant.final_score_2 or ''
     picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
                 for p in picks)
-    editable = True
+    editable = first_round_open()
     return locals()
 
 @kiwi_required
@@ -70,6 +78,8 @@ def view_picks(request, name):
 def save_picks(request):
     if request.method != 'POST':
         return http.HttpBadRequest('GET required.')
+    if not first_round_open():
+        return http.HttpBadRequest('Submissions are closed.')
     kiwi_username = request.session['kiwi_info']['username']
     contestant = Contestant.objects.get(username=kiwi_username)
     contestant.picks.all().delete()
