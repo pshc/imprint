@@ -3,9 +3,9 @@ from django.conf import settings
 from django.core.cache import cache
 from django.utils.html import conditional_escape, strip_tags
 from django.utils.http import urlquote
+from utils import imagemagick
 import os
 import Image as pil
-import subprocess
 
 register = template.Library()
 
@@ -160,20 +160,6 @@ def thumbnail_info(image, path):
     thumb_src = '/'.join((http_path, thumb_dir, filename))
     ls = locals()
     return dict((k, ls[k]) for k in THUMBNAIL_FIELDS)
-
-def imagemagick(cmd, *args):
-    assert cmd in ('identify', 'convert')
-    p = subprocess.Popen((cmd,) + args,
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p.communicate()
-    if p.returncode != 0:
-        raise Exception(stderr.strip())
-    return stdout.strip()
-
-try:
-    imagemagick('identify', '-version')
-except Exception as e:
-    raise Exception("There is a problem with imagemagick: %s" % e)
 
 # old code
 
