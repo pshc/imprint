@@ -166,17 +166,23 @@ article a {
 
 #announce div a { text-decoration: underline; }
 
-#samples { float: left; text-align: justify; border: 1px solid gray; }
+#samples { float: left; text-align: justify; border: 1px solid gray; width: 320px; }
 #samples h2 { font-size: 150%; font-style: normal; padding: 0 0.5em; }
 #samples figure { margin: 0.5em; text-align: center; }
 #samples .legend p { font-weight: normal; }
 
-article section { width: 320px; float: right; clear: none; }
+#matches { width: 400px; }
+#matches td { font-size: 90%; }
+#matches .score { white-space: nowrap; padding: 0; text-align: center; }
+#matches .loser { text-align: right; }
+
+#leaderboard { width: 240px; }
+
+article section { float: right; clear: none; }
 section table { border: 1px solid gray; margin: 0 auto; }
 section th { padding: 0.5em 1em; background-color: gray; color: white; text-align: center; }
 section tr td { padding: 0.5em 1em; text-align: left; }
 section tr td a { font-weight: normal; }
 section .row2 { background-color: #fbfbfb; }
-section .loser { text-align: right; }
 
 .free { clear: both; }

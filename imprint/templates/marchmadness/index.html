@@ -62,7 +62,7 @@
 	<section id="matches">
 		<table>
 			<tr><th colspan="3">Recent matches</th></tr>{% for match in matches %}
-			<tr class="{% cycle row1,row2 %}"><td class="winner">{{ match.winner }}</td><td class="score">{{ match.winner_score }}&ndash;{{ match.loser_score }}</td><td class="loser">{{ match.loser }}</td></tr>{% endfor %}
+			<tr class="{% cycle row1,row2 %}"><td class="winner">{{ match.winner }}</td><td class="score"><strong>{{ match.winner_score }}</strong>&ndash;{{ match.loser_score }}</td><td class="loser">{{ match.loser }}</td></tr>{% endfor %}
 		</table>
 	</section>
 	<p class="free">{% include "content/facebook_link.html" %}</p>
