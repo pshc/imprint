@@ -49,7 +49,8 @@ def generate_chart(teams, matches, picks=None):
         dest = []
         # Team column
         for slot, team in enumerate(teams[low:high]):
-            d = dict(team=team, round=0, slot=slot+low, contesting=True)
+            slot += low
+            d = dict(team=team, round=0, slot=slot, contesting=True)
             if extra_class:
                 d['class'] = 'mini' + ('bottom' if slot % 2
                         else 'top') + extra_class
