@@ -55,10 +55,9 @@
 	</section>
 	<section id="leaderboard">
 		<table>
-			<tr><th>Latest user-submitted brackets</th></tr>{% for contestant in contestants %}
-			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td></tr>{% endfor %}
-			<tr><td>&hellip;</td></tr>
-			<tr><td class="bottom">Rankings to come as matches occur</td></tr>
+			<tr><th colspan="2">Top brackets</th></tr>{% for contestant in contestants %}
+			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td><td>{{ contestant.bracket_score }}</td></tr>{% endfor %}
+			<tr><td colspan="2">&hellip;</td></tr>
 		</table>
 	</section>
 	<p style="clear: both;">{% include "content/facebook_link.html" %}</p>

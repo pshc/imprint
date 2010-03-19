@@ -21,11 +21,20 @@ class Match(models.Model):
         return u'%s won %d-%d against %s' % (self.winner, self.winner_score,
                 self.loser_score, self.loser)
 
+    def save(self, **kwargs):
+        super(Match, self).save(**kwargs)
+        recalculate_all_scores()
+
+    def delete(self, **kwargs):
+        super(Match, self).delete(**kwargs)
+        recalculate_all_scores()
+
 class Contestant(models.Model):
     username = models.CharField(max_length=20, blank=True)
     full_name = models.CharField(max_length=50)
     final_score_1 = models.PositiveSmallIntegerField(null=True)
     final_score_2 = models.PositiveSmallIntegerField(null=True)
+    bracket_score = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
         return self.full_name
@@ -33,6 +42,9 @@ class Contestant(models.Model):
     @property
     def underscored(self):
         return self.full_name.replace(' ', '_')
+
+    class Meta:
+        ordering = ['-bracket_score', 'username']
 
 class Pick(models.Model):
     contestant = models.ForeignKey(Contestant, related_name='picks')
@@ -80,6 +92,7 @@ def generate_chart(teams, matches, picks=None):
         elif (b.id, a.id) in results:
             winner, loser = b, a
         d = dict(team=winner, rowspan=span, round=round, slot=slot)
+        pick = picks.get((round, slot))
         if winner:
             remaining[row] = winner
             a.last_dict['contesting'] = False
@@ -89,12 +102,11 @@ def generate_chart(teams, matches, picks=None):
             winner.last_dict = d
         else:
             d['editable'] = True
-            d['team'] = picks.get((round, slot))
+            d['team'] = pick
         if extra_class in ('left', 'right'):
             d['class'] = ('bottom' if slot % 2 else 'top') + extra_class
         else:
             d['class'] = extra_class
-        pick = picks.get((round, slot))
         if pick and winner == pick:
             d['class'] += ' correct'
         elif winner:
@@ -105,9 +117,9 @@ def generate_chart(teams, matches, picks=None):
     def champion(left, right): # Special case champion final cell
         final = {}
         a = make_result(left.get(0), left.get(16), 5, final, 'fromleft')
-        champ = make_result(final.get(0), final.get(32), 6, {}, 'centre champ')
         b = make_result(right.get(32), right.get(48), 5, final, 'fromright',
                 1, 32)
+        champ = make_result(final.get(0), final.get(32), 6, {}, 'centre champ')
         cell = dict(a=a, champ=champ, b=b)
         span = lambda r, n: [[r]] + [[] for i in xrange(n-1)]
         return span('top', 6) + span(cell, 20) + span('bottom', 6)
@@ -119,6 +131,65 @@ def generate_chart(teams, matches, picks=None):
 
     return [lm + c + rm for (lm, c, rm)
             in zip(left_matches, champion(left, right), right_matches)]
+
+# This is silly... oh well...
+def recalculate_all_scores():
+    matches = Match.objects.all()
+    for c in Contestant.objects.all():
+        c.bracket_score = calculate_score(matches, c.picks.all())
+        c.save()
+
+# I've made a huge mistake.
+def calculate_score(matches, picks):
+    results = set((m.winner.id, m.loser.id) for m in matches)
+    picks = dict(((p.round, p.slot), p.team) for p in picks)
+    teams = list(Team.objects.all())
+    score = 0
+    def add_teams(low, high):
+        score = 0
+        competitors = {}
+        for slot, team in enumerate(teams[low:high]):
+            competitors[slot+low] = team
+        # Match columns
+        span = 2
+        for round in xrange(1, 5):
+            remaining = {}
+            slot = low // (2**round)
+            for row in xrange(low, high, span):
+                a, b = competitors.get(row), competitors.get(row + span//2)
+                score += check_match(**locals())
+                slot += 1
+            span *= 2
+            competitors = remaining
+        return (score, competitors)
+
+    def check_match(a=None, b=None, round=None, remaining=None, slot=0, row=0,
+                **other):
+        winner = None
+        if not a or not b:
+            pass
+        elif (a.id, b.id) in results:
+            winner, loser = a, b
+        elif (b.id, a.id) in results:
+            winner, loser = b, a
+        if winner:
+            remaining[row] = winner
+        pick = picks.get((round, slot))
+        # TODO: Different scoring algorithm
+        return 1 if (pick and winner == pick) else 0
+
+    def champion(left, right): # Special case champion final cell
+        final = {}
+        score = 0
+        score += check_match(left.get(0), left.get(16), 5, final)
+        score += check_match(right.get(32), right.get(48), 5, final, 1, 32)
+        score += check_match(final.get(0), final.get(32), 6, {})
+        return score
+
+    left_score, left = add_teams(0, 32)
+    right_score, right = add_teams(32, 64)
+    score = left_score + right_score + champion(left, right)
+    return score
 
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
