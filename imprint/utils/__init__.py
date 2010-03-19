@@ -96,4 +96,18 @@ class FileSystemStorage(storage.FileSystemStorage):
         name = '/'.join(map(urlquote, name.split(os.path.sep)))
         return super(FileSystemStorage, self).url(name)
 
+def imagemagick(cmd, *args):
+    assert cmd in ('identify', 'convert')
+    p = subprocess.Popen((cmd,) + args,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        raise Exception(stderr.strip())
+    return stdout.strip()
+
+try:
+    imagemagick('identify', '-version')
+except Exception as e:
+    raise Exception("There is a problem with imagemagick: %s" % e)
+
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
