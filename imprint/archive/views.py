@@ -1,7 +1,16 @@
 from archive.models import *
+from django.conf import settings
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, redirect
-from utils import renders, dates
+from utils import renders, dates, imagemagick
+import os.path
+
+def generate_page_thumbnail(page):
+    abs_thumb = os.path.join(settings.MEDIA_ROOT, page.thumbnail)
+    if os.path.exists(abs_thumb):
+        return
+    abs_page = page.file.path
+    imagemagick('convert', '-thumbnail', '400x200', abs_page, abs_thumb)
 
 @renders('archive/pdfissue_index.html')
 def archive_index(request):
@@ -35,6 +44,8 @@ def pdfissue_detail(request, y, m, d, pub):
         issue = object.issue
     if object_list.count() == 1:
         return redirect(object_list[0])
+    for page in object_list:
+        generate_page_thumbnail(page)
     return locals()
 
 @renders('archive/pdfpage_detail.html')

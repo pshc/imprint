@@ -9,6 +9,7 @@ from django.utils.http import urlquote
 from middleware import get_current_user
 import os
 import random
+import subprocess
 
 def renders(template, request_context=True, mimetype=None):
     """Shortcut decorator for render_to_response; takes a template filename

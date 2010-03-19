@@ -2,6 +2,7 @@ Dependencies:
 
 Django 1.1
 django_extensions
+imagemagick
 wvWare
 
 Optional:
