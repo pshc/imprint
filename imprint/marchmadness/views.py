@@ -36,7 +36,8 @@ def index(request):
         has_account = True
     except:
         has_account = False
-    contestants = Contestant.objects.all()[:10]
+    contestants = Contestant.objects.all()[:20]
+    matches = Match.objects.all()[:20]
     tipoff = FIRST_TIPOFF
     tipoff_passed = not first_round_open()
     return locals()

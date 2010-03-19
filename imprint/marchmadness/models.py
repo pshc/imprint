@@ -13,9 +13,11 @@ class Match(models.Model):
     winner_score = models.PositiveSmallIntegerField()
     loser = models.ForeignKey(Team, related_name='losses')
     loser_score = models.PositiveSmallIntegerField()
+    added_on = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
         verbose_name_plural = 'matches'
+        ordering = ['-added_on']
 
     def __unicode__(self):
         return u'%s won %d-%d against %s' % (self.winner, self.winner_score,

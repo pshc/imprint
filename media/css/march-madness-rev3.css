@@ -166,14 +166,17 @@ article a {
 
 #announce div a { text-decoration: underline; }
 
-#samples { float: left; text-align: justify; }
-#samples table { border: 1px solid gray; width: 700px; }
-#samples th { padding: 1em 1em; font-size: 150%; }
-#samples td { padding: 0 2em; }
+#samples { float: left; text-align: justify; border: 1px solid gray; }
+#samples h2 { font-size: 150%; font-style: normal; padding: 0 0.5em; }
+#samples figure { margin: 0.5em; text-align: center; }
+#samples .legend p { font-weight: normal; }
 
-#leaderboard { float: right; clear: none; }
-#leaderboard table { border: 1px solid gray; }
-#leaderboard th { padding: 0.5em 1em; background-color: gray; color: white; text-align: center; }
-#leaderboard td { padding: 0.5em 1em; text-align: left; }
-#leaderboard td a { font-weight: normal; }
-#leaderboard .bottom { border-top: 1px solid gray; color: gray; font-style: italic; }
+article section { width: 320px; float: right; clear: none; }
+section table { border: 1px solid gray; margin: 0 auto; }
+section th { padding: 0.5em 1em; background-color: gray; color: white; text-align: center; }
+section tr td { padding: 0.5em 1em; text-align: left; }
+section tr td a { font-weight: normal; }
+section .row2 { background-color: #fbfbfb; }
+section .loser { text-align: right; }
+
+.free { clear: both; }
