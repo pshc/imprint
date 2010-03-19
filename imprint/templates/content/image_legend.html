@@ -4,6 +4,6 @@
 			{% endfor %}{% if image.courtesy %}
 				<li>Courtesy {{ image.courtesy }}</li>
 			{% endif %}</ul>{% if cutline %}
-			<p>{{ cutline|linebreaksbr|safe }}{% if cutline_link %}
+			<p>{{ cutline|safe|linebreaksbr }}{% if cutline_link %}
 			<a href="{{ image.get_absolute_url }}">[...]</a>{% endif %}</p>{% endif %}
 		</div>
