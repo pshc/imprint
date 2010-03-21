@@ -177,8 +177,8 @@ def calculate_score(matches, picks):
         if winner:
             remaining[row] = winner
         pick = picks.get((round, slot))
-        # TODO: Different scoring algorithm
-        return 1 if (pick and winner == pick) else 0
+        # Yahoo! default scoring method
+        return 2**(round-1) if (pick and winner == pick) else 0
 
     def champion(left, right): # Special case champion final cell
         final = {}
