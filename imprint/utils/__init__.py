@@ -9,6 +9,7 @@ from django.utils.http import urlquote
 from middleware import get_current_user
 import os
 import random
+import subprocess
 
 def renders(template, request_context=True, mimetype=None):
     """Shortcut decorator for render_to_response; takes a template filename
@@ -95,5 +96,19 @@ class FileSystemStorage(storage.FileSystemStorage):
         """Urlencode the file path properly."""
         name = '/'.join(map(urlquote, name.split(os.path.sep)))
         return super(FileSystemStorage, self).url(name)
+
+def imagemagick(cmd, *args):
+    assert cmd in ('identify', 'convert')
+    p = subprocess.Popen((cmd,) + args,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if p.returncode != 0:
+        raise Exception(stderr.strip())
+    return stdout.strip()
+
+try:
+    imagemagick('identify', '-version')
+except Exception as e:
+    raise Exception("There is a problem with imagemagick: %s" % e)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
