@@ -108,7 +108,7 @@ def imagemagick(cmd, *args):
 
 try:
     imagemagick('identify', '-version')
-except Exception as e:
+except Exception, e:
     raise Exception("There is a problem with imagemagick: %s" % e)
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:
