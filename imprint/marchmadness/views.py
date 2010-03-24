@@ -2,6 +2,7 @@ from content.models import Piece
 from django import http
 from django.contrib.auth.decorators import permission_required
 from django.core.urlresolvers import reverse
+from django.db.models import Max
 from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import slugify
 from issues.models import Issue
@@ -11,10 +12,16 @@ import re
 from utils import renders
 import datetime
 
-FIRST_TIPOFF = datetime.datetime(2010, 03, 18, 12, 20) # EST
+FIRST_TIPOFF = datetime.datetime(2010, 3, 18, 12, 20) # EST
+REDO_OPEN    = datetime.datetime(2010, 3, 22,  0,  0)
+REDO_TIPOFF  = datetime.datetime(2010, 3, 25, 19,  0)
 
-def first_round_open():
+def is_first_round_open():
     return datetime.datetime.now() < FIRST_TIPOFF
+def is_between_rounds():
+    return FIRST_TIPOFF < datetime.datetime.now() < REDO_OPEN
+def is_second_round_open():
+    return REDO_OPEN < datetime.datetime.now() < REDO_TIPOFF
 
 def get_relevant_article():
     issue = object = section = None
@@ -36,42 +43,66 @@ def index(request):
         has_account = True
     except:
         has_account = False
-    contestants = Contestant.objects.all()[:20]
+    contestants = Contestant.objects.annotate(
+            score=Max('entries__bracket_score')).order_by('score')[:20]
     matches = Match.objects.all()[:20]
-    tipoff = FIRST_TIPOFF
-    tipoff_passed = not first_round_open()
+    first_round_open = is_first_round_open()
+    between_rounds = is_between_rounds()
+    second_round_open = is_second_round_open()
+    editable = first_round_open or second_round_open
+    if first_round_open:
+        tipoff = FIRST_TIPOFF
+        edit_url = reverse(choose_picks, args=[None])
+    elif second_round_open:
+        tipoff = REDO_TIPOFF
+        edit_url = reverse(choose_picks, args=['redo-'])
     return locals()
+
+def get_or_create_entry(contestant, is_redo):
+    is_redo = bool(is_redo)
+    try:
+        return contestant.entries.get(is_redo=is_redo)
+    except Entry.DoesNotExist:
+        if is_redo and not is_second_round_open():
+            raise http.Http404
+        return Entry.objects.create(contestant=contestant, is_redo=is_redo,
+                bracket_score=0)
 
 @kiwi_required
 @renders('marchmadness/choose_picks.html')
-def choose_picks(request):
+def choose_picks(request, is_redo):
+    is_redo = bool(is_redo)
     issue, object, section = get_relevant_article()
 
+    if 'kiwi_info' not in request.session:
+        return redirect(index)
     kiwi_username = request.session['kiwi_info']['username']
     contestant = Contestant.objects.get(username=kiwi_username)
-    picks = contestant.picks.all()
+    entry = get_or_create_entry(contestant, is_redo)
+    picks = entry.picks.all()
 
     teams = Team.objects.all()
-    chart = generate_chart(teams, Match.objects.all(), picks)
+    chart = generate_chart(teams, Match.objects.all(), is_redo, picks)
 
     final_score_1 = contestant.final_score_1 or ''
     final_score_2 = contestant.final_score_2 or ''
     picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
                 for p in picks)
-    editable = first_round_open()
+    editable = is_second_round_open() if is_redo else is_first_round_open()
     return locals()
 
 @kiwi_required
 @renders('marchmadness/view_picks.html')
-def view_picks(request, name):
+def view_picks(request, is_redo, name):
     issue, object, section = get_relevant_article()
 
     contestant = get_object_or_404(Contestant,
             full_name=name.replace('_', ' '))
-    picks = contestant.picks.all()
+    entry = get_or_create_entry(contestant, is_redo)
+    picks = entry.picks.all()
 
     teams = Team.objects.all()
-    chart = generate_chart(teams, Match.objects.all(), picks)
+    chart = generate_chart(teams, Match.objects.all(), is_redo, picks)
     editable = False
     return locals()
 
@@ -79,11 +110,16 @@ def view_picks(request, name):
 def save_picks(request):
     if request.method != 'POST':
         return http.HttpResponseBadRequest('GET required.')
-    if not first_round_open():
+    if is_first_round_open():
+        is_redo = False
+    elif is_second_round_open():
+        is_redo = True
+    else:
         return http.HttpResponseBadRequest('Submissions are closed.')
     kiwi_username = request.session['kiwi_info']['username']
     contestant = Contestant.objects.get(username=kiwi_username)
-    contestant.picks.all().delete()
+    entry = get_or_create_entry(contestant, is_redo)
+    entry.picks.all().delete()
     try:
         for key, team in request.POST.iteritems():
             m = re.match(r'round-(\d+)-slot-(\d+)$', key)
@@ -92,14 +128,15 @@ def save_picks(request):
             round, slot = int(m.group(1)), int(m.group(2))
             team = Team.objects.get(slug=team)
             Pick.objects.create(round=round, slot=slot, team=team,
-                    contestant=contestant)
+                    contestant=contestant, # TEMP
+                    entry=entry)
     except Exception, e:
         return http.HttpResponseServerError(str(e) if settings.DEBUG else
                 'A server error occurred; could not save.')
     parse_maybe = lambda s: int(s) if s else None
-    contestant.final_score_1 = parse_maybe(request.POST['final-score-1'])
-    contestant.final_score_2 = parse_maybe(request.POST['final-score-2'])
-    contestant.save()
+    entry.final_score_1 = parse_maybe(request.POST['final-score-1'])
+    entry.final_score_2 = parse_maybe(request.POST['final-score-2'])
+    entry.save()
     return http.HttpResponse('Saved.')
 
 @kiwi_required

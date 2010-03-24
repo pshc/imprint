@@ -49,6 +49,20 @@ class Contestant(models.Model):
     class Meta:
         ordering = ['username']
 
+    @property
+    def first_score(self):
+        try:
+            return unicode(self.entries.get(is_redo=False).bracket_score)
+        except Entry.DoesNotExist:
+            return ''
+
+    @property
+    def second_score(self):
+        try:
+            return unicode(self.entries.get(is_redo=True).bracket_score)
+        except Entry.DoesNotExist:
+            return ''
+
 class Entry(models.Model):
     is_redo = models.BooleanField()
     final_score_1 = models.PositiveSmallIntegerField(null=True)
@@ -74,7 +88,7 @@ class Pick(models.Model):
     slot = models.PositiveSmallIntegerField()
     team = models.ForeignKey(Team, related_name='picks')
 
-def generate_chart(teams, matches, picks=None):
+def generate_chart(teams, matches, is_redo, picks=None):
     results = set((m.winner.id, m.loser.id) for m in matches)
     picks = dict((((p.round, p.slot), p.team) for p in picks) if picks else [])
     teams = list(teams)
@@ -129,11 +143,13 @@ def generate_chart(teams, matches, picks=None):
             d['class'] = ('bottom' if slot % 2 else 'top') + extra_class
         else:
             d['class'] = extra_class
-        if pick and winner == pick:
-            d['class'] += ' correct'
-        elif winner:
-            d['team'] = pick
-            d['class'] += ' incorrect'
+        omitted = is_redo and round < 3
+        if not omitted:
+            if pick and winner == pick:
+                d['class'] += ' correct'
+            elif winner:
+                d['team'] = pick
+                d['class'] += ' incorrect'
         return d
 
     def champion(left, right): # Special case champion final cell
@@ -158,11 +174,13 @@ def generate_chart(teams, matches, picks=None):
 def recalculate_all_scores():
     matches = Match.objects.all()
     for c in Contestant.objects.all():
-        c.bracket_score = calculate_score(matches, c.picks.all())
-        c.save()
+        for e in c.entries.all():
+            e.bracket_score = calculate_score(matches, e.picks.all(),
+                    e.is_redo)
+            e.save()
 
 # I've made a huge mistake.
-def calculate_score(matches, picks):
+def calculate_score(matches, picks, is_redo):
     results = set((m.winner.id, m.loser.id) for m in matches)
     picks = dict(((p.round, p.slot), p.team) for p in picks)
     teams = list(Team.objects.all())
@@ -196,9 +214,15 @@ def calculate_score(matches, picks):
             winner, loser = b, a
         if winner:
             remaining[row] = winner
+        multiplier = 2**(round-1)
+        if is_redo:
+            if round < 3:
+                return 0
+            else:
+                multiplier = 2**(round-3)
         pick = picks.get((round, slot))
         # Yahoo! default scoring method
-        return 2**(round-1) if (pick and winner == pick) else 0
+        return multiplier if (pick and winner == pick) else 0
 
     def champion(left, right): # Special case champion final cell
         final = {}

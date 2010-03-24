@@ -6,33 +6,36 @@
 	<!-- IMPRINT'S TABLE EMPORIUM -->
 	<table id="announce">
 	<tr><td>
-		<p>Fill out your bracket for free with <em>Imprint</em>. You could win one of over $400 in prizes! Prizes and the winners structure will be confirmed by the end of the week. So far, they include:</p>
+		<p>Fill out your bracket for free with <em>Imprint</em>. You could win one of over $400 in prizes! Prizes to be confirmed. So far, they include:</p>
 		<ul><li>$100 to the Grand Prize winner</li>
 		<li>$50 to the &ldquo;Redo Round&rdquo; winner</li>
 		<li>UW Retail store gift certificates</li>
 		<li>UW Athletics cool swag</li>
 		<li>and more to come!</li></ul>
+{% if tipoff %}
 		<p>Deadline is <strong>{{ tipoff|date:"l, F j" }}</strong> at the tip-off of the first game ({{ tipoff|date:"P" }} EST).</p>
+{% endif %}
 		<p><a href="{% url mm-terms %}" style="font-weight: normal">Contest rules</a>.</p>
 	</td><td><div>
 
-{% if tipoff_passed %}
-	<p><strong>Submissions for the first round are closed.</strong><br />
-{% if kiwi %}
-	{% if has_account %}You can <a href="{% url mm-choose-picks %}">view your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.
-	{% else %}Second round coming soon.<br /><a href="{% url kiwi-logout %}">You can click here to log out</a>.{% endif %}
+	<p>
+{% if first_round_open %}
+	<strong>Submissions are open.</strong><br />
+{% else %}{% if between_rounds %}
+	<strong>Submissions for the first round are closed.</strong><br />
+{% else %}{% if second_round_open %}
+	<strong>The redo round is currently open.</strong><br />
 {% else %}
-	If you made a bracket, <br /><a href="{% url mm-login %}">log in with your UW credentials</a><br /> to see it.
+	<strong>Submissions are closed at this time.</strong><br />
+{% endif %}{% endif %}{% endif %}
+
+{% if kiwi %}
+	{% if has_account %}You can <a href="{{ edit_url }}">{% if edit_url %}edit{% else %}view{% endif %} your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.
+	{% else %}{% if edit_url %}You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.{% endif %}{% endif %}
+{% else %}
+	{% if edit_url %}<a href="{% url mm-login %}">Log in with your UW credentials</a><br /> to participate.{% endif %}
 {% endif %}
 	</p>
-{% else %}{# Still open #}
-{% if kiwi %}
-	{% if has_account %}<p>You can <a href="{% url mm-choose-picks %}">edit your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>
-	{% else %}<p>You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.</p>{% endif %}
-{% else %}
-	<p><a href="{% url mm-login %}">Log in with your UW credentials</a><br /> to create your own bracket.</p>
-{% endif %}
-{% endif %}
 
 	</div></td></tr></table>
 
@@ -55,7 +58,7 @@
 	<section id="leaderboard">
 		<table>
 			<tr><th colspan="2">Top brackets</th></tr>{% for contestant in contestants %}
-			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td><td>{{ contestant.bracket_score }}</td></tr>{% endfor %}
+			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td><td>{{ contestant.first_score }}</td>{#<td>{{ contestant.second_score }}</td>#}</tr>{% endfor %}
 			<tr><td colspan="2">&hellip;</td></tr>
 		</table>
 	</section>
