@@ -34,6 +34,7 @@ class Match(models.Model):
 class Contestant(models.Model):
     username = models.CharField(max_length=20, blank=True)
     full_name = models.CharField(max_length=50)
+    # Migrating these out
     final_score_1 = models.PositiveSmallIntegerField(null=True)
     final_score_2 = models.PositiveSmallIntegerField(null=True)
     bracket_score = models.PositiveSmallIntegerField()
@@ -46,10 +47,29 @@ class Contestant(models.Model):
         return self.full_name.replace(' ', '_')
 
     class Meta:
-        ordering = ['-bracket_score', 'username']
+        ordering = ['username']
+
+class Entry(models.Model):
+    is_redo = models.BooleanField()
+    final_score_1 = models.PositiveSmallIntegerField(null=True)
+    final_score_2 = models.PositiveSmallIntegerField(null=True)
+    bracket_score = models.PositiveSmallIntegerField()
+    contestant = models.ForeignKey(Contestant, related_name='entries')
+
+    def __unicode__(self):
+        return '%s by %s' % ('Redo entry' if self.is_redo else 'Entry',
+                self.contestant)
+
+    class Meta:
+        unique_together = [('is_redo', 'contestant')]
+        ordering = ['is_redo', '-bracket_score']
 
 class Pick(models.Model):
+    # Replacing
     contestant = models.ForeignKey(Contestant, related_name='picks')
+    # with
+    entry = models.ForeignKey(Entry, related_name='picks')
+
     round = models.PositiveSmallIntegerField()
     slot = models.PositiveSmallIntegerField()
     team = models.ForeignKey(Team, related_name='picks')
