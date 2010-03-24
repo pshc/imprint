@@ -44,7 +44,7 @@ def index(request):
     except:
         has_account = False
     contestants = Contestant.objects.annotate(
-            score=Max('entries__bracket_score')).order_by('score')[:20]
+            score=Max('entries__bracket_score')).order_by('-score')[:20]
     matches = Match.objects.all()[:20]
     first_round_open = is_first_round_open()
     between_rounds = is_between_rounds()
@@ -175,6 +175,11 @@ def edit_teams(request):
             invalid.delete()
     return locals()
 
+def redirect_to_choose_picks():
+    if is_first_round_open():
+        return redirect('mm-choose-picks')
+    return redirect('mm-choose-picks', 'redo-')
+
 @kiwi_required
 @renders('marchmadness/create_account.html')
 def create_account(request):
@@ -183,7 +188,7 @@ def create_account(request):
     username = request.session['kiwi_info']['username']
     try:
         Contestant.objects.get(username=username)
-        return redirect(choose_picks)
+        return redirect_to_choose_picks()
     except Contestant.DoesNotExist:
         pass
     if request.method == 'POST':
@@ -192,7 +197,7 @@ def create_account(request):
         else:
             full_name = kiwi_preferred_name(request)
             Contestant.objects.create(username=username, full_name=full_name)
-            return redirect(choose_picks)
+            return redirect_to_choose_picks()
     issue, object, section = get_relevant_article()
     return locals()
 
