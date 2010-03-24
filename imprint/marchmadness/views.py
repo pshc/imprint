@@ -128,7 +128,6 @@ def save_picks(request):
             round, slot = int(m.group(1)), int(m.group(2))
             team = Team.objects.get(slug=team)
             Pick.objects.create(round=round, slot=slot, team=team,
-                    contestant=contestant, # TEMP
                     entry=entry)
     except Exception, e:
         return http.HttpResponseServerError(str(e) if settings.DEBUG else

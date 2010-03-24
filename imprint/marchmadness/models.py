@@ -34,10 +34,6 @@ class Match(models.Model):
 class Contestant(models.Model):
     username = models.CharField(max_length=20, blank=True)
     full_name = models.CharField(max_length=50)
-    # Migrating these out
-    final_score_1 = models.PositiveSmallIntegerField(null=True)
-    final_score_2 = models.PositiveSmallIntegerField(null=True)
-    bracket_score = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
         return self.full_name
@@ -79,9 +75,6 @@ class Entry(models.Model):
         ordering = ['is_redo', '-bracket_score']
 
 class Pick(models.Model):
-    # Replacing
-    contestant = models.ForeignKey(Contestant, related_name='picks')
-    # with
     entry = models.ForeignKey(Entry, related_name='picks')
 
     round = models.PositiveSmallIntegerField()
