@@ -30,8 +30,12 @@
 {% endif %}{% endif %}{% endif %}
 
 {% if kiwi %}
-	{% if has_account %}You can <a href="{{ edit_url }}">{% if edit_url %}edit{% else %}view{% endif %} your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.
-	{% else %}{% if edit_url %}You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.{% endif %}{% endif %}
+	{% if edit_url %}
+	{% if has_account %}You can <a href="{{ edit_url }}">edit your bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.
+	{% else %}You can <a href="{% url mm-create-account %}">create your own bracket</a><br />or <a href="{% url kiwi-logout %}">log out</a>.{% endif %}
+	{% else %}
+	You may <a href="{% url kiwi-logout %}">log out</a>.
+	{% endif %}
 {% else %}
 	{% if edit_url %}<a href="{% url mm-login %}">Log in with your UW credentials</a><br /> to participate.{% endif %}
 {% endif %}
