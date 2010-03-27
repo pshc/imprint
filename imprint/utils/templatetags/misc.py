@@ -85,6 +85,8 @@ def apply_to_content(f, text):
     return u''.join(p if p.startswith(u'<') else f(p)
                     for p in html_tag_re.split(conditional_escape(text)))
 
+url_re = re.compile(r'''((?:https?://|www\.)'''
+        r'''[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+[a-zA-Z0-9#?/\-_+=);])''')
 def make_clickable(text):
     remaining = text
     result = []
@@ -95,14 +97,15 @@ def make_clickable(text):
             break
         before, url, after = split
         result.append(before)
+        if url.startswith('www.'):
+            url = 'http://' + url
+        assert url.startswith('http')
         url, end = pop_trailing_entities(url)
         url, cut = recede_url(url)
         result.append(tag_url(url))
         remaining = u'%s%s%s' % (cut, end, after) if cut or end else after
     return u''.join(result)
 
-url_re = re.compile(r'''(https?://[a-zA-Z0-9/.\-_+~#=?%&;,:\[\]{}`!$^*()]+'''
-    r'''[a-zA-Z0-9#?/\-_+=);])''')
 @register.filter
 def clickablelinks(html):
     return mark_safe(apply_to_content(make_clickable, html))
