@@ -84,8 +84,8 @@ def choose_picks(request, is_redo):
     teams = Team.objects.all()
     chart = generate_chart(teams, Match.objects.all(), is_redo, picks)
 
-    final_score_1 = contestant.final_score_1 or ''
-    final_score_2 = contestant.final_score_2 or ''
+    final_score_1 = entry.final_score_1 or ''
+    final_score_2 = entry.final_score_2 or ''
     picks = dict(("round-%d-slot-%d" % (p.round, p.slot), str(p.team.slug))
                 for p in picks)
     editable = is_second_round_open() if is_redo else is_first_round_open()
