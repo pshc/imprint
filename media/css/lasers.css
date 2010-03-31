@@ -1,0 +1,25 @@
+body, input, textarea {
+	font-family: Gotham, Georgia, serif !important;
+}
+header h1 {
+	background: url("../images/bold-logo.png") no-repeat !important;
+	padding-top: 150px !important; width: 428px !important;
+}
+#comments li {
+	color: white;
+	text-shadow: black 1px 1px 0px;
+}
+#comments a { color: #f84 !important; }
+#comments span { color: #ccc !important; }
+#comments span strong { color: #cf3 !important; }
+#comments div { background-color: transparent !important; }
+.lasers0 { background: black url('../images/lasers.png') repeat-y left 0px; }
+.lasers1 { background: black url('../images/lasers.png') repeat-y left 100px; }
+.lasers2 { background: black url('../images/lasers.png') repeat-y left 200px; }
+.lasers3 { background: black url('../images/lasers.png') repeat-y left 300px; }
+.lasers4 { background: black url('../images/lasers.png') repeat-y left 400px; }
+.lasers5 { background: black url('../images/lasers.png') repeat-y left 500px; }
+.lasers6 { background: black url('../images/lasers.png') repeat-y left 600px; }
+.lasers7 { background: black url('../images/lasers.png') repeat-y left 700px; }
+.lasers8 { background: black url('../images/lasers.png') repeat-y left 800px; }
+.lasers9 { background: black url('../images/lasers.png') repeat-y left 900px; }
