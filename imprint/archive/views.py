@@ -9,7 +9,7 @@ def generate_page_thumbnail(page):
     abs_thumb = os.path.join(settings.MEDIA_ROOT, page.thumbnail)
     if os.path.exists(abs_thumb):
         return
-    abs_page = page.file.path
+    abs_page = page.file.path + '[0]' # first page only
     imagemagick('convert', '-thumbnail', '400x200', abs_page, abs_thumb)
 
 @renders('archive/pdfissue_index.html')
