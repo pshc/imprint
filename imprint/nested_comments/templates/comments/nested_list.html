@@ -3,7 +3,7 @@
 	<h2>{{ comments|length }} comment{{ comments|length|pluralize }}</h2>
 	{% with request.user.is_authenticated as show_emails %}
 	<ol id="comments">{% for comment in comments %}
-		<li style="margin-left: {{ comment.indentation|multiply:2 }}em;" id="c{{ comment.id }}" class="lasers{% cycle 0,1,2,3,4,5,6,7,8,9 %}">
+		<li style="margin-left: {{ comment.indentation|multiply:2 }}em;" id="c{{ comment.id }}">
 		<p>{% if comment.is_removed %}<em>[removed]</em>
 		{% else %}{{ comment.comment|clickablelinks|breaklongwords|linebreaksbr }}{% endif %}</p>
 		<span>&mdash; {% if comment.is_removed %}{{ comment.submit_date|html5naturalday }}{% else %}<em>{% if show_emails and comment.user_email %}<a href="mailto:{{ comment.user_email }}">{{ comment.poster_name }}</a>{% else %}{{ comment.poster_name }}{% endif %}</em>
