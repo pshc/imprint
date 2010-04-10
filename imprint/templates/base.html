@@ -36,7 +36,7 @@
 	</{% block maintagclose %}div{% endblock %}></div></div>
 	<aside class="yui-b">{% block aside %}
 		<section class="search">
-{% include "google-custom-search.html" %}
+{% include "utils/gcs-search-form.html" %}
 		</section>
 {% include "issues/sidebar.html" %}
 		{% if request.user.is_authenticated %}<section class="account">
@@ -55,5 +55,6 @@
 	</footer>
 </div>
 {% load misc %}{% googleanalytics %}
+{% include "utils/gcs-scripts.html" %}
 </body>
 </html>{# vi: set syntax=htmldjango: #}
