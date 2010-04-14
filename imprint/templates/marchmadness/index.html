@@ -63,7 +63,7 @@
 		<table>
 			<tr><th colspan="2">Top brackets</th></tr>{% for contestant in contestants %}
 			<tr><td><a href="{% url mm-view-picks contestant.underscored %}">{{ contestant.full_name }}</a></td><td>{{ contestant.first_score }}</td>{#<td>{{ contestant.second_score }}</td>#}</tr>{% endfor %}
-			<tr><td colspan="2">&hellip;</td></tr>
+			<tr><td colspan="2"><a href="{% url mm-scores %}">All scores&hellip;</a></td></tr>
 		</table>
 	</section>
 	<section id="matches">
