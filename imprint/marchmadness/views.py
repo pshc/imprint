@@ -58,6 +58,13 @@ def index(request):
         edit_url = reverse(choose_picks, args=['redo-'])
     return locals()
 
+@kiwi_required
+@renders('marchmadness/scores.html')
+def scores(request):
+    normal_entries = Entry.objects.filter(is_redo=False, bracket_score__gt=0).order_by('-bracket_score')
+    redo_entries = Entry.objects.filter(is_redo=True, bracket_score__gt=0).order_by('-bracket_score')
+    return locals()
+
 def get_or_create_entry(contestant, is_redo):
     is_redo = bool(is_redo)
     try:

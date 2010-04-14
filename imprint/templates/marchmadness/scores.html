@@ -1,0 +1,17 @@
+{% extends "marchmadness/base.html" %}
+{% block content %}
+	<h3>March Madness scores</h3>
+	<ul>
+	{% for entry in normal_entries %}
+		<li>{{ entry.bracket_score }} - <a href="{% url mm-view-picks entry.contestant.underscored %}">{{ entry.contestant.full_name }}</a></li>
+	{% endfor %}
+	</ul>
+
+	<h3>Redo Round scores</h3>
+	<ul>
+	{% for entry in redo_entries %}
+		<li>{{ entry.bracket_score }} - <a href="{% url mm-view-picks "redo-" entry.contestant.underscored %}">{{ entry.contestant.full_name }}</a></li>
+	{% endfor %}
+	</ul>
+
+{% endblock %}
