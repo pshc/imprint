@@ -14,4 +14,10 @@
 	{% endfor %}
 	</ul>
 
+	{% if emails %}
+	<h3>Emails</h3>
+	<p>{% for email in emails %}
+	{{ email }}{% if not forloop.last %}, {% endif %}
+	{% endfor %}</p>
+	{% endif %}
 {% endblock %}

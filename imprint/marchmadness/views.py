@@ -6,7 +6,8 @@ from django.db.models import Max
 from django.shortcuts import redirect, get_object_or_404
 from django.template.defaultfilters import slugify
 from issues.models import Issue
-from kiwi.views import kiwi_required, kiwi_preferred_name, set_kiwi_return_url
+from kiwi.views import kiwi_required, kiwi_preferred_name, \
+        set_kiwi_return_url, get_kiwi_details
 from models import *
 import re
 from utils import renders
@@ -63,6 +64,20 @@ def index(request):
 def scores(request):
     normal_entries = Entry.objects.filter(is_redo=False, bracket_score__gt=0).order_by('-bracket_score')
     redo_entries = Entry.objects.filter(is_redo=True, bracket_score__gt=0).order_by('-bracket_score')
+    if request.user.is_staff:
+        emails = []
+        for contestant in Contestant.objects.all():
+            has_points = False
+            if contestant.first_score:
+                if int(contestant.first_score) > 0:
+                    has_points = True
+            if contestant.second_score:
+                if int(contestant.second_score) > 0:
+                    has_points = True
+            if has_points:
+                info = get_kiwi_details(contestant.username, attrs=['email'])
+                if 'email' in info:
+                    emails.append(info['email'])
     return locals()
 
 def get_or_create_entry(contestant, is_redo):
