@@ -166,6 +166,7 @@ class DocConverter(HTMLParser):
     def handle_byline_title(self):
         title = self.clear_paragraph().strip()
         if title:
+            title = re.sub(r'(?<!\s)(&amp;)(?!\s)', ' &amp; ', title) # hack
             try:
                 #assert self.prev[0] == 'byline_name'
                 assert 'bylines' in self.document
