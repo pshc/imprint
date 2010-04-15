@@ -11,7 +11,7 @@
 <div class="breadcrumbs">
      <a href="/admin/">{% trans "Home" %}</a> &rsaquo;
      <a href="/admin/content/">Content</a> &rsaquo; 
-     <a href="/admin/content/piece/">Pieces</a>
+     <a href="/admin/content/piece/{% if form.data.issue and form.data.volume %}?issue={{ form.data.issue }}&volume={{ form.data.volume }}{% endif %}">Pieces</a>
      {% block morebreadcrumbs %}{% endblock %}
 </div>
 {% endblock %}

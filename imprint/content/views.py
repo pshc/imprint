@@ -70,10 +70,8 @@ class PieceForm(forms.Form):
     slug = forms.SlugField(max_length=100, widget=huge_input())
     deck = forms.CharField(max_length=200, required=False, widget=huge_input())
     section = forms.ModelChoiceField(Section.objects)
-    volume = forms.IntegerField(initial=latest_issue_or(lambda i: i.volume,''),
-            widget=small_input())
-    issue = forms.IntegerField(initial=latest_issue_or(lambda i: i.number, ''),
-            widget=small_input())
+    volume = forms.IntegerField(widget=small_input())
+    issue = forms.IntegerField(widget=small_input())
     series = forms.ModelChoiceField(Series.objects, required=False)
     is_live = forms.BooleanField(required=False, initial=False,
             help_text="Public visibility.")
@@ -303,7 +301,18 @@ def piece_create(request):
             return HttpResponseRedirect('..?issue=%d&volume=%d'
                     % (piece.issue.number, piece.issue.volume))
     else:
-        form = PieceForm()
+        initial = {}
+        if 'issue' in request.GET and 'volume' in request.GET:
+            initial['issue'] = int(request.GET['issue'])
+            initial['volume'] = int(request.GET['volume'])
+        else:
+            try:
+                issue = Issue.objects.latest_issue()
+                initial['issue'] = issue.number
+                initial['volume'] = issue.volume
+            except Issue.DoesNotExist:
+                pass
+        form = PieceForm(initial=initial)
         form.is_ready = True
     uploads = ['upload%d' % i for i in range(5)]
     return locals()
