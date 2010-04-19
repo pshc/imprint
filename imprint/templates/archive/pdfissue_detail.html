@@ -3,6 +3,6 @@
 {% block content %}
 	<h1><cite>{{ object.publication }}</cite> on {{ object.date|date }}</h1>
 	<section id="archive"><ul>{% for page in object_list %}
-		<li><a href="{{ page.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ page.thumbnail }}" alt="Page {{ page.page_from }}{% if page.page_to %} &ndash; {{ page.page_to }}{% endif %}" /></a></li>{% endfor %}
+		<li><a href="{{ page.get_absolute_url }}"><img src="{% url pdfpage-thumbnail y m d pub page.page_from %}" alt="Page {{ page.page_from }}{% if page.page_to %} &ndash; {{ page.page_to }}{% endif %}" /></a><p>{{ page.page_from }}{% if page.page_to %} &ndash; {{ page.page_to }}{% endif %}</p></li>{% endfor %}
 	</ul></section>
 {% endblock %}

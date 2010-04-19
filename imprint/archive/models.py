@@ -18,7 +18,13 @@ class PDFIssueManager(models.Manager):
         date = parse_ymd(y, m, d)
         if not date:
             raise PDFIssue.DoesNotExist
-        return self.get(date__exact=date, publication=pub)
+        if isinstance(pub, basestring):
+            return self.get(date__exact=date, publication__slug=pub)
+        else:
+            return self.get(date__exact=date, publication=pub)
+
+    def select_pub(self):
+        return self.select_related('publication')
 
 class PDFIssue(models.Model):
     date = models.DateField(db_index=True)
@@ -89,7 +95,7 @@ class PDFFile(models.Model):
                                    self.page_from), {})
 
     @property
-    def thumbnail(self):
+    def thumbnail_path(self):
         return get_page_filename(self, extension='jpg')
 
 # vi: set sw=4 ts=4 sts=4 tw=79 ai et nocindent:

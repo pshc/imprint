@@ -1,4 +1,6 @@
 import datetime
+from django.http import HttpResponsePermanentRedirect
+from django.conf import settings
 from django.core.cache import cache
 from django.core.files import storage
 from django.core.xheaders import populate_xheaders
@@ -52,6 +54,13 @@ extra_headers = {
     'Lawsuit': 'pending', 'YUKI.N': 'sleeping beauty'}.items()
 extra_headers.append(("Schrodinger's cat", 'dead'))
 extra_headers.append(("Schrodinger's cat", 'alive'))
+
+def send_file(url):
+    response = HttpResponsePermanentRedirect(url)
+    if url.startswith(settings.MEDIA_URL):
+        response['X-Sendfile'] = settings.MEDIA_ROOT + url[
+                len(settings.MEDIA_URL):]
+    return response
 
 def unescape(html): 
     "Returns the given HTML with ampersands, quotes and carets decoded."
