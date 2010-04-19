@@ -8,3 +8,12 @@ wvWare
 Optional:
 
 python-twitter
+
+Installation:
+
+Copy local_settings.py.example to local_settings.py and customize.
+Some of the apps have app-specific settings at the top of their models.py
+  or views.py. You probably don't need to edit those anyway.
+Be sure to make a production_settings.py (or similar) that turns off DEBUG
+  and TEMPLATE_DEBUG, and switches the cache backend to memcached or such.
+FastCGI recommended. See the Django website for more details.
