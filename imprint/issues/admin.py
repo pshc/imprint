@@ -22,8 +22,8 @@ class IssueSectionInline(admin.StackedInline):
 class IssueAdmin(admin.ModelAdmin):
     form = IssueForm
     inlines = (IssueSectionInline,)
-    actions = None
-    list_display = ['__unicode__', 'date', 'is_live']
+    list_display = ['__unicode__', 'is_live']
+    date_hierarchy = 'date'
 
 class EditorshipInline(admin.TabularInline):
     model = SectionEditorship
@@ -32,7 +32,6 @@ class EditorshipInline(admin.TabularInline):
 class SectionAdmin(admin.ModelAdmin):
     inlines = (EditorshipInline,)
     prepopulated_fields = {'slug': ('name',)}
-    actions = None
 
 def series_contributors(series):
     return ', '.join(unicode(c) for c in series.contributors.all())

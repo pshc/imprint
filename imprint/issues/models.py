@@ -131,11 +131,12 @@ class Issue(models.Model):
             upload_to=lambda i, f: i.get_subdir_filename(f))
 
     class Meta:
-        ordering = ['-volume', '-number']
+        ordering = ['-date']
         unique_together = (('volume', 'number'), ('volume', 'date'))
 
     def __unicode__(self):
-        return u"Issue %s of volume %s" % (self.number, self.volume)
+        return u"Volume %s issue %s (%s)" % (self.volume, self.number,
+                self.date)
 
     @models.permalink
     def get_absolute_url(self):

@@ -29,7 +29,8 @@ class PDFIssueManager(models.Manager):
 class PDFIssue(models.Model):
     date = models.DateField(db_index=True)
     publication = models.ForeignKey(Publication)
-    issue = models.ForeignKey(Issue, blank=True, null=True)
+    issue = models.ForeignKey(Issue, blank=True, null=True,
+            help_text="Use if this PDF issue is also uploaded in web format.")
     page_count = models.PositiveSmallIntegerField(editable=False, default=0)
     objects = PDFIssueManager()
 
